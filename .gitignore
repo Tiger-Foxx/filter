@@ -1,0 +1,10 @@
+CONTEXTE DU PROJET.MD
+notes.txt
+.vscode/
+.DS_Store
+node_modules/
+.exe
+dist/
+build/
+SPECS.MD
+OPTIMIZER PYTHON.MD
