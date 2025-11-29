@@ -1,11 +1,40 @@
 #include "../../include/io/loader.hpp"
-#include "../../include/logger.hpp"
+#include "../../include/utils/logger.hpp"
 #include "../../include/core/types.hpp"
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <cstdlib> // system()
+#include <msgpack.hpp>
+#include <arpa/inet.h> // inet_pton
 
 namespace fox::io {
+
+    // Helper statique pour convertir "192.168.1.0/24" -> struct Cidr binaire
+    static fox::core::Cidr parse_cidr_binary(const std::string& cidr_str) {
+        fox::core::Cidr res{0, 0};
+
+        // Cas "any" ou "0.0.0.0/0" -> Mask=0 matche tout
+        if (cidr_str == "any" || cidr_str == "0.0.0.0/0") {
+            return res; // Net=0, Mask=0 -> Match tout
+        }
+
+        size_t slash = cidr_str.find('/');
+        std::string ip_part = (slash == std::string::npos) ? cidr_str : cidr_str.substr(0, slash);
+        int prefix = (slash == std::string::npos) ? 32 : std::stoi(cidr_str.substr(slash + 1));
+
+        struct in_addr addr;
+        if (inet_pton(AF_INET, ip_part.c_str(), &addr) == 1) {
+            res.network = ntohl(addr.s_addr);
+            // Gestion safe du shift (décalage de 32 bits est undefined en C++)
+            if (prefix == 0) res.mask = 0;
+            else res.mask = (~0u << (32 - prefix));
+            
+            // On applique le masque au réseau pour normaliser (ex: 192.168.1.5/24 -> 192.168.1.0)
+            res.network &= res.mask;
+        }
+        return res;
+    }
 
     bool Loader::load_all(
         fox::fastpath::IPRadixTrie<fox::core::RuleDefinition>& trie,
@@ -72,16 +101,18 @@ namespace fox::io {
             fox::log::info("Parsed " + std::to_string(rules.size()) + " optimized rules.");
 
             // PEUPLEMENT DU RADIX TRIE
-            // Attention : Les règles doivent survivre au Loader.
-            // Dans une implémentation "Research Grade" pure, on utiliserait un Arena Allocator.
-            // Ici, on va faire une fuite de mémoire volontaire (static storage) ou 
-            // passer la propriété au Trie.
-            // Pour simplifier cette étape et respecter ton architecture actuelle :
-            // On alloue chaque règle sur le tas et on donne le pointeur au Trie.
-            // C'est acceptable car fait une seule fois au boot.
-            
             int insertion_count = 0;
-            for (const auto& rule_dto : rules) {
+            for (auto& rule_dto : rules) { // Note: auto& (non-const) pour pouvoir modifier
+                
+                // --- OPTIMISATION CRITIQUE ---
+                // Conversion des string Dst IPs en binaire MAINTENANT (au chargement)
+                // Pour ne pas faire de parsing à chaque paquet !
+                rule_dto.optimized_dst_ips.reserve(rule_dto.dst_ips.size());
+                for (const auto& s : rule_dto.dst_ips) {
+                    rule_dto.optimized_dst_ips.push_back(parse_cidr_binary(s));
+                }
+                // -----------------------------
+
                 // Allocation persistante (jamais libérée tant que le moteur tourne)
                 auto* rule_ptr = new fox::core::RuleDefinition(rule_dto);
 
@@ -90,12 +121,6 @@ namespace fox::io {
                     trie.insert(cidr, rule_ptr);
                     insertion_count++;
                 }
-                
-                // Note: La fusion Src/Dst est gérée par l'Optimizer Python.
-                // Si la règle est "Src A -> Dst B", l'optimizer a généré une entrée logique.
-                // Ici on indexe par Source IP comme clé primaire du Trie (choix d'architecture courant).
-                // *Critique*: Si on veut filtrer par Dst IP aussi, il faudrait un second Trie 
-                // ou un Trie multidimensionnel. Pour l'instant, indexons sur SRC.
             }
             
             fox::log::info("Radix Trie populated with " + std::to_string(insertion_count) + " nodes.");

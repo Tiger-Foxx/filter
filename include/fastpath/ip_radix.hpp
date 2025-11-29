@@ -73,13 +73,26 @@ namespace fox::fastpath {
 
         /**
          * Recherche le match le plus spécifique (Longest Prefix Match).
-         * @param ip_net_order IP en Network Byte Order (Big Endian) provenant du header IP
+         * @param ip_net_order IP en Network Byte Order (Big Endian) provenant du header IP brut
          * @return Pointeur vers la règle ou nullptr
          */
         const T* lookup(uint32_t ip_net_order) const {
-            // Conversion Network -> Host pour parcourir les bits MSB -> LSB
-            uint32_t ip = ntohl(ip_net_order);
-            
+            return lookup_internal(ntohl(ip_net_order));
+        }
+
+        /**
+         * Recherche avec IP déjà en Host Order (depuis Packet::src_ip()/dst_ip()).
+         * @param ip_host_order IP en Host Byte Order
+         * @return Pointeur vers la règle ou nullptr
+         */
+        const T* lookup_host_order(uint32_t ip_host_order) const {
+            return lookup_internal(ip_host_order);
+        }
+
+    private:
+        std::unique_ptr<TrieNode<T>> root;
+
+        const T* lookup_internal(uint32_t ip) const {
             const TrieNode<T>* current = root.get();
             const T* last_match = nullptr;
 
@@ -105,9 +118,6 @@ namespace fox::fastpath {
 
             return last_match;
         }
-
-    private:
-        std::unique_ptr<TrieNode<T>> root;
 
         // Helper parsing CIDR (ex: "10.0.0.1/24")
         bool parse_cidr(const std::string& cidr, uint32_t& out_ip, int& out_len) {

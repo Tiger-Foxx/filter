@@ -26,6 +26,9 @@ namespace fox::deep {
                             std::span<const uint8_t> payload,
                             uint32_t rule_hs_id) {
 
+            // Cleanup périodique des flux expirés
+            maybe_cleanup();
+
             // RST = Reset brutal
             if (is_rst) {
                 remove_stream(key);
@@ -39,7 +42,11 @@ namespace fox::deep {
             if (it == _streams.end()) {
                 // On n'accepte la création que sur SYN (ou on force si on veut être permissif)
                 // Pour la PoC : Création auto si place dispo
-                if (_streams.size() >= fox::config::MAX_CONCURRENT_FLOWS) return false;
+                if (_streams.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
+                    // Tenter un cleanup forcé avant de refuser
+                    force_cleanup();
+                    if (_streams.size() >= fox::config::MAX_CONCURRENT_FLOWS) return false;
+                }
 
                 hs_stream_t* hs_ctx = _matcher->open_stream();
                 if (!hs_ctx) return false;
@@ -74,12 +81,35 @@ namespace fox::deep {
     private:
         HSMatcher* _matcher;
         std::unordered_map<fox::core::FlowKey, std::unique_ptr<TcpStream>, fox::core::FlowKeyHash> _streams;
+        uint64_t _packet_counter = 0;
+        static constexpr uint64_t CLEANUP_INTERVAL = 10000; // Cleanup tous les 10k paquets
 
         void remove_stream(const fox::core::FlowKey& key) {
             auto it = _streams.find(key);
             if (it != _streams.end()) {
                 _matcher->close_stream(it->second->get_hs_stream());
                 _streams.erase(it);
+            }
+        }
+
+        // Vérifie périodiquement si un cleanup est nécessaire
+        void maybe_cleanup() {
+            _packet_counter++;
+            if (_packet_counter % CLEANUP_INTERVAL == 0) {
+                force_cleanup();
+            }
+        }
+
+        // Supprime tous les flux expirés
+        void force_cleanup() {
+            auto it = _streams.begin();
+            while (it != _streams.end()) {
+                if (it->second->is_expired(fox::config::FLOW_TIMEOUT_SEC)) {
+                    _matcher->close_stream(it->second->get_hs_stream());
+                    it = _streams.erase(it);
+                } else {
+                    ++it;
+                }
             }
         }
     };

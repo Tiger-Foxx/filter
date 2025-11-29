@@ -1,6 +1,7 @@
 #ifndef FOX_CORE_ENGINE_HPP
 #define FOX_CORE_ENGINE_HPP
 
+#include <memory>
 #include "../fastpath/ip_radix.hpp"
 #include "../fastpath/port_map.hpp"
 #include "../deep/hs_matcher.hpp"
@@ -8,6 +9,7 @@
 #include "packet.hpp"
 #include "verdict.hpp"
 #include "types.hpp"
+#include "flow_key.hpp"
 
 namespace fox::core {
 
@@ -29,9 +31,14 @@ namespace fox::core {
             if (!pkt.is_valid()) return Verdict::ACCEPT;
 
             // 1. FASTPATH (IP / Port / Proto)
-            const RuleDefinition* rule = _trie->lookup(pkt.src_ip());
+            // Note: pkt.src_ip() retourne déjà en Host Order (ntohl appliqué dans Packet)
+            const RuleDefinition* rule = _trie->lookup_host_order(pkt.src_ip());
             
             if (!rule) return Verdict::ACCEPT;
+            
+            // Validation IP Destination (OPTIMISÉE - comparaison binaire)
+            if (!match_ip_binary(pkt.dst_ip(), rule->optimized_dst_ips)) return Verdict::ACCEPT;
+            
             if (!fox::fastpath::PortMatcher::match(pkt.dst_port(), *rule)) return Verdict::ACCEPT;
             if (rule->get_proto_id() != 0 && rule->get_proto_id() != pkt.protocol()) return Verdict::ACCEPT;
 
@@ -71,6 +78,22 @@ namespace fox::core {
         fox::fastpath::IPRadixTrie<RuleDefinition>* _trie = nullptr;
         fox::deep::HSMatcher* _matcher = nullptr;
         std::unique_ptr<fox::deep::TcpReassembler> _reassembler;
+
+        /**
+         * Vérification binaire ultra-rapide des IPs.
+         * Plus de string parsing ! Juste des opérations bitwise.
+         * Complexité: O(N) où N = nombre de CIDRs (généralement 1-3 après optimisation Python)
+         */
+        static bool match_ip_binary(uint32_t ip_host, const std::vector<Cidr>& cidrs) {
+            if (cidrs.empty()) return true; // ANY
+            
+            for (const auto& cidr : cidrs) {
+                // Cas ANY: mask=0 -> (ip & 0) == 0 -> toujours vrai
+                // Cas normal: (IP & Mask) == Network
+                if ((ip_host & cidr.mask) == cidr.network) return true;
+            }
+            return false;
+        }
     };
 }
 

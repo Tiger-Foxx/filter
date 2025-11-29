@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <span>
+#include <chrono>
 #include <hs/hs.h>
 
 namespace fox::deep {
@@ -16,7 +17,21 @@ namespace fox::deep {
     public:
         // seq est le numéro de séquence initial (ISN + 1)
         TcpStream(uint32_t seq, hs_stream_t* hs_ctx) 
-            : _next_seq(seq), _hs_stream(hs_ctx) {}
+            : _next_seq(seq), _hs_stream(hs_ctx) {
+            touch();
+        }
+
+        // Met à jour le timestamp de dernière activité
+        void touch() {
+            _last_activity = std::chrono::steady_clock::now();
+        }
+
+        // Vérifie si le flux a expiré
+        bool is_expired(uint32_t timeout_sec) const {
+            auto now = std::chrono::steady_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - _last_activity).count();
+            return elapsed > timeout_sec;
+        }
 
         hs_stream_t* get_hs_stream() const { return _hs_stream; }
 
@@ -25,6 +40,8 @@ namespace fox::deep {
          * Retourne un vecteur vide si doublon ou trou.
          */
         std::vector<uint8_t> process_segment(uint32_t seq, std::span<const uint8_t> payload) {
+            touch(); // Mise à jour de l'activité
+            
             // 1. Déjà vu (Doublon ou ancien)
             if (seq < _next_seq && (seq + payload.size()) <= _next_seq) {
                 return {}; 
@@ -68,6 +85,7 @@ namespace fox::deep {
         uint32_t _next_seq;
         hs_stream_t* _hs_stream;
         std::map<uint32_t, std::vector<uint8_t>> _ooo_buffer;
+        std::chrono::steady_clock::time_point _last_activity;
     };
 }
 
