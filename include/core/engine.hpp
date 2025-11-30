@@ -39,7 +39,11 @@ namespace fox::core {
             // Validation IP Destination (OPTIMISÉE - comparaison binaire)
             if (!match_ip_binary(pkt.dst_ip(), rule->optimized_dst_ips)) return Verdict::ACCEPT;
             
+            // Validation Ports (Source ET Destination)
             if (!fox::fastpath::PortMatcher::match(pkt.dst_port(), *rule)) return Verdict::ACCEPT;
+            if (!fox::fastpath::PortMatcher::match_src(pkt.src_port(), *rule)) return Verdict::ACCEPT;
+            
+            // Validation Protocole
             if (rule->get_proto_id() != 0 && rule->get_proto_id() != pkt.protocol()) return Verdict::ACCEPT;
 
             // 2. Verdict immédiat si pas d'inspection

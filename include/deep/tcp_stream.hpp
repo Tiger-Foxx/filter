@@ -38,39 +38,64 @@ namespace fox::deep {
         /**
          * Insère un segment. Retourne les données remises dans l'ordre.
          * Retourne un vecteur vide si doublon ou trou.
+         * 
+         * GESTION DU WRAPAROUND TCP:
+         * Les numéros de séquence sont sur 32 bits et wrap à 0 après 4GB.
+         * On utilise une arithmétique signée pour comparer correctement.
          */
         std::vector<uint8_t> process_segment(uint32_t seq, std::span<const uint8_t> payload) {
             touch(); // Mise à jour de l'activité
             
-            // 1. Déjà vu (Doublon ou ancien)
-            if (seq < _next_seq && (seq + payload.size()) <= _next_seq) {
-                return {}; 
+            // Calcul de la différence avec arithmétique signée pour gérer le wraparound
+            // Si diff < 0 : seq est "avant" _next_seq (retransmission/doublon)
+            // Si diff > 0 : seq est "après" _next_seq (out-of-order)
+            // Si diff == 0 : segment attendu
+            int32_t diff = static_cast<int32_t>(seq - _next_seq);
+            
+            // 1. Déjà vu (Doublon ou ancien) - segment complètement dans le passé
+            if (diff < 0) {
+                // Vérifier si le segment chevauche partiellement les données attendues
+                int32_t overlap_end = diff + static_cast<int32_t>(payload.size());
+                if (overlap_end <= 0) {
+                    return {}; // Entièrement dans le passé, ignorer
+                }
+                // Segment partiellement nouveau : extraire la partie utile
+                size_t skip = static_cast<size_t>(-diff);
+                if (skip < payload.size()) {
+                    payload = payload.subspan(skip);
+                    seq = _next_seq;
+                    diff = 0;
+                } else {
+                    return {};
+                }
             }
 
             // 2. En avance (Out of Order)
-            if (seq > _next_seq) {
+            if (diff > 0) {
                 // Protection mémoire simple (Max 100 fragments)
-                if (_ooo_buffer.size() < 100) {
+                // On utilise aussi une fenêtre max de 1MB pour éviter les abus
+                if (_ooo_buffer.size() < 100 && diff < 1048576) {
                     _ooo_buffer[seq] = std::vector<uint8_t>(payload.begin(), payload.end());
                 }
                 return {};
             }
 
-            // 3. En ordre (seq == _next_seq) ou chevauchement partiel gérable
-            // Note: Pour cette PoC, on suppose un alignement parfait ou on prend le bloc complet.
+            // 3. En ordre (diff == 0, seq == _next_seq)
             std::vector<uint8_t> ordered_data(payload.begin(), payload.end());
-            _next_seq += payload.size();
+            _next_seq += static_cast<uint32_t>(payload.size());
 
             // Vérification des paquets en attente pour combler les trous
             auto it = _ooo_buffer.begin();
             while (it != _ooo_buffer.end()) {
-                if (it->first == _next_seq) {
+                int32_t buf_diff = static_cast<int32_t>(it->first - _next_seq);
+                
+                if (buf_diff == 0) {
                     // On colle le morceau suivant
                     ordered_data.insert(ordered_data.end(), it->second.begin(), it->second.end());
-                    _next_seq += it->second.size();
+                    _next_seq += static_cast<uint32_t>(it->second.size());
                     it = _ooo_buffer.erase(it);
-                } else if (it->first < _next_seq) {
-                    // Vieux fragment devenu inutile
+                } else if (buf_diff < 0) {
+                    // Vieux fragment devenu inutile (déjà couvert)
                     it = _ooo_buffer.erase(it);
                 } else {
                     // Prochain fragment est encore trop loin (nouveau trou)

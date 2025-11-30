@@ -21,10 +21,17 @@ namespace fox::fastpath {
      */
     class PortMatcher {
     public:
-        // Vérifie si un port (Host Order) est dans les plages de la règle
-        // Complexité: O(Nombre de plages dans la règle). 
-        // Comme l'optimiseur minimise les plages, c'est très rapide (souvent 1 ou 2 plages).
+        /**
+         * Vérifie si un port destination est dans les plages de la règle.
+         * Complexité: O(Nombre de plages dans la règle). 
+         * Comme l'optimiseur minimise les plages, c'est très rapide (souvent 1 ou 2 plages).
+         * 
+         * IMPORTANT: Si dst_ports est VIDE, cela signifie "ANY" -> retourne true.
+         */
         static bool match(uint16_t port, const fox::core::RuleDefinition& rule) {
+            // CORRECTION: dst_ports vide = ANY = match tout
+            if (rule.dst_ports.empty()) return true;
+            
             for (const auto& range : rule.dst_ports) {
                 if (port >= range.start && port <= range.end) {
                     return true;
@@ -33,7 +40,10 @@ namespace fox::fastpath {
             return false;
         }
 
-        // Vérification Source Port (moins courant mais supporté)
+        /**
+         * Vérification Source Port.
+         * Si src_ports est VIDE, cela signifie "ANY" -> retourne true.
+         */
         static bool match_src(uint16_t port, const fox::core::RuleDefinition& rule) {
             if (rule.src_ports.empty()) return true; // ANY par défaut si vide
             for (const auto& range : rule.src_ports) {
