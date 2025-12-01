@@ -112,9 +112,9 @@ namespace fox::io {
             fox::core::Packet pkt(packet_span);
 
             // Décision du moteur
-            fox::core::Verdict v = fox::core::Engine::instance().process(pkt);
+            fox::Verdict v = fox::core::Engine::instance().process(pkt);
 
-            if (v == fox::core::Verdict::DROP) {
+            if (v == fox::Verdict::DROP) {
                 verdict = NF_DROP;
             }
         }
