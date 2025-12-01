@@ -1,5 +1,6 @@
 #include "../../include/io/nfqueue.hpp"
 #include "../../include/core/engine.hpp"
+#include "../../include/core/engine_fast.hpp"  // Version haute performance
 #include "../../include/core/packet.hpp"
 #include "../../include/utils/logger.hpp"
 #include "../../include/config.hpp"
@@ -13,6 +14,11 @@
 #include <cstring>
 #include <span>
 #include <iostream>
+
+// Synchronisé avec main.cpp
+#ifndef USE_FAST_ENGINE
+#define USE_FAST_ENGINE 1
+#endif
 
 namespace fox::io {
 
@@ -111,8 +117,12 @@ namespace fox::io {
             std::span<uint8_t> packet_span(reinterpret_cast<uint8_t*>(raw_data), len);
             fox::core::Packet pkt(packet_span);
 
-            // Décision du moteur
+            // Décision du moteur (selon le mode de compilation)
+#if USE_FAST_ENGINE
+            fox::core::Verdict v = fox::core::EngineFast::instance().process(pkt);
+#else
             fox::core::Verdict v = fox::core::Engine::instance().process(pkt);
+#endif
 
             if (v == fox::core::Verdict::DROP) {
                 verdict = NF_DROP;

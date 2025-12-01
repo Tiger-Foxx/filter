@@ -30,6 +30,16 @@ namespace fox::config {
     constexpr uint32_t FLOW_TIMEOUT_SEC = 60;
     // Taille max de la fenêtre de réassemblage par flux (1MB)
     constexpr uint32_t MAX_REASSEMBLY_WINDOW = 1024 * 1024;
+
+    // --- PERFORMANCE TUNING (TCP REASSEMBLER FAST) ---
+    // Taille du ring buffer par flux (64KB = typique pour burst TCP)
+    constexpr uint32_t RING_BUFFER_SIZE = 65536;
+    // Nombre max de segments OOO par flux
+    constexpr uint32_t MAX_OOO_SEGMENTS = 32;
+    // Taille de la table de hash des flux (doit être puissance de 2)
+    constexpr uint32_t FLOW_HASH_TABLE_SIZE = 131072; // 2x MAX_FLOWS pour load factor 0.5
+    // Intervalle de nettoyage (en paquets traités)
+    constexpr uint32_t CLEANUP_INTERVAL_PACKETS = 65536;
 }
 
 #endif // FOX_CONFIG_HPP

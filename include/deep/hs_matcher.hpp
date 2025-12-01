@@ -52,6 +52,12 @@ namespace fox::deep {
          */
         void close_stream(hs_stream_t* stream);
 
+        /**
+         * Accesseurs pour le TcpReassemblerFast (performance critique).
+         */
+        [[nodiscard]] hs_database_t* get_database() const noexcept { return db; }
+        [[nodiscard]] hs_scratch_t* get_scratch() const noexcept { return scratch; }
+
     private:
         hs_database_t* db = nullptr;
         hs_scratch_t* scratch = nullptr;
@@ -59,6 +65,9 @@ namespace fox::deep {
         // Helper pour convertir "im" -> HS_FLAG_CASELESS | HS_FLAG_MULTILINE
         static unsigned int parse_flags(const std::string& flags_str);
     };
+
+    // Alias pour cohérence de nommage avec le reste du code
+    using HsMatcher = HSMatcher;
 
 }
 

@@ -1,6 +1,7 @@
 #include "../include/io/loader.hpp"
 #include "../include/io/nfqueue.hpp"
 #include "../include/core/engine.hpp"
+#include "../include/core/engine_fast.hpp"  // Version haute performance
 #include "../include/utils/logger.hpp"
 #include "../include/config.hpp"
 // On inclut les headers concrets pour l'instanciation
@@ -10,6 +11,13 @@
 #include <csignal>
 #include <iostream>
 #include <thread>
+#include <cstring>
+
+// === CONFIGURATION DU MODE ===
+// Définir USE_FAST_ENGINE=1 pour activer le moteur haute performance
+#ifndef USE_FAST_ENGINE
+#define USE_FAST_ENGINE 1  // Activé par défaut
+#endif
 
 // Pointeur global pour l'arrêt propre via Signal Handler
 fox::io::NFQueue* g_queue = nullptr;
@@ -23,12 +31,25 @@ void signal_handler(int sig) {
     }
 }
 
-int main() {
+void print_stats() {
+#if USE_FAST_ENGINE
+    auto& engine = fox::core::EngineFast::instance();
+    fox::log::info("Stats: " + std::to_string(engine.packets_processed()) + " packets, " +
+                   std::to_string(engine.active_tcp_flows()) + " active TCP flows");
+#endif
+}
+
+int main(int argc, char* argv[]) {
     // 1. Hook Signaux
     std::signal(SIGINT, signal_handler);
     std::signal(SIGTERM, signal_handler);
 
-    fox::log::info("=== FOX ENGINE (Research PoC) ===");
+#if USE_FAST_ENGINE
+    fox::log::info("=== FOX ENGINE (High Performance Mode) ===");
+    fox::log::info("Using: Zero-Copy Ring Buffer + Inline Hyperscan Streaming");
+#else
+    fox::log::info("=== FOX ENGINE (Standard Mode) ===");
+#endif
 
     // 2. Structures de données Persistantes (Heap)
     // Elles doivent survivre tout le runtime.
@@ -42,7 +63,11 @@ int main() {
     }
 
     // 4. Init Engine Singleton
+#if USE_FAST_ENGINE
+    fox::core::EngineFast::instance().init(trie, matcher);
+#else
     fox::core::Engine::instance().init(trie, matcher);
+#endif
 
     // 5. Init Network Interface
     fox::io::NFQueue nfqueue(fox::config::NFQUEUE_ID);
@@ -56,7 +81,10 @@ int main() {
     // 6. Run (Bloquant)
     nfqueue.run();
 
-    // 7. Cleanup (Atteint après Ctrl+C)
+    // 7. Final Stats
+    print_stats();
+
+    // 8. Cleanup (Atteint après Ctrl+C)
     delete trie;
     delete matcher;
     
