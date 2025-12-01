@@ -9,6 +9,8 @@
 #include <linux/netfilter.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <poll.h>
 #include <cerrno>
 #include <cstring>
 #include <span>
@@ -24,8 +26,19 @@ namespace fox::io {
     }
 
     NFQueue::~NFQueue() {
-        if (_qh) nfq_destroy_queue(_qh);
-        if (_h) nfq_close(_h);
+        fox::log::info("Cleaning up NFQUEUE resources...");
+        // ORDRE CRITIQUE : D'abord détruire la queue, puis fermer le handle
+        if (_qh) {
+            nfq_destroy_queue(_qh);
+            _qh = nullptr;
+        }
+        if (_h) {
+            // Détacher du protocol family avant de fermer
+            nfq_unbind_pf(_h, AF_INET);
+            nfq_close(_h);
+            _h = nullptr;
+        }
+        fox::log::info("NFQUEUE resources released.");
     }
 
     bool NFQueue::init() {
@@ -76,20 +89,41 @@ namespace fox::io {
     void NFQueue::run() {
         _running = true;
         fox::log::info(">>> Engine Running (NFQUEUE). Waiting for packets...");
+        fox::log::info(">>> Press CTRL+C to stop gracefully.");
+
+        // Configuration pour arrêt propre : poll() avec timeout
+        struct pollfd pfd;
+        pfd.fd = _fd;
+        pfd.events = POLLIN;
 
         while (_running) {
-            // recv utilise le buffer membre pré-alloué (_buffer)
-            int rv = recv(_fd, _buffer.data(), _buffer.size(), 0);
-
-            if (rv >= 0) {
-                nfq_handle_packet(_h, _buffer.data(), rv);
-            } else {
-                if (errno == EINTR) continue; // Interrompu par signal (ex: resize fenêtre terminal)
-                fox::log::error("recv() failed");
-                // On ne break pas forcément ici en prod, mais pour la PoC oui
+            // Poll avec timeout de 500ms pour vérifier _running régulièrement
+            int poll_ret = poll(&pfd, 1, 500);
+            
+            if (poll_ret < 0) {
+                if (errno == EINTR) continue; // Signal reçu
+                fox::log::error("poll() failed: " + std::string(strerror(errno)));
                 break;
             }
+            
+            if (poll_ret == 0) {
+                // Timeout - on revérifie _running
+                continue;
+            }
+            
+            if (pfd.revents & POLLIN) {
+                int rv = recv(_fd, _buffer.data(), _buffer.size(), MSG_DONTWAIT);
+                if (rv > 0) {
+                    nfq_handle_packet(_h, _buffer.data(), rv);
+                } else if (rv < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+                    if (errno == EINTR) continue;
+                    fox::log::error("recv() failed: " + std::string(strerror(errno)));
+                    break;
+                }
+            }
         }
+        
+        fox::log::info("Shutting down gracefully...");
     }
 
     int NFQueue::callback(struct nfq_q_handle* qh, struct nfgenmsg* nfmsg,
