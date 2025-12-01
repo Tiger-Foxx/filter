@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <span >
+#include <span>
 #include <hs/hs.h>
 
 namespace fox::deep {
