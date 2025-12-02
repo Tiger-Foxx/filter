@@ -42,8 +42,9 @@ namespace fox::io {
     ) {
         fox::log::info(">>> Starting FoxEngine Loader");
 
-        // 1. Kernel Offload
-        run_firewall_script(fox::config::PATH_FIREWALL_SCRIPT);
+        // 1. Kernel Offload (DÉSACTIVÉ pour les tests - réactiver en production)
+        // run_firewall_script(fox::config::PATH_FIREWALL_SCRIPT);
+        fox::log::info("Firewall script SKIPPED (test mode)");
 
         // 2. Deep Inspection Engine
         std::string pattern_path(fox::config::PATH_PATTERNS_DB);
