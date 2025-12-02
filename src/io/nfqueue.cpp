@@ -150,6 +150,13 @@ namespace fox::io {
 
             if (v == fox::Verdict::DROP) {
                 verdict = NF_DROP;
+                if constexpr (fox::config::DEBUG_MODE) {
+                    std::cout << "[NFQUEUE] Packet " << id << " -> NF_DROP" << std::endl;
+                }
+            }
+        } else {
+            if constexpr (fox::config::DEBUG_MODE) {
+                std::cout << "[NFQUEUE] Packet " << id << " has no payload" << std::endl;
             }
         }
 

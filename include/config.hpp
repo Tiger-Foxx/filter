@@ -6,6 +6,13 @@
 
 namespace fox::config {
 
+    // --- DEBUG MODE ---
+    // Mettre à true pour activer les logs verbeux (désactiver en production)
+    constexpr bool DEBUG_MODE = true;
+    
+    // Affiche les N premiers paquets en détail (0 = désactivé)
+    constexpr uint32_t DEBUG_FIRST_N_PACKETS = 100;
+
     // --- ARTEFACTS PATHS ---
     // Note: Ces chemins sont relatifs au répertoire d'exécution.
     // Pour la PoC, copier les fichiers depuis optimizer/outputs/ vers filter/data/
