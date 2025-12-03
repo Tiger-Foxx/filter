@@ -10,8 +10,9 @@ namespace fox::config {
     // Mettre à true pour activer les logs verbeux (désactiver en production)
     constexpr bool DEBUG_MODE = true;
     
-    // Affiche les N premiers paquets en détail (0 = désactivé)
-    constexpr uint32_t DEBUG_FIRST_N_PACKETS = 100;
+    // Affiche les N premiers paquets en détail (0 = tous, mais TRÈS lent !)
+    // Recommandé: 10-50 pour debug, 0 pour prod
+    constexpr uint32_t DEBUG_FIRST_N_PACKETS = 20;
 
     // --- ARTEFACTS PATHS ---
     // Note: Ces chemins sont relatifs au répertoire d'exécution.

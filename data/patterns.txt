@@ -1,4 +1,2 @@
 1:/XSS/
-2:/(alert\(|javascript:|onerror|onload)/
-3:/(?=.*?<script)(?=.*?GET).*/i
-4:/(?=.*?SELECT)(?=.*?UNION).*/i
+2:/(alert|javascript|onerror|onload|UNION|SELECT)/
