@@ -11,13 +11,27 @@
 namespace fox::deep {
 
     /**
-     * Gère l'état d'un flux TCP (Séquence, Trous, Stream Hyperscan).
+     * Gère l'état d'un flux TCP (Séquence, Trous, Stream Hyperscan, Verdict persistant).
      */
     class TcpStream {
     public:
+        /**
+         * État persistant du flux - CORRECTION CRITIQUE pour le "Paradoxe du DROP"
+         * 
+         * Problème : Un paquet TCP matche un pattern → DROP, mais les paquets suivants
+         * de la même connexion ne sont pas droppés car l'état n'est pas persisté.
+         * 
+         * Solution : Marquer le flux comme DROPPED dès le premier match.
+         * Tous les paquets suivants du même flux seront rejetés immédiatement.
+         */
+        enum class StreamVerdict {
+            INSPECTING, // En cours d'analyse (défaut)
+            DROPPED     // Match confirmé, flux condamné définitivement
+        };
+
         // seq est le numéro de séquence initial (ISN + 1)
         TcpStream(uint32_t seq, hs_stream_t* hs_ctx) 
-            : _next_seq(seq), _hs_stream(hs_ctx) {
+            : _next_seq(seq), _hs_stream(hs_ctx), _verdict(StreamVerdict::INSPECTING) {
             touch();
         }
 
@@ -34,6 +48,11 @@ namespace fox::deep {
         }
 
         hs_stream_t* get_hs_stream() const { return _hs_stream; }
+
+        // --- Gestion de l'état persistant ---
+        StreamVerdict get_verdict() const { return _verdict; }
+        void set_dropped() { _verdict = StreamVerdict::DROPPED; }
+        bool is_dropped() const { return _verdict == StreamVerdict::DROPPED; }
 
         /**
          * Insère un segment. Retourne les données remises dans l'ordre.
@@ -109,6 +128,7 @@ namespace fox::deep {
     private:
         uint32_t _next_seq;
         hs_stream_t* _hs_stream;
+        StreamVerdict _verdict;
         std::map<uint32_t, std::vector<uint8_t>> _ooo_buffer;
         std::chrono::steady_clock::time_point _last_activity;
     };

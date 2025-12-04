@@ -28,7 +28,7 @@ namespace fox::core {
             _matcher = matcher;
             _reassembler = std::make_unique<fox::deep::TcpReassembler>(matcher);
             _packet_count = 0;
-            fox::log::info("Engine initialized with DEBUG_MODE=" + std::string(fox::config::DEBUG_MODE ? "ON" : "OFF"));
+            fox::log::info("Engine initialized (Stateful TCP + Canonical FlowKey)");
         }
 
         Verdict process(const Packet& pkt) {
@@ -50,7 +50,46 @@ namespace fox::core {
                 }
             }
 
-            // 1. FASTPATH (IP / Port / Proto)
+            // =========================================================================
+            // NIVEAU 0.5 : BYPASS POUR FLUX TCP DÉJÀ CONDAMNÉS (CORRECTION CRITIQUE)
+            // =========================================================================
+            // Problème résolu : "Paradoxe du DROP" - les paquets suivants d'une connexion
+            // TCP matchée passaient car l'état n'était pas persisté.
+            // 
+            // Solution : Utiliser une clé canonique (bidirectionnelle) et vérifier
+            // en O(1) si le flux est déjà marqué DROPPED avant tout autre traitement.
+            // =========================================================================
+            
+            FlowKey canonical_key; // Défaut = (0,0,0,0)
+            
+            if (pkt.protocol() == IPPROTO_TCP) {
+                // Clé canonique : même clé pour client→server et server→client
+                canonical_key = FlowKey(pkt.src_ip(), pkt.dst_ip(), pkt.src_port(), pkt.dst_port());
+                
+                // Vérification O(1) de l'état connu du flux
+                auto verdict = _reassembler->get_flow_verdict(canonical_key);
+                if (verdict == fox::deep::TcpStream::StreamVerdict::DROPPED) {
+                    if (verbose) fox::log::debug("Flow already DROPPED -> maintaining DROP");
+                    
+                    // On passe quand même au reassembler pour gérer le cycle de vie (FIN/RST)
+                    // mais on passe hs_id=0 car le scan n'est plus nécessaire
+                    _reassembler->process_packet(
+                        canonical_key, 
+                        pkt.tcp_seq(), 
+                        pkt.is_syn(), 
+                        pkt.is_fin(), 
+                        pkt.is_rst(), 
+                        pkt.payload(), 
+                        0  // hs_id dummy
+                    );
+                    return Verdict::DROP;
+                }
+            }
+            // =========================================================================
+
+            // =========================================================================
+            // NIVEAU 1 : FASTPATH (IP / Port / Proto)
+            // =========================================================================
             const RuleDefinition* rule = _trie->lookup_host_order(pkt.src_ip());
             
             if (!rule) {
@@ -88,22 +127,24 @@ namespace fox::core {
 
             if (verbose) fox::log::debug("L3/L4 filters PASSED, checking L7...");
 
-            // 2. Verdict immédiat si pas d'inspection L7
+            // =========================================================================
+            // NIVEAU 2 : DEEP PATH (Inspection L7)
+            // =========================================================================
+            
+            // Verdict immédiat si pas d'inspection L7 requise
             if (rule->hs_id == 0) {
                 if (verbose) fox::log::verdict("NO_L7_CHECK", rule->id, 0);
                 return rule->get_verdict();
             }
 
-            // 3. DEEP PATH (Inspection L7)
             bool matched = false;
             
             if (pkt.protocol() == IPPROTO_TCP) {
                 if (verbose) fox::log::debug("TCP packet -> Reassembler");
                 
-                FlowKey key { pkt.src_ip(), pkt.dst_ip(), pkt.src_port(), pkt.dst_port() };
-                
+                // Utiliser la clé canonique déjà calculée
                 matched = _reassembler->process_packet(
-                    key, 
+                    canonical_key, 
                     pkt.tcp_seq(), 
                     pkt.is_syn(), 
                     pkt.is_fin(), 
@@ -113,7 +154,7 @@ namespace fox::core {
                 );
                 
             } else {
-                // UDP / ICMP : Scan direct
+                // UDP / ICMP : Scan direct (pas de réassemblage)
                 if (!pkt.payload().empty()) {
                     if (verbose) fox::log::debug("UDP/ICMP direct scan, hs_id=" + std::to_string(rule->hs_id));
                     matched = _matcher->scan_block(pkt.payload(), rule->hs_id);

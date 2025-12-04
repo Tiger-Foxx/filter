@@ -16,8 +16,24 @@ namespace fox::deep {
         explicit TcpReassembler(HSMatcher* matcher) : _matcher(matcher) {}
 
         /**
+         * NOUVEAU : Interface pour vérifier rapidement l'état d'un flux.
+         * Utilisé par Engine au "Niveau 0.5" pour bypass le FastPath si flux déjà condamné.
+         * Complexité : O(1) grâce à la hashmap.
+         */
+        TcpStream::StreamVerdict get_flow_verdict(const fox::core::FlowKey& key) const {
+            auto it = _streams.find(key);
+            if (it != _streams.end()) {
+                return it->second->get_verdict();
+            }
+            // Par défaut si non trouvé (nouveau flux ou flux terminé)
+            return TcpStream::StreamVerdict::INSPECTING;
+        }
+
+        /**
          * Point d'entrée principal pour un paquet TCP.
          * Gère la création/destruction de flux et délègue le scan.
+         * 
+         * CORRECTION CRITIQUE : Persiste l'état DROPPED sur le flux.
          */
         bool process_packet(const fox::core::FlowKey& key, 
                             uint32_t seq, 
@@ -65,6 +81,16 @@ namespace fox::deep {
                 stream = it->second.get();
             }
 
+            // --- CORRECTION CRITIQUE : Vérification état persistant ---
+            // Si le flux est déjà condamné, on ne rescanne pas, on maintient le verdict
+            if (stream->is_dropped()) {
+                if (is_fin) {
+                    fox::log::reassembly("FIN on DROPPED stream, cleaning up");
+                    remove_stream(key);
+                }
+                return true; // Maintenir le DROP
+            }
+
             // Réassemblage
             std::vector<uint8_t> data = stream->process_segment(seq, payload);
             
@@ -80,6 +106,12 @@ namespace fox::deep {
             if (!data.empty()) {
                 matched = _matcher->scan_stream(stream->get_hs_stream(), data, rule_hs_id);
                 fox::log::hs_match(rule_hs_id, matched);
+                
+                // --- CORRECTION CRITIQUE : Persistance du verdict ---
+                if (matched) {
+                    stream->set_dropped();
+                    fox::log::reassembly("Stream marked as DROPPED");
+                }
             }
 
             // Fin de connexion
