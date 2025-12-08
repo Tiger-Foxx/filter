@@ -5,8 +5,8 @@
 # Topology:
 #   [Client 10.10.1.10] <---> [FILTREUR] <---> [Serveur 10.10.2.20]
 #   
-#   Client side:  enp66s0f0 (10.10.1.1/24)
-#   Server side:  enp4s0f1  (10.10.2.1/24)
+#   Client side:  eno3 (10.10.1.1/24)
+#   Server side:  enp5s0f0  (10.10.2.1/24)
 #
 # Usage:
 #   ./setup_nfqueue.sh          # Configure NFQUEUE (Client->Server filtered)
@@ -29,8 +29,8 @@ CLIENT_IP="10.10.1.10"
 SERVER_NET="10.10.2.0/24"
 SERVER_IP="10.10.2.20"
 
-CLIENT_IFACE="enp66s0f0"  # Interface côté client
-SERVER_IFACE="enp4s0f1"   # Interface côté serveur
+CLIENT_IFACE="eno3"  # Interface côté client
+SERVER_IFACE="enp5s0f0"   # Interface côté serveur
 
 QUEUE_NUM=0
 
