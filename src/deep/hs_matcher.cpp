@@ -24,31 +24,31 @@ namespace fox::deep {
     unsigned int HSMatcher::parse_flags(const std::string& flags_str) {
         unsigned int flags = 0;
         bool has_combination = false;
-        
+
         for (char c : flags_str) {
             switch (c) {
                 case 'i': flags |= HS_FLAG_CASELESS; break;
                 case 'm': flags |= HS_FLAG_MULTILINE; break;
                 case 's': flags |= HS_FLAG_DOTALL; break;
                 case 'H': flags |= HS_FLAG_SINGLEMATCH; break;
-                case 'c': 
-                    flags |= HS_FLAG_COMBINATION; 
+                case 'c':
+                    flags |= HS_FLAG_COMBINATION;
                     has_combination = true;
                     break;
             }
         }
-        
+
+        // Les expressions combinatoires sont des zéros-longueur logiques :
+        // on autorise explicitement l'empty-match pour éviter l'échec de compilation.
+        if (has_combination) {
+            flags |= HS_FLAG_ALLOWEMPTY;
+        }
+
         // Si pas de flags spécifiés et pas combinatoire, ajouter DOTALL par défaut
         if (flags == 0) {
             flags = HS_FLAG_DOTALL;
         }
-        
-        // Note: HS_FLAG_SOM_LEFTMOST n'est pas compatible avec COMBINATION
-        // On ne l'ajoute que pour les patterns non-combinatoires
-        // if (!has_combination) {
-        //     flags |= HS_FLAG_SOM_LEFTMOST;
-        // }
-        
+
         return flags;
     }
 
