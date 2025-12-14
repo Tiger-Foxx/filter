@@ -36,8 +36,8 @@ namespace fox::config {
     constexpr uint32_t MAX_CONCURRENT_FLOWS = 100000;
     // Timeout d'inactivité pour les flux TCP (en secondes)
     constexpr uint32_t FLOW_TIMEOUT_SEC = 60;
-    // Taille max de la fenêtre de réassemblage par flux (1MB)
-    constexpr uint32_t MAX_REASSEMBLY_WINDOW = 1024 * 1024;
+    // Taille max de la fenêtre de réassemblage par flux (10MB)
+    constexpr uint32_t MAX_REASSEMBLY_WINDOW = 10*1024 * 1024;
 }
 
 #endif // FOX_CONFIG_HPP

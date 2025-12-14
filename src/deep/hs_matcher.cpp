@@ -61,10 +61,13 @@ namespace fox::deep {
             return false;
         }
 
-        std::vector<const char*> expressions;
+        // On stocke d'abord toutes les chaînes pour garantir la stabilité mémoire,
+        // puis on prendra les c_str() après la boucle (évite les pointeurs invalides
+        // dus aux réallocations de vector pendant le push_back).
+        std::vector<std::string> storage;
         std::vector<unsigned int> flags;
         std::vector<unsigned int> ids;
-        std::vector<std::string> storage; // Garde les strings en mémoire
+        std::vector<const char*> expressions;
 
         std::string line;
         int line_num = 0;
@@ -93,7 +96,6 @@ namespace fox::deep {
                 }
 
                 storage.push_back(regex);
-                expressions.push_back(storage.back().c_str());
                 flags.push_back(parse_flags(f_str));
                 ids.push_back(id);
                 
@@ -107,9 +109,15 @@ namespace fox::deep {
             }
         }
 
-        if (expressions.empty()) {
+        if (storage.empty()) {
             fox::log::info("No patterns found in file.");
             return true; // Pas une erreur fatale
+        }
+
+        // Maintenant que storage ne bougera plus, on peut référencer les c_str()
+        expressions.reserve(storage.size());
+        for (const auto& s : storage) {
+            expressions.push_back(s.c_str());
         }
 
         // IMPORTANT : HS_MODE_STREAM pour supporter le TCP Reassembly
