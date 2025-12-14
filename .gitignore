@@ -1,4 +1,4 @@
-CONTEXTE DU PROJET.MD
+# CONTEXTE DU PROJET.MD
 notes.txt
 .vscode/
 .DS_Store
@@ -8,4 +8,4 @@ dist/
 build/
 SPECS.MD
 .github/
-OPTIMIZER PYTHON.MD
+# OPTIMIZER PYTHON.MD

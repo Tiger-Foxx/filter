@@ -25,26 +25,32 @@ namespace fox::deep {
         unsigned int flags = 0;
         bool has_combination = false;
 
+        // Première passe : détecter si c'est une expression combinatoire
+        for (char c : flags_str) {
+            if (c == 'c') {
+                has_combination = true;
+                break;
+            }
+        }
+
+        // IMPORTANT: HS_FLAG_COMBINATION n'accepte que HS_FLAG_QUIET et HS_FLAG_SINGLEMATCH
+        // Tous les autres flags (CASELESS, DOTALL, etc.) sont INTERDITS avec COMBINATION
+        if (has_combination) {
+            flags = HS_FLAG_COMBINATION | HS_FLAG_SINGLEMATCH;
+            return flags;
+        }
+
+        // Pour les patterns normaux (non-combinatoires)
         for (char c : flags_str) {
             switch (c) {
                 case 'i': flags |= HS_FLAG_CASELESS; break;
                 case 'm': flags |= HS_FLAG_MULTILINE; break;
                 case 's': flags |= HS_FLAG_DOTALL; break;
                 case 'H': flags |= HS_FLAG_SINGLEMATCH; break;
-                case 'c':
-                    flags |= HS_FLAG_COMBINATION;
-                    has_combination = true;
-                    break;
             }
         }
 
-        // Les expressions combinatoires sont des zéros-longueur logiques :
-        // on autorise explicitement l'empty-match pour éviter l'échec de compilation.
-        if (has_combination) {
-            flags |= HS_FLAG_ALLOWEMPTY;
-        }
-
-        // Si pas de flags spécifiés et pas combinatoire, ajouter DOTALL par défaut
+        // Si pas de flags spécifiés, ajouter DOTALL par défaut
         if (flags == 0) {
             flags = HS_FLAG_DOTALL;
         }
