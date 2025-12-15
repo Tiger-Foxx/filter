@@ -68,13 +68,14 @@ namespace fox::core {
                 
                 // Vérification O(1) de l'état connu du flux
                 auto verdict = _reassembler->get_flow_verdict(canonical_key);
-                if (verdict == fox::deep::TcpStream::StreamVerdict::DROPPED) {
+                if (verdict == fox::deep::TcpStream::State::MALICIOUS) {
                     if (verbose) fox::log::debug("Flow already DROPPED -> maintaining DROP");
                     
                     // On passe quand même au reassembler pour gérer le cycle de vie (FIN/RST)
                     // mais on passe hs_id=0 car le scan n'est plus nécessaire
                     _reassembler->process_packet(
                         canonical_key, 
+                        pkt.src_ip(),  // SIMPLEX: passer l'IP source pour discrimination directionnelle
                         pkt.tcp_seq(), 
                         pkt.is_syn(), 
                         pkt.is_fin(), 
@@ -140,11 +141,12 @@ namespace fox::core {
             bool matched = false;
             
             if (pkt.protocol() == IPPROTO_TCP) {
-                if (verbose) fox::log::debug("TCP packet -> Reassembler");
+                if (verbose) fox::log::debug("TCP packet -> Reassembler (Simplex mode)");
                 
-                // Utiliser la clé canonique déjà calculée
+                // Utiliser la clé canonique déjà calculée + IP source pour Simplex
                 matched = _reassembler->process_packet(
                     canonical_key, 
+                    pkt.src_ip(),  // SIMPLEX: IP source pour détecter la direction
                     pkt.tcp_seq(), 
                     pkt.is_syn(), 
                     pkt.is_fin(), 
