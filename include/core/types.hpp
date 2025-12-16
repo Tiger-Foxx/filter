@@ -53,7 +53,14 @@ namespace fox::core {
         
         std::string direction;       
         uint32_t hs_id;              
-        std::string action;          
+        std::string action;
+        
+        // NOUVEAUX CHAMPS POUR LA LOGIQUE MULTI-PATTERN (sans HS_FLAG_COMBINATION)
+        // HS_FLAG_COMBINATION n'est PAS supporté en HS_MODE_STREAM
+        // Donc on implémente la logique AND/OR en C++ directement
+        std::vector<uint32_t> atomic_ids;  // Liste des IDs atomiques Hyperscan
+        bool is_multi = false;             // True si la règle a plusieurs patterns
+        bool is_or = false;                // True=OR (un seul match suffit), False=AND (tous doivent matcher)
 
         // --- Helpers de conversion rapide ---
 
@@ -73,7 +80,7 @@ namespace fox::core {
 
         // Binding MessagePack (Case Sensitive avec Python src/exporter.py !)
         // Note: optimized_dst_ips n'est PAS inclus car il n'existe pas dans le fichier
-        MSGPACK_DEFINE_MAP(id, proto, src_ips, dst_ips, src_ports, dst_ports, direction, hs_id, action);
+        MSGPACK_DEFINE_MAP(id, proto, src_ips, dst_ips, src_ports, dst_ports, direction, hs_id, atomic_ids, is_multi, is_or, action);
     };
 
     /**

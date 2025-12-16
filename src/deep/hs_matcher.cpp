@@ -2,6 +2,7 @@
 #include "../../include/utils/logger.hpp"
 #include <fstream>
 #include <vector>
+#include <set>
 #include <iostream>
 
 namespace fox::deep {
@@ -101,6 +102,15 @@ namespace fox::deep {
                     continue;
                 }
 
+                // IMPORTANT: Skip les expressions combinatoires (flag 'c')
+                // HS_FLAG_COMBINATION + HS_MODE_STREAM = "unordered match" error
+                // On compile UNIQUEMENT les patterns atomiques
+                // La logique AND/OR sera gérée en C++ après le scan
+                if (f_str.find('c') != std::string::npos) {
+                    // C'est une expression combinatoire, on la skip
+                    continue;
+                }
+
                 storage.push_back(regex);
                 flags.push_back(parse_flags(f_str));
                 ids.push_back(id);
@@ -170,6 +180,18 @@ namespace fox::deep {
         // UNIQUEMENT quand toute l'expression logique est satisfaite
         return (id == target) ? HS_SCAN_TERMINATED : 0;
     }
+    
+    /**
+     * Callback pour scan multi-pattern : collecte TOUS les IDs matchés dans un set.
+     * Utilisé pour implémenter la logique AND/OR en C++ 
+     * (car HS_FLAG_COMBINATION n'est pas compatible avec HS_MODE_STREAM)
+     */
+    static int match_handler_collect(unsigned int id, unsigned long long, unsigned long long, unsigned int, void* ctx) {
+        std::set<uint32_t>* matched_ids = static_cast<std::set<uint32_t>*>(ctx);
+        matched_ids->insert(id);
+        // Continuer le scan pour collecter tous les matchs
+        return 0;
+    }
 
     bool HSMatcher::scan_block(std::span<const uint8_t> payload, uint32_t target_id) const {
         if (!db || !scratch) return false;
@@ -209,6 +231,94 @@ namespace fox::deep {
     void HSMatcher::close_stream(hs_stream_t* stream) {
         if (stream && scratch) {
             hs_close_stream(stream, scratch, nullptr, nullptr);
+        }
+    }
+    
+    // ===========================================================================
+    // NOUVELLES MÉTHODES MULTI-PATTERN (AND/OR Logic en C++)
+    // ===========================================================================
+    // Ces méthodes existent car HS_FLAG_COMBINATION n'est PAS supporté en 
+    // HS_MODE_STREAM (erreur "Have unordered match in sub-expressions").
+    // 
+    // Solution : Scanner et collecter tous les IDs atomiques matchés,
+    // puis vérifier la logique AND/OR en C++.
+    // ===========================================================================
+    
+    bool HSMatcher::scan_block_multi(std::span<const uint8_t> payload, 
+                                      const std::vector<uint32_t>& atomic_ids, 
+                                      bool is_or) const {
+        if (!db || !scratch || atomic_ids.empty()) return false;
+        
+        // Cas spécial : un seul ID (pas vraiment multi, mais possible)
+        if (atomic_ids.size() == 1) {
+            return scan_block(payload, atomic_ids[0]);
+        }
+        
+        // Collecter tous les IDs qui matchent
+        std::set<uint32_t> matched_ids;
+        
+        hs_stream_t* stream = nullptr;
+        hs_error_t err = hs_open_stream(db, 0, &stream);
+        if (err != HS_SUCCESS) return false;
+        
+        err = hs_scan_stream(stream, reinterpret_cast<const char*>(payload.data()), 
+                             payload.size(), 0, scratch, match_handler_collect, &matched_ids);
+        hs_close_stream(stream, scratch, nullptr, nullptr);
+        
+        // Vérifier la logique AND/OR
+        if (is_or) {
+            // OR : Au moins UN des atomic_ids doit être présent
+            for (uint32_t id : atomic_ids) {
+                if (matched_ids.count(id) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            // AND : TOUS les atomic_ids doivent être présents
+            for (uint32_t id : atomic_ids) {
+                if (matched_ids.count(id) == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    
+    bool HSMatcher::scan_stream_multi(hs_stream_t* stream, 
+                                       std::span<const uint8_t> data, 
+                                       const std::vector<uint32_t>& atomic_ids, 
+                                       bool is_or) {
+        if (!stream || !scratch || atomic_ids.empty()) return false;
+        
+        // Cas spécial : un seul ID
+        if (atomic_ids.size() == 1) {
+            return scan_stream(stream, data, atomic_ids[0]);
+        }
+        
+        // Collecter tous les IDs qui matchent
+        std::set<uint32_t> matched_ids;
+        
+        hs_scan_stream(stream, reinterpret_cast<const char*>(data.data()), 
+                       data.size(), 0, scratch, match_handler_collect, &matched_ids);
+        
+        // Vérifier la logique AND/OR
+        if (is_or) {
+            // OR : Au moins UN des atomic_ids doit être présent
+            for (uint32_t id : atomic_ids) {
+                if (matched_ids.count(id) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            // AND : TOUS les atomic_ids doivent être présents
+            for (uint32_t id : atomic_ids) {
+                if (matched_ids.count(id) == 0) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

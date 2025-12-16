@@ -71,18 +71,8 @@ namespace fox::core {
                 if (verdict == fox::deep::TcpStream::State::MALICIOUS) {
                     if (verbose) fox::log::debug("Flow already DROPPED -> maintaining DROP");
                     
-                    // On passe quand même au reassembler pour gérer le cycle de vie (FIN/RST)
-                    // mais on passe hs_id=0 car le scan n'est plus nécessaire
-                    _reassembler->process_packet(
-                        canonical_key, 
-                        pkt.src_ip(),  // SIMPLEX: passer l'IP source pour discrimination directionnelle
-                        pkt.tcp_seq(), 
-                        pkt.is_syn(), 
-                        pkt.is_fin(), 
-                        pkt.is_rst(), 
-                        pkt.payload(), 
-                        0  // hs_id dummy
-                    );
+                    // Gérer uniquement le cycle de vie (FIN/RST) sans scan
+                    _reassembler->handle_lifecycle(canonical_key, pkt.is_fin(), pkt.is_rst());
                     return Verdict::DROP;
                 }
             }
@@ -144,6 +134,7 @@ namespace fox::core {
                 if (verbose) fox::log::debug("TCP packet -> Reassembler (Simplex mode)");
                 
                 // Utiliser la clé canonique déjà calculée + IP source pour Simplex
+                // NOUVEAU: Passer la règle complète pour gérer la logique multi-pattern
                 matched = _reassembler->process_packet(
                     canonical_key, 
                     pkt.src_ip(),  // SIMPLEX: IP source pour détecter la direction
@@ -152,14 +143,22 @@ namespace fox::core {
                     pkt.is_fin(), 
                     pkt.is_rst(), 
                     pkt.payload(), 
-                    rule->hs_id
+                    *rule  // Passer la règle entière au lieu de juste hs_id
                 );
                 
             } else {
                 // UDP / ICMP : Scan direct (pas de réassemblage)
                 if (!pkt.payload().empty()) {
-                    if (verbose) fox::log::debug("UDP/ICMP direct scan, hs_id=" + std::to_string(rule->hs_id));
-                    matched = _matcher->scan_block(pkt.payload(), rule->hs_id);
+                    if (rule->is_multi) {
+                        // Règle multi-pattern : utiliser scan_block_multi avec logique AND/OR
+                        if (verbose) fox::log::debug("UDP/ICMP multi-pattern scan (" + 
+                                                    std::string(rule->is_or ? "OR" : "AND") + ")");
+                        matched = _matcher->scan_block_multi(pkt.payload(), rule->atomic_ids, rule->is_or);
+                    } else {
+                        // Règle mono-pattern : scan direct
+                        if (verbose) fox::log::debug("UDP/ICMP direct scan, hs_id=" + std::to_string(rule->hs_id));
+                        matched = _matcher->scan_block(pkt.payload(), rule->hs_id);
+                    }
                 }
             }
 

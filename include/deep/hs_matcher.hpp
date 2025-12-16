@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <span>
+#include <set>
 #include <hs/hs.h>
 
 namespace fox::deep {
@@ -30,6 +31,19 @@ namespace fox::deep {
          * @return true si le pattern target_id est trouvé.
          */
         bool scan_block(std::span<const uint8_t> payload, uint32_t target_id) const;
+        
+        /**
+         * NOUVEAU: Scan multi-pattern pour règles avec logique AND/OR.
+         * Implémenté car HS_FLAG_COMBINATION n'est PAS supporté en HS_MODE_STREAM.
+         * 
+         * @param payload Données du paquet
+         * @param atomic_ids Liste des IDs atomiques à vérifier
+         * @param is_or True=OR (un match suffit), False=AND (tous doivent matcher)
+         * @return true si la logique est satisfaite
+         */
+        bool scan_block_multi(std::span<const uint8_t> payload, 
+                              const std::vector<uint32_t>& atomic_ids, 
+                              bool is_or) const;
 
         /**
          * Ouvre un stream Hyperscan pour le mode TCP Reassembly.
@@ -45,6 +59,20 @@ namespace fox::deep {
          * @return true si le pattern est trouvé
          */
         bool scan_stream(hs_stream_t* stream, std::span<const uint8_t> data, uint32_t target_id);
+        
+        /**
+         * NOUVEAU: Scan incrémental multi-pattern pour TCP avec logique AND/OR.
+         * 
+         * @param stream Le contexte stream HS
+         * @param data Données réassemblées
+         * @param atomic_ids Liste des IDs atomiques à vérifier
+         * @param is_or True=OR, False=AND
+         * @return true si la logique est satisfaite
+         */
+        bool scan_stream_multi(hs_stream_t* stream, 
+                               std::span<const uint8_t> data, 
+                               const std::vector<uint32_t>& atomic_ids, 
+                               bool is_or);
 
         /**
          * Ferme et libère un stream Hyperscan.

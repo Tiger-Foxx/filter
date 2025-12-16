@@ -23,6 +23,7 @@
 #include "tcp_stream.hpp"
 #include "hs_matcher.hpp"
 #include "../core/flow_key.hpp"
+#include "../core/types.hpp"
 #include "../config.hpp"
 #include "../utils/logger.hpp"
 #include <unordered_map>
@@ -66,6 +67,24 @@ namespace fox::deep {
             }
             return TcpStream::State::ACTIVE;
         }
+        
+        /**
+         * Gestion du cycle de vie (FIN/RST) pour flux déjà condamnés.
+         * N'effectue PAS de scan - sert uniquement à nettoyer la session.
+         */
+        void handle_lifecycle(const fox::core::FlowKey& key, 
+                              bool is_fin, 
+                              bool is_rst) {
+            if (is_rst) {
+                remove_session(key);
+                return;
+            }
+            if (is_fin) {
+                remove_session(key);
+                return;
+            }
+            // Sinon, on ne fait rien - le flux reste marqué MALICIOUS
+        }
 
         /**
          * Point d'entrée principal - Mode SIMPLEX
@@ -75,7 +94,7 @@ namespace fox::deep {
          * @param seq Numéro de séquence TCP
          * @param is_syn/is_fin/is_rst Flags TCP
          * @param payload Données du segment
-         * @param rule_hs_id ID Hyperscan de la règle à vérifier
+         * @param rule Règle avec hs_id, atomic_ids, is_multi, is_or
          * 
          * @return true si le paquet doit être droppé
          */
@@ -86,7 +105,7 @@ namespace fox::deep {
                             bool is_fin, 
                             bool is_rst,
                             std::span<const uint8_t> payload,
-                            uint32_t rule_hs_id) {
+                            const fox::core::RuleDefinition& rule) {
 
             // Maintenance légère (tous les 2048 paquets)
             if ((++_ops & 0x7FF) == 0) cleanup();
@@ -173,8 +192,16 @@ namespace fox::deep {
             // Scan s'il y a des données ordonnées
             bool matched = false;
             if (!data.empty()) {
-                matched = _matcher->scan_stream(session.stream->get_hs_stream(), data, rule_hs_id);
-                fox::log::hs_match(rule_hs_id, matched);
+                // NOUVEAU: Utiliser scan_multi si règle multi-pattern
+                if (rule.is_multi) {
+                    matched = _matcher->scan_stream_multi(session.stream->get_hs_stream(), 
+                                                          data, 
+                                                          rule.atomic_ids, 
+                                                          rule.is_or);
+                } else {
+                    matched = _matcher->scan_stream(session.stream->get_hs_stream(), data, rule.hs_id);
+                }
+                fox::log::hs_match(rule.hs_id, matched);
                 
                 if (matched) {
                     session.stream->set_dropped();
@@ -190,18 +217,6 @@ namespace fox::deep {
             }
 
             return matched;
-        }
-
-        // Surcharge pour rétro-compatibilité (sans src_ip)
-        bool process_packet(const fox::core::FlowKey& key, 
-                            uint32_t seq, 
-                            bool is_syn, 
-                            bool is_fin, 
-                            bool is_rst,
-                            std::span<const uint8_t> payload,
-                            uint32_t rule_hs_id) {
-            // Fallback : utiliser ip_low comme client (comportement legacy)
-            return process_packet(key, key.ip_low, seq, is_syn, is_fin, is_rst, payload, rule_hs_id);
         }
 
     private:
