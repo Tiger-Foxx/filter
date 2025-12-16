@@ -7,12 +7,12 @@
 6:/\*\ Doly\ trojan\ v1\.5\ \-\ Connected\./s
 7:/conn(?:ect_data\x28command=version\x29|ected\.\ time\/date\x3A\ |ect\x7C)/s
 8:/vers(?:ion\x3A\ GOLD\ 2\.1|ion=|ion)/s
-9:/Serv(?:er\ Prent\ <please>\x0D\x0A|er:\ UploadServer|er\.CreateObject|letOutputStream|er\x3A\ eMule|er\[path\]=|ice\ Pack\ |er)/s
+9:/Serv(?:er\ Prent\ <please>\x0D\x0A|er:\ UploadServer|er\.CreateObject|er\x3A\ eMule|letOutputStream|ice\ Pack\ |er\[path\]=|er)/s
 10:/JOIN(?:\ \#test1\x20\x7C\x0D\x0AJOIN\ \#test2\x20\x7C\x0D\x0AJOIN\ \#test3\ \(null\)\x0D\x0A|\ \#biz\ abc\x0D\x0A|\ \#n\ jobs\x0D\x0A|\x20\#vnc\x0A|\ \x3A\#)/s
 11:/!dl\ http:\/\//s
 12:/\|5D\ (?:FC\ 67\ 3A\ 16\ DC\ 00\ 56\ A3\ 6E\ 89\ 64\ 73\ 66\ 0F\ 0B\||00\ 20\ 00\|h\x00i\x00k\x00i\x00t\x00>\x00)/s
 13:/\x3A(?:|irc\x2Dsinkhole\x2Ecert\x2Epl|End\ of\ MOTD\ command\x2E|\ no\ such\ repository|\ no\ such\ user)/s
-14:/\|16\ (?:03\ 01\||03\ 02\||03\ 03\||03\|)/s
+14:/\|16\ (?:03\ 02\||03\ 03\||03\ 01\||03\|)/s
 15:/\x0B(?:|m\x00a\x00c\x00a\x00v\x00e\x00r\x00d\x00e\x00m\x002\x00\x06m\x00a\x00s\x00t\x00e\x00r\x00|9\x02\x80\x0B9\x02\x80\x0B9\x02\x80\x0B9\x02\x80)/s
 16:/\|30\ (?:0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 82\||0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\||82\|)/s
 17:/\|A0\ (?:03\ 02\ 01\ 02\ 02\||CD\ 37\ A4\ 5B\|)/s
@@ -23,7 +23,7 @@
 22:/Z\x17\x0D/s
 23:/Z\x30/s
 24:/\|02\ (?:03\ 01\ 00\ 01\ A3\ 0D\ 30\ 0B\ 30\ 09\ 06\ 03\ 55\ 1D\ 13\ 04\ 02\ 30\ 00\ 30\ 0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 0B\ 05\ 00\||01\ 00\ 04\ 82\ 01\ 00\||01\ 06\ 00\||82\|)/s
-25:/\|55\ (?:04\ 0A\ 0C\ 16\|Tiongon\ Wledb\ A\.M\.B\.A\.|04\ 03\ 0C\ 17\|tsre131\.eollaieefi\.jprs|04\ 03\ 0C\ 16\|pepa634\.omeewengreq\.mz|04\ 03\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 0A\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 0B\ 13\ 13\|Code\ Signing\ Bureau|04\ 0A\ 0C\ 12\|Cowchi\ Aromep\ LTD\.|04\ 07\ 0C\ 13\|Bandar\ Seri\ Begawan|04\ 0A\ 0C\ 10\|Wiqur\ Hitin\ ehf\.|04\ 0A\ 0C\ 10\|Souppi\ Otiop\ SEM|04\ 03\ 0C\ 10\|ina\.themanyag\.zm|04\ 03\ 0C\ 11\|puppeitursilth\.cz|04\ 0A\ 0C\ 0E\|Merwh\ Whena\ NL|04\ 03\ 0C\ 0E\|wthcethesmw\.ph|04\ 07\ 13\ 0E\|Redwood\ Shores|04\ 0A\ 13\ 0C\|assylias\.Inc|04\ 07\ 0C\ 0B\|Ouagadougou|04\ 08\ 13\ 0A\|California|04\ 07\ 0C\ 09\|Bujumbura|04\ 07\ 0C\ 08\|Melekeok|04\ 03\ 13\ 08\|assylias|04\ 07\ 0C\ 06\|Lisbon|04\ 06\ 13\ 02\|PW|04\ 06\ 13\ 02\|BN|04\ 06\ 13\ 02\|FR|04\ 06\ 13\ 02\|US)/s
+25:/\|55\ (?:04\ 0A\ 0C\ 16\|Tiongon\ Wledb\ A\.M\.B\.A\.|04\ 03\ 0C\ 17\|tsre131\.eollaieefi\.jprs|04\ 03\ 0C\ 16\|pepa634\.omeewengreq\.mz|04\ 0A\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 03\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 0A\ 0C\ 12\|Cowchi\ Aromep\ LTD\.|04\ 0B\ 13\ 13\|Code\ Signing\ Bureau|04\ 07\ 0C\ 13\|Bandar\ Seri\ Begawan|04\ 0A\ 0C\ 10\|Wiqur\ Hitin\ ehf\.|04\ 0A\ 0C\ 10\|Souppi\ Otiop\ SEM|04\ 03\ 0C\ 11\|puppeitursilth\.cz|04\ 03\ 0C\ 10\|ina\.themanyag\.zm|04\ 0A\ 0C\ 0E\|Merwh\ Whena\ NL|04\ 07\ 13\ 0E\|Redwood\ Shores|04\ 03\ 0C\ 0E\|wthcethesmw\.ph|04\ 0A\ 13\ 0C\|assylias\.Inc|04\ 07\ 0C\ 0B\|Ouagadougou|04\ 08\ 13\ 0A\|California|04\ 07\ 0C\ 09\|Bujumbura|04\ 07\ 0C\ 08\|Melekeok|04\ 03\ 13\ 08\|assylias|04\ 07\ 0C\ 06\|Lisbon|04\ 06\ 13\ 02\|BN|04\ 06\ 13\ 02\|PW|04\ 06\ 13\ 02\|FR|04\ 06\ 13\ 02\|US)/s
 26:/=P4CK3T=/s
 27:/8_=_8/s
 28:/\x02/s
@@ -33,10 +33,10 @@
 32:/PNC\x2A\x2D\x5DNK\x5B\x2D\x2A/s
 33:/\|74\ (?:00\ 29\|net\.oscp\.client\.keylogger\.KeystrokeLogger|00\ 13\|Lcom\/net\/LoginData)/s
 34:/\x0C(?:|Orcus\ Server)/s
-35:/\|00\ (?:00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 02\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 88\ 0D\ 00\ 00\ 5C\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\|P\x01\x01\x00\x02\x03\x00\x00\x24\x01\x01\x00\x00\x80\x01\x00\x06\x80\x02\x00\x02\x80\x03\x00\x03\x80\x04\x00\x05\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x24\x02\x01\x00\x00\x80\x01\x00\x05\x80\x02\x00\x01\x80\x03\x00\x03\x80\x04\x00\x02\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x10|AC\ D3\ 62\ 78\ 26\ 76\ 31\ E5\ E7\ E5\ 1D\ C2\ 3C\ 15\ 40\ 25\ 2F\ 90\ BD\ 1F\ 7F\ 0E\ 5E\ 33\ 77\ EC\ 0C\ 1E\ 6B\ 61\ 47\||00\ A2\ 30\ 81\ 9F\ 30\ 0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 81\ 8D\ 00\ 30\ 81\ 89\ 02\ 81\ 81\ 00\||00\ 00\ 00\|W\x00i\x00n\x00d\x00o\x00w\x00s\x00\ \x00N\x00T\x00\ \x001\x003\x008\x001|00\ 03\ E7\ 00\ 00\ 00\ 00\ 00\ 00\ 00\|e\|00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 0D\ 05\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 10\ 00\ 01\ C0\ 0C\ 00\ 10\ 00\ 01\ 00\ 00\ 00\ 02\ 01\ 00\ FF\|v=DKIM1\x5C\x3B\ p=|44\ 00\ 65\ 00\ 73\ 00\ 6B\ 00\ 74\ 00\ 6F\ 00\ 70\ 00\ 2E\ 00\ 69\ 00\ 6E\ 00\ 69\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||01\ 86\ F3\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 0F\ 00\ 00\ 00\ 01\||DE\ C5\ 45\ 99\ 14\ 1E\ F5\ 7E\ 56\ 78\ DF\ 23\ CE\ 8A\ 12\||C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 08\ 09\ 0A\ 0B\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 03\||00\ 00\ 02\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 05\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 02\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 08\||0C\ 00\ 00\ 00\ 01\ 01\ 00\ 06\ 02\||00\|E\|00\ 00\|E\|00\ 00\|@\x00|D3\ 62\ 47\ DA\ 62\ 4A\ A1\ 34\||92\ 93\ 45\ 3A\ 42\ 8B\ 15\ 4C\||DC\ 5E\ AE\ E6\ 3E\ EC\ 78\ EC\||00\ 00\ 01\ 01\ 00\ 00\ 18\||00\ 00\ 00\\xEE\xEE\xEE\xEE\xEE\xEE01\ 00\ 03\ 00\ 01\ 00\||01\ 00\ 02\ 00\ 01\ 00\||00\ 00\ 01\ 00\ 00\ 00\||01\|W\x00\x00\x00\x18|05\|child\x01\x00\x16|80\ 00\ 00\ 00\||00\ 00\ 00\||00\ 00\ 03\||00\ 00\ 05\||00\ 00\ 0D\||01\ 00\ 01\||00\ 00\ 01\||04\ 93\ F3\||01\ 87\ 88\||00\ 00\ 08\||00\ 00\ 04\||01\ 86\ A0\||01\ 86\ A2\||00\ 00\ 02\||00\ 78\ 9C\||01\ 86\ A5\||00\ 00\ 09\||01\ 86\ A9\||00\ 00\ 0B\||00\ 00\ 06\||01\ 86\ A4\||07\|nemesis|05\ F7\|h|03\ 0D\|p|00\ 00\||12\ 5C\||01\|C|01\|\/|18\||19\||98\||04\||12\||01\||1D\||02\||00\|)/s
+35:/\|00\ (?:00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 02\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 88\ 0D\ 00\ 00\ 5C\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\|P\x01\x01\x00\x02\x03\x00\x00\x24\x01\x01\x00\x00\x80\x01\x00\x06\x80\x02\x00\x02\x80\x03\x00\x03\x80\x04\x00\x05\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x24\x02\x01\x00\x00\x80\x01\x00\x05\x80\x02\x00\x01\x80\x03\x00\x03\x80\x04\x00\x02\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x10|AC\ D3\ 62\ 78\ 26\ 76\ 31\ E5\ E7\ E5\ 1D\ C2\ 3C\ 15\ 40\ 25\ 2F\ 90\ BD\ 1F\ 7F\ 0E\ 5E\ 33\ 77\ EC\ 0C\ 1E\ 6B\ 61\ 47\||00\ A2\ 30\ 81\ 9F\ 30\ 0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 81\ 8D\ 00\ 30\ 81\ 89\ 02\ 81\ 81\ 00\||00\ 00\ 00\|W\x00i\x00n\x00d\x00o\x00w\x00s\x00\ \x00N\x00T\x00\ \x001\x003\x008\x001|00\ 03\ E7\ 00\ 00\ 00\ 00\ 00\ 00\ 00\|e\|00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 0D\ 05\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 10\ 00\ 01\ C0\ 0C\ 00\ 10\ 00\ 01\ 00\ 00\ 00\ 02\ 01\ 00\ FF\|v=DKIM1\x5C\x3B\ p=|44\ 00\ 65\ 00\ 73\ 00\ 6B\ 00\ 74\ 00\ 6F\ 00\ 70\ 00\ 2E\ 00\ 69\ 00\ 6E\ 00\ 69\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 08\ 09\ 0A\ 0B\||C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\||DE\ C5\ 45\ 99\ 14\ 1E\ F5\ 7E\ 56\ 78\ DF\ 23\ CE\ 8A\ 12\||01\ 86\ F3\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 0F\ 00\ 00\ 00\ 01\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 08\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 02\||00\ 00\ 02\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 05\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 03\||0C\ 00\ 00\ 00\ 01\ 01\ 00\ 06\ 02\||00\|E\|00\ 00\|E\|00\ 00\|@\x00|92\ 93\ 45\ 3A\ 42\ 8B\ 15\ 4C\||D3\ 62\ 47\ DA\ 62\ 4A\ A1\ 34\||DC\ 5E\ AE\ E6\ 3E\ EC\ 78\ EC\||00\ 00\ 01\ 01\ 00\ 00\ 18\||01\ 00\ 03\ 00\ 01\ 00\||01\ 00\ 02\ 00\ 01\ 00\||00\ 00\ 00\\xEE\xEE\xEE\xEE\xEE\xEE00\ 00\ 01\ 00\ 00\ 00\||05\|child\x01\x00\x16|01\|W\x00\x00\x00\x18|80\ 00\ 00\ 00\||01\ 00\ 01\||00\ 00\ 0B\||00\ 00\ 04\||00\ 00\ 03\||01\ 86\ A0\||00\ 00\ 09\||04\ 93\ F3\||01\ 86\ A4\||00\ 00\ 00\||01\ 87\ 88\||01\ 86\ A2\||01\ 86\ A5\||00\ 00\ 05\||00\ 00\ 08\||00\ 00\ 06\||00\ 78\ 9C\||00\ 00\ 02\||00\ 00\ 0D\||01\ 86\ A9\||00\ 00\ 01\||07\|nemesis|05\ F7\|h|03\ 0D\|p|12\ 5C\||00\ 00\||01\|C|01\|\/|98\||18\||19\||1D\||00\||04\||02\||01\||12\|)/s
 36:/BlackRAT\.Data/s
 37:/\x2C\x20Version=/s
-38:/data(?:|=85702b2fccafcb2f|=RcpTfdssoD9KB9O|\x05bytes|post\x7C|_proto=|\x7C|\.php|_rtt=|_ss=|_ic=|_fb=|=)/s
+38:/data(?:|=85702b2fccafcb2f|=RcpTfdssoD9KB9O|\x05bytes|post\x7C|_proto=|\x7C|\.php|_rtt=|_fb=|_ic=|_ss=|=)/s
 39:/Remo(?:teNC\ Control\ Password\x3A|te\x3A\ )/s
 40:/You\ are\ connected\ to\ me\.\x0D\x0ARemote\x3A\ Ready\ for\ commands/s
 41:/FTP\ Port\ open/s
@@ -52,7 +52,7 @@
 51:/\~root/s
 52:/CWD\s+~root/s
 53:/PASS(?:|\ Goodman1986\x0D\x0A|\ joxu06wj\/\x0D\x0A|\ ddd@\x0A|WD=|\ )/s
-54:/pass(?:word=g00dPa\$\$w0rD|word=MD5Sum|\ \-iss@iss|word=12345|word=admin|\ \-cklaus|\ \-satan|\ \-saint|word%5d=|\ wh00t|word1=|word2=|word=|wd|=)/s
+54:/pass(?:word=g00dPa\$\$w0rD|word=MD5Sum|\ \-iss@iss|\ \-cklaus|word=12345|word=admin|\ \-satan|\ \-saint|word%5d=|\ wh00t|word1=|word2=|word=|wd|=)/s
 55:/RETR/s
 56:/\.%20\./s
 57:/SITE(?:|\ SETC)/s
@@ -63,7 +63,7 @@
 62:/STOR(?:|\ Screenshot\ from\x3A\x20)/s
 63:/1MB/s
 64:/\//s
-65:/MKD\ (?:\.|\ )/s
+65:/MKD\ (?:\ |\.)/s
 66:/USER\s+(anonymous|ftp)[\w]*[\r\n]/s
 67:/MKD/s
 68:/\.\.\./s
@@ -71,7 +71,7 @@
 70:/\~/s
 71:/\[/s
 72:/\{/s
-73:/file(?:|name=\x22full__setup\.zip\x22\x0D\x0A|name=FuneralCeremony_|=open_calendar\.js|name=site\.jar|name=atom\.jar|=\.\.\/\.\.\/|=viewtopic|_id\.diz|\x3A\/\/|_name=|=\.\.\/|name=|name|=)/s
+73:/file(?:|name=\x22full__setup\.zip\x22\x0D\x0A|name=FuneralCeremony_|=open_calendar\.js|name=atom\.jar|name=site\.jar|=\.\.\/\.\.\/|=viewtopic|_id\.diz|\x3A\/\/|=\.\.\/|_name=|name=|name|=)/s
 74:/RNFR/s
 75:/\.\/\.\//s
 76:/MODE/s
@@ -119,12 +119,12 @@
 118:/a\ b\ c\ d\ e\ f/s
 119:/sear(?:ch\?id=|ch)/s
 120:/root(?:|\x00|_path=|=)/s
-121:/\x00(?:|<script\ type=\x22text\/javascript\x22\ src=\x22\/scripts\/default0\.js\x22><\/script>\x00|a\x00r\x00g\x00|root\x00|\.jsp|M|J|P)/s
-122:/\x3B(?:|\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0AAccept:\ \*\/\*\x0D\x0A|\ name=\x22arquivo\x22\x3B\ filename=\x22C:\x5C|\ name=\x22data\x22\x3B\ filename=\x22|SIDCC=AN0\-TY21iJHH32j2m\x3BFHBv3=B|\ MSIE\ 7\.2\x3B\x20|\ MSIE\ 7\.1\x3B\x20|\ MSIE\ 6\.0\x3B\x20|\ filename=|\ MSIE\ |\ core=)/s
+121:/\x00(?:|<script\ type=\x22text\/javascript\x22\ src=\x22\/scripts\/default0\.js\x22><\/script>\x00|a\x00r\x00g\x00|root\x00|\.jsp|P|M|J)/s
+122:/\x3B(?:|\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0AAccept:\ \*\/\*\x0D\x0A|\ name=\x22arquivo\x22\x3B\ filename=\x22C:\x5C|\ name=\x22data\x22\x3B\ filename=\x22|SIDCC=AN0\-TY21iJHH32j2m\x3BFHBv3=B|\ MSIE\ 7\.1\x3B\x20|\ MSIE\ 6\.0\x3B\x20|\ MSIE\ 7\.2\x3B\x20|\ filename=|\ MSIE\ |\ core=)/s
 123:/\x7C(?:|ge\x7Ct\x7CSM\x7CS\x7C|Mozilla\/4\.0\ )/s
 124:/@@/s
 125:/@/s
-126:/\x0A(?:|Content\-Length:\ 164\x0D\x0AUser\-Agent:\ |Array\x0A\x28\x0A\x20\x20\x20\x20\x5B|Host\x3A\x20rl\.ammyy\.com\x0D\x0A|Referer\x3A\ res\x3A\/C\x3A|Content\-Length\x3A\x20|help\x0Aquite\x0A|C\x3Adaemon\x0AR|Croot\x0D\x0AMprog|Croot\x0AMprog|Agtid\x3A\x20|Proxy\x3A|_domainkey|\ \ \ \ \ |\.pl|D\/)/s
+126:/\x0A(?:|Content\-Length:\ 164\x0D\x0AUser\-Agent:\ |Array\x0A\x28\x0A\x20\x20\x20\x20\x5B|Host\x3A\x20rl\.ammyy\.com\x0D\x0A|Referer\x3A\ res\x3A\/C\x3A|Content\-Length\x3A\x20|help\x0Aquite\x0A|C\x3Adaemon\x0AR|Croot\x0D\x0AMprog|Croot\x0AMprog|Agtid\x3A\x20|Proxy\x3A|\ \ \ \ \ |_domainkey|\.pl|D\/)/s
 127:/0/s
 128:/\./s
 129:/\x2f/s
@@ -163,7 +163,7 @@
 162:/\+\+\+ath/s
 163:/\|10\ (?:11\ 12\ 13\ 14\ 15\ 16\ 17\ 18\ 19\ 1A\ 1B\ 1C\ 1D\ 1E\ 1F\||05\|)/s
 164:/\|08\ (?:09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\ 10\ 11\ 12\ 13\ 14\ 15\ 16\ 17\||2A\ 2A\ 01\ 00\||02\|)/s
-165:/\|01\ (?:00\ 00\ 00\ 01\ 01\ 00\ 00\ 01\ 00\ 00\ 00\ 00\ 00\ 04\ 00\ 03\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\ 10\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\||03\ 00\ 00\ 00\ 00\ 00\ 01\ 00\ 02\ 02\ E8\||00\ 00\ 00\ 68\ 01\ 00\ 00\||00\ 00\ 00\||02\ 00\ 14\||02\ 00\||00\ 10\|)/s
+165:/\|01\ (?:00\ 00\ 00\ 01\ 01\ 00\ 00\ 01\ 00\ 00\ 00\ 00\ 00\ 04\ 00\ 03\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\ 10\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\||03\ 00\ 00\ 00\ 00\ 00\ 01\ 00\ 02\ 02\ E8\||00\ 00\ 00\ 68\ 01\ 00\ 00\||02\ 00\ 14\||00\ 00\ 00\||00\ 10\||02\ 00\|)/s
 166:/\|AB\ (?:CD\ 09\ 80\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 00\ 01\|\ \ \ \ \|02\|a|CD\ AB\ CD\ AB\ CD\ AB\ CD\ AB\ CD\ AB\ CD\ AB\ CD\ AB\ CD\|)/s
 167:/Pinging\ from\ Del/s
 168:/\xA9\ Sustainable\ So/s
@@ -190,7 +190,7 @@
 189:/!"cacti\-monitoring\-system/s
 190:/!"SolarWinds/s
 191:/PONG/s
-192:/logi(?:n\x3A\ root|n\ incorrect|npost\x7C|n\x3A|ncreds=|n=0)/s
+192:/logi(?:n\x3A\ root|n\ incorrect|npost\x7C|ncreds=|n\x3A|n=0)/s
 193:/l44/s
 194:/\*HELLO\*/s
 195:/betaalmostdone/s
@@ -205,11 +205,11 @@
 204:/>/s
 205:/\|85\ (?:80\ 00\ 01\ 00\ 01\ 00\ 00\ 00\ 00\||13\|<\x9E\xA2)/s
 206:/\x03/s
-207:/\x07(?:version|authors)/s
+207:/\x07(?:authors|version)/s
 208:/\x04(?:|bind\x00)/s
-209:/\|80\ (?:1C\|@\x11\x80\x1C@\x11\x80\x1C@\x11\x80\x1C@\x11|07\ 00\ 00\ 07\ 00\ 00\ 04\ 00\ 00\ 00\ 00\ 00\||00\ 07\ 00\ 00\ 00\ 00\ 00\ 01\|\?\x00\x01\x02|01\||02\|)/s
+209:/\|80\ (?:1C\|@\x11\x80\x1C@\x11\x80\x1C@\x11\x80\x1C@\x11|00\ 07\ 00\ 00\ 00\ 00\ 00\ 01\|\?\x00\x01\x02|07\ 00\ 00\ 07\ 00\ 00\ 04\ 00\ 00\ 00\ 00\ 00\||02\||01\|)/s
 210:/\x54\x20/s
-211:/GET\ (?:|\/\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AAccept\-Language:|\/logo\.png\ HTTP\/1\.1\x0D\x0A|\/\ HTTP\/1\.1\x0D\x0A\x0D\x0A|\/123456789\.functionss|http\x3A\x2F\x2F|\/\?1\ HTTP\/1\.1|\x2F\ HTTP|\/\ HTTP\/1\.1|x\ HTTP\/1\.0|\/\?)/s
+211:/GET\ (?:|\/\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AAccept\-Language:|\/logo\.png\ HTTP\/1\.1\x0D\x0A|\/\ HTTP\/1\.1\x0D\x0A\x0D\x0A|\/123456789\.functionss|http\x3A\x2F\x2F|\/\?1\ HTTP\/1\.1|x\ HTTP\/1\.0|\/\ HTTP\/1\.1|\x2F\ HTTP|\/\?)/s
 212:/\.\.\/\.(?:\.\/\.\.\/|\.\/|\.)/s
 213:/thisissometempspaceforthesockinaddrinyeahyeahiknowthisislamebutanywaywhocareshorizongotitworkingsoalliscool/s
 214:/ADMROCKS/s
@@ -224,7 +224,7 @@
 223:/403/s
 224:/Forbidden\x3A/s
 225:/wind(?:ow\.open\x28\x22readme\.eml\x22|ows=)/s
-226:/Cont(?:ent\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22data\x22\x3B\ filename=\x22data\.bin\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22key\x22\x3B\ filename=\x22key\.bin\x22|ent\-type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ |ent\-Type\x3A\x20multipart\/form\-data\x3B\ boundary=MS_D0wnl0ad3r|ent\-Type\x3A\x20application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22board_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22user_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22file1\x22|ent\-Type:\ application\/x\-www\-Form\-urlencoded\x0D\x0A|ent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream\x0D\x0A|ent\-Type:\ application\/json\x5C\x3B\ charset=utf\-8|ent\-Type:\ multipart\/form\-data,\ boundary=7DF051D|ent\-Type:\ multipart\/form\-data\x3B\ boundary=|ent\-Type\x3A\ binary\/octet\-stream\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream|ent\-Disposition:\ form\-data\x3B\ name=|ent\-Type\x3A\ application\/x\-msnmsgrp2p|ent\-Type:\ application\/octet\-stream|ent\-Type\x3A\ application\/x\-icq|ent\-Type\x3A\x20octet\-stream|ent\-Length\x3A\x200\x0D\x0A|ent\-Length:\ 201\x0D\x0A|ent\-Length:\ 157\x0D\x0A|ent\-Length:\ 128\x0D\x0A|ent\-Length:\ 150\x0D\x0A|ent\-Length:\ 13\x0D\x0A|ent\-Length:\ 0\x0D\x0A|ent\-Length:\ 6\x0D\x0A|ent\-Disposition\x3A|ent\-Length:\ 166|ent\-Length\x3A|ent\-Length:\ 30|ent\-Length:\ 16|ent\-Disposition|ent\-Length:\ 0|ent\-Length:\ 8|ent\-Type\x3A|ent\-type\x3A|ent\-Encoding|ent\-length:|ent\-Length|ent\-type:|ent\-Type:|ent\-Type)/s
+226:/Cont(?:ent\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22data\x22\x3B\ filename=\x22data\.bin\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22key\x22\x3B\ filename=\x22key\.bin\x22|ent\-type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ |ent\-Type\x3A\x20multipart\/form\-data\x3B\ boundary=MS_D0wnl0ad3r|ent\-Type\x3A\x20application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22board_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22user_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22file1\x22|ent\-Type:\ application\/x\-www\-Form\-urlencoded\x0D\x0A|ent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Type:\ application\/json\x5C\x3B\ charset=utf\-8|ent\-Type\x3A\x20application\/octet\-stream\x0D\x0A|ent\-Type:\ multipart\/form\-data,\ boundary=7DF051D|ent\-Type:\ multipart\/form\-data\x3B\ boundary=|ent\-Type\x3A\ binary\/octet\-stream\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream|ent\-Type\x3A\ application\/x\-msnmsgrp2p|ent\-Disposition:\ form\-data\x3B\ name=|ent\-Type:\ application\/octet\-stream|ent\-Type\x3A\ application\/x\-icq|ent\-Length\x3A\x200\x0D\x0A|ent\-Type\x3A\x20octet\-stream|ent\-Length:\ 150\x0D\x0A|ent\-Length:\ 157\x0D\x0A|ent\-Length:\ 128\x0D\x0A|ent\-Length:\ 201\x0D\x0A|ent\-Length:\ 13\x0D\x0A|ent\-Length:\ 6\x0D\x0A|ent\-Length:\ 0\x0D\x0A|ent\-Disposition\x3A|ent\-Length\x3A|ent\-Length:\ 166|ent\-Length:\ 16|ent\-Length:\ 30|ent\-Disposition|ent\-Length:\ 0|ent\-type\x3A|ent\-Length:\ 8|ent\-Type\x3A|ent\-Encoding|ent\-length:|ent\-Length|ent\-type:|ent\-Type:|ent\-Type)/s
 227:/audi(?:o\/x\-mpegurl|o\/x\-scpls)/s
 228:/Index\ of\ \/cgi\-bin\//s
 229:/new\ XMLHttpRequest\x28/s
@@ -243,13 +243,13 @@
 242:/\.wmz/s
 243:/filename=[\x3b\x3a\r\n]*(\x25\x2e\x25\x2e\x25\x5c|\x25\x32\x65\x25\x35\x63|\x2e\x2e\x5c)[\x3b\x3a\r\n]*\x2ewmz/s
 244:/<htm(?:l><head><meta\ http\-equiv=\x22refresh|l><body><applet\x20code=)/s
-245:/\x20(?:form\-data\x3B\x20name=\x22sysinfo\x22|form\-data\x3B\x20name=\x22uright\x22|form\-data\x3B\x20name=\x22uname\x22|form\-data\x3B\x20name=\x22ltime\x22|form\-data\x3B\x20name=\x22cname\x22|form\-data\x3B\x20name=\x22uid\x22|OS\x3A\x20|CPU\x3A|archive=|\/t)/s
+245:/\x20(?:form\-data\x3B\x20name=\x22sysinfo\x22|form\-data\x3B\x20name=\x22uright\x22|form\-data\x3B\x20name=\x22cname\x22|form\-data\x3B\x20name=\x22uname\x22|form\-data\x3B\x20name=\x22ltime\x22|form\-data\x3B\x20name=\x22uid\x22|OS\x3A\x20|CPU\x3A|archive=|\/t)/s
 246:/disp(?:lay\-culture=en\x3Bcheck=true\x3Blbcs=0\x3Bsess\-id=|lay\x3Anone\x3B)/s
 247:/([@\x2da-z0-9]+?\x5e){10}/s
 248:/name(?:=\x5C\x22Twitter\x5C\x22\ scrolling=\x5C\x22auto\x5C\x22\ frameborder=\x5C\x22no\x5C\x22\ align=\x5C\x22center\x5C\x22\ height\ =\ \x5C\x221px\x5C\x22\ width\ =\ \x5C\x221px\x5C\x22>|=\x22\xCC\xCC\xCC\xCC\xCC|=\x22getconfig\x22|=\x22platform\x22|=\x22cccount\x22|=\x22pcount\x22|=\x22hwid\x22|=Forums|=\.\.\/|=Wiki|=)/s
 249:/<\/script><!DOCTYPE/s
 250:/[>]*\x2f\x2f\d{1,3}\x2e\d{1,3}\x2e\d{1,3}\x2e\d{1,3}/s
-251:/\|3B\ (?:02\ 49\ 86\ 4B\ DF\ D7\ D7\ 6C\ E2\ 2F\ 36\ 81\ 01\ 24\ 3F\||20\|filename=Postal\-Receipt\.zip\x0D\x0A|20\|filename=BookingDetails\.zip\x0D\x0A|20\|filename=PostalReceipt\.zip\x0D\x0A|20\|filename=BookingInfo\.zip\x0D\x0A|20\|filename=CostcoForm\.zip\x0D\x0A|20\|Windows\ NT\ 5\.0\x0D\x0AHost:|20\|filename=exe\.exe\x0D\x0A|20\|MSIE\x207\.0\x3B\x20|20\|MRA\x205\.10\x20|20\|MSIE\ 6\.0\x3B\x20|20\|MSIE\ 28\x3B\x20|20\|MSIE\x20|20\|id\x3A|20\|sv\x3A)/s
+251:/\|3B\ (?:02\ 49\ 86\ 4B\ DF\ D7\ D7\ 6C\ E2\ 2F\ 36\ 81\ 01\ 24\ 3F\||20\|filename=Postal\-Receipt\.zip\x0D\x0A|20\|filename=BookingDetails\.zip\x0D\x0A|20\|filename=PostalReceipt\.zip\x0D\x0A|20\|filename=BookingInfo\.zip\x0D\x0A|20\|filename=CostcoForm\.zip\x0D\x0A|20\|Windows\ NT\ 5\.0\x0D\x0AHost:|20\|filename=exe\.exe\x0D\x0A|20\|MSIE\x207\.0\x3B\x20|20\|MRA\x205\.10\x20|20\|MSIE\ 6\.0\x3B\x20|20\|MSIE\ 28\x3B\x20|20\|MSIE\x20|20\|sv\x3A|20\|id\x3A)/s
 252:/Post(?:al\-Receipt\.exe|alReceipt\.exe)/s
 253:/Book(?:ingDetails\.exe|ingInfo\.exe)/s
 254:/some_magic_code1/s
@@ -265,7 +265,7 @@
 264:/Delivery_Information_ID\-/s
 265:/\.exe(?:|\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ gzip,deflate,sdch\x0D\x0AHost:\ |\ HTTP\/1\.1\x0D\x0AUser\-Agent:\ Mozilla\/|\ HTTP\/1\.1\x0D\x0ACache\-Control:\ |\ HTTP\/1\.0\x0D\x0AHost:\ |\ HTTP\/1\.0\x0D\x0AHost:|\x20HTTP\/1\.|\ HTTP\/1\.1|z\?ID=|\&h=)/s
 266:/<!\-\-(?:\/ded509\-\->|ded509\-\->)/s
-267:/http(?:\x3A\x2F\x2F1\.usa\.gov|:\/www\.acunetix\.com|_passwdConfirm=|\x3A\/\/|_passwd=|\x7C)/s
+267:/http(?:\x3A\x2F\x2F1\.usa\.gov|:\/www\.acunetix\.com|_passwdConfirm=|_passwd=|\x3A\/\/|\x7C)/s
 268:/http\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
 269:/stop\x7C/s
 270:/stop\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
@@ -296,7 +296,7 @@
 295:/antiddos\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
 296:/range\x7C/s
 297:/range\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
-298:/ftp\|(?:7C\||3A\|)/s
+298:/ftp\|(?:3A\||7C\|)/s
 299:/ftp\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
 300:/down(?:load\.conf|load\x7C)/s
 301:/download\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
@@ -314,7 +314,7 @@
 313:/code=/s
 314:/site\.avi/s
 315:/archive=/s
-316:/\|0D\ (?:0A\|Accept:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.9,\*\/\*\x3Bq=0\.8\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/5\.0\ \(Windows\x3B\ U\x3B\ Windows\ NT\ 6\.1\x3B\ pt\-BR\x3B\ rv:1\.9\.2b5\)\ Gecko\/20091204\ Firefox\/3\.6b5\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0AConnection:\ close\x0D\x0AUser\-Agent:\ |0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-store,no\-cache\x0D\x0APragma:\ no\-cache\x0D\x0AConnection:\ Keep\-Alive\x0D\x0A\x0D\x0A|0A\|User\-Agent\x3A\ Mozilla\/5\.0\ \x28compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AUser\-Agent:\ |0A\|Content\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Accept\x3A\x20text\/html,\ image\/gif,\ image\/jpeg,\ \*\x3B\ q=\.2,\ \*\/\*\x3B\ q=\.2\x0D\x0A|0A\|Connection:\ close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0AContent\-Length:\ |0A\|Accept\-Encoding:\x0D\x0AConnection:\ close\x0D\x0AContent\-Length:\ |0A\|Content\x2DDisposition\x3A\x20form\x2Ddata\x3B\x20name\x3D\x22|0A\|Connection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Connection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache|0A\|Accept\x2DEncoding\x3A\x20gzip\x2Cdeflateidentity\x0D\x0A|0A\|Content\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept\-Encoding:\ gzip,deflate,\ identity\x0D\x0A|0A\|Content\-Type:\ application\/octet\-stream\x0D\x0A|0A\|Accept\x2DEncoding\x3A\x20identity\x0D\x0A|0A\|Location:\ https:\/\/dl\.dropboxusercontent\.com\/|0A\|Cache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|\[Yes\]\x0D\x0A\xFF\xFE\x08\xFF\xFD\&|0A\|Accept\-Language\x3A\x20ko\x0D\x0A|0A\|Connection:\ Close\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/4\.0\x0D\x0A|0A\|Upgrade:\ tcp\/1\x0D\x0A|0A\|User\-Agent:\ Mozilla\/|0A\ 0D\ 0A\ 0F\ 0F\ 09\||0A\|User\-Agent:\ Java\/|0A\|redirect:\ http:\/\/|0A\ 0D\ 0A\|\&nome=|0A\|User\-Agent:\ |0A\|Cookie:\ SID1=|0A\ 0D\ 0A\|murica|0A\|builddate:|0A\|URL:\ http|0A\ 0D\ 0A\||00\ 05\ 00\||0A\|uuid:\ |0A\|aid:\ |0A\|URL:\ |0A\|LGSN=|0A\|TP=|0A\|)/s
+316:/\|0D\ (?:0A\|Accept:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.9,\*\/\*\x3Bq=0\.8\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/5\.0\ \(Windows\x3B\ U\x3B\ Windows\ NT\ 6\.1\x3B\ pt\-BR\x3B\ rv:1\.9\.2b5\)\ Gecko\/20091204\ Firefox\/3\.6b5\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0AConnection:\ close\x0D\x0AUser\-Agent:\ |0A\|Cache\-Control:\ no\-store,no\-cache\x0D\x0APragma:\ no\-cache\x0D\x0AConnection:\ Keep\-Alive\x0D\x0A\x0D\x0A|0A\|User\-Agent\x3A\ Mozilla\/5\.0\ \x28compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AUser\-Agent:\ |0A\|Content\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Accept\x3A\x20text\/html,\ image\/gif,\ image\/jpeg,\ \*\x3B\ q=\.2,\ \*\/\*\x3B\ q=\.2\x0D\x0A|0A\|Connection:\ close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0AContent\-Length:\ |0A\|Accept\-Encoding:\x0D\x0AConnection:\ close\x0D\x0AContent\-Length:\ |0A\|Content\x2DDisposition\x3A\x20form\x2Ddata\x3B\x20name\x3D\x22|0A\|Connection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Connection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache|0A\|Accept\x2DEncoding\x3A\x20gzip\x2Cdeflateidentity\x0D\x0A|0A\|Content\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept\-Encoding:\ gzip,deflate,\ identity\x0D\x0A|0A\|Content\-Type:\ application\/octet\-stream\x0D\x0A|0A\|Accept\x2DEncoding\x3A\x20identity\x0D\x0A|0A\|Location:\ https:\/\/dl\.dropboxusercontent\.com\/|0A\|Cache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|\[Yes\]\x0D\x0A\xFF\xFE\x08\xFF\xFD\&|0A\|Accept\-Language\x3A\x20ko\x0D\x0A|0A\|Connection:\ Close\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/4\.0\x0D\x0A|0A\|Upgrade:\ tcp\/1\x0D\x0A|0A\|User\-Agent:\ Mozilla\/|0A\ 0D\ 0A\ 0F\ 0F\ 09\||0A\|User\-Agent:\ Java\/|0A\|redirect:\ http:\/\/|0A\ 0D\ 0A\|\&nome=|0A\|User\-Agent:\ |0A\ 0D\ 0A\|murica|0A\|Cookie:\ SID1=|0A\|builddate:|0A\|URL:\ http|00\ 05\ 00\||0A\ 0D\ 0A\||0A\|uuid:\ |0A\|URL:\ |0A\|aid:\ |0A\|LGSN=|0A\|TP=|0A\|)/s
 317:/return\ \x22DIRECT\x22/s
 318:/\.com(?:\.br\x0D\x0A\x0D\x0A|\.br|\-)/s
 319:/\x22[a-z\d\x2e\x2d]{1,10}\x22\s{0,3}\+\s{0,3}\x22[a-z\d\x2e\x2d]{1,10}\x22\s{0,3}\+\s{0,3}\x22[a-z\d\x2e\x2d]{1,10}\x22/s
@@ -324,8 +324,8 @@
 323:/<\/div><i><\/i><style>div\{overflow\x3Ahidden\x3Bwidth\x3A1px\x3B/s
 324:/ps=\x22split\x22\x3Basd=function\(\)/s
 325:/aq=\x220x\x22\x3Bff=String\x3B/s
-326:/\x22(?:c\x22\+\x22r\x22\x3A2\+\x22e\x22\+\x22a\x22\+\x22t\x22\+\x22e\x22\+\x22E\x22\+\x22l\x22\+\x22e\x22\+\x22m\x22\+\(\(f\)\?\x22e\x22\+\x22n\x22\+\x22t\x22\x3A\x22\x22|fr\x22\+\x22omCh\x22\+\x22arCo\x22\+\x22de\x22|method\x22\x3A\x22mining\.extranonce\.subscribe\x22|method\x22\x3A\x22mining\.subscribe\x22|method\x22\x3A\x22mining\.authorize\x22|installation_session_id\x22|line2\x22\x3A\x22|encryptedData\x22|command_line\x22|encryptedKey\x22|environment\x22|event_type\x22|params\x22\x3A|country\x22|magic\x22|id\x22)/s
-327:/=\ \|2(?:2\|object\x22\x3B\x20|2\|applet\x22\x3B\x20)/s
+326:/\x22(?:c\x22\+\x22r\x22\x3A2\+\x22e\x22\+\x22a\x22\+\x22t\x22\+\x22e\x22\+\x22E\x22\+\x22l\x22\+\x22e\x22\+\x22m\x22\+\(\(f\)\?\x22e\x22\+\x22n\x22\+\x22t\x22\x3A\x22\x22|fr\x22\+\x22omCh\x22\+\x22arCo\x22\+\x22de\x22|method\x22\x3A\x22mining\.extranonce\.subscribe\x22|method\x22\x3A\x22mining\.subscribe\x22|method\x22\x3A\x22mining\.authorize\x22|installation_session_id\x22|line2\x22\x3A\x22|encryptedData\x22|command_line\x22|encryptedKey\x22|environment\x22|params\x22\x3A|event_type\x22|country\x22|magic\x22|id\x22)/s
+327:/=\ \|2(?:2\|applet\x22\x3B\x20|2\|object\x22\x3B\x20)/s
 328:/=\x27param\x27\x3B\x20/s
 329:/\.zip(?:|\x27\x3B\ <\/script>)/s
 330:/\/\d+\/\d\.zip\x27\x3b/s
@@ -495,7 +495,7 @@
 494:/\}/s
 495:/[\w\x2d\x5f]+?\x3a\s*?\x28\x29\s\x7b/s
 496:/POST(?:|\ \/index\.php\ HTTP\/1\.1\x0D\x0AContent\-Type:\ multipart\/form\-data\x3B\ boundary=|\ \/\ HTTP\/1\.0\x0D\x0AHost:\ |\ \/1x1\.png\ HTTP\/|\ \/is\-return\ |\ \/cl\/uplod\/|\ \/b\/req\/|\ \/)/s
-497:/!"Us(?:er\-Agent\x3A|er\-Agent:\ |er\-Agent\x3A\x20"|er\-Agent:|er\-Agent|er\-Agent\x3A"|er\-Agent:\ "|er\-Agent:"|er\-Agent")/s
+497:/!"Us(?:er\-Agent\x3A|er\-Agent\x3A\x20"|er\-Agent:\ |er\-Agent:|er\-Agent|er\-Agent\x3A"|er\-Agent:\ "|er\-Agent:"|er\-Agent")/s
 498:/FeintedEscalator/s
 499:/InkingGrange/s
 500:/TO:\ Joana\ <xiake722@gmail\.com>/s
@@ -522,7 +522,7 @@
 521:/\/apexec\.pl/s
 522:/temp(?:late=\.\.\/\.\.\/\.\.\/|late=\.\.\/|late=|late|l=)/s
 523:/\/glimpse/s
-524:/\/inf(?:o\.php\?message=|osrch\.cgi\?|o\.php\?act=|osrch\.cgi|o\.php\?|o\.xml|o2www)/s
+524:/\/inf(?:o\.php\?message=|o\.php\?act=|osrch\.cgi\?|osrch\.cgi|o\.php\?|o\.xml|o2www)/s
 525:/\/nph(?:\-exploitscanget\.cgi|\-maillist\.pl|\-publish\.cgi|\-test\-cgi|pd\.php)/s
 526:/\/rguest\.exe/s
 527:/\/rwwwshell\.pl/s
@@ -530,7 +530,7 @@
 529:/\/finger/s
 530:/\/aglimpse/s
 531:/\/AnForm2/s
-532:/\/arg(?:s\.cmd|s\.bat)/s
+532:/\/arg(?:s\.bat|s\.cmd)/s
 533:/\/AT\-(?:generated\.cgi|admin\.cgi)/s
 534:/\/bnbform\.cgi/s
 535:/\/cam(?:pas\?\x0A|pas)/s
@@ -559,16 +559,16 @@
 558:/\/bash/s
 559:/\/phf(?:|\?Q)/s
 560:/\/ppdscgi\.exe/s
-561:/\/sen(?:dmessage\.cgi|sepost\.exe|dform\.cgi|dmail\.cfm|dtemp\.pl)/s
+561:/\/sen(?:dmessage\.cgi|sepost\.exe|dmail\.cfm|dform\.cgi|dtemp\.pl)/s
 562:/\/AnyForm2/s
-563:/\/bb\-(?:hostsvc\.sh\?|hostsvc\.sh|histsvc\.sh|histlog\.sh|hist\.sh\?|replog\.sh|hist\.sh|rep\.sh)/s
+563:/\/bb\-(?:hostsvc\.sh\?|histlog\.sh|histsvc\.sh|hostsvc\.sh|hist\.sh\?|replog\.sh|hist\.sh|rep\.sh)/s
 564:/\/red(?:irect\.exe|irect)/s
 565:/\/pals\-cgi/s
 566:/tstisapi\.dll/s
 567:/\/cfcache\.map/s
-568:/CF_S(?:ETDATASOURCEUSERNAME\x28\x29|ETDATASOURCEPASSWORD\x28\x29)/s
+568:/CF_S(?:ETDATASOURCEPASSWORD\x28\x29|ETDATASOURCEUSERNAME\x28\x29)/s
 569:/\/cfappman\/index\.cfm/s
-570:/CFUS(?:ION_DBCONNECTIONS_FLUSH\x28\x29|ION_SETTINGS_REFRESH\x28\x29|ION_GETODBCINI\x28\x29|ION_VERIFYMAIL\x28\x29|ION_SETODBCINI\x28\x29|ION_GETODBCDSN\x28\x29|ION_ENCRYPT\x28\x29|ION_DECRYPT\x28\x29)/s
+570:/CFUS(?:ION_DBCONNECTIONS_FLUSH\x28\x29|ION_SETTINGS_REFRESH\x28\x29|ION_GETODBCINI\x28\x29|ION_GETODBCDSN\x28\x29|ION_SETODBCINI\x28\x29|ION_VERIFYMAIL\x28\x29|ION_ENCRYPT\x28\x29|ION_DECRYPT\x28\x29)/s
 571:/CF_ISCOLDFUSIONDATASOURCE\x28\x29/s
 572:/\/onrequestend\.cfm/s
 573:/\/fpsrvadm\.exe/s
@@ -581,7 +581,7 @@
 580:/\.printer/s
 581:/\/\*\.idc/s
 582:/\.\.\x5C\.\./s
-583:/\.asp(?:|\x3A\x3A\x24DATA|x\?m=|\.|\?)/s
+583:/\.asp(?:|\x3A\x3A\x24DATA|x\?m=|\?|\.)/s
 584:/\.bat(?:\x22|\?)/s
 585:/\.cnf/s
 586:/%20/s
@@ -590,7 +590,7 @@
 589:/\.htw(?:|\?CiWebHitsFile)/s
 590:/\.htr/s
 591:/\x2ehtr([\?\x5c\x2f]|)/s
-592:/\x23(?:|filename=\*\.asp|filename=\*\.idc|filename=\*\.exe|list)/s
+592:/\x23(?:|filename=\*\.exe|filename=\*\.asp|filename=\*\.idc|list)/s
 593:/\/bdir\.htr/s
 594:/\/car(?:t32\.exe|bo\.dll|t\.cgi)/s
 595:/icatcommand=/s
@@ -602,7 +602,7 @@
 601:/%1u/s
 602:/\/fpcount\.exe/s
 603:/Digits=/s
-604:/\/glo(?:bals\.jsa|bal\.cgi|bals\.pl|bal\.inc|bal\.asa)/s
+604:/\/glo(?:bals\.jsa|bals\.pl|bal\.asa|bal\.cgi|bal\.inc)/s
 605:/CiWebHitsFile=/s
 606:/CiWebHitsFile=\/?([\r\n\x3b\&]*\.\.\/)?/s
 607:/CiRestriction=none/s
@@ -611,7 +611,7 @@
 610:/\s{230,}\.htr/s
 611:/\.pl/s
 612:/\/issamples\/query\.asp/s
-613:/\/sho(?:wthread\.php\?yz=|wthread\.php\?|w_new\.php\?|psearch\.asp|wphoto\.php|wcode\.asp|utbox\.php|pper\.cgi|p\.cgi)/s
+613:/\/sho(?:wthread\.php\?yz=|wthread\.php\?|w_new\.php\?|psearch\.asp|wphoto\.php|utbox\.php|wcode\.asp|pper\.cgi|p\.cgi)/s
 614:/\/srchadm/s
 615:/Tran(?:sfer\-Encoding\x3A|slate\x3A\ F)/s
 616:/REVLOG\ \//s
@@ -620,7 +620,7 @@
 619:/board=/s
 620:/\.jsp/s
 621:/!"\/\w+\s+[\n\s\?]*\.jsp\/ims/s
-622:/%252(?:4%257B|ejsp|4%7b|4\{)/s
+622:/%252(?:4%257B|4%7b|ejsp|4\{)/s
 623:/ftp\.exe/s
 624:/xp_enumdsn/s
 625:/xp_filelist/s
@@ -651,7 +651,7 @@
 650:/Script=\/webplus\/webping\/webping\.wml/s
 651:/_private\/shopping_cart\.mdb/s
 652:/\/cybercop/s
-653:/User(?:\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.3\x3B\ WOW64\)\ AppleWebKit\/537\.36\ \(KHTML,\ like\ Gecko\)\ Chrome\/35\.0\.1916\.114\ Safari\/537\.36\x0D\x0AHost:\ checkip\.dyndns\.org\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0\)\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AHost:\ |\-Agent\x3A\ Opera\/10\.80\ \x28Windows\ NT\ 5\.1\x3B\ U\x3B\ Edition\ Yx\x3B\ en\x29\ Presto\/2\.9\.168\ Version\/11\.52\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\x20\x28compatible\x3B\x20MSIE\ 6\.0\x3B\x20MS\ Web\ Services\ Client\ Protocol|\-Agent:\ Mozilla\/6\.1\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 5\.3\x3B\ Trident\/5\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 10\.0\x3B\ Windows\ NT\ 6\.2\x3B\ Trident\/4\.0\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\ SV1\)\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ rv:7\.0\.1\)\ Gecko\/20100101\ Firefox\/7\.0\.1\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:23\.0\)\ Gecko\/20100101\ Firefox\/23\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0A|\x2DAgent\x3A\x20Mozilla\x2F3\.0\x20\x28compatible\x3B\x20Indy\ Library\x29\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.01\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 6\.1\x3B|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.0\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3BMSIE\ 7\.0\x3BWindows\ NT\ 6\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.5\)|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Win32\)\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 2\.0\x3B|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)\x0D\x0A|\-Agent:\ Opera\/11\ \x28Windows\ NT\ 5\.1\x3B\x20\x3B\ x86\x29|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSI\ 6\.0\x3B|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x29\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\ Webtrends\ Security\ Analyzer\x0D\x0A|\x2DAgent\x3A\x20Morfeus\x20Fucking\x20Scanner|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\x20\)|\-Agent\x3A\x20Apache\-HttpClient\x2FUNAVAILABLE|\-Agent\x3A\x20NSIS_Inetc\ \(Mozilla\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ |\-Agent:\ Microsoft\ Internet\ Explorer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\)\x0D\x0A|\-Agent\x3A\ bUQ8QmvUpI57udWFxQHPkuyKDfc3T8u5|\-Agent\x3A\ NSIS_ToolkitOffers\ \(Mozilla\)|\-Agent\x3A\ Brontok\.A8\ Browser\x0D\x0A|\-Agent\x3A\ Updates\ downloader\x0D\x0A|\-Agent\x3A\x20Mozilla\/5\.0\ \(compatible|\-Agent\x3A\x20Apache\-HttpClient\x2F|\-Agent\x3A\x20UAC\/1\.0\.0\ \(Android\ |\-Agent\x3A\x20Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20Sendori\-Client\-Win32|\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:\ |\-Agent:\ http:\/\/www\.pershop\.com\.br\/|\-Agent\x3A\x20NewBrandTest\x0D\x0A|\-Agent\x3A\x20DNS\ Check\x0D\x0A|\-Agent\x3A\ Mozi1la\/4\.0\x0D\x0A|\-Agent\x3A\ Opera\x5C9\.64\x0A|\-Agent\x3A\ Java1\.2\.1\x0D\x0A|\-Agent\x3A\x20SearchProtect\x3B|\-Agent\x3A\ Ray\-Downer\x0D\x0A|\-Agent\x3A\x20macrotest\x0D\x0A|\-Agent\x3A\ Uploador\x0D\x0A|\-Agent\x3A\x20Mindspark\ MIP\ |\-Agent:\ hello\ crazyk\x0D\x0A|\-Agent:\ macsearch\/1\ CFNetwork\/|\-Agent\x3A\x20ALIZER\x0D\x0A|\-Agent:\ Google\ Omaha\x0D\x0A|\-Agent\x3A\ NOKIAN95\x2FWEB|\-Agent\x3A\x20Python\-urllib\/|\-Agent\x3A\ xmsSofts_1\.0\.0_|\-Agent:\ Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20EMERY\x0D\x0A|\-Agent:\ Mazilla\/5\.0\x0D\x0A|\-Agent:\ User\-Agent:\ Mozilla\/|\-Agent\x3A\ Zollard\x0D\x0A|\-Agent:\ Google\ page\x0D\x0A|\-Agent\x3A\x20BURAN\x0D\x0A|\-Agent\x3A\x20Microsoft\ BITS|\-Agent:\ ITRANSLATOR\x0D\x0A|\-Agent:\ realupdate\x0D\x0A|\-Agent\x3A\x20core\-project|\-Agent\x3A\ Microsoft\ BITS|\-Agent:\ Microsoft\ Office\ |\-Agent\x3A\x20Installer\/23|\-Agent\x3A\ Mozilla\ v5\.1|\-Agent\x3A\ runddll32\.exe|\-Agent:\ SpellingChecker\/22|\-Agent\x3A\ WinHttpClient|\-Agent:\ HTTPREAD\x0D\x0A|\-Agent\x3A\ asafaweb\.com|\-Agent\x3A\x20HttpEngine|\-Agent:\ RUpdate\x0D\x0A|\-Agent:\ Install\x0D\x0A|\-Agent\x3A\x20Useragents|\-Agent:\ TixDll\x0D\x0A|\-Agent\x3A\x20Vitruvian|\-Agent\x3A\x20DataCha0s|\-Agent:\ fortis\x0D\x0A|\-Agent:\ win32\x0D\x0A|\-Agent\x3A\x20C:\x5C|\-Agent\x3A\ SEX\x2F1|\-Agent:\ Treck\x0D\x0A|\-Agent\x3A\ z00sAgent|\-Agent\x3A\x20Mozilla|\-Agent\x3A\ Quicktime|\-Agent:\ lynx\x0D\x0A|\-Agent:\ LinqurySearch|\-Agent:\ pb\x0D\x0A|\-Agent\x3A\x20mpck_|\-Agent\x3A\ Ufasoft|\-Agent\x3A\ USR\-KL|\-Agent:\ Mozilla\/5\.0|\x2DAgent\x3A\x20|\-Agent:\ hots\ scot|\-Agent:\ Mozilla\/7|\-Agent:\ something|\-Agent\x3A\x20SK|\-Agent:\ usrnode\/|\-Agent:\ BLP_bbot|\-Agent\x3A\x20|\-Agent\x3AICQ|32LogonProcesss|\-Agent\x3A\ |\-Agent:\ curl\/|\-Agent:\ wget|\-Agent\x3A|\-Agent:|\-Agent|name:)/s
+653:/User(?:\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.3\x3B\ WOW64\)\ AppleWebKit\/537\.36\ \(KHTML,\ like\ Gecko\)\ Chrome\/35\.0\.1916\.114\ Safari\/537\.36\x0D\x0AHost:\ checkip\.dyndns\.org\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0\)\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AHost:\ |\-Agent\x3A\ Opera\/10\.80\ \x28Windows\ NT\ 5\.1\x3B\ U\x3B\ Edition\ Yx\x3B\ en\x29\ Presto\/2\.9\.168\ Version\/11\.52\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\x20\x28compatible\x3B\x20MSIE\ 6\.0\x3B\x20MS\ Web\ Services\ Client\ Protocol|\-Agent:\ Mozilla\/6\.1\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 5\.3\x3B\ Trident\/5\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 10\.0\x3B\ Windows\ NT\ 6\.2\x3B\ Trident\/4\.0\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\ SV1\)\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ rv:7\.0\.1\)\ Gecko\/20100101\ Firefox\/7\.0\.1\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:23\.0\)\ Gecko\/20100101\ Firefox\/23\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0A|\x2DAgent\x3A\x20Mozilla\x2F3\.0\x20\x28compatible\x3B\x20Indy\ Library\x29\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.01\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.0\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 6\.1\x3B|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3BMSIE\ 7\.0\x3BWindows\ NT\ 6\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.5\)|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Win32\)\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 2\.0\x3B|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)\x0D\x0A|\-Agent:\ Opera\/11\ \x28Windows\ NT\ 5\.1\x3B\x20\x3B\ x86\x29|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ SEObot\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSI\ 6\.0\x3B|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x29\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\x2DAgent\x3A\x20Morfeus\x20Fucking\x20Scanner|\-Agent\x3A\ Webtrends\ Security\ Analyzer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\x20\)|\-Agent\x3A\x20Apache\-HttpClient\x2FUNAVAILABLE|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ |\-Agent\x3A\x20NSIS_Inetc\ \(Mozilla\)\x0D\x0A|\-Agent:\ Microsoft\ Internet\ Explorer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\)\x0D\x0A|\-Agent\x3A\ bUQ8QmvUpI57udWFxQHPkuyKDfc3T8u5|\-Agent\x3A\ NSIS_ToolkitOffers\ \(Mozilla\)|\-Agent\x3A\ Brontok\.A8\ Browser\x0D\x0A|\-Agent\x3A\ Updates\ downloader\x0D\x0A|\-Agent\x3A\x20Mozilla\/5\.0\ \(compatible|\-Agent\x3A\x20Apache\-HttpClient\x2F|\-Agent\x3A\x20UAC\/1\.0\.0\ \(Android\ |\-Agent\x3A\x20Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20Sendori\-Client\-Win32|\-Agent:\ http:\/\/www\.pershop\.com\.br\/|\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:\ |\-Agent\x3A\x20NewBrandTest\x0D\x0A|\-Agent\x3A\x20DNS\ Check\x0D\x0A|\-Agent\x3A\ Opera\x5C9\.64\x0A|\-Agent\x3A\ Mozi1la\/4\.0\x0D\x0A|\-Agent\x3A\ Ray\-Downer\x0D\x0A|\-Agent\x3A\ Java1\.2\.1\x0D\x0A|\-Agent\x3A\x20SearchProtect\x3B|\-Agent\x3A\x20macrotest\x0D\x0A|\-Agent:\ hello\ crazyk\x0D\x0A|\-Agent:\ macsearch\/1\ CFNetwork\/|\-Agent\x3A\ Uploador\x0D\x0A|\-Agent\x3A\x20Mindspark\ MIP\ |\-Agent\x3A\x20ALIZER\x0D\x0A|\-Agent:\ Google\ Omaha\x0D\x0A|\-Agent\x3A\x20Python\-urllib\/|\-Agent:\ User\-Agent:\ Mozilla\/|\-Agent\x3A\ Zollard\x0D\x0A|\-Agent:\ Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20EMERY\x0D\x0A|\-Agent\x3A\x20Microsoft\ BITS|\-Agent:\ Google\ page\x0D\x0A|\-Agent\x3A\x20BURAN\x0D\x0A|\-Agent\x3A\ NOKIAN95\x2FWEB|\-Agent\x3A\ xmsSofts_1\.0\.0_|\-Agent:\ Mazilla\/5\.0\x0D\x0A|\-Agent:\ ITRANSLATOR\x0D\x0A|\-Agent\x3A\ Microsoft\ BITS|\-Agent\x3A\x20core\-project|\-Agent:\ realupdate\x0D\x0A|\-Agent:\ Microsoft\ Office\ |\-Agent\x3A\ Mozilla\ v5\.1|\-Agent\x3A\x20Installer\/23|\-Agent\x3A\ runddll32\.exe|\-Agent:\ SpellingChecker\/22|\-Agent\x3A\ asafaweb\.com|\-Agent\x3A\ WinHttpClient|\-Agent:\ HTTPREAD\x0D\x0A|\-Agent:\ RUpdate\x0D\x0A|\-Agent\x3A\x20HttpEngine|\-Agent:\ Install\x0D\x0A|\-Agent\x3A\x20Useragents|\-Agent:\ TixDll\x0D\x0A|\-Agent\x3A\x20DataCha0s|\-Agent\x3A\x20Vitruvian|\-Agent:\ fortis\x0D\x0A|\-Agent:\ Treck\x0D\x0A|\-Agent\x3A\x20C:\x5C|\-Agent\x3A\ SEX\x2F1|\-Agent:\ win32\x0D\x0A|\-Agent\x3A\ Quicktime|\-Agent\x3A\x20Mozilla|\-Agent:\ lynx\x0D\x0A|\-Agent\x3A\ z00sAgent|\-Agent:\ LinqurySearch|\-Agent\x3A\ USR\-KL|\-Agent:\ Mozilla\/5\.0|\-Agent:\ pb\x0D\x0A|\-Agent\x3A\ Ufasoft|\-Agent\x3A\x20mpck_|\x2DAgent\x3A\x20|\-Agent:\ hots\ scot|\-Agent:\ Mozilla\/7|\-Agent:\ something|\-Agent\x3A\x20SK|\-Agent:\ usrnode\/|\-Agent:\ BLP_bbot|\-Agent\x3A\x20|\-Agent\x3AICQ|\-Agent:\ curl\/|32LogonProcesss|\-Agent\x3A\ |\-Agent:\ wget|\-Agent\x3A|\-Agent:|\-Agent|name:)/s
 654:/\/nessus_is_probing_you_/s
 655:/HOST(?:\x3A|SVC)/s
 656:/\/ftp(?:\.pl\?|\.pl)/s
@@ -677,11 +677,11 @@
 676:/\/\~root/s
 677:/cat/s
 678:/\/cat(?:alog\.nsf|gy\.cgi|info)/s
-679:/\/dom(?:cfg\.nsf|log\.nsf)/s
-680:/\/log(?:s\.php\?\&prog=|on\.aspx\?Id=|icworks\.ini|in\.htm\?|in1\.asp|\.php\?|in\.uix|in\.php|in\.htm|\.php|\.nsf)/s
+679:/\/dom(?:log\.nsf|cfg\.nsf)/s
+680:/\/log(?:s\.php\?\&prog=|on\.aspx\?Id=|icworks\.ini|in\.htm\?|in1\.asp|in\.uix|in\.php|in\.htm|\.php\?|\.php|\.nsf)/s
 681:/\/names\.nsf/s
 682:/\/PSUser\/PSCOErrPage\.htm/s
-683:/\?wp\-(?:|verify\-link|start\-ver|html\-rend|uncheckout|usr\-prop|stop\-ver|ver\-info|ver\-diff|cs\-dump)/s
+683:/\?wp\-(?:|verify\-link|uncheckout|start\-ver|html\-rend|usr\-prop|stop\-ver|ver\-diff|ver\-info|cs\-dump)/s
 684:/\/pas(?:swordrecovered\.cgi|sword\.cgi\.tmp|swd\.php3)/s
 685:/\/c32web\.exe\/ChangeAdminPassword/s
 686:/\/qui(?:ck\-reply\.php|ckstore\.cgi|kstore\.cfg)/s
@@ -710,7 +710,7 @@
 709:/\/emp(?:ower\?DB=|ower\?DB)/s
 710:/\/ROADS\/cgi\-bin\/search\.pl/s
 711:/form(?:\-data\x3B\ name=\x22userfile\x22\x3B\ filename=|\-data\x3B\ name=\x22PLUG\x22\x0D\x0A|\-data\x3B\ name=\x22SEG\x22\x0D\x0A|\-data\x3B\ name=\x22PC\x22\x0D\x0A|\-data\x3B|=)/s
-712:/\/Ftp(?:SaveCVP\.dll|SaveCSP\.dll|Save\.dll)/s
+712:/\/Ftp(?:SaveCSP\.dll|SaveCVP\.dll|Save\.dll)/s
 713:/\/SWEditServlet/s
 714:/\.ida(?:|\?)/s
 715:/\.idq(?:|\?)/s
@@ -759,7 +759,7 @@
 758:/\/PRN\//s
 759:/\/NUL\//s
 760:/\/ali(?:baba\.pl\x7C|enform\.cgi|baba\.pl)/s
-761:/\/que(?:ry\?version=|ry\?mss=\.\.)/s
+761:/\/que(?:ry\?mss=\.\.|ry\?version=)/s
 762:/\/inp(?:ut2\.bat\x7C|ut\.bat\x7C|ut2\.bat|ut\.bat)/s
 763:/\/\?M=D/s
 764:/\/ans(?:\.pl\?|\.pl)/s
@@ -820,7 +820,7 @@
 819:/\/bsguest\.cgi/s
 820:/\/bslist\.cgi/s
 821:/\/cgforum\.cgi/s
-822:/\/reg(?:ister\.php\?|ister\.dll|ister\.asp|ister\.cgi)/s
+822:/\/reg(?:ister\.php\?|ister\.cgi|ister\.dll|ister\.asp)/s
 823:/\/gbook\.cgi/s
 824:/\/sim(?:plestguest\.cgi|plestmail\.cgi)/s
 825:/\/talkbalk\.cgi/s
@@ -836,7 +836,7 @@
 835:/\/left_main\.php/s
 836:/cmdd=/s
 837:/\/dns(?:lookup\.cgi|tools\.php)/s
-838:/user(?:_dnstools_administrator=true|name\ too\ long|_logged_in=true|_tablespace|name=MD5Sum|file_name=|name=admin|name%5d=|defined=|=)/s
+838:/user(?:_dnstools_administrator=true|name\ too\ long|_logged_in=true|name=MD5Sum|_tablespace|file_name=|name=admin|name%5d=|defined=|=)/s
 839:/\/dos(?:tuff\.php\?|tuff\.php)/s
 840:/secure_site,\ ok/s
 841:/\/as_(?:web4\.exe|web\.exe)/s
@@ -887,7 +887,7 @@
 886:/\/viralator\.cgi/s
 887:/\/edi(?:t_action\.cgi|t_image\.php)/s
 888:/\/smartsearch\.cgi/s
-889:/\.php(?:|\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0AHost:\ |\ HTTP\/1\.0\x0D\x0AConnection:\ keep\-alive\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ 0\x0D\x0AHost:\ |\ HTTP\/1\.1\x0D\x0AContent\-Type:\ text\/html\x0D\x0AHost:\ |\?chave=xchave\&url\x3D\x20\x3D\x7C\x3D\x20|\ HTTP\/1\.1\x0D\x0AUser\-Agent:\ Opera\/|\ HTTP\/1\.1\x0D\x0ACache\-Control:\ |\?fname=Hawkeye_Keylogger|\ HTTP\/1\.0\x0D\x0A|\?file=Cobra_|\?php=receipt|\?user_code=|\ HTTP\/1\.1|\?version=|\?\&1001=|\?method=|\?very=|\?utma|\?mac=|\?ip=|\?id=|\?q=|\?d=|\?)/s
+889:/\.php(?:|\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0AHost:\ |\ HTTP\/1\.0\x0D\x0AConnection:\ keep\-alive\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ 0\x0D\x0AHost:\ |\ HTTP\/1\.1\x0D\x0AContent\-Type:\ text\/html\x0D\x0AHost:\ |\?chave=xchave\&url\x3D\x20\x3D\x7C\x3D\x20|\ HTTP\/1\.1\x0D\x0AUser\-Agent:\ Opera\/|\ HTTP\/1\.1\x0D\x0ACache\-Control:\ |\?fname=Hawkeye_Keylogger|\ HTTP\/1\.0\x0D\x0A|\?php=receipt|\?file=Cobra_|\?user_code=|\ HTTP\/1\.1|\?version=|\?\&1001=|\?method=|\?very=|\?mac=|\?utma|\?id=|\?ip=|\?q=|\?d=|\?)/s
 890:/path(?:|=)/s
 891:/path=(https?|ftps?|php)/s
 892:/\/overflow\.cgi/s
@@ -903,7 +903,7 @@
 902:/\/chi(?:pcfg\.cgi|p\.ini)/s
 903:/\/lyris\.pl/s
 904:/\/par(?:se_xml\.cgi|tner\.php)/s
-905:/Acce(?:pt\x3A\ \*\/\*\x0D\x0AAccept\-Language\x3A\ en\-us\x0D\x0AContent\-Type\x3A\ application\/octet\-stream\x0D\x0AContent\-Length\x3A\ |pt:\ application\/xml,application\/xhtml\+xml,text\/html\x3Bq=0\.9,text\/plain\x3Bq=0\.8,image\/png,\*\/\*\x3Bq=0\.5\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|pt\x3A\x20application\/x\-shockwave\-flash,\ image\/gif,\ image\/jpeg,\ image\/pjpeg,\ \*\/\*\x0D\x0A|pt:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.8,\*\/\*\x3Bq=0\.9\x0D\x0A|pt:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ |pt\x3A\ \*\/\*\x0ATranslate\x3A\ f\x0AContent\-length\x3A5276\x0A\x0A|pt\-Charset:\ ISO\-8859\-1,utf\-8\x3Bq=0\.7,\*\x3Bq=0\.7\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AAccept\-Language\x3A\x20en\-us\x0D\x0A|pt\x3A\x20application\/javascript\x2C\x20\x2A\x2F\x2A\x3Bq=0\.8|pt:\ \*\/\*\x0D\x0AConnection\x3A\x20Close\x0D\x0A|pt\-Encoding\x3A\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding\x3A\x20gzip,\ deflate\x0D\x0A|pt\-Language:\ en\-us,en\x3Bq=0\.5\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AUA\-CPU\x3A\x20|pt\-Encoding\x3A\x20identity\x0D\x0A|pt\-Encoding:\ gzip,\ deflate\x0D\x0A|pt\-Encoding\x3A\ gzip,\ deflate,\ br|pt\-Language\x3A\x20en\-us\x0D\x0A|pt\-Encoding:\ none\x0D\x0A\x0D\x0A|pt\-Language:\ en\-us\x3B\x0D\x0A|pt\-Encoding:\ gzip,\ deflate,\ br|pt\-Language:\ en\-US\x0D\x0A|pt\-Encoding:\ gzip,\ deflate|pt\-Encoding\x3A\ identity|pt\x3A\x20\*\/\*\x0D\x0A|pt\-Language:\ en\-us|pt:\ \*\/\*\x0D\x0A|pt\-Encoding:\ gzip|pt\x3A\x20\*\/\*|pt\x3A\ \*\/\*|pt\-Encoding:|pt:\ \*\/\*|pt:\*\/\*)/s
+905:/Acce(?:pt\x3A\ \*\/\*\x0D\x0AAccept\-Language\x3A\ en\-us\x0D\x0AContent\-Type\x3A\ application\/octet\-stream\x0D\x0AContent\-Length\x3A\ |pt:\ application\/xml,application\/xhtml\+xml,text\/html\x3Bq=0\.9,text\/plain\x3Bq=0\.8,image\/png,\*\/\*\x3Bq=0\.5\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|pt\x3A\x20application\/x\-shockwave\-flash,\ image\/gif,\ image\/jpeg,\ image\/pjpeg,\ \*\/\*\x0D\x0A|pt:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.8,\*\/\*\x3Bq=0\.9\x0D\x0A|pt:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ |pt\x3A\ \*\/\*\x0ATranslate\x3A\ f\x0AContent\-length\x3A5276\x0A\x0A|pt\-Charset:\ ISO\-8859\-1,utf\-8\x3Bq=0\.7,\*\x3Bq=0\.7\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AAccept\-Language\x3A\x20en\-us\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0A|pt\x3A\x20application\/javascript\x2C\x20\x2A\x2F\x2A\x3Bq=0\.8|pt:\ \*\/\*\x0D\x0AConnection\x3A\x20Close\x0D\x0A|pt\-Encoding\x3A\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding\x3A\x20gzip,\ deflate\x0D\x0A|pt\-Language:\ en\-us,en\x3Bq=0\.5\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AUA\-CPU\x3A\x20|pt\-Encoding\x3A\x20identity\x0D\x0A|pt\-Encoding:\ gzip,\ deflate\x0D\x0A|pt\-Encoding\x3A\ gzip,\ deflate,\ br|pt\-Language\x3A\x20en\-us\x0D\x0A|pt\-Encoding:\ none\x0D\x0A\x0D\x0A|pt\-Language:\ en\-us\x3B\x0D\x0A|pt\-Encoding:\ gzip,\ deflate,\ br|pt\-Language:\ en\-US\x0D\x0A|pt\-Encoding:\ gzip,\ deflate|pt\-Encoding\x3A\ identity|pt\x3A\x20\*\/\*\x0D\x0A|pt\-Language:\ en\-us|pt:\ \*\/\*\x0D\x0A|pt\-Encoding:\ gzip|pt\x3A\x20\*\/\*|pt\x3A\ \*\/\*|pt\-Encoding:|pt:\ \*\/\*|pt:\*\/\*)/s
 906:/\/album\.pl/s
 907:/myaccount\/login\.asp/s
 908:/\/ikonboard\.cgi/s
@@ -958,7 +958,7 @@
 957:/\/pcadmin\/login\.asp/s
 958:/\/pls\/portal\/PORTAL_DEMO/s
 959:/\/psdoccgi/s
-960:/!"\|0(?:A\|Accept\-Encoding\x3A\x20"|D\ 0A\|Accept\-Language:"|D\ 0A\|User\-Agent:"|A\|Referer\x3A"|D\ 0A\|Referer:"|A\|Cookie\x3A"|D\ 0A\|Accept\-"|A\|",within\ 10|D\ 0A\|Cookie:"|D\|",within\ 10|D\ 0A\|Accept"|A\|Referer")/s
+960:/!"\|0(?:A\|Accept\-Encoding\x3A\x20"|D\ 0A\|Accept\-Language:"|D\ 0A\|User\-Agent:"|A\|Referer\x3A"|A\|Cookie\x3A"|D\ 0A\|Referer:"|D\ 0A\|Accept\-"|A\|",within\ 10|D\|",within\ 10|D\ 0A\|Cookie:"|D\ 0A\|Accept"|A\|Referer")/s
 961:/Content-Length\x3A\s*[2-9][0-9]{9}/s
 962:/\/UpdateClasses\.php/s
 963:/\/Title\.php/s
@@ -971,7 +971,7 @@
 970:/GALLERY_BASEDIR=(https?|ftps?|php)/s
 971:/do=ext/s
 972:/page=(https?|ftps?|php)/s
-973:/\/fox(?:web\.exe|web\.dll)/s
+973:/\/fox(?:web\.dll|web\.exe)/s
 974:/\/ShopDisplayProducts\.asp/s
 975:/\/sgdynamo\.exe/s
 976:/\/bsml\.pl/s
@@ -1070,7 +1070,7 @@
 1069:/%Sys(?:temDrive%|temRoot%)/s
 1070:/%TEMP%/s
 1071:/%TMP%/s
-1072:/%USE(?:RPROFILE%|RDOMAIN%|RNAME%|RDATA%)/s
+1072:/%USE(?:RPROFILE%|RDOMAIN%|RDATA%|RNAME%)/s
 1073:/%WINDIR%/s
 1074:/%PUBLIC%/s
 1075:/%PSModulePath%/s
@@ -1144,7 +1144,7 @@
 1143:/\x0d\x0aContent\x2dLength\x3a\x20(124|132)\x0d\x0a/s
 1144:/\x3d?\x3d\r\n/s
 1145:/cstype=/s
-1146:/\&aut(?:hname=|hpass=)/s
+1146:/\&aut(?:hpass=|hname=)/s
 1147:/\&hostname=/s
 1148:/\&ostype=/s
 1149:/\&mac(?:addr=|Mac=|OS=|=)/s
@@ -1166,7 +1166,7 @@
 1165:/User\x2dAgent\x3a\s[\r\n]*?\x3b\x20id\x3a[A-F0-9]{8}\x2d([A-F0-9]{4}\x2d){3}[A-F0-9]{12}\)[\r\n]*?\r\n/s
 1166:/\/nosignal\.jpg\?/s
 1167:/\x2fnosignal\.jpg\?\d\.\d+/s
-1168:/Host(?::\ bitly\.com\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|:\ bit\.ly\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\x3A\x20checkip\.dyndns\.org|:\ dl\.dropbox\.com\x0D\x0A|\x3A\ a\.topgunnphoto\.com|:\ www\.fedex\.com\x0D\x0A|\x3A\x20j\.maxmind\.com|:\ mbfce24rgn65bx3g\.|:\ www\.usatoday\.com|:\ default\x0D\x0A|:\ www\.google\.com|\x3A\x20xn\-\-|BD=|:\ |:)/s
+1168:/Host(?::\ bitly\.com\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|:\ bit\.ly\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\x3A\x20checkip\.dyndns\.org|:\ dl\.dropbox\.com\x0D\x0A|:\ www\.fedex\.com\x0D\x0A|\x3A\ a\.topgunnphoto\.com|\x3A\x20j\.maxmind\.com|:\ www\.usatoday\.com|:\ mbfce24rgn65bx3g\.|:\ default\x0D\x0A|:\ www\.google\.com|\x3A\x20xn\-\-|:\ |BD=|:)/s
 1169:/\/ksa\.txt/s
 1170:/op=/s
 1171:/\&nmpc=/s
@@ -1182,11 +1182,11 @@
 1181:/sousi\.extasix\.com\x0D\x0A/s
 1182:/(exe|dll|scr|rar|ps1|bat)/s
 1183:/Opera\/10\x20/s
-1184:/!"Re(?:ferer\x3A|ferer\x3A\x20"|ferer\x3A\ "|ferer:|ferer|ferer\x3A"|ferer:"|ferer")/s
+1184:/!"Re(?:ferer\x3A|ferer\x3A\x20"|ferer:|ferer\x3A\ "|ferer|ferer\x3A"|ferer:"|ferer")/s
 1185:/\/ccbill\/m\.php\?id=/s
 1186:/\/feed\?req=http/s
 1187:/Host\x3a\x20\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\r?\n/s
-1188:/\x26(?:file=SenderClient\.conf|hostname=|hostip=|s=\{|u=|c=)/s
+1188:/\x26(?:file=SenderClient\.conf|hostname=|hostip=|s=\{|c=|u=)/s
 1189:/GET/s
 1190:/!"go(?:ogleusercontent"|ogle\.com")/s
 1191:/!"gvt1\.com/s
@@ -1206,7 +1206,7 @@
 1205:/\.jpg/s
 1206:/\.jpg\x20HTTP\/1\.[01]\r\nUser\x2dAgent\x3a\x20[a-z]+\r\nHost\x3a\x20[a-z0-9\x2d\x2e]+\.com\.br\r\n\r\n/s
 1207:/\.lavaibrasilok\.com\x0D\x0A\x0D\x0A/s
-1208:/!"Ac(?:cept\-Encoding:\ "|cept\x3A|cept\-Language:\ "|cept\-Language:"|cept\-Encoding:"|cept\-Encoding"|cept\x3A\x20"|cept\-Language"|cept\x3A"|cept\-"|cept:"|cept")/s
+1208:/!"Ac(?:cept\-Encoding:\ "|cept\x3A|cept\-Language:\ "|cept\-Language:"|cept\-Encoding:"|cept\x3A\x20"|cept\-Language"|cept\-Encoding"|cept\x3A"|cept\-"|cept:"|cept")/s
 1209:/\/loader\.cpl/s
 1210:/\.inf(?:|\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ gzip,\ deflate\x0D\x0AUser\-Agent:\ Mozilla\/|o\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A)/s
 1211:/HTTP\/1.[01]\r\nUser\x2dAgent\x3a\x20[ -~]+\r\nHost\x3a\x20[a-z0-9\x2d\x2e]+\.info\r\n/s
@@ -1276,1126 +1276,1109 @@
 1275:/\&des(?:tinatario=|tinatario)/s
 1276:/\&assunto=/s
 1277:/\&mensagem=/s
-1278:/(?=[a-z\x2d\x5f\x2f]{95,}\.php).*?[a-z]{2,48}\x2d[a-z]{2,48}\x2d[a-z]{2,48}\x2d[a-z]{2,48}\x2d?\.php/s
-1279:/!"Co(?:ntent\-Length\x3A\x20"|ntent\-Type\x3A\x20"|nnection\x3A\x20"|ntent\-Length"|ntent\-Type"|okie\x3A"|nnection"|ntent\-"|okie:")/s
-1280:/\x2f[a-z-_]{80,}\x2ehtml/s
-1281:/_\.log\x22\x0D\x0A/s
-1282:/\|6C\ (?:6A\ CD\ CF\ B8\ 41\ 3F\ F8\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 04\ 01\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 1C\||55\ 55\ 45\|)/s
-1283:/\.png(?:|\?ID=)/s
-1284:/RcpTfdsvoD9KB9O/s
-1285:/foo=/s
-1286:/\/[a-f0-9]{32}\/[a-z]{1,15}-[a-z]{1,15}\.php/s
-1287:/!"PacketShaper/s
-1288:/!"siteadvisor\.com/s
-1289:/\/(?:[\/]+?\/[a-z]{2,24}[_-][a-z]{2,16}([_-][a-z]{2,16})*?|closest\/[a-z0-9]{15,25})\.php\?[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\*\!\w-]+=[\(\)\!\*\w-]+/s
-1290:/\/afr\.php\?zoneid=/s
-1291:/\&sta(?:tpass=bpass|tus=start|te=|t=)/s
-1292:/\&idTime=/s
-1293:/\&idA2=/s
-1294:/\&xVal=/s
-1295:/[ -~\r\n]{4}/s
-1296:/X\-Forwarded\-For/s
-1297:/=Response/s
-1298:/caidao=/s
-1299:/caidao\s?=\s?(Response|Write|Execute)/s
-1300:/=Execute/s
-1301:/On\+Error\+Resume\+Next:/s
-1302:/\?message=/s
-1303:/(info|app)\x2ephp\x3fmessage\x3d/s
-1304:/from=%20Nome\.\.:/s
-1305:/\/(?:[\/]+?\/[a-z]{2,24}[_-][a-z]{2,16}([_-][a-z]{2,16})*?|closest\/[a-z0-9]{15,25})\.php\?[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\*\!\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+/s
-1306:/\x2f[a-z-_]{90,}\x2e(html|php)/s
-1307:/!"\/utils\//s
-1308:/\/crypt_1_sell\d\d-\d\d.exe/s
-1309:/v=/s
-1310:/\}\x26w=/s
-1311:/p=/s
-1312:/chave=/s
-1313:/\&url=/s
-1314:/[\r -~\n]{4}/s
-1315:/\/welcome\.htm/s
-1316:/:\ no\-cache\x0D\x0A\x0D\x0A/s
-1317:/\/search\?q=[0-9]/s
-1318:/[\n -~\r]{4}/s
-1319:/install\/upgrade\.php/s
-1320:/\&customerid=/s
-1321:/\/(?:[\/]+?\/[a-z]{2,24}|closest\/[a-z0-9]{15,25})\.php\?[ab10]+=[ab10]+&[ab10]+=[ab10]+/s
-1322:/\/\?u=/s
-1323:/\&u2=/s
-1324:/\&u5=inststart/s
-1325:/NSIS_Inetc\ \(Mozilla\)/s
-1326:/\/get.php\?invite=.*?=/s
-1327:/\/\?gws_rd=cr/s
-1328:/\/(?:[\/]+?\/[a-z]{2,24}|closest\/[a-z0-9]{15,25})\.php\?[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+/s
-1329:/z/s
-1330:/z\d{1,3}/s
-1331:/\&aff(?:id=|=)/s
-1332:/\?ts=/s
-1333:/\&token=/s
-1334:/\&group=/s
-1335:/\&nid=/s
-1336:/\&lid=/s
-1337:/\&ver(?:sion=|s=|=)/s
-1338:/CHR\(/s
-1339:/\/p\.ashx\?prd=/s
-1340:/\&pixGuid=/s
-1341:/\&rnd=/s
-1342:/GET\x20\x2f[a-z]{1,12}\.exe\x20HTTP\x2f1\.1\r\nUser\x2dAgent\x3a\x20Mozilla\x2f[\x20-\x7e]{10,100}\)\r\nHost\x3a\x20[a-z0-9\x2e\x2d]{6,32}\r\nConnection\x3a\x20Keep\x2dAlive\r\n\r\n/s
-1343:/\.jnlp/s
-1344:/\/[a-z0-9]{9}\.jnlp/s
-1345:/\/\d+\/\d\.zip/s
-1346:/\.ld/s
-1347:/\/\d+\.ld/s
-1348:/\x2f[0-9a-f]+/s
-1349:/\x2f[a-z\d]{1,8}\.exe/s
-1350:/\/online\.htm/s
-1351:/goog(?:le\.com\x0D\x0A|le\.)/s
-1352:/ip\-who\-is\.com\x0D\x0A/s
-1353:/\/[a-z0-9]\.exe/s
-1354:/\)\x0D\x0AHost:/s
-1355:/\r\nHost\x3A\s+[\r\n]*?[bcdfghjklmnpqrstvwxyz]{5,}[\r\n]*?\x2Ebiz\r\n/s
-1356:/(?!\d{17}|[A-F]{17})[A-F0-9]{17}/s
-1357:/id\x3d[A-F\d]{32}(\x26info\x3d[A-F\d]{24})?/s
-1358:/\/is\-ready/s
-1359:/\|3C\ (?:7C\ 3E\|Microsoft\ Windows|7C\ 3E\|)/s
-1360:/\/\?[a-z0-9]{2}\=[a-z1-9]{100}/s
-1361:/crc=/s
-1362:/\/launch\.php/s
-1363:/\?f=/s
-1364:/\&s=/s
-1365:/\&is_direct=/s
-1366:/\x2Fdirect\.php\x3Ff=[0-9]{8}\x26s=[a-z0-9]{3}\.[a-z]{1,4}/s
-1367:/60gp(?:BAK=|=)/s
-1368:/\/se\/gate\.php/s
-1369:/\x3d\x0a/s
-1370:/\/novredir_inf\.php\?apt\/login\.jsp\?=/s
-1371:/\/FileToDownload\.exe/s
-1372:/roti(?:na=UPDATE\&tip=stat\&nome=|na=plogin\&login=|na=)/s
-1373:/\&tmp=/s
-1374:/NID=/s
-1375:/PRIV(?:MSG\x20\#vnc\x20\x3A|MSG\ |MSG)/s
-1376:/\/debug\/Version\//s
-1377:/\&bolausado/s
-1378:/\&casa=/s
-1379:/\&idcliente/s
-1380:/\&outro=/s
-1381:/token=/s
-1382:/Group\x3D/s
-1383:/Inst(?:all\x3D|alled)/s
-1384:/Ver\x3D/s
-1385:/Ask\x3D/s
-1386:/Bn\x3D/s
-1387:/\/ag\/plugin\.crx/s
-1388:/\/l\/af_l_addon\.xpi/s
-1389:/\/m\/f_l_addon\.xpi/s
-1390:/mac=/s
-1391:/\&t1=/s
-1392:/\&hid=/s
-1393:/\&rid=/s
-1394:/\&dat(?:e=|a=)/s
-1395:/\/HNAP1/s
-1396:/\/tmUnblock\.cgi/s
-1397:/%74%74%63%70%5f%69%70/s
-1398:/%74%74%63%70%5f%69%70%3d.*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1399:/ttcp_ip/s
-1400:/ttcp_ip=.*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1401:/\/download\.asp\?p\=\d/s
-1402:/\/gat(?:e\.php\?|e\.php)/s
-1403:/Conn(?:ection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache\x0D\x0A|ection:\ Keep\-Alive\x0D\x0AAccept:\ \*\/\*\x0D\x0A|ection:\ Keep\-Alive\x0D\x0A\x0D\x0A|ection\x3A\x20Keep\-Alive\x0D\x0A|ection:\ close\x0D\x0A\x0D\x0A|ection\x3A\x20Close\x0D\x0A|ection\x3A\x20close\x0D\x0A|ection:\ Keep\-Alive\x0D\x0A|ection\x3A\x20Keep\-Alive|ection:\ Keep\-Alive|ection:Close\x3B|ection:\ upgrade|ect\.php\?id=|ection\x3A)/s
-1404:/\&c=/s
-1405:/\x3d\x3d/s
-1406:/\/prl\/el\.html/s
-1407:/\/ie\-error\.gif\?action=utility/s
-1408:/\&error=/s
-1409:/[a-z\d\x2f\+\x3d]{10,98}/s
-1410:/bot_id=/s
-1411:/\&imei=/s
-1412:/\&iscallhack=/s
-1413:/\&issmshack=/s
-1414:/\&isrecordhack=/s
-1415:/\&isadmin=/s
-1416:/\&con(?:trol_number=|text=)/s
-1417:/\&number=\&iccid=\&model=/s
-1418:/\/1\/6b\-558694705129b01c0/s
-1419:/[a-z\d\x2b\x2f\x3d]{48,256}/s
-1420:/\.xpg\.com\.br\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A/s
-1421:/\/eh\.html\ HTTP\/1\.1\x0D\x0AContent\-Type:\ text\/html\x0D\x0AHost:/s
-1422:/\&iv=/s
-1423:/\/20/s
-1424:/\/gcs\?alpha=/s
-1425:/\/gdi\?alpha=/s
-1426:/lista/s
-1427:/\.log\x22\x0D\x0A/s
-1428:/\/b\/index\.php\?id=/s
-1429:/\&sen(?:ha=|t=)/s
-1430:/\&notsent=/s
-1431:/\.org\x0D\x0AContent\-Length\x3A\ 128\x0D\x0ACache\-Control\x3A\ no\-cache\x0D\x0A\x0D\x0A/s
-1432:/Host\x3a\s[a-z]{16}\.org\x0d/s
-1433:/\/write/s
-1434:/\/aviatic\/systema\.exe/s
-1435:/\/cache\/pdf\x5Fefax\x5F\d{8,15}\.zip/s
-1436:/PREF=/s
-1437:/\x3E\x00e\x00c\x00h\x00o\x00\x20\x00c\x00m\x00d\x00\x5F\x00b\x00e\x00g\x00i\x00n\x00/s
-1438:/\/[a-f0-9]{32}\.php\?q=[a-f0-9]{32}/s
-1439:/\/hunter\/123\/order\.php/s
-1440:/uid=(?:|0\x28root\x29)/s
-1441:/\&mk=/s
-1442:/\&rs=/s
-1443:/\&rq=/s
-1444:/\/srt\/ge\.php/s
-1445:/\)\&dt=/s
-1446:/pc=/s
-1447:/\&av=/s
-1448:/\&wd=/s
-1449:/\)\r\nHost\x3a\x20[\d\x2e]{7,15}\r\nConnection\x3a\x20Keep\x2dAlive\r\n\r\n/s
-1450:/\/0\.gif\?/s
-1451:/\/workers\.php\?mac=/s
-1452:/\&gpu=/s
-1453:/\/srv2\.php\?param=1\ HTTP\/1\.1\x0D\x0AHost:/s
-1454:/\/re\//s
-1455:/\x2f(css|upload)\x2f[a-z]{2}[0-9]{3}\x2eccs/s
-1456:/=/s
-1457:/[a-z]=[a-f0-9]{98}/s
-1458:/\.rar\ HTTP\/1\.1\x0D\x0AAccept:\ text\/\*,\ application\/\*\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:/s
-1459:/\/[a-z]{1,4}\x2ehtml\x3f0\x2e[0-9]{15,}/s
-1460:/argc=/s
-1461:/\&previous=/s
-1462:/\&bui(?:ld_time=|lddate=|ld=)/s
-1463:/\&ref=/s
-1464:/sid=[0-9A-F]{32}/s
-1465:/\/monitor\.php\?/s
-1466:/myid=/s
-1467:/\&ip=/s
-1468:/\&cgminer=/s
-1469:/\&operatingsystem=/s
-1470:/sms/s
-1471:/\.ashx\?t=/s
-1472:/\/software\x2ephp\x3f[0-9]{15,}/s
-1473:/[\x20-\x7e\r\n]{3}/s
-1474:/\/de\//s
-1475:/method=/s
-1476:/\&app(?:_key=|=)/s
-1477:/\/boydn\/boye\.html/s
-1478:/\&string=/s
-1479:/key=/s
-1480:/\)\ Chrome\//s
-1481:/Prox(?:y\-Connection\x3A\x20Keep\-Alive\x0D\x0A|y\-Authorization:\ Basic\ \x0D\x0A)/s
-1482:/__cfduid=/s
-1483:/dados=/s
-1484:/\&ct=/s
-1485:/\/201/s
-1486:/\&win(?:dows=|=)/s
-1487:/\/token\/token\.html\ HTTP\/1\.1\x0D\x0AUser\-Agent:/s
-1488:/\)\r\nHost\x3a\x20[a-z\d\x2e\x2d]{6,32}\r\nCache\x2dControl\x3a\x20no\x2dcache\r\n\r\n/s
-1489:/\/trdpr\/trde\.html/s
-1490:/\&mod(?:e=sox\&v=|e=text|e=)/s
-1491:/0=/s
-1492:/User\x2dAgent\x3a\x20[A-F\d]{32}\r\n/s
-1493:/%3D%28%29\+%7B/s
-1494:/\/b\/pkg\/T202/s
-1495:/UA\-C(?:PU\x3A\x20|PU:\ |PU)/s
-1496:/\x2fb\x2fpkg\x2fT202[0-9a-z]{10}/s
-1497:/\/x\//s
-1498:/\x2fx\x2f[0-9a-z]{8,10}\x2f[0-9a-f]{32}\x2fAA\x2f0/s
-1499:/\.dll/s
-1500:/\x2fsoft(64|32)\x2edll/s
-1501:/\/b\/shoe\//s
-1502:/\x2fb\x2fshoe\x2f[0-9]{3,5}/s
-1503:/\/jquery\//s
-1504:/\/beta\/order\.php/s
-1505:/!"HT(?:TP\/1"|TP\/")/s
-1506:/\/cbrry\/cbre\.html/s
-1507:/plug=NAO/s
-1508:/\/seo\.php\?username=MAREYOLE\&format=ptp/s
-1509:/\/verifica\/index\.php\?id=/s
-1510:/\/tas(?:ks\.php|ks)/s
-1511:/\&uname=/s
-1512:/\&pword=/s
-1513:/Media\ Center\ PC\ 6\.0/s
-1514:/a1=/s
-1515:/\&a2=step2\-down/s
-1516:/\&a3=/s
-1517:/\&a4=/s
-1518:/11/s
-1519:/[a-z\d\x2f\x2b\x3d]{100}/s
-1520:/Referer\x3a\x20[\x20-\x7E]*?\/wp\x2dadmin\/[a-z\d\x2d]+?\.php\r\n/s
-1521:/\/dmp\/api\//s
-1522:/\/che(?:ck\.action\?iid=|ckupdate\.asmx|ckupdate|ck\?iid=)/s
-1523:/SOAPAction\x3A\x20/s
-1524:/SOAPAction\x3a[\r\n]*Get(ServerTime|FileList|File)\x22/s
-1525:/w1/s
-1526:/\/bbc_mirror\//s
-1527:/CNN_Mirror\/EN/s
-1528:/\/01\/WindowsUpdate/s
-1529:/\/2ldr\.php/s
-1530:/[a-z\d\x2f\x2b\x3d]{100,300}/s
-1531:/\.js\?/s
-1532:/\x2ejs\x3f[a-zA-Z0-9]{9,20}=Mozilla\x2f/s
-1533:/\/r1xpr\/r1xe\.html/s
-1534:/\/m343ff4ufbnmm4uu4nf34m443frr\//s
-1535:/[a-z]\x3d[a-f\d]{126}/s
-1536:/\&browser=/s
-1537:/\&osbuild=/s
-1538:/\&osprod=/s
-1539:/\/12\/index\.php/s
-1540:/\&pcname=/s
-1541:/hwid=/s
-1542:/\&system=/s
-1543:/\&medium=/s
-1544:/rnd=/s
-1545:/\&spfail=/s
-1546:/\&guid=/s
-1547:/\?uid=/s
-1548:/\&kernel=/s
-1549:/\/submit\.action\?username=/s
-1550:/\&pas(?:sword=|s=)/s
-1551:/\.tgz/s
-1552:/\/preview\//s
-1553:/\/bb\/index\.php/s
-1554:/\&usid=/s
-1555:/Loader\x0D\x0A/s
-1556:/Pi\/3\.1415926\x0D\x0A/s
-1557:/in\ my\ heart\ of\ heart\.\x0D\x0A/s
-1558:/\&uinfo=/s
-1559:/\&bits=/s
-1560:/oprat=/s
-1561:/\&sitename=/s
-1562:/hid=/s
-1563:/\&tr=/s
-1564:/\&a=/s
-1565:/\&adm(?:in=|=)/s
-1566:/sid=/s
-1567:/\&st=/s
-1568:/\/ip\/\?client=sp/s
-1569:/\/atJs\/v/s
-1570:/\/Client\//s
-1571:/did=/s
-1572:/build\.tgz/s
-1573:/\/misc\.php\?v=/s
-1574:/\&js=js/s
-1575:/\/idcontact\.php\?/s
-1576:/\&steam=/s
-1577:/\&origin=/s
-1578:/\&webnavig=/s
-1579:/account=/s
-1580:/\&path=/s
-1581:/\/add(?:_user\.php\?name=|\.php)/s
-1582:/_flash/s
-1583:/\&file=/s
-1584:/\&type=/s
-1585:/\/flupdate\//s
-1586:/\/flupdate\/\d\.html/s
-1587:/\/gget_rtemp\.php\?n=/s
-1588:/\/aadd_rtemp\.php\?n=/s
-1589:/\x3D/s
-1590:/[a-z]\x3d[a-f\d]{80,140}/s
-1591:/\/Adminhtml_/s
-1592:/forwarded=/s
-1593:/sname=/s
-1594:/\/vbulletin\/post\.php\?qu=/s
-1595:/ID_MAQUINA=/s
-1596:/\&VERSAO=/s
-1597:/\&WIN=/s
-1598:/\&NAVEGADOR=/s
-1599:/\&PLUGIN=/s
-1600:/\&AV=/s
-1601:/text(?:o=%0D%0A|\/plain)/s
-1602:/A=/s
-1603:/Prag(?:ma\x3A\ no\-cache\x0D\x0A|ma\x3A\x20no\-cache)/s
-1604:/\&os2=/s
-1605:/\.mod/s
-1606:/[a-z]{2}_[a-z0-9]{8}\.mod/s
-1607:/tor/s
-1608:/\/BRS(?:_03B_haveBackupFile_fileRestore\.html|_netgear_success\.html)/s
-1609:/\.swf\?/s
-1610:/styleid=/s
-1611:/\&langid=/s
-1612:/\&d=/s
-1613:/\/atomic\.php/s
-1614:/\/SNews\.asp\?HostID=/s
-1615:/\/STTip\.asp/s
-1616:/\/rp\?v=/s
-1617:/\&u=/s
-1618:/\&f=/s
-1619:/\&i=/s
-1620:/\&v=/s
-1621:/\&bgload=/s
-1622:/\&com(?:puser=|ment=|p=)/s
-1623:/MSIE\ 7\.0\x3B/s
-1624:/=@ev(?:al\(get_magic_quotes_gpc\(\)\?stripslashes\(\$_POST\[|al\(base64_decode\(\$_POST)/s
-1625:/\/rss\/feed\/stream/s
-1626:/\x3F/s
-1627:/boundary=Xu02=\$/s
-1628:/\/vip\.jpg/s
-1629:/\/gt\.jpg\?/s
-1630:/bytes=6433\-/s
-1631:/post=/s
-1632:/\/34gf5y\/r34f3345g/s
-1633:/\|2F\ (?:2A\ 14\ 20\||70\ 6F\ 63\|)/s
-1634:/\x2f\x70\x6f\x63(\d*|\x5f[\x61-\x7a]+)\x2e(\x68\x74\x6d\x6c|\x78(\x6c\x73|\x73\x6c|\x6d\x6c)|\x6a(\x73|\x61\x76a)|\x61\x73\x70|\x70(\x64f|\x70\x74|\x48\x70|\x73\x64)|\x66\x6c\x76|\x73\x77\x66|\x64\x6fc|\x74\x74\x66|\x62\x6d\x70|\x6d(\x70\x33|\x33\x75))/s
-1635:/CONNECT/s
-1636:/\/Query\.asp\?loginid=/s
-1637:/\x9B\x4F\xB0\x75\xE2\x76\x96\x04\x5A\xF1\xF9\x43\xD4\xA2\x6B/s
-1638:/\x76\x13\x85\x45\x17\x1B/s
-1639:/\x7C\x7CCM01\x7CCM02\x7CCM03\x7C/s
-1640:/Expe(?:ct:\ 100\-continue|ct\x3A\x20)/s
-1641:/User-Agent\x3a\x20[A-F0-9]{32}\x0d\x0a/s
-1642:/<br><br><b><big>/s
-1643:/\/News\/gate\.php\x3f[a-f0-9]{32}\x3d\d/s
-1644:/JFIF/s
-1645:/\.p\ HTTP\/1\.1/s
-1646:/\/plugins\/[a-z]{3,10}\.p/s
-1647:/\&arc=/s
-1648:/pl=/s
-1649:/\&education=/s
-1650:/\.bin/s
-1651:/\/[a-f0-9]{32}\/\w+\.bin/s
-1652:/If\-Unmodified\-Since/s
-1653:/Range/s
-1654:/\/img\/script\.php\?/s
-1655:/\/img\/script\.php\x3f.*\.mov/s
-1656:/\.php\x3fd=[A-F0-9]{174}/s
-1657:/UP007/s
-1658:/\/random750x750\.jpg\?x=/s
-1659:/\&y=/s
-1660:/btst=/s
-1661:/snkz=/s
-1662:/\/log\.php\x3f[a-z]\x3d\d{3}/s
-1663:/CODE=/s
-1664:/UID=/s
-1665:/f=/s
-1666:/quant=/s
-1667:/h=/s
-1668:/size=/s
-1669:/User-Agent\x3A\x20[\r\n]*sleep\x28/s
-1670:/\/[a-z0-9]{8,10}\x3f[A-Za-z]{7,10}\x3d[A-Za-z]{6,10}/s
-1671:/zwlviewforumogaf\.php/s
-1672:/GUID=/s
-1673:/BUILD=/s
-1674:/INFO=/s
-1675:/IP=/s
-1676:/TYPE=/s
-1677:/x\-re(?:quested\-with\x3A\x20XMLHttpRequest\x0D\x0A|quested\-with:\ XMLHttpRequest|quested\-with\x3A\x20)/s
-1678:/mashine=/s
-1679:/publ(?:ic\/Check_Exist\.php|ickey=|ic)/s
-1680:/os=/s
-1681:/proc(?:ess=password|essor=)/s
-1682:/\/icloudsyncd/s
-1683:/sdata=/s
-1684:/md5=/s
-1685:/dlen=/s
-1686:/\/victim\.php\?info=/s
-1687:/\/LetsGo\.php\?A=/s
-1688:/Sytem=/s
-1689:/qual=/s
-1690:/!"referer/s
-1691:/iSpy(?:\ Keylogger|Kelogger)/s
-1692:/\/message\.php/s
-1693:/\/UpgSvr\//s
-1694:/\.xml/s
-1695:/as_ft=/s
-1696:/as_q=/s
-1697:/\.do/s
-1698:/\.(do|jar)/s
-1699:/GZIPOK\x3A\x20/s
-1700:/Comp(?:uter\ Information|GZ\x3A\x20)/s
-1701:/ReqType\x3A\x20/s
-1702:/arg=/s
-1703:/isAd(?:min=1|min=)/s
-1704:/[?&]arg=[&]*?([\x60\x3b\x7c]|\x24\x28)/s
-1705:/%26/s
-1706:/[?&]arg=[&]*?%26/s
-1707:/(|&)arg=[&]*?([\x60\x3b\x7c]|\x24\x28|%60|%3b|%7c|%26|%24%28)/s
-1708:/arg/s
-1709:/name\s*=\s*[\x22\x27]?arg((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|\x24\x28)/s
-1710:/cwcsf\-nativemsg\-iframe\-43c85c0d\-d633\-af5e\-c056\-32dc7efc570b\.html/s
-1711:/163=/s
-1712:/\&x=/s
-1713:/\&z=/s
-1714:/\|22\ (?:2C\ 22\|value\x22\x3A|3E\ 20\ 5B\|)/s
-1715:/[?&]id=[&]*?[\d&]/s
-1716:/\x22id\x22\s*\x3A\s*\x22[\x22]*?[\d\x22]/s
-1717:/(|&)ping_IPAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1718:/[?&]ping_IPAddr=[&]*?%26/s
-1719:/[?&]ping_IPAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1720:/(\x2ebat|\x2eexe)/s
-1721:/\/ChromeSetup\.bat/s
-1722:/\/Install\/InstallWizard\.aspx/s
-1723:/exec(?:|uteinstall)/s
-1724:/name\s*=\s*[\x22\x27]?host_name((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1725:/(|&)host_name=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1726:/[?&]host_name=[&]*?%26/s
-1727:/[?&]host_name=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1728:/\/wroot\/v3/s
-1729:/uuid=/s
-1730:/\/\/Home\//s
-1731:/z9=base64%5fdecode/s
-1732:/=%40eval/s
-1733:/=edoced_46esab/s
-1734:/z0=/s
-1735:/\/shell\?/s
-1736:/SessionID:/s
-1737:/\/JP\-ja\/js\?/s
-1738:/pq=google\&sc=8\-1\&sp=\-1\&sk=/s
-1739:/\/mm\.jpg/s
-1740:/WashingTon/s
-1741:/WebMaster@Microsoft\.com/s
-1742:/@\xE9\x03\x00\x00\x00\x00\x00\x00\x00\x00\x64/s
-1743:/\/\d{8}\/\w{4}\/[A-F0-9]{4}\/[A-F0-9]{4}\/[A-Z0-9\-_~]{12}\.[aj]sp/s
-1744:/\/\.svn\/entries/s
-1745:/\/soap\/soaplet\/soaprouter/s
-1746:/repo(?:rtId=|rtId)/s
-1747:/(|&)reportId=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
-1748:/name\s*=\s*[\x22\x27]?reportId((?!--).)*?\x2e\x2e[\x2f\x5c]/s
-1749:/[?&]scriptName=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
-1750:/Host\x3A[\x0a]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1751:/WebKitFormBoundary/s
-1752:/Dalvik\//s
-1753:/Android/s
-1754:/\/pockemon\/squirtle\/functions\.php/s
-1755:/waitPingqry/s
-1756:/[?&]pingAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1757:/[?&]pingAddr=[&]*?%26/s
-1758:/(|&)pingAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1759:/name\s*=\s*[\x22\x27]?pingAddr((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1760:/\/QualityCheck\/ni6\.php/s
-1761:/todo=syscmd/s
-1762:/\/aspnet_client\/system_web\/4_0_30319\/update\//s
-1763:/\$IFS/s
-1764:/Win64\x3B\sx64\x29\x3B\s[0-9]{16}\w{16}\x0D\x0A/s
-1765:/%D0%8BTl%DC/s
-1766:/butt(?:on=Login|on=)/s
-1767:/cadata=/s
-1768:/\/W3SVC/s
-1769:/hst=/s
-1770:/ttype=/s
-1771:/guid=/s
-1772:/details=/s
-1773:/\/click\?h=/s
-1774:/subid=/s
-1775:/k=/s
-1776:/\?q=/s
-1777:/delete_offline_client=/s
-1778:/[?&]delete_offline_client=[&]{14}/s
-1779:/fp_vs=/s
-1780:/os_vs=/s
-1781:/\/A56WY/s
-1782:/pc_data=/s
-1783:/\/football\/download\//s
-1784:/cnumber=/s
-1785:/orname=/s
-1786:/\&pc=/s
-1787:/appl(?:ication\/java\-vm|y\.cgi)/s
-1788:/[?&](wait_time|ping_ip|ping_size|submit_type|traceroute_ip)=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
-1789:/(|&)(wait_time|ping_ip|ping_size|submit_type|traceroute_ip)=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
-1790:/(|&)ping(\x5f|%5f)(ip|size|times)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1791:/next(?:=\.\.\/|_page=)/s
-1792:/(|&)next_page=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
-1793:/[?&]next_page=[&]*?\x2e\x2e\x2f/s
-1794:/[?&]ping_(ip|size|times)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1795:/[?&]ping(\x5f|%5f)(ip|size|times)=[&]*?%26/s
-1796:/Cpa=\+EXEC\+/s
-1797:/%27%2C%27/s
-1798:/mfgtst\.cgi/s
-1799:/[?&]ping_ip=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1800:/[?&]ping(\x5f|%5f)ip=[&]*?%26/s
-1801:/(|&)ping(\x5f|%5f)ip=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1802:/name\s*=\s*[\x22\x27]?ping_ip((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1803:/SMB_/s
-1804:/[?&]SMB_(LOCATION|USERNAME)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1805:/[?&]SMB(\x5f|%5f)(LOCATION|USERNAME)=[&]*?%26/s
-1806:/SMB/s
-1807:/(|&)SMB(\x5f|%5f)(LOCATION|USERNAME)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1808:/name\s*=\s*[\x22\x27]?SMB_(LOCATION|USERNAME)((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1809:/\/router\-info\.htm/s
-1810:/factory=/s
-1811:/OjI2OiJraWNrc3RhcnQuc2V0dXAuc291cmNlZmlsZSI7/s
-1812:/aHR0cDovL/s
-1813:/element_parents=/s
-1814:/\#value/s
-1815:/(%23|#)(submit|validate|access_callback|pre_render|post_render|lazy_builder|%6c%61%7a%79%5f%62%75%69%6c%64%65%72)/s
-1816:/\/wlg_sec_profile_main\.cgi/s
-1817:/ssid=/s
-1818:/ssid=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
-1819:/\/fw_serv_add\.cgi/s
-1820:/userdefined=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
-1821:/add\.php\?apikey=/s
-1822:/\&phase=/s
-1823:/win32=FFD8FFE000104A464946/s
-1824:/\/up_d\.php/s
-1825:/\/q2\/index\.php\?/s
-1826:/\&il=/s
-1827:/\&vr=/s
-1828:/\&bt=/s
-1829:/99=/s
-1830:/f1=/s
-1831:/1=/s
-1832:/2=/s
-1833:/(|&)\d{1,2}=[&]*?\d{4}/s
-1834:/\/twonky_cmd\.cgi/s
-1835:/[?&]path=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1836:/[?&]path=[&]*?%26/s
-1837:/(|&)path=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1838:/name\s*=\s*[\x22\x27]?path((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1839:/url=/s
-1840:/[?&]url=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1841:/[?&]url=[&]*?%26/s
-1842:/(|&)url=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1843:/url/s
-1844:/name\s*=\s*[\x22\x27]?url((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1845:/n=TLNET_EN/s
-1846:/v=1/s
-1847:/.php\?q=\d{1,4}\.\d{2,4}\.\d{1,3}\.\d{1,3}\.\d{1,3}\.[0-9a-f]{64}\.1.\d{4,6}/s
-1848:/inputFilePath/s
-1849:/name\s*=\s*[\x22\x27]inputFilePath[\x22\x27]\x3b((?!--).)*?filename\s*=\s*[\x22\x27]\S+?\x2easpx?[\x22\x27][\r\n]{2,}/s
-1850:/skinFile/s
-1851:/name\s*=\s*[\x22\x27]skinFile[\x22\x27]\x3b((?!--).)*?filename\s*=\s*[\x22\x27]\S+?\x2easpx?[\x22\x27][\r\n]{2,}/s
-1852:/selInfoKey1=/s
-1853:/[?&]selInfoKey1=[&]*?([\x27\x22\x3b\x23]|\x2f\x2a|\x2d\x2d)/s
-1854:/(|&)selInfoKey1=[&]*?([\x27\x22\x3b\x23]|\x2f\x2a|\x2d\x2d|%27|%22|%3b|%23|%2f%2a|%2d%2d)/s
-1855:/[?&]command_data=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
-1856:/[?&]command(\x5f|%5f)data=[&]*?%26/s
-1857:/(|&)command(\x5f|%5f)data=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
-1858:/name\s*=\s*[\x22\x27]?command_data((?!--).)*?[\r\n]{2,}((?!--).)*?([\x60\x3b\x7c\x26]|[\x3c\x3e\x24]\x28)/s
-1859:/txtDBname=nagiosql/s
-1860:/\?fort=/s
-1861:/pol=/s
-1862:/id/s
-1863:/id=Z29nbw==/s
-1864:/\/spyMobile\/upload\.php/s
-1865:/iemi=/s
-1866:/(|&)template=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
-1867:/[?&]template=[&]*?\x2e\x2e\x2f/s
-1868:/name\s*=\s*[\x22\x27]?template((?!--).)*?\x2e\x2e[\x2f\x5c]/s
-1869:/Winnet\ Client/s
-1870:/\/cab\/sts\.exe/s
-1871:/\/DesktopModules\/DreamSlider\/DownloadProvider\.aspx/s
-1872:/\.NET\ CLR\ 3\.0\.30729\x3B\ \.NET4\.0C\x3B\ \.NET4\.0E\)\x0D\x0AContent\-Length/s
-1873:/\/panel\/logout\.php/s
-1874:/\&b=/s
-1875:/\&e=/s
-1876:/OPTIONS/s
-1877:/Discovery\x0D\x0A/s
-1878:/\/00/s
-1879:/\/www\/(%[A-F0-9]{2}){5,}\/00/s
-1880:/\&code=/s
-1881:/de=/s
-1882:/_v=/s
-1883:/_s=/s
-1884:/pid=/s
-1885:/cid=/s
-1886:/act=/s
-1887:/=WyJ1cmw/s
-1888:/\?os=/s
-1889:/\&fw=/s
-1890:/\&hwid=/s
-1891:/\/media\/com_biblestudy\/backup\//s
-1892:/\.sql/s
-1893:/\/dot\.php/s
-1894:/param=/s
-1895:/\/tahw\?/s
-1896:/\x2ftahw\x3f[A-F0-9]{3,84}/s
-1897:/\/khc\?/s
-1898:/\x2fkhc\x3f[A-F0-9]{3,84}/s
-1899:/\/pser\?/s
-1900:/\x2fpser\x3f[A-F0-9]{3,84}(BBZ|BBY)/s
-1901:/MS_D0wnl0ad3r/s
-1902:/browser\/Vivaldi\.txtPK/s
-1903:/\/Libs\.zip/s
-1904:/\/dl\.itranslator\.info\//s
-1905:/\/gl\.php\?uid=/s
-1906:/\/ufiles\//s
-1907:/UID:(?:\ P002\x0D\x0A|\ )/s
-1908:/\&ua=/s
-1909:/\&itwm=/s
-1910:/&itwm=([a-z0-9\-\=]{1,50})/s
-1911:/\/pkg\/image\/do\.php/s
-1912:/\/Templates\/NormalOld\.dotm/s
-1913:/\&xnvk=/s
-1914:/\/qgHUDRZiYhOqQiN\/kESklNvxsNZQcPl\.php/s
-1915:/\/foth1018\/go\.php/s
-1916:/\/MarkQuality455\/developerbuild\.php\?b=/s
-1917:/\?misc=/s
-1918:/\&dl=/s
-1919:/\&MAC=/s
-1920:/\&OS=/s
-1921:/\&BIT=/s
-1922:/\&GUID=/s
-1923:/\&_T=/s
-1924:/word=/s
-1925:/note=/s
-1926:/\/indox\.php\x3fv=(pp|pe|s)/s
-1927:/\/board\.php/s
-1928:/\/board\.php\?(m=[0-9A-F]{0,12}&)?(v=([abcef]|\d+\.\d+))/s
-1929:/\/ipecs\-cm\/download/s
-1930:/(|&)file(name|path)=[&]*?(\x2e|%(25)?2e){2}([\x2f\x5c]|%(25)?(2f|5c))/s
-1931:/[?&]file(name|path)=[&]*?\x2e\x2e\x2f/s
-1932:/filename\s*=\s*[\r\n]*?(\x2e|%(25)?2e){2}([\x2f\x5c]|%(25)?(2f|5c))/s
-1933:/name\s*=\s*[\x22\x27]?file(name|path)((?!--).)*?\x2e\x2e[\x2f\x5c]/s
-1934:/\.ahk/s
-1935:/\/\?gate\&hwid=/s
-1936:/\&pwd=/s
-1937:/pcuser/s
-1938:/_reguestguid/s
-1939:/Response\.Write\(\x22UAshell\x22\)\x3B\x0D\x0A/s
-1940:/\/ua\.aspx/s
-1941:/\/recv_android\.php/s
-1942:/PATCH/s
-1943:/X\-Installer\-/s
-1944:/X\-Fi(?:le\-Name:|nder\-)/s
-1945:/bi=/s
-1946:/sd=/s
-1947:/vs=/s
-1948:/ar=/s
-1949:/\/link\.php\?.{4,20}&\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/s
-1950:/alphayz=/s
-1951:/_spacertoofee=/s
-1952:/hondacbrheavy/s
-1953:/_truthcolor=/s
-1954:/dramafrine/s
-1955:/\/vpns\//s
-1956:/NSC_USER:/s
-1957:/\*dJU!\*JE\&!M@UNQ@/s
-1958:/t34kjfdla45l/s
-1959:/_web(?:ident_f|ident_s)/s
-1960:/(\/check|\/v1\/stats|\/gql|\/1.5\/95648064|\/u\/0\/_\/og\/botguard\/get|\/ev\/\w{3}001001)/s
-1961:/ses\-/s
-1962:/(\/api2|\/en-us|\/gp|\/v1|\/v3|\/v4|\/wp-content|\/wp-includes)/s
-1963:/gnt_ub=86\x5C\x3Bgnt_sb=18\x5C\x3Busprivacy=1YNY\x5C\x3BDigiTrust\.v1\.identity=/s
-1964:/\/v1\/push/s
-1965:/cli/s
-1966:/l\-/s
-1967:/sess\-=/s
-1968:/\x2f(updates|license\x2feula|docs\x2foffice|software-activation)/s
-1969:/nid/s
-1970:/msg\-/s
-1971:/Sec\-Fetch\-Dest:/s
-1972:/empty/s
-1973:/parent_request_id=/s
-1974:/parent_request_id=[&\x3B]{128}/s
-1975:/_gat(?:_global=1|_www=1)/s
-1976:/recent_locations/s
-1977:/bse=/s
-1978:/bse=[&\x3B]{128}/s
-1979:/client\-=/s
-1980:/\/v1\/(queue|profile|docs\/wsdl|pull)/s
-1981:/nyt\-gdpr=0\x3Bnyt\-purr=cfh\x3Bnyt\-geo=US\}/s
-1982:/GET\s(?:\/ads\/google|\/vi-assets\/static-assets|\/v1\/preferences|\/idcta\/translations|\/v2\/preferences)/s
-1983:/POST\s(?:\/track|\/api\/v1\/survey\/embed|\/svc\/weather\/v2)/s
-1984:/\/DDIService\.svc\/SetObject/s
-1985:/VirtualDirectory/s
-1986:/ExternalUrl/s
-1987:/FilePathName/s
-1988:/\/mgmt\/tm\/util\/bash/s
-1989:/X\-CMD\x3A/s
-1990:/X\-KEY\x3A/s
-1991:/hashid=/s
-1992:/chec(?:kgroups|kcode=)/s
-1993:/\/licenseserverproto\.cgi/s
-1994:/(|&)(server)?id=/s
-1995:/(|&)id=/s
-1996:/\/mee(?:ting_testmsjava\.cgi|ting_testjs\.cgi)/s
-1997:/(|&)(name|img|cert)=/s
-1998:/[?&]id=/s
-1999:/\/adfs\/services\/policystoretransfer/s
-2000:/KComWExec\.execCmd/s
-2001:/Emai(?:l=|l)/s
-2002:/(|&)Email=[&]*?(\x2f|%(25)?2f)autodiscover/s
-2003:/[?&]Email=[&]*?\x2fautodiscover/s
-2004:/name\s*=\s*[\x22\x27]?Email((?!--).)*?[\r\n]{2,}((?!--).)*?\x2fautodiscover/s
-2005:/Email=[\x3b\r\n]*?(\x2f|%(25)?2f)autodiscover/s
-2006:/\$\{jndi:/s
-2007:/\$\{lower:/s
-2008:/\x24{(\x24{(upper|lower):j}|j)(\x24{(upper|lower):n}|n)(\x24{(upper|lower):d}|d)(\x24{(upper|lower):i}|i)(\x24{(upper|lower)::}|:)/s
-2009:/jndi/s
-2010:/(%(25)?24|\x24)(%(25)?7b|\x7b)jndi(%(25)?3a|\x3a)/s
-2011:/\$\{upper:/s
-2012:/lower/s
-2013:/(%(25)?24|\x24)(%(25)?7b|\x7b)lower(%(25)?3a|\x3a)/s
-2014:/upper/s
-2015:/(%(25)?24|\x24)(%(25)?7b|\x7b)upper(%(25)?3a|\x3a)/s
-2016:/%24%(?:257b|7b)/s
-2017:/%24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2018:/\$\{/s
-2019:/\x24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2020:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d\x80-\xff]*?\x3a[\x7d]*?\x7d)/s
-2021:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d]*?\x3a[\x7d]*?\x7d)/s
-2022:/%2524%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2023:/%24\{/s
-2024:/%24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2025:/%2524\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2026:/%24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2027:/\$%7b/s
-2028:/\x24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2029:/\$%257b/s
-2030:/\x24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2031:/%2524%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2032:/\x24\x7b(jndi|lower|upper|.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*[jndi\x7d\x3a\x2d]{1,4}[\x22\x27]?[\x3a\x7djndi])/s
-2033:/\.class/s
-2034:/\.action/s
-2035:/getRuntime/s
-2036:/pty\.spawn\(\x22\/bin\//s
-2037:/sh/s
-2038:/\x24\x7b[\x7d]*?javax?\x2e[\x7d]*?\x28/s
-2039:/Powershell/s
-2040:/i/s
-2041:/i[\w-]{2,20}=[\w-]{2,50}_\d{2,20}/s
-2042:/Accept-Encoding:\x20*[\r\n]*\x2c[\x20\x09]*\x2c/s
-2043:/\x24\x7b.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*([jndi\x7d\x3a\x2d]|\x5cu00[a-f0-9]{2}){1,4}[\x22\x27]?[\x3a\x7djndi]/s
-2044:/X\-F5\-Auth/s
-2045:/Connection:[\r\n]*?X-F5-Auth/s
-2046:/\^\xB0\x02\x89\x06\xFE\xC8\x89F\x04\xB0\x06\x89F/s
-2047:/Logi(?:n\ failed\ for\ user\ 'sa'|n\ incorrect|n\ failed)/s
-2048:/Comm(?:and\ completed|and=BEGIN)/s
-2049:/Command\s+?completed\b/s
-2050:/Bad\ command\ or\ filename/s
-2051:/O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82/s
-2052:/G\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1F/s
-2053:/\x08(?:|!\x02\x80\x08!\x02\x80\x08!\x02\x80\x08!\x02\x80|D\x00B\x00S\x00Q\x000\x000\x001\x007\x00)/s
-2054:/\|13\ (?:2F\ 22\ 35\ 22\ 67\ 26\ 35\ 22\ 29\ 27\ 33\ 67\ 28\ 37\ 22\ 29\ 67\ 37\ 28\ 35\ 33\ 34\ 69\||C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\|)/s
-2055:/\|82\ (?:F4\ DE\ D4\ D3\ C2\ CA\ F5\ C8\ C8\ D3\ 82\ FB\ F4\ DE\ D4\ D3\ C2\ CA\ 94\ 95\ FB\ D4\ D1\ C4\ CF\ C8\ D4\ D3\ 89\ C2\ DF\ C2\ 87\ 8A\ CC\ 87\ 00\||10\|\ \|17\ 91\ D0\|\ \|08\|)/s
-2056:/\|B0\ (?:00\ B0\ 00\ B0\ 00\ B0\ 00\ 26\ 00\ 26\ 00\ 26\ 00\||B5\ CD\ 80\||17\ CD\ 80\|)/s
-2057:/CCCCCCCCCCCCCCCCCCCCCCCC/s
-2058:/gid=/s
-2059:/uid=\d{1,5}\S+\s+gid=\d{1,5}/s
-2060:/\|05\ (?:00\|>|00\|)/s
-2061:/ADMINISTRATOR/s
-2062:/@\//s
-2063:/@PJL\ RDYMSG\ DISPLAY\ =/s
-2064:/Inva(?:lid\ login|lid\ URL)/s
-2065:/\+\x06\x10@\x14\xD1\x02\x19/s
-2066:/\x06public/s
-2067:/private/s
-2068:/MSG/s
-2069:/INVITE/s
-2070:/GNUT(?:ELLA\ CONNECT|ELLA\ OK|ELLA)/s
-2071:/\/announce/s
-2072:/peer_id=/s
-2073:/\x13BitTorrent\ protocol/s
-2074:/ExecuteFile/s
-2075:/blob(?:headername2=Location|headername2=Refresh|headervalue2=)/s
-2076:/\/builds\//s
-2077:/fflists\.txt/s
-2078:/PCRatd/s
-2079:/\/buy\-sell\/search\.asp\?newsid=/s
-2080:/Gh0st/s
-2081:/\/0\/\ HTTP\/1\./s
-2082:/Hz,RAM\x3A/s
-2083:/KrisR/s
-2084:/Time\ of\ Recording:/s
-2085:/IP\ Address/s
-2086:/send(?:|\x7CG\x7C\x7CCont\x7Cacts\x7C|uuname|sys|me)/s
-2087:/\x1B\x17\xE9\xE9\xE9\xE9/s
-2088:/response=fallback/s
-2089:/gpu=/s
-2090:/Information/s
-2091:/false\x2A\x2D\x5DNK\x5B\x2D\x2A/s
-2092:/\x72\x00\x17com\.net\.LoginDataPacket/s
-2093:/X\-CA\-/s
-2094:/ProClient\.Data/s
-2095:/Clientx\x2C\x20Version=/s
-2096:/WinGate>/s
-2097:/to\ su\ root/s
-2098:/not\ on\ system\ console/s
-2099:/RFB\ 0/s
-2100:/\.0/s
-2101:/Volume\ Serial\ Number/s
-2102:/E_\x00\x03\x05/s
-2103:/\xE2\x1D\x49\x49/s
-2104:/\x49\x49\x49\x49/s
-2105:/\x81/s
-2106:/\x81.{1,9}\x7b\x22children\x22\x3a\x5b\x7b\x22name\x22\x3a\x22[a-z0-9_\x2e]+\x22\x2c\x22value\x22\x3a\x22[a-z0-9\x2b\x2f]+={0,2}\x22\x7d/s
-2107:/ST/s
-2108:/550\ 5\.7\.1/s
-2109:/echo(?:\ \x22\ \+\ \+\ \x22|\ \x22\+\ \+\x22)/s
-2110:/bin\x00bin\x00/s
-2111:/\-froot\x00/s
-2112:/(\d{1,5})?\x00?[\x00]+?\x00root\x00/s
-2113:/\x01(?:|1\xDB\xCD\x80\xE8\[\xFF\xFF\xFF|rlogind\x3A\ Permission\ denied\.)/s
-2114:/Location\s*\x3a\s*\w+\x3a\/\/([\n]*\x3a)?[\n]{128}/s
-2115:/A/s
-2116:/VERSION\x0A/s
-2117:/Amanda/s
-2118:/cybercop/s
-2119:/x\|00(?:\|p\x00_\x00c\x00m\x00d\x00s\x00h\x00e\x00l\x00l\x00|\|p\x00_\x00s\x00p\x00r\x00i\x00n\x00t\x00f\x00|\|p\x00_\x00r\x00e\x00g\x00)/s
-2120:/9\ \xD0\x00\x92\x01\xC2\x00R\x00U\x009\ \xEC\x00/s
-2121:/H\x00%\x00x\x00w\x00\x90\x00\x90\x00\x90\x00\x90\x00\x90\x003\x00\xC0\x00P\x00h\x00\.\x00/s
-2122:/r\x00a\x00i\x00s\x00e\x00r\x00r\x00o\x00r\x00/s
-2123:/<!/s
-2124:/MIT\-MAGIC\-COOKIE\-1/s
-2125:/l\x00\x0B\x00\x00\x00\x00\x00\x00\x00\x00\x00/s
-2126:/\-soa\ %p/s
-2127:/Version_Mapper/s
-2128:/GOBBLES/s
-2129:/1/s
-2130:/!"000,offset\ 11/s
-2131:/\x04\x82\x01\x00/s
-2132:/0\&\x02\x01\x00\x04\x06public\xA0\x19\x02\x01\x00\x02\x01\x00\x02\x01\x000\x0E0\x0C\x06\x08\+\x06\x01\x02\x01\x01\x05\x00\x05\x00/s
-2133:/\|04\ (?:01\ 00\||00\|)/s
-2134:/\x30(\x84....|\x82..|[\x80-\xFF])\x02(\x84\x00\x00\x00\x01.|\x82\x00\x01.|\x01.)\x04\x00/s
-2135:/08\x02\x01\x00\x04\x06public\xA4\+\x06/s
-2136:/Content-Type\x3a\s*(?=[av])(video\/x\-ms\-(w[vm]x|asf)|a(udio\/x\-ms\-w(m[av]|ax)|pplication\/x\-ms\-wm[zd]))/s
-2137:/0534CF61\-83C5\-4765\-B19B\-45F7A4E135D0/s
-2138:/obje(?:ctClass|ct)/s
-2139:/object\s[>]*type\s*=\s*[\x22\x27][\x22\x27]*\x2f{32}/s
-2140:/setTimeout\x28/s
-2141:/setTimeout\x28[\x22\x27][\x2C]*?\x5cx[\da-f]{2}[\x2C]*?[\da-f]{2,}\x5cx[\da-f]{2}/s
-2142:/addEventListener\x28/s
-2143:/addEventListener\x28[\x22\x27][\x2C]*?\x5cx[\da-f]{2}[\x2C]*?[\da-f]{2,}\x5cx[\da-f]{2}/s
-2144:/eval\(function\(p,a,c,k,e,r\)/s
-2145:/\x5B\x27parse\x27\x2B\x27Int\x27\x5D\x28/s
-2146:/MZ/s
-2147:/\x4C\x4C/s
-2148:/\x75\x14\x2A\x2A/s
-2149:/\|8A\ (?:10\ 80\ EA\ 62\ 80\ F2\ B4\ 88\ 10\||10\ 80\ C2\ 3A\ 80\ F2\ 73\ 88\ 10\||10\ 80\ C2\ 4E\ 80\ F2\ 79\ 88\ 10\||10\ 80\ C2\ 67\ 80\ F2\ 24\ 88\ 10\|)/s
-2150:/Sleepy!@\#qaz13402scvsde890/s
-2151:/\|0C\ (?:1F\ 1F\ 1F\ 4F\ 50\ 4C\ 4B\ 3F\ 57\ 4B\ 4B\ 4F\ 3F\ 4D\ 5A\ 4E\ 4A\ 5A\ 4C\ 4B\ 20\||1F\ 1F\ 1F\ 4D\ 5A\ 4C\ 4F\ 50\ 51\ 4C\ 5A\ 3F\ 2D\ 2F\ 2F\ 3F\ 50\ 54\ 3E\ 3E\ 3E\|)/s
-2152:/\xD3\xC4\xD2\xD1\xCE\xCF\xD2\xC4\xA1\xB3\xB1\xB1\xA1\xCE\xCA\xA0\xA0\xA0/s
-2153:/\x4F\x50\x4C\x4B\x3F\x57\x4B\x4B\x4F\x3F\x4D\x5A\x4E\x4A\x5A\x4C\x4B\x20\x1F/s
-2154:/\x15\x02\x14\x17\x08\x09\x14\x02\x67\x75\x77\x77\x67\x08\x0C\x66\x66\x66/s
-2155:/\|43\ (?:47\ 47\ 47\ 42\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 4F\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 43\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 4E\ 67\ 47\ 47\||47\ 47\ 47\ 45\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 44\ 67\ 47\ 47\|)/s
-2156:/\xD1\xCE\xD2\xD5\xA1\xC9\xD5\xD5\xD1\xA1\xD3\xC4\xD0\xD4\xC4\xD2\xD5\xBE/s
-2157:/,\|22(?:\|installerBehavior\x22:\{\x22hideOnInstall\x22:|\|countryId\x22:)/s
-2158:/option=com_joomlaupdate/s
-2159:/task(?:=update\.install|Id=)/s
-2160:/cgi\-bin\/create_user\.cgi/s
-2161:/subfun=/s
-2162:/VERIFY=/s
-2163:/ActiveXObject/s
-2164:/WScript\.Shell/s
-2165:/p\ o\ w\ e\ r\ s\ h\ e\ l\ l/s
-2166:/\xE0\x00\x00\x00\x00\x00/s
-2167:/MS_T120\x00/s
-2168:/Oracle\ Applications\ One\-Hour\ Install/s
-2169:/\/ab2\//s
-2170:/\/nstelemetry\.adp/s
-2171:/whois\x3A\/\//s
-2172:/Authorization\x3a(\s*|\s*\r?\n\s+)Basic\s+OmFkbWlu/s
-2173:/Authorization\x3a\s*Basic\s+(?-i)YWRtaW46YWRtaW4[=\s]/s
-2174:/\ \|3A(?:\|\.DCC\ CHAT\ chat|\|\.DCC\ SEND)/s
-2175:/select/s
-2176:/union/s
-2177:/where/s
-2178:/\ lik(?:e\ \x22%\x22|e\ '%')/s
-2179:/desc(?:ription=\x28|ribe\ )/s
-2180:/all_(?:constraints|tab_columns|tab_privs|tables|source|views)/s
-2181:/dba_(?:tablespace|tables)/s
-2182:/sys\.(?:dbms_repcat_fla_mas\.drop_column_group_from_flavor|dbms_repcat_sna_utl\.unregister_snapshot_repgroup|dbms_repcat_untrusted\.register_snapshot_repgroup|dbms_defer_repcat\.enable_propagation_to_dblink|dbms_repcat_fla_mas\.add_column_group_to_flavor|dbms_repcat_sna_utl\.alter_snapshot_propagation|dbms_repcat_sna_utl\.register_snapshot_repgroup|dbms_defer_internal_sys\.parallel_push_recovery|dbms_repcat_fla_mas\.obsolete_flavor_definition|dbms_repcat_conf\.comment_on_update_resolution|dbms_repcat_conf\.comment_on_delete_resolution|dbms_repcat_sna_utl\.refresh_snapshot_repgroup|dbms_repcat_fla_mas\.publish_flavor_definition|dbms_repcat_conf\.comment_on_unique_resolution|dbms_repcat_sna\.unregister_snapshot_repgroup|dbms_repcat_sna_utl\.create_snapshot_repgroup|dbms_repcat_mas\.generate_replication_package|dbms_repcat_fla_mas\.drop_columns_from_flavor|dbms_aq_import_internal\.aq_table_defn_update|dbms_internal_repcat\.disable_receiver_trace|dbms_repcat_fla_mas\.purge_flavor_definition|dbms_repcat_sna_utl\.drop_snapshot_repobject|dbms_repcat_sna_utl\.drop_snapshot_repgroup|dbms_repcat_sna\.register_snapshot_repgroup|dbms_internal_repcat\.enable_receiver_trace|dbms_repcat_sna_utl\.switch_snapshot_master|dbms_repcat_fla\.validate_flavor_definition|dbms_repcat_conf\.comment_on_priority_group|dbms_repcat_sna\.alter_snapshot_propagation|dbms_repcat_sna\.refresh_snapshot_repschema|dbms_repcat_mas\.rename_shadow_column_group|dbms_repcat_sna\.create_snapshot_repobject|dbms_repcat_fla\.validate_for_local_flavor|dbms_repcat_sna\.generate_snapshot_support|dbms_repcat_sna\.validate_for_local_flavor|dbms_repcat_conf\.alter_priority_nvarchar2|dbms_repcat_fla_mas\.add_columns_to_flavor|dbms_repcat_sna\.create_snapshot_repschema|dbms_repcat_conf\.alter_site_priority_site|dbms_repcat_conf\.comment_on_site_priority|dbms_repcat_sna\.refresh_snapshot_repgroup|dbms_repcat_mas\.do_deferred_repcat_admin|dbms_repcat_conf\.alter_priority_varchar2|dbms_repcat_conf\.drop_site_priority_site|dbms_repcat_auth\.revoke_surrogate_repcat|dbms_repcat_conf\.drop_priority_nvarchar2|dbms_repcat_sna\.create_snapshot_repgroup|dbms_repcat_mas\.create_master_repobject|dbms_repcat_conf\.add_priority_nvarchar2|dbms_repcat_fla\.drop_object_from_flavor|dbms_repcat_fla\.begin_flavor_definition|dbms_repcat_conf\.drop_unique_resolution|dbms_repcat_mas\.suspend_master_activity|dbms_repcat_sna\.drop_snapshot_repschema|dbms_repcat_auth\.grant_surrogate_repcat|dbms_repcat_sna\.drop_snapshot_repobject|dbms_repcat_conf\.drop_update_resolution|dbms_repcat_fla\.abort_flavor_definition|dbms_repcat_conf\.drop_priority_varchar2|dbms_repcat_conf\.drop_delete_resolution|dbms_repcat_conf\.add_site_priority_site|dbms_repcat_sna_utl\.repcat_import_check|dbms_repcat_sna\.switch_snapshot_master|dbms_repcat_conf\.add_priority_varchar2|dbms_repcat_conf\.add_unique_resolution|dbms_repcat_conf\.alter_priority_number|dbms_repcat_mas\.alter_master_repobject|dbms_repcat_conf\.define_priority_group|dbms_repcat_sna\.drop_snapshot_repgroup|dbms_repcat_mas\.resume_master_activity|dbms_repcat_conf\.add_update_resolution|dbms_repcat_conf\.add_delete_resolution|dbms_repcat_utl4\.drop_master_repobject|dbms_aqadm\.verify_queue_types_no_queue|dbms_repcat_mas\.create_master_repgroup|dbms_aqadm\.verify_queue_types_get_nrp|dbms_repcat_conf\.alter_priority_nchar|dbms_repcat_conf\.define_site_priority|dbms_repcat_conf\.drop_priority_number|dbms_repcat_conf\.alter_priority_date|dbms_repcat_fla\.ensure_not_published|dbms_repcat_conf\.add_priority_number|dbms_repcat_conf\.alter_site_priority|dbms_repcat_mas\.comment_on_repobject|dbms_repcat_mas\.drop_master_repgroup|dbms_repcat_conf\.register_statistics|dbms_repcat_fla\.add_object_to_flavor|dbms_repcat_conf\.alter_priority_char|dbms_repcat_conf\.drop_priority_nchar|dbms_repcat_conf\.drop_site_priority|dbms_repcat_conf\.add_priority_nchar|dbms_repcat\.alter_mview_propagation|dbms_repcat_conf\.drop_priority_char|dbms_repcat_mas\.comment_on_repgroup|dbms_repcat_sna\.repcat_import_check|dbms_repcat_conf\.alter_priority_raw|dbms_repcat_conf\.drop_priority_date|dbms_repcat_conf\.add_priority_date|dbms_repcat_conf\.drop_priority_raw|dbms_repcat_conf\.cancel_statistics|dbms_repcat_conf\.add_priority_char|dbms_repcat_mas\.relocate_masterdef|dbms_aqadm_sys\.verify_queue_types|dbms_repcat_conf\.purge_statistics|dbms_repcat_conf\.add_priority_raw|dbms_repcat_fla\.set_local_flavor|dbms_repcat_mas\.purge_master_log|dbms_repcat_sna\.set_local_flavor|dbms_rectifier_diff\.differences|dbms_repcat_conf\.alter_priority|dbms_repcat_utl\.drop_an_object|dbms_repcat_conf\.drop_priority|dbms_internal_repcat\.validate|dbms_rectifier_diff\.rectify|dbms_repcat_utl\.is_master|dbms_repcat_rq\.add_column|ltutil\.pushdeferredtxns|dbms_system\.ksdwrt|all_users)/s
-2183:/grant/s
-2184:/to/s
-2185:/alte(?:r\ database|r\ table|r\ user|r)/s
-2186:/identified\ by/s
-2187:/drop\ table/s
-2188:/crea(?:te\ database|te\ table|te)/s
-2189:/truncate\ table/s
-2190:/dbms(?:_repcat_instantiate\.drop_site_instantiation|_repcat_instantiate\.instantiate_offline|_repcat_admin\.unregister_user_repgroup|_repcat_instantiate\.instantiate_online|_repcat_sna_utl\.register_flavor_change|_repcat\.drop_column_group_from_flavor|_repcat_auth\.revoke_surrogate_repcat|_repcat\.comment_on_update_resolution|_repcat\.generate_replication_trigger|_repcat\.comment_on_unique_resolution|_offline_og\.resume_subset_of_masters|_repcat\.generate_replication_support|_repcat_admin\.register_user_repgroup|_repcat\.comment_on_delete_resolution|_repcat\.generate_replication_package|_repcat\.unregister_snapshot_repgroup|_repcat\.send_and_compare_old_values|_repcat_rgt\.drop_site_instantiation|_repcat\.rename_shadow_column_group|_repcat\.alter_snapshot_propagation|_repcat\.register_snapshot_repgroup|_repcat\.add_column_group_to_flavor|_repcat\.validate_flavor_definition|_repcat\.obsolete_flavor_definition|_repcat\.create_snapshot_repobject|_repcat\.comment_on_priority_group|_repcat\.comment_on_mview_repsites|_repcat\.validate_for_local_flavor|_repcat\.refresh_snapshot_repgroup|_repcat\.unregister_mview_repgroup|_repcat\.generate_snapshot_support|_repcat\.publish_flavor_definition|_repcat\.do_deferred_repcat_admin|_repcat\.alter_priority_nvarchar2|_repcat\.alter_site_priority_site|_repcat\.drop_columns_from_flavor|_repcat\.create_snapshot_repgroup|_repcat\.comment_on_site_priority|_repcat\.alter_master_propagation|_repcat\.alter_priority_varchar2|_repcat\.begin_flavor_definition|_repcat\.remove_master_databases|_repcat\.create_master_repobject|_repcat\.drop_snapshot_repobject|_repcat\.drop_priority_nvarchar2|_offline_og\.begin_flavor_change|_repcat\.drop_site_priority_site|_repcat\.abort_flavor_definition|_repcat\.register_mview_repgroup|_repcat\.drop_object_from_flavor|_repcat\.comment_on_column_group|_offline_og\.begin_instantiation|_repcat\.alter_mview_propagation|_repcat\.suspend_master_activity|_repcat\.purge_flavor_definition|_repcat_rgt\.instantiate_offline|_repcat\.drop_snapshot_repgroup|_repcat\.add_site_priority_site|_repcat\.create_mview_repobject|_repcat\.drop_unique_resolution|_repcat_rgt\.instantiate_online|_repcat\.alter_master_repobject|_repcat\.create_master_repgroup|_repcat\.drop_priority_varchar2|_repcat\.drop_delete_resolution|_repcat\.refresh_mview_repgroup|_repcat\.drop_update_resolution|_repcat\.resume_master_activity|_repcat\.switch_snapshot_master|_repcat\.add_priority_nvarchar2|_repcat\.generate_mview_support|_repcat\.define_priority_group|_repcat\.add_unique_resolution|_repcat\.add_update_resolution|_offline_og\.end_instantiation|_offline_og\.end_flavor_change|_repcat\.alter_priority_number|_repcat\.add_delete_resolution|_repcat\.add_columns_to_flavor|_repcat\.add_priority_varchar2|_repcat\.drop_master_repobject|_repcat\.create_mview_repgroup|_repcat\.add_object_to_flavor|_repcat\.alter_priority_nchar|_offline_snapshot\.begin_load|_repcat\.define_site_priority|_repcat\.drop_priority_number|_repcat\.drop_master_repgroup|_repcat\.drop_mview_repobject|_repcat\.comment_on_repobject|_repcat\.add_priority_number|_repcat\.switch_mview_master|_repcat\.alter_site_priority|_repcat\.register_statistics|_repcat\.define_column_group|_repcat\.comment_on_repgroup|_repcat\.repcat_import_check|_rectifier_diff\.differences|_repcat\.alter_priority_date|_repcat\.comment_on_repsites|_repcat\.alter_priority_char|_repcat\.drop_priority_nchar|_repcat\.specify_new_masters|_repcat\.drop_grouped_column|_repcat\.drop_mview_repgroup|_repcat\.drop_priority_char|_repcat\.drop_site_priority|_repcat\.drop_priority_date|_repcat_rgt\.check_ddl_text|_repcat\.add_priority_nchar|_repcat\.alter_priority_raw|_repcat\.compare_old_values|_offline_snapshot\.end_load|_repcat\.add_grouped_column|_repcat\.relocate_masterdef|_repcat\.drop_column_group|_repcat\.make_column_group|_repcat\.drop_priority_raw|_repcat\.add_priority_char|_repcat\.add_priority_date|_repcat\.cancel_statistics|_repcat\.purge_statistics|_repcat\.purge_master_log|_repcat\.add_priority_raw|_repcat\.set_local_flavor|_repcat\.send_old_values|_rectifier_diff\.rectify|_repcat\.alter_priority|_offline_og\.begin_load|_repcat\.drop_priority|_offline_og\.end_load|_repcat\.set_columns|_repcat\.execute_ddl)/s
-2191:/sysdbms_repcat_rgt\.check_ddl_text/s
-2192:/\(\s*(\x27[\x27]{1024,}|\x22[\x22]{1024,})/s
-2193:/CREATE/s
-2194:/DATABASE/s
-2195:/LINK/s
-2196:/USING\s*((\x27[\x27]{1000})|(\x22[\x22]{1000}))/s
-2197:/TIME_ZONE/s
-2198:/TIME_ZONE\s*=\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
-2199:/\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1024,}|\x22[\x22]{1024,})/s
-2200:/\(\s*TIMESTAMP\s*(\s*(\x27[\x27]+'|\x22[\x22]+\x22)\s*,)\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
-2201:/NUMTO/s
-2202:/NUMTO(DS|YM)INTERVAL\s*\(\s*\d+\s*,\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
-2203:/ctx_output\.start_log/s
-2204:/ctxsys\.driddlr\.subindexpopulate/s
-2205:/mdsy(?:s\.sdo_admin\.sdo_code_size|s\.md2\.sdo_code_size|s\.md2\.validate_geom)/s
-2206:/ALTER\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
-2207:/CREATE\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
-2208:/TO_CHAR/s
-2209:/TO_CHAR\s*\(\s*SYSTIMESTAMP\s*,\s*(\x27[\x27]{256}|\x22[\x22]{256})/s
-2210:/\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})/s
-2211:/(\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*((\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*){2}(\x27[\x27]{1075,}|\x22[\x22]{1075,}))/s
-2212:/(\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*((\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*){2}(\x27[\x27]{1075,}|\x22[\x22]{1075,}))/s
-2213:/!"connect_data=\x28sid=/s
-2214:/!"address=\x28protocol=tcp/s
-2215:/\x0A\x00\x00\x01\x85\x04\x00\x00\x80root\x00/s
-2216:/\x0F\x00\x00\x00\x03show\ databases/s
-2217:/302/s
-2218:/=\+/s
-2219:/\*GOBBLE\*/s
-2220:/uname/s
-2221:/!@\x23/s
-2222:/\/vncviewer\.jar/s
-2223:/png\ \[\]\.\.Ks\ l44/s
-2224:/TERM=xterm/s
-2225:/lfstream\x26/s
-2226:/POST\x20\x2fg[ao]lfstream\x26/s
-2227:/POST\x20\x2f[a-z]+\.[a-z]{3}\x20HTTP\x2f1\.1\r\n/s
-2228:/\d+\x2d{2}\r\n/s
-2229:/POST\s\/[A-F0-9]{42}\s/s
-2230:/08x\x0D\x0A/s
-2231:/POST\x20\x2f[A-F\d]{42}\x20HTTP/s
-2232:/\[masscan\/1\.0\]/s
-2233:/GET \/[a-z]{8,12}\?[a-z] HTTP\/1.1/s
-2234:/\&priv=/s
-2235:/\&cred=/s
-2236:/\&card=/s
-2237:/\/shh\/\/bi/s
-2238:/M\-SEARCH/s
-2239:/ssdp\x3Adiscover/s
-2240:/gstsearch/s
-2241:/00/s
-2242:/MSNS(?:LP\/1\.0\ 603\ Decline|LP\/1\.0\ 200\ OK)/s
-2243:/CAL/s
-2244:/USR/s
-2245:/TWN/s
-2246:/\sLOGIN\s[\n]*?\{\s*(-|[3-9][0-9]{2}|2[6-9][0-9]|25[7-9]|[0-9]{4})/s
-2247:/LOGIN/s
-2248:/PARTIAL/s
-2249:/BODY\.PEEK\[/s
-2250:/\sPARTIAL.*BODY\.PEEK\[[\]]{1024}/s
-2251:/\sLOGIN\s[\n]*?%/s
-2252:/\sLOGIN\s\w+\s\{\d+\}[\r]?\n[\n]*?%/s
-2253:/\|81\ (?:F1\ 03\ 01\ 04\ 9B\ 81\ F1\ 01\||F1\ 03\ 01\ 04\ 9B\ 81\ F1\|)/s
-2254:/sock/s
-2255:/Qh\.dll/s
-2256:/E\ Fatal\ error,\ aborting\./s
-2257:/erro(?:r\ |r)/s
-2258:/I\ HATE\ YOU/s
-2259:/free\x28\x29\x3A\ warning\x3A\ chunk\ is\ already\ free/s
-2260:/E\ pr(?:otocol\ error\x3A\ invalid\ directory\ syntax\ in|otocol\ error\x3A\ Root\ request\ missing)/s
-2261:/cvs\ server\x3A\ cannot\ find\ module/s
-2262:/E\ cvs\ server\x3A\ warning\x3A\ cannot\ make\ directory\ CVS\ in\ \//s
-2263:/\-\-backup\-dir/s
-2264:/--backup-dir\s+\x2e\x2e\x2f/s
-2265:/Micr(?:osoft\ Windows|osoft\ Corp\.|osoft\ Corp)/s
-2266:/\x28\x00\x01\x00\x04\x00\x00\x00\x00\x00\x00\x00/s
-2267:/Argument/s
-2268:/Argument\s+\//s
-2269:/Directory/s
-2270:/Max\-dotdot/s
-2271:/Max-dotdot[\s\r\n]*\d{3,}/s
-2272:/PASS\s[\n]{49}/s
-2273:/USER\s[\n]{49}/s
-2274:/y049575046/s
-2275:/USER\s+y049575046/s
-2276:/RMD/s
-2277:/RMD\s+\x2f/s
-2278:/DESCRIBE/s
-2279:/DESCRIBE\s[\n]{300}/s
-2280:/sendsys\x3a[\n]{21}/s
-2281:/senduuname\x3a[\n]{21}/s
-2282:/version\x3a[\n]{21}/s
-2283:/checkgroups\x3a[\n]{21}/s
-2284:/ihave/s
-2285:/ihave\x3a[\n]{21}/s
-2286:/sendme\x3a[\n]{21}/s
-2287:/newgroup/s
-2288:/newgroup\x3a[\n]{32}/s
-2289:/rmgroup/s
-2290:/rmgroup\x3a[\n]{32}/s
-2291:/takethis/s
-2292:/!"\/takethis.*?Path\x3a.*?[\r]{0,1}?\n[\r]{0,1}\n\/is/s
-2293:/\Wfrom=[\x3b&\n]{100}/s
-2294:/YMSG/s
-2295:/<R/s
-2296:/\x3c(REQIMG|RVWCFG)\x3e/s
-2297:/GET[s]{432}/s
-2298:/HEAD[s]{432}/s
-2299:/PUT/s
-2300:/PUT[s]{432}/s
-2301:/POST[s]{432}/s
-2302:/TRACE[s]{432}/s
-2303:/DELETE[s]{432}/s
-2304:/LOCK[s]{432}/s
-2305:/MKCOL/s
-2306:/MKCOL[s]{432}/s
-2307:/COPY/s
-2308:/COPY[s]{432}/s
-2309:/MOVE/s
-2310:/MOVE[s]{432}/s
-2311:/PRIVMSG\s+[\s]+\s+\x3a\s*\x01SENDLINK\x7c[\x7c]{69}/s
-2312:/\{305(?:0F3D9\-98B5\-11CF\-BB82\-00AA00BDCE0B\}|0f4d8\-98B5\-11CF\-BB82\-00AA00BDCE0B\})/s
-2313:/\{25336920\-03f9\-11cf\-8fd0\-00aa00686f13\}/s
-2314:/\{48123bc4\-99d9\-11d1\-a6b3\-00c04fd91555\}/s
-2315:/WINDIR/s
-2316:/SYSDIR/s
-2317:/ABCJZDATEIV/s
-2318:/Insane\ Network\ vs\ 4\.0\ by\ Suid\ Flow\x0A\x0Dwww\.blackcode\.com\x0A\x0D\[r00t\]\x23/s
-2319:/DIST00000001/s
-2320:/\x5csecure\x5c[\x00]{50}/s
-2321:/1j\xD0\xD9/s
-2322:/ARKADMIN_GET_/s
-2323:/(CLIENT|MACHINE)_INFO/s
-2324:/ARKFS\x00root\x00root/s
-2325:/\x73\x00\x6E\x00\x6B\x00\x62\x00\x30\x00\x70\x00\x74\x00\x7A\x00/s
-2326:/\xFESMB/s
-2327:/\x0B\x00/s
-2328:/\x70\x00\x69\x00\x70\x00\x65\x00\x73\x00\x68\x00\x65\x00\x6C\x00\x6C\x00\x2D\x00\x70\x00\x69\x00\x70\x00\x65\x00\x6E\x00\x61\x00\x6D\x00\x65\x00/s
-2329:/iptux/s
-2330:/lws\x3Alws/s
-2331:/\.zollard\//s
-2332:/uptime=/s
-2333:/\&downlink=/s
-2334:/\&uplink=/s
-2335:/\&features=/s
-2336:/E\x00N\x00D\x00S\x00E\x00R\x00V\x00E\x00R\x00B\x00U\x00F\x00F\x00E\x00R\x00/s
-2337:/\x18\x03\x02\x00\x03\x01\x40\x00/s
-2338:/\|63\ (?:82\ 53\ 63\ 35\||82\ 53\ 63\|)/s
-2339:/\xFC/s
-2340:/([\xfc]).{0,50}([\x27])([\x20\x26\x3b\x7c]|[\x3c\x3e\x24]\x28)+/s
-2341:/\x63\x82\x53\x63.+?[\x0c-\xfe][\x05-\xff][\x20-\x7f]{0,250}\x27[\x20-\x7f]{3,250}\x23/s
-2342:/IHkoeWRrcnkpIikqNy95ZCB5LSl5ZCB5/s
-2343:/(stem|slick)\.php\?utma/s
-2344:/HHV1:/s
-2345:/HHV2:/s
-2346:/HHV3:\ 61456/s
-2347:/HHV4:/s
-2348:/\x60\xDB\x37\x37\x37\x37\x37\x37/s
-2349:/\x65\xDB\x37\x37\x37\x37\x37\x37/s
-2350:/\|09\ (?:4D\ 69\ 63\ 72\ 6F\ 73\ 6F\ 66\ 74\ 31\ 10\ 30\ 0E\ 06\ 03\ 55\ 04\ 0B\ 13\ 07\ 53\ 75\ 70\ 70\ 6F\ 72\ 74\ 31\ 0B\ 30\ 09\ 06\ 03\ 55\ 04\ 03\ 13\ 02\ 63\ 61\||44\ 80\ 0E\ DE\ B6\ FA\ 3B\ 5B\ 5D\ 52\ 33\ 91\ 0D\ 09\ 7F\||22\ 33\ 30\ 28\ 35\ 2C\|)/s
-2351:/HawkEye\ Keylogger/s
-2352:/Subj(?:ect\x3A\x20=\?utf\-8\?B\?SGF3a0V5ZSBMb2dnZXIg|ect:\ HawkEye\ Keylogger\ \x7C|ect:\ =\?utf\-8\?B)/s
-2353:/=0D=(?:0APassword|0AUsername|0AWebsite|0ABrowser|0A=0D=0A|0A)/s
-2354:/LvtfOWStYYHNbdiE15aNsOyg/s
-2355:/Let's\ Encrypt/s
-2356:/gloverkentok\.us/s
-2357:/My\ Company\ Name\ LTD\./s
-2358:/\x05/s
-2359:/MERA\ RTU/s
-2360:/EE\xA8\xC63/s
-2361:/ooh323/s
-2362:/myversion\x7C2\.5\.2\./s
-2363:/:\/\//s
-2364:/Frag/s
-2365:/Free/s
-2366:/\xFA\xFF\xFF/s
-2367:/\xF8\xFF\xFF/s
-2368:/856/s
-2369:/856\x9A\xF3\xEC\x89/s
-2370:/settings=\{\x22/s
-2371:/[?&]reportId=[&]*?\x2e\x2e\x2f/s
-2372:/3t2t3rgeg/s
-2373:/fg2eq34df/s
-2374:/f2tee4/s
-2375:/rvgvtfdf/s
-2376:/London/s
-2377:/example\.com/s
-2378:/Alaska/s
-2379:/John_Alaska@gmail\.com/s
-2380:/\x12\x02/s
-2381:/\x09/s
-2382:/\x2D\x7C\x2D/s
-2383:/s0\x2D\x7C\x2D/s
-2384:/s1\x2D\x7C\x2D/s
-2385:/s2\x2D\x7C\x2D/s
-2386:/s3\x2D\x7C\x2D/s
-2387:/\x59\x0D\xB1\xE7\x67\x23\x51\xBA\x5B\x5D\x52\x33\x91\x0D\x09\x7F/s
-2388:/pk/s
-2389:/\+CHANNEL\x0B/s
-2390:/line\-client/s
-2391:/S\x00e\x00m\x00i\x00n\x00a\x00r\x00_\x002\x000\x001\x008\x00_\x001\x00\.\x00A\x00O\x00\-\x00A\x00/s
-2392:/\/ws\?/s
-2393:/whisky_id=/s
-2394:/device_id=/s
-2395:/Upgrade:\ websocket/s
-2396:/Z/s
-2397:/\xA7\x06\x02\x04\x6C\x69\x6C\x00/s
+1278:/!"Co(?:ntent\-Length\x3A\x20"|ntent\-Type\x3A\x20"|nnection\x3A\x20"|ntent\-Length"|ntent\-Type"|okie\x3A"|nnection"|ntent\-"|okie:")/s
+1279:/\x2f[a-z-_]{80,}\x2ehtml/s
+1280:/_\.log\x22\x0D\x0A/s
+1281:/\|6C\ (?:6A\ CD\ CF\ B8\ 41\ 3F\ F8\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 04\ 01\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 1C\||55\ 55\ 45\|)/s
+1282:/\.png(?:|\?ID=)/s
+1283:/RcpTfdsvoD9KB9O/s
+1284:/foo=/s
+1285:/\/[a-f0-9]{32}\/[a-z]{1,15}-[a-z]{1,15}\.php/s
+1286:/!"PacketShaper/s
+1287:/!"siteadvisor\.com/s
+1288:/\/(?:[\/]+?\/[a-z]{2,24}[_-][a-z]{2,16}([_-][a-z]{2,16})*?|closest\/[a-z0-9]{15,25})\.php\?[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\*\!\w-]+=[\(\)\!\*\w-]+/s
+1289:/\/afr\.php\?zoneid=/s
+1290:/\&sta(?:tpass=bpass|tus=start|te=|t=)/s
+1291:/\&idTime=/s
+1292:/\&idA2=/s
+1293:/\&xVal=/s
+1294:/[ -~\r\n]{4}/s
+1295:/X\-Forwarded\-For/s
+1296:/=Response/s
+1297:/caidao=/s
+1298:/caidao\s?=\s?(Response|Write|Execute)/s
+1299:/=Execute/s
+1300:/On\+Error\+Resume\+Next:/s
+1301:/\?message=/s
+1302:/(info|app)\x2ephp\x3fmessage\x3d/s
+1303:/from=%20Nome\.\.:/s
+1304:/\/(?:[\/]+?\/[a-z]{2,24}[_-][a-z]{2,16}([_-][a-z]{2,16})*?|closest\/[a-z0-9]{15,25})\.php\?[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\*\!\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+&[\(\)\!\*\w-]+=[\(\)\!\*\w-]+/s
+1305:/\x2f[a-z-_]{90,}\x2e(html|php)/s
+1306:/!"\/utils\//s
+1307:/\/crypt_1_sell\d\d-\d\d.exe/s
+1308:/v=/s
+1309:/\}\x26w=/s
+1310:/p=/s
+1311:/chave=/s
+1312:/\&url=/s
+1313:/[\r -~\n]{4}/s
+1314:/\/welcome\.htm/s
+1315:/:\ no\-cache\x0D\x0A\x0D\x0A/s
+1316:/\/search\?q=[0-9]/s
+1317:/[\n -~\r]{4}/s
+1318:/install\/upgrade\.php/s
+1319:/\&customerid=/s
+1320:/\/(?:[\/]+?\/[a-z]{2,24}|closest\/[a-z0-9]{15,25})\.php\?[ab10]+=[ab10]+&[ab10]+=[ab10]+/s
+1321:/\/\?u=/s
+1322:/\&u2=/s
+1323:/\&u5=inststart/s
+1324:/NSIS_Inetc\ \(Mozilla\)/s
+1325:/\/get.php\?invite=.*?=/s
+1326:/\/\?gws_rd=cr/s
+1327:/\/(?:[\/]+?\/[a-z]{2,24}|closest\/[a-z0-9]{15,25})\.php\?[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+&[ab10]+=[ab10]+/s
+1328:/z/s
+1329:/z\d{1,3}/s
+1330:/\&aff(?:id=|=)/s
+1331:/\?ts=/s
+1332:/\&token=/s
+1333:/\&group=/s
+1334:/\&nid=/s
+1335:/\&lid=/s
+1336:/\&ver(?:sion=|s=|=)/s
+1337:/CHR\(/s
+1338:/\/p\.ashx\?prd=/s
+1339:/\&pixGuid=/s
+1340:/\&rnd=/s
+1341:/GET\x20\x2f[a-z]{1,12}\.exe\x20HTTP\x2f1\.1\r\nUser\x2dAgent\x3a\x20Mozilla\x2f[\x20-\x7e]{10,100}\)\r\nHost\x3a\x20[a-z0-9\x2e\x2d]{6,32}\r\nConnection\x3a\x20Keep\x2dAlive\r\n\r\n/s
+1342:/\.jnlp/s
+1343:/\/[a-z0-9]{9}\.jnlp/s
+1344:/\/\d+\/\d\.zip/s
+1345:/\.ld/s
+1346:/\/\d+\.ld/s
+1347:/\x2f[0-9a-f]+/s
+1348:/\x2f[a-z\d]{1,8}\.exe/s
+1349:/\/online\.htm/s
+1350:/goog(?:le\.com\x0D\x0A|le\.)/s
+1351:/ip\-who\-is\.com\x0D\x0A/s
+1352:/\/[a-z0-9]\.exe/s
+1353:/\)\x0D\x0AHost:/s
+1354:/\r\nHost\x3A\s+[\r\n]*?[bcdfghjklmnpqrstvwxyz]{5,}[\r\n]*?\x2Ebiz\r\n/s
+1355:/id\x3d[A-F\d]{32}(\x26info\x3d[A-F\d]{24})?/s
+1356:/\/is\-ready/s
+1357:/\|3C\ (?:7C\ 3E\|Microsoft\ Windows|7C\ 3E\|)/s
+1358:/\/\?[a-z0-9]{2}\=[a-z1-9]{100}/s
+1359:/crc=/s
+1360:/\/launch\.php/s
+1361:/\?f=/s
+1362:/\&s=/s
+1363:/\&is_direct=/s
+1364:/\x2Fdirect\.php\x3Ff=[0-9]{8}\x26s=[a-z0-9]{3}\.[a-z]{1,4}/s
+1365:/60gp(?:BAK=|=)/s
+1366:/\/se\/gate\.php/s
+1367:/\x3d\x0a/s
+1368:/\/novredir_inf\.php\?apt\/login\.jsp\?=/s
+1369:/\/FileToDownload\.exe/s
+1370:/roti(?:na=UPDATE\&tip=stat\&nome=|na=plogin\&login=|na=)/s
+1371:/\&tmp=/s
+1372:/NID=/s
+1373:/PRIV(?:MSG\x20\#vnc\x20\x3A|MSG\ |MSG)/s
+1374:/\/debug\/Version\//s
+1375:/\&bolausado/s
+1376:/\&casa=/s
+1377:/\&idcliente/s
+1378:/\&outro=/s
+1379:/token=/s
+1380:/Group\x3D/s
+1381:/Inst(?:all\x3D|alled)/s
+1382:/Ver\x3D/s
+1383:/Ask\x3D/s
+1384:/Bn\x3D/s
+1385:/\/ag\/plugin\.crx/s
+1386:/\/l\/af_l_addon\.xpi/s
+1387:/\/m\/f_l_addon\.xpi/s
+1388:/mac=/s
+1389:/\&t1=/s
+1390:/\&hid=/s
+1391:/\&rid=/s
+1392:/\&dat(?:e=|a=)/s
+1393:/\/HNAP1/s
+1394:/\/tmUnblock\.cgi/s
+1395:/%74%74%63%70%5f%69%70/s
+1396:/%74%74%63%70%5f%69%70%3d.*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1397:/ttcp_ip/s
+1398:/ttcp_ip=.*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1399:/\/download\.asp\?p\=\d/s
+1400:/\/gat(?:e\.php\?|e\.php)/s
+1401:/Conn(?:ection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache\x0D\x0A|ection:\ Keep\-Alive\x0D\x0AAccept:\ \*\/\*\x0D\x0A|ection:\ Keep\-Alive\x0D\x0A\x0D\x0A|ection\x3A\x20Keep\-Alive\x0D\x0A|ection:\ close\x0D\x0A\x0D\x0A|ection\x3A\x20close\x0D\x0A|ection\x3A\x20Close\x0D\x0A|ection:\ Keep\-Alive\x0D\x0A|ection\x3A\x20Keep\-Alive|ection:\ Keep\-Alive|ection:Close\x3B|ection:\ upgrade|ect\.php\?id=|ection\x3A)/s
+1402:/\&c=/s
+1403:/\x3d\x3d/s
+1404:/\/prl\/el\.html/s
+1405:/\/ie\-error\.gif\?action=utility/s
+1406:/\&error=/s
+1407:/[a-z\d\x2f\+\x3d]{10,98}/s
+1408:/bot_id=/s
+1409:/\&imei=/s
+1410:/\&iscallhack=/s
+1411:/\&issmshack=/s
+1412:/\&isrecordhack=/s
+1413:/\&isadmin=/s
+1414:/\&con(?:trol_number=|text=)/s
+1415:/\&number=\&iccid=\&model=/s
+1416:/\/1\/6b\-558694705129b01c0/s
+1417:/[a-z\d\x2b\x2f\x3d]{48,256}/s
+1418:/\.xpg\.com\.br\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A/s
+1419:/\/eh\.html\ HTTP\/1\.1\x0D\x0AContent\-Type:\ text\/html\x0D\x0AHost:/s
+1420:/\&iv=/s
+1421:/\/20/s
+1422:/\/gcs\?alpha=/s
+1423:/\/gdi\?alpha=/s
+1424:/lista/s
+1425:/\.log\x22\x0D\x0A/s
+1426:/\/b\/index\.php\?id=/s
+1427:/\&sen(?:ha=|t=)/s
+1428:/\&notsent=/s
+1429:/\.org\x0D\x0AContent\-Length\x3A\ 128\x0D\x0ACache\-Control\x3A\ no\-cache\x0D\x0A\x0D\x0A/s
+1430:/Host\x3a\s[a-z]{16}\.org\x0d/s
+1431:/\/write/s
+1432:/\/aviatic\/systema\.exe/s
+1433:/\/cache\/pdf\x5Fefax\x5F\d{8,15}\.zip/s
+1434:/PREF=/s
+1435:/\x3E\x00e\x00c\x00h\x00o\x00\x20\x00c\x00m\x00d\x00\x5F\x00b\x00e\x00g\x00i\x00n\x00/s
+1436:/\/[a-f0-9]{32}\.php\?q=[a-f0-9]{32}/s
+1437:/\/hunter\/123\/order\.php/s
+1438:/uid=(?:|0\x28root\x29)/s
+1439:/\&mk=/s
+1440:/\&rs=/s
+1441:/\&rq=/s
+1442:/\/srt\/ge\.php/s
+1443:/\)\&dt=/s
+1444:/pc=/s
+1445:/\&av=/s
+1446:/\&wd=/s
+1447:/\)\r\nHost\x3a\x20[\d\x2e]{7,15}\r\nConnection\x3a\x20Keep\x2dAlive\r\n\r\n/s
+1448:/\/0\.gif\?/s
+1449:/\/workers\.php\?mac=/s
+1450:/\&gpu=/s
+1451:/\/srv2\.php\?param=1\ HTTP\/1\.1\x0D\x0AHost:/s
+1452:/\/re\//s
+1453:/\x2f(css|upload)\x2f[a-z]{2}[0-9]{3}\x2eccs/s
+1454:/=/s
+1455:/[a-z]=[a-f0-9]{98}/s
+1456:/\.rar\ HTTP\/1\.1\x0D\x0AAccept:\ text\/\*,\ application\/\*\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:/s
+1457:/\/[a-z]{1,4}\x2ehtml\x3f0\x2e[0-9]{15,}/s
+1458:/argc=/s
+1459:/\&previous=/s
+1460:/\&bui(?:ld_time=|lddate=|ld=)/s
+1461:/\&ref=/s
+1462:/sid=[0-9A-F]{32}/s
+1463:/\/monitor\.php\?/s
+1464:/myid=/s
+1465:/\&ip=/s
+1466:/\&cgminer=/s
+1467:/\&operatingsystem=/s
+1468:/sms/s
+1469:/\.ashx\?t=/s
+1470:/\/software\x2ephp\x3f[0-9]{15,}/s
+1471:/[\x20-\x7e\r\n]{3}/s
+1472:/\/de\//s
+1473:/method=/s
+1474:/\&app(?:_key=|=)/s
+1475:/\/boydn\/boye\.html/s
+1476:/\&string=/s
+1477:/key=/s
+1478:/\)\ Chrome\//s
+1479:/Prox(?:y\-Connection\x3A\x20Keep\-Alive\x0D\x0A|y\-Authorization:\ Basic\ \x0D\x0A)/s
+1480:/__cfduid=/s
+1481:/dados=/s
+1482:/\&ct=/s
+1483:/\/201/s
+1484:/\&win(?:dows=|=)/s
+1485:/\/token\/token\.html\ HTTP\/1\.1\x0D\x0AUser\-Agent:/s
+1486:/\)\r\nHost\x3a\x20[a-z\d\x2e\x2d]{6,32}\r\nCache\x2dControl\x3a\x20no\x2dcache\r\n\r\n/s
+1487:/\/trdpr\/trde\.html/s
+1488:/\&mod(?:e=sox\&v=|e=text|e=)/s
+1489:/0=/s
+1490:/User\x2dAgent\x3a\x20[A-F\d]{32}\r\n/s
+1491:/%3D%28%29\+%7B/s
+1492:/\/b\/pkg\/T202/s
+1493:/UA\-C(?:PU\x3A\x20|PU:\ |PU)/s
+1494:/\x2fb\x2fpkg\x2fT202[0-9a-z]{10}/s
+1495:/\/x\//s
+1496:/\x2fx\x2f[0-9a-z]{8,10}\x2f[0-9a-f]{32}\x2fAA\x2f0/s
+1497:/\.dll/s
+1498:/\x2fsoft(64|32)\x2edll/s
+1499:/\/b\/shoe\//s
+1500:/\x2fb\x2fshoe\x2f[0-9]{3,5}/s
+1501:/\/jquery\//s
+1502:/\/beta\/order\.php/s
+1503:/!"HT(?:TP\/1"|TP\/")/s
+1504:/\/cbrry\/cbre\.html/s
+1505:/plug=NAO/s
+1506:/\/seo\.php\?username=MAREYOLE\&format=ptp/s
+1507:/\/verifica\/index\.php\?id=/s
+1508:/\/tas(?:ks\.php|ks)/s
+1509:/\&uname=/s
+1510:/\&pword=/s
+1511:/Media\ Center\ PC\ 6\.0/s
+1512:/a1=/s
+1513:/\&a2=step2\-down/s
+1514:/\&a3=/s
+1515:/\&a4=/s
+1516:/11/s
+1517:/[a-z\d\x2f\x2b\x3d]{100}/s
+1518:/Referer\x3a\x20[\x20-\x7E]*?\/wp\x2dadmin\/[a-z\d\x2d]+?\.php\r\n/s
+1519:/\/dmp\/api\//s
+1520:/\/che(?:ck\.action\?iid=|ckupdate\.asmx|ck\?iid=|ckupdate)/s
+1521:/SOAPAction\x3A\x20/s
+1522:/SOAPAction\x3a[\r\n]*Get(ServerTime|FileList|File)\x22/s
+1523:/w1/s
+1524:/\/bbc_mirror\//s
+1525:/CNN_Mirror\/EN/s
+1526:/\/01\/WindowsUpdate/s
+1527:/\/2ldr\.php/s
+1528:/[a-z\d\x2f\x2b\x3d]{100,300}/s
+1529:/\.js\?/s
+1530:/\x2ejs\x3f[a-zA-Z0-9]{9,20}=Mozilla\x2f/s
+1531:/\/r1xpr\/r1xe\.html/s
+1532:/\/m343ff4ufbnmm4uu4nf34m443frr\//s
+1533:/[a-z]\x3d[a-f\d]{126}/s
+1534:/\&browser=/s
+1535:/\&osbuild=/s
+1536:/\&osprod=/s
+1537:/\/12\/index\.php/s
+1538:/\&pcname=/s
+1539:/hwid=/s
+1540:/\&system=/s
+1541:/\&medium=/s
+1542:/rnd=/s
+1543:/\&spfail=/s
+1544:/\&guid=/s
+1545:/\?uid=/s
+1546:/\&kernel=/s
+1547:/\/submit\.action\?username=/s
+1548:/\&pas(?:sword=|s=)/s
+1549:/\.tgz/s
+1550:/\/preview\//s
+1551:/\/bb\/index\.php/s
+1552:/\&usid=/s
+1553:/Loader\x0D\x0A/s
+1554:/Pi\/3\.1415926\x0D\x0A/s
+1555:/in\ my\ heart\ of\ heart\.\x0D\x0A/s
+1556:/\&uinfo=/s
+1557:/\&bits=/s
+1558:/oprat=/s
+1559:/\&sitename=/s
+1560:/hid=/s
+1561:/\&tr=/s
+1562:/\&a=/s
+1563:/\&adm(?:in=|=)/s
+1564:/sid=/s
+1565:/\&st=/s
+1566:/\/ip\/\?client=sp/s
+1567:/\/atJs\/v/s
+1568:/\/Client\//s
+1569:/did=/s
+1570:/build\.tgz/s
+1571:/\/misc\.php\?v=/s
+1572:/\&js=js/s
+1573:/\/idcontact\.php\?/s
+1574:/\&steam=/s
+1575:/\&origin=/s
+1576:/\&webnavig=/s
+1577:/account=/s
+1578:/\&path=/s
+1579:/\/add(?:_user\.php\?name=|\.php)/s
+1580:/_flash/s
+1581:/\&file=/s
+1582:/\&type=/s
+1583:/\/flupdate\//s
+1584:/\/flupdate\/\d\.html/s
+1585:/\/gget_rtemp\.php\?n=/s
+1586:/\/aadd_rtemp\.php\?n=/s
+1587:/\x3D/s
+1588:/[a-z]\x3d[a-f\d]{80,140}/s
+1589:/\/Adminhtml_/s
+1590:/forwarded=/s
+1591:/sname=/s
+1592:/\/vbulletin\/post\.php\?qu=/s
+1593:/ID_MAQUINA=/s
+1594:/\&VERSAO=/s
+1595:/\&WIN=/s
+1596:/\&NAVEGADOR=/s
+1597:/\&PLUGIN=/s
+1598:/\&AV=/s
+1599:/text(?:o=%0D%0A|\/plain)/s
+1600:/A=/s
+1601:/Prag(?:ma\x3A\ no\-cache\x0D\x0A|ma\x3A\x20no\-cache)/s
+1602:/\&os2=/s
+1603:/\.mod/s
+1604:/[a-z]{2}_[a-z0-9]{8}\.mod/s
+1605:/tor/s
+1606:/\/BRS(?:_03B_haveBackupFile_fileRestore\.html|_netgear_success\.html)/s
+1607:/\.swf\?/s
+1608:/styleid=/s
+1609:/\&langid=/s
+1610:/\&d=/s
+1611:/\/atomic\.php/s
+1612:/\/SNews\.asp\?HostID=/s
+1613:/\/STTip\.asp/s
+1614:/\/rp\?v=/s
+1615:/\&u=/s
+1616:/\&f=/s
+1617:/\&i=/s
+1618:/\&v=/s
+1619:/\&bgload=/s
+1620:/\&com(?:puser=|ment=|p=)/s
+1621:/MSIE\ 7\.0\x3B/s
+1622:/=@ev(?:al\(get_magic_quotes_gpc\(\)\?stripslashes\(\$_POST\[|al\(base64_decode\(\$_POST)/s
+1623:/\/rss\/feed\/stream/s
+1624:/\x3F/s
+1625:/boundary=Xu02=\$/s
+1626:/\/vip\.jpg/s
+1627:/\/gt\.jpg\?/s
+1628:/bytes=6433\-/s
+1629:/post=/s
+1630:/\/34gf5y\/r34f3345g/s
+1631:/\|2F\ (?:2A\ 14\ 20\||70\ 6F\ 63\|)/s
+1632:/\x2f\x70\x6f\x63(\d*|\x5f[\x61-\x7a]+)\x2e(\x68\x74\x6d\x6c|\x78(\x6c\x73|\x73\x6c|\x6d\x6c)|\x6a(\x73|\x61\x76a)|\x61\x73\x70|\x70(\x64f|\x70\x74|\x48\x70|\x73\x64)|\x66\x6c\x76|\x73\x77\x66|\x64\x6fc|\x74\x74\x66|\x62\x6d\x70|\x6d(\x70\x33|\x33\x75))/s
+1633:/CONNECT/s
+1634:/\/Query\.asp\?loginid=/s
+1635:/\x9B\x4F\xB0\x75\xE2\x76\x96\x04\x5A\xF1\xF9\x43\xD4\xA2\x6B/s
+1636:/\x76\x13\x85\x45\x17\x1B/s
+1637:/\x7C\x7CCM01\x7CCM02\x7CCM03\x7C/s
+1638:/Expe(?:ct:\ 100\-continue|ct\x3A\x20)/s
+1639:/User-Agent\x3a\x20[A-F0-9]{32}\x0d\x0a/s
+1640:/<br><br><b><big>/s
+1641:/\/News\/gate\.php\x3f[a-f0-9]{32}\x3d\d/s
+1642:/JFIF/s
+1643:/\.p\ HTTP\/1\.1/s
+1644:/\/plugins\/[a-z]{3,10}\.p/s
+1645:/\&arc=/s
+1646:/pl=/s
+1647:/\&education=/s
+1648:/\.bin/s
+1649:/\/[a-f0-9]{32}\/\w+\.bin/s
+1650:/If\-Unmodified\-Since/s
+1651:/Range/s
+1652:/\/img\/script\.php\?/s
+1653:/\/img\/script\.php\x3f.*\.mov/s
+1654:/\.php\x3fd=[A-F0-9]{174}/s
+1655:/UP007/s
+1656:/\/random750x750\.jpg\?x=/s
+1657:/\&y=/s
+1658:/btst=/s
+1659:/snkz=/s
+1660:/\/log\.php\x3f[a-z]\x3d\d{3}/s
+1661:/CODE=/s
+1662:/UID=/s
+1663:/f=/s
+1664:/quant=/s
+1665:/h=/s
+1666:/size=/s
+1667:/User-Agent\x3A\x20[\r\n]*sleep\x28/s
+1668:/\/[a-z0-9]{8,10}\x3f[A-Za-z]{7,10}\x3d[A-Za-z]{6,10}/s
+1669:/zwlviewforumogaf\.php/s
+1670:/GUID=/s
+1671:/BUILD=/s
+1672:/INFO=/s
+1673:/IP=/s
+1674:/TYPE=/s
+1675:/x\-re(?:quested\-with\x3A\x20XMLHttpRequest\x0D\x0A|quested\-with:\ XMLHttpRequest|quested\-with\x3A\x20)/s
+1676:/mashine=/s
+1677:/publ(?:ic\/Check_Exist\.php|ickey=|ic)/s
+1678:/os=/s
+1679:/proc(?:ess=password|essor=)/s
+1680:/\/icloudsyncd/s
+1681:/sdata=/s
+1682:/md5=/s
+1683:/dlen=/s
+1684:/\/victim\.php\?info=/s
+1685:/\/LetsGo\.php\?A=/s
+1686:/Sytem=/s
+1687:/qual=/s
+1688:/!"referer/s
+1689:/iSpy(?:\ Keylogger|Kelogger)/s
+1690:/\/message\.php/s
+1691:/\/UpgSvr\//s
+1692:/\.xml/s
+1693:/as_ft=/s
+1694:/as_q=/s
+1695:/\.do/s
+1696:/\.(do|jar)/s
+1697:/GZIPOK\x3A\x20/s
+1698:/Comp(?:uter\ Information|GZ\x3A\x20)/s
+1699:/ReqType\x3A\x20/s
+1700:/arg=/s
+1701:/isAd(?:min=1|min=)/s
+1702:/[?&]arg=[&]*?([\x60\x3b\x7c]|\x24\x28)/s
+1703:/%26/s
+1704:/[?&]arg=[&]*?%26/s
+1705:/(|&)arg=[&]*?([\x60\x3b\x7c]|\x24\x28|%60|%3b|%7c|%26|%24%28)/s
+1706:/arg/s
+1707:/cwcsf\-nativemsg\-iframe\-43c85c0d\-d633\-af5e\-c056\-32dc7efc570b\.html/s
+1708:/163=/s
+1709:/\&x=/s
+1710:/\&z=/s
+1711:/\|22\ (?:2C\ 22\|value\x22\x3A|3E\ 20\ 5B\|)/s
+1712:/[?&]id=[&]*?[\d&]/s
+1713:/\x22id\x22\s*\x3A\s*\x22[\x22]*?[\d\x22]/s
+1714:/(|&)ping_IPAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1715:/[?&]ping_IPAddr=[&]*?%26/s
+1716:/[?&]ping_IPAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1717:/(\x2ebat|\x2eexe)/s
+1718:/\/ChromeSetup\.bat/s
+1719:/\/Install\/InstallWizard\.aspx/s
+1720:/exec(?:|uteinstall)/s
+1721:/(|&)host_name=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1722:/[?&]host_name=[&]*?%26/s
+1723:/[?&]host_name=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1724:/\/wroot\/v3/s
+1725:/uuid=/s
+1726:/\/\/Home\//s
+1727:/z9=base64%5fdecode/s
+1728:/=%40eval/s
+1729:/=edoced_46esab/s
+1730:/z0=/s
+1731:/\/shell\?/s
+1732:/SessionID:/s
+1733:/\/JP\-ja\/js\?/s
+1734:/pq=google\&sc=8\-1\&sp=\-1\&sk=/s
+1735:/\/mm\.jpg/s
+1736:/WashingTon/s
+1737:/WebMaster@Microsoft\.com/s
+1738:/@\xE9\x03\x00\x00\x00\x00\x00\x00\x00\x00\x64/s
+1739:/\/\d{8}\/\w{4}\/[A-F0-9]{4}\/[A-F0-9]{4}\/[A-Z0-9\-_~]{12}\.[aj]sp/s
+1740:/\/\.svn\/entries/s
+1741:/\/soap\/soaplet\/soaprouter/s
+1742:/repo(?:rtId=|rtId)/s
+1743:/(|&)reportId=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
+1744:/[?&]scriptName=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
+1745:/Host\x3A[\x0a]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1746:/WebKitFormBoundary/s
+1747:/Dalvik\//s
+1748:/Android/s
+1749:/\/pockemon\/squirtle\/functions\.php/s
+1750:/waitPingqry/s
+1751:/[?&]pingAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1752:/[?&]pingAddr=[&]*?%26/s
+1753:/(|&)pingAddr=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1754:/\/QualityCheck\/ni6\.php/s
+1755:/todo=syscmd/s
+1756:/\/aspnet_client\/system_web\/4_0_30319\/update\//s
+1757:/\$IFS/s
+1758:/Win64\x3B\sx64\x29\x3B\s[0-9]{16}\w{16}\x0D\x0A/s
+1759:/%D0%8BTl%DC/s
+1760:/butt(?:on=Login|on=)/s
+1761:/cadata=/s
+1762:/\/W3SVC/s
+1763:/hst=/s
+1764:/ttype=/s
+1765:/guid=/s
+1766:/details=/s
+1767:/\/click\?h=/s
+1768:/subid=/s
+1769:/k=/s
+1770:/\?q=/s
+1771:/delete_offline_client=/s
+1772:/[?&]delete_offline_client=[&]{14}/s
+1773:/fp_vs=/s
+1774:/os_vs=/s
+1775:/\/A56WY/s
+1776:/pc_data=/s
+1777:/\/football\/download\//s
+1778:/cnumber=/s
+1779:/orname=/s
+1780:/\&pc=/s
+1781:/appl(?:ication\/java\-vm|y\.cgi)/s
+1782:/[?&](wait_time|ping_ip|ping_size|submit_type|traceroute_ip)=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
+1783:/(|&)(wait_time|ping_ip|ping_size|submit_type|traceroute_ip)=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
+1784:/(|&)ping(\x5f|%5f)(ip|size|times)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1785:/next(?:_page=|=\.\.\/)/s
+1786:/(|&)next_page=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
+1787:/[?&]next_page=[&]*?\x2e\x2e\x2f/s
+1788:/[?&]ping_(ip|size|times)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1789:/[?&]ping(\x5f|%5f)(ip|size|times)=[&]*?%26/s
+1790:/Cpa=\+EXEC\+/s
+1791:/%27%2C%27/s
+1792:/mfgtst\.cgi/s
+1793:/[?&]ping_ip=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1794:/[?&]ping(\x5f|%5f)ip=[&]*?%26/s
+1795:/(|&)ping(\x5f|%5f)ip=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1796:/SMB_/s
+1797:/[?&]SMB_(LOCATION|USERNAME)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1798:/[?&]SMB(\x5f|%5f)(LOCATION|USERNAME)=[&]*?%26/s
+1799:/SMB/s
+1800:/(|&)SMB(\x5f|%5f)(LOCATION|USERNAME)=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1801:/\/router\-info\.htm/s
+1802:/factory=/s
+1803:/OjI2OiJraWNrc3RhcnQuc2V0dXAuc291cmNlZmlsZSI7/s
+1804:/aHR0cDovL/s
+1805:/element_parents=/s
+1806:/\#value/s
+1807:/(%23|#)(submit|validate|access_callback|pre_render|post_render|lazy_builder|%6c%61%7a%79%5f%62%75%69%6c%64%65%72)/s
+1808:/\/wlg_sec_profile_main\.cgi/s
+1809:/ssid=/s
+1810:/ssid=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
+1811:/\/fw_serv_add\.cgi/s
+1812:/userdefined=[&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)/s
+1813:/add\.php\?apikey=/s
+1814:/\&phase=/s
+1815:/win32=FFD8FFE000104A464946/s
+1816:/\/up_d\.php/s
+1817:/\/q2\/index\.php\?/s
+1818:/\&il=/s
+1819:/\&vr=/s
+1820:/\&bt=/s
+1821:/99=/s
+1822:/f1=/s
+1823:/1=/s
+1824:/2=/s
+1825:/(|&)\d{1,2}=[&]*?\d{4}/s
+1826:/\/twonky_cmd\.cgi/s
+1827:/[?&]path=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1828:/[?&]path=[&]*?%26/s
+1829:/(|&)path=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1830:/url=/s
+1831:/[?&]url=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1832:/[?&]url=[&]*?%26/s
+1833:/(|&)url=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1834:/url/s
+1835:/n=TLNET_EN/s
+1836:/v=1/s
+1837:/.php\?q=\d{1,4}\.\d{2,4}\.\d{1,3}\.\d{1,3}\.\d{1,3}\.[0-9a-f]{64}\.1.\d{4,6}/s
+1838:/inputFilePath/s
+1839:/skinFile/s
+1840:/selInfoKey1=/s
+1841:/[?&]selInfoKey1=[&]*?([\x27\x22\x3b\x23]|\x2f\x2a|\x2d\x2d)/s
+1842:/(|&)selInfoKey1=[&]*?([\x27\x22\x3b\x23]|\x2f\x2a|\x2d\x2d|%27|%22|%3b|%23|%2f%2a|%2d%2d)/s
+1843:/[?&]command_data=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28)/s
+1844:/[?&]command(\x5f|%5f)data=[&]*?%26/s
+1845:/(|&)command(\x5f|%5f)data=[&]*?([\x60\x3b\x7c]|[\x3c\x3e\x24]\x28|%60|%3b|%7c|%26|%3c%28|%3e%28|%24%28)/s
+1846:/txtDBname=nagiosql/s
+1847:/\?fort=/s
+1848:/pol=/s
+1849:/id/s
+1850:/id=Z29nbw==/s
+1851:/\/spyMobile\/upload\.php/s
+1852:/iemi=/s
+1853:/(|&)template=[&]*?(\x2e|%2e){2}([\x2f\x5c]|%2f|%5c)/s
+1854:/[?&]template=[&]*?\x2e\x2e\x2f/s
+1855:/Winnet\ Client/s
+1856:/\/cab\/sts\.exe/s
+1857:/\/DesktopModules\/DreamSlider\/DownloadProvider\.aspx/s
+1858:/\.NET\ CLR\ 3\.0\.30729\x3B\ \.NET4\.0C\x3B\ \.NET4\.0E\)\x0D\x0AContent\-Length/s
+1859:/\/panel\/logout\.php/s
+1860:/\&b=/s
+1861:/\&e=/s
+1862:/OPTIONS/s
+1863:/Discovery\x0D\x0A/s
+1864:/\/00/s
+1865:/\/www\/(%[A-F0-9]{2}){5,}\/00/s
+1866:/\&code=/s
+1867:/de=/s
+1868:/_v=/s
+1869:/_s=/s
+1870:/pid=/s
+1871:/cid=/s
+1872:/act=/s
+1873:/=WyJ1cmw/s
+1874:/\?os=/s
+1875:/\&fw=/s
+1876:/\&hwid=/s
+1877:/\/media\/com_biblestudy\/backup\//s
+1878:/\.sql/s
+1879:/\/dot\.php/s
+1880:/param=/s
+1881:/\/tahw\?/s
+1882:/\x2ftahw\x3f[A-F0-9]{3,84}/s
+1883:/\/khc\?/s
+1884:/\x2fkhc\x3f[A-F0-9]{3,84}/s
+1885:/\/pser\?/s
+1886:/\x2fpser\x3f[A-F0-9]{3,84}(BBZ|BBY)/s
+1887:/MS_D0wnl0ad3r/s
+1888:/browser\/Vivaldi\.txtPK/s
+1889:/\/Libs\.zip/s
+1890:/\/dl\.itranslator\.info\//s
+1891:/\/gl\.php\?uid=/s
+1892:/\/ufiles\//s
+1893:/UID:(?:\ P002\x0D\x0A|\ )/s
+1894:/\&ua=/s
+1895:/\&itwm=/s
+1896:/&itwm=([a-z0-9\-\=]{1,50})/s
+1897:/\/pkg\/image\/do\.php/s
+1898:/\/Templates\/NormalOld\.dotm/s
+1899:/\&xnvk=/s
+1900:/\/qgHUDRZiYhOqQiN\/kESklNvxsNZQcPl\.php/s
+1901:/\/foth1018\/go\.php/s
+1902:/\/MarkQuality455\/developerbuild\.php\?b=/s
+1903:/\?misc=/s
+1904:/\&dl=/s
+1905:/\&MAC=/s
+1906:/\&OS=/s
+1907:/\&BIT=/s
+1908:/\&GUID=/s
+1909:/\&_T=/s
+1910:/word=/s
+1911:/note=/s
+1912:/\/indox\.php\x3fv=(pp|pe|s)/s
+1913:/\/board\.php/s
+1914:/\/board\.php\?(m=[0-9A-F]{0,12}&)?(v=([abcef]|\d+\.\d+))/s
+1915:/\/ipecs\-cm\/download/s
+1916:/(|&)file(name|path)=[&]*?(\x2e|%(25)?2e){2}([\x2f\x5c]|%(25)?(2f|5c))/s
+1917:/[?&]file(name|path)=[&]*?\x2e\x2e\x2f/s
+1918:/filename\s*=\s*[\r\n]*?(\x2e|%(25)?2e){2}([\x2f\x5c]|%(25)?(2f|5c))/s
+1919:/\.ahk/s
+1920:/\/\?gate\&hwid=/s
+1921:/\&pwd=/s
+1922:/pcuser/s
+1923:/_reguestguid/s
+1924:/Response\.Write\(\x22UAshell\x22\)\x3B\x0D\x0A/s
+1925:/\/ua\.aspx/s
+1926:/\/recv_android\.php/s
+1927:/PATCH/s
+1928:/X\-Installer\-/s
+1929:/X\-Fi(?:le\-Name:|nder\-)/s
+1930:/bi=/s
+1931:/sd=/s
+1932:/vs=/s
+1933:/ar=/s
+1934:/\/link\.php\?.{4,20}&\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/s
+1935:/alphayz=/s
+1936:/_spacertoofee=/s
+1937:/hondacbrheavy/s
+1938:/_truthcolor=/s
+1939:/dramafrine/s
+1940:/\/vpns\//s
+1941:/NSC_USER:/s
+1942:/\*dJU!\*JE\&!M@UNQ@/s
+1943:/t34kjfdla45l/s
+1944:/_web(?:ident_s|ident_f)/s
+1945:/(\/check|\/v1\/stats|\/gql|\/1.5\/95648064|\/u\/0\/_\/og\/botguard\/get|\/ev\/\w{3}001001)/s
+1946:/ses\-/s
+1947:/(\/api2|\/en-us|\/gp|\/v1|\/v3|\/v4|\/wp-content|\/wp-includes)/s
+1948:/gnt_ub=86\x5C\x3Bgnt_sb=18\x5C\x3Busprivacy=1YNY\x5C\x3BDigiTrust\.v1\.identity=/s
+1949:/\/v1\/push/s
+1950:/cli/s
+1951:/l\-/s
+1952:/sess\-=/s
+1953:/\x2f(updates|license\x2feula|docs\x2foffice|software-activation)/s
+1954:/nid/s
+1955:/msg\-/s
+1956:/Sec\-Fetch\-Dest:/s
+1957:/empty/s
+1958:/parent_request_id=/s
+1959:/parent_request_id=[&\x3B]{128}/s
+1960:/_gat(?:_global=1|_www=1)/s
+1961:/recent_locations/s
+1962:/bse=/s
+1963:/bse=[&\x3B]{128}/s
+1964:/client\-=/s
+1965:/\/v1\/(queue|profile|docs\/wsdl|pull)/s
+1966:/nyt\-gdpr=0\x3Bnyt\-purr=cfh\x3Bnyt\-geo=US\}/s
+1967:/GET\s(?:\/ads\/google|\/vi-assets\/static-assets|\/v1\/preferences|\/idcta\/translations|\/v2\/preferences)/s
+1968:/POST\s(?:\/track|\/api\/v1\/survey\/embed|\/svc\/weather\/v2)/s
+1969:/\/DDIService\.svc\/SetObject/s
+1970:/VirtualDirectory/s
+1971:/ExternalUrl/s
+1972:/FilePathName/s
+1973:/\/mgmt\/tm\/util\/bash/s
+1974:/X\-CMD\x3A/s
+1975:/X\-KEY\x3A/s
+1976:/hashid=/s
+1977:/chec(?:kgroups|kcode=)/s
+1978:/\/licenseserverproto\.cgi/s
+1979:/(|&)(server)?id=/s
+1980:/(|&)id=/s
+1981:/\/mee(?:ting_testmsjava\.cgi|ting_testjs\.cgi)/s
+1982:/(|&)(name|img|cert)=/s
+1983:/[?&]id=/s
+1984:/\/adfs\/services\/policystoretransfer/s
+1985:/KComWExec\.execCmd/s
+1986:/Emai(?:l=|l)/s
+1987:/(|&)Email=[&]*?(\x2f|%(25)?2f)autodiscover/s
+1988:/[?&]Email=[&]*?\x2fautodiscover/s
+1989:/Email=[\x3b\r\n]*?(\x2f|%(25)?2f)autodiscover/s
+1990:/\$\{jndi:/s
+1991:/\$\{lower:/s
+1992:/\x24{(\x24{(upper|lower):j}|j)(\x24{(upper|lower):n}|n)(\x24{(upper|lower):d}|d)(\x24{(upper|lower):i}|i)(\x24{(upper|lower)::}|:)/s
+1993:/jndi/s
+1994:/(%(25)?24|\x24)(%(25)?7b|\x7b)jndi(%(25)?3a|\x3a)/s
+1995:/\$\{upper:/s
+1996:/lower/s
+1997:/(%(25)?24|\x24)(%(25)?7b|\x7b)lower(%(25)?3a|\x3a)/s
+1998:/upper/s
+1999:/(%(25)?24|\x24)(%(25)?7b|\x7b)upper(%(25)?3a|\x3a)/s
+2000:/%24%(?:257b|7b)/s
+2001:/%24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2002:/\$\{/s
+2003:/\x24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2004:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d\x80-\xff]*?\x3a[\x7d]*?\x7d)/s
+2005:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d]*?\x3a[\x7d]*?\x7d)/s
+2006:/%2524%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2007:/%24\{/s
+2008:/%24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2009:/%2524\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2010:/%24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2011:/\$%7b/s
+2012:/\x24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2013:/\$%257b/s
+2014:/\x24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2015:/%2524%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2016:/\x24\x7b(jndi|lower|upper|.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*[jndi\x7d\x3a\x2d]{1,4}[\x22\x27]?[\x3a\x7djndi])/s
+2017:/\.class/s
+2018:/\.action/s
+2019:/getRuntime/s
+2020:/pty\.spawn\(\x22\/bin\//s
+2021:/sh/s
+2022:/\x24\x7b[\x7d]*?javax?\x2e[\x7d]*?\x28/s
+2023:/Powershell/s
+2024:/i/s
+2025:/i[\w-]{2,20}=[\w-]{2,50}_\d{2,20}/s
+2026:/Accept-Encoding:\x20*[\r\n]*\x2c[\x20\x09]*\x2c/s
+2027:/\x24\x7b.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*([jndi\x7d\x3a\x2d]|\x5cu00[a-f0-9]{2}){1,4}[\x22\x27]?[\x3a\x7djndi]/s
+2028:/X\-F5\-Auth/s
+2029:/Connection:[\r\n]*?X-F5-Auth/s
+2030:/\^\xB0\x02\x89\x06\xFE\xC8\x89F\x04\xB0\x06\x89F/s
+2031:/Logi(?:n\ failed\ for\ user\ 'sa'|n\ incorrect|n\ failed)/s
+2032:/Comm(?:and\ completed|and=BEGIN)/s
+2033:/Command\s+?completed\b/s
+2034:/Bad\ command\ or\ filename/s
+2035:/O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82/s
+2036:/G\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1F/s
+2037:/\x08(?:|D\x00B\x00S\x00Q\x000\x000\x001\x007\x00|!\x02\x80\x08!\x02\x80\x08!\x02\x80\x08!\x02\x80)/s
+2038:/\|13\ (?:2F\ 22\ 35\ 22\ 67\ 26\ 35\ 22\ 29\ 27\ 33\ 67\ 28\ 37\ 22\ 29\ 67\ 37\ 28\ 35\ 33\ 34\ 69\||C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\|)/s
+2039:/\|82\ (?:F4\ DE\ D4\ D3\ C2\ CA\ F5\ C8\ C8\ D3\ 82\ FB\ F4\ DE\ D4\ D3\ C2\ CA\ 94\ 95\ FB\ D4\ D1\ C4\ CF\ C8\ D4\ D3\ 89\ C2\ DF\ C2\ 87\ 8A\ CC\ 87\ 00\||10\|\ \|17\ 91\ D0\|\ \|08\|)/s
+2040:/\|B0\ (?:00\ B0\ 00\ B0\ 00\ B0\ 00\ 26\ 00\ 26\ 00\ 26\ 00\||17\ CD\ 80\||B5\ CD\ 80\|)/s
+2041:/CCCCCCCCCCCCCCCCCCCCCCCC/s
+2042:/gid=/s
+2043:/uid=\d{1,5}\S+\s+gid=\d{1,5}/s
+2044:/\|05\ (?:00\|>|00\|)/s
+2045:/ADMINISTRATOR/s
+2046:/@\//s
+2047:/@PJL\ RDYMSG\ DISPLAY\ =/s
+2048:/Inva(?:lid\ login|lid\ URL)/s
+2049:/\+\x06\x10@\x14\xD1\x02\x19/s
+2050:/\x06public/s
+2051:/private/s
+2052:/MSG/s
+2053:/INVITE/s
+2054:/GNUT(?:ELLA\ CONNECT|ELLA\ OK|ELLA)/s
+2055:/\/announce/s
+2056:/peer_id=/s
+2057:/\x13BitTorrent\ protocol/s
+2058:/ExecuteFile/s
+2059:/blob(?:headername2=Location|headername2=Refresh|headervalue2=)/s
+2060:/\/builds\//s
+2061:/fflists\.txt/s
+2062:/PCRatd/s
+2063:/\/buy\-sell\/search\.asp\?newsid=/s
+2064:/Gh0st/s
+2065:/\/0\/\ HTTP\/1\./s
+2066:/Hz,RAM\x3A/s
+2067:/KrisR/s
+2068:/Time\ of\ Recording:/s
+2069:/IP\ Address/s
+2070:/send(?:|\x7CG\x7C\x7CCont\x7Cacts\x7C|uuname|sys|me)/s
+2071:/\x1B\x17\xE9\xE9\xE9\xE9/s
+2072:/response=fallback/s
+2073:/gpu=/s
+2074:/Information/s
+2075:/false\x2A\x2D\x5DNK\x5B\x2D\x2A/s
+2076:/\x72\x00\x17com\.net\.LoginDataPacket/s
+2077:/X\-CA\-/s
+2078:/ProClient\.Data/s
+2079:/Clientx\x2C\x20Version=/s
+2080:/WinGate>/s
+2081:/to\ su\ root/s
+2082:/not\ on\ system\ console/s
+2083:/RFB\ 0/s
+2084:/\.0/s
+2085:/Volume\ Serial\ Number/s
+2086:/E_\x00\x03\x05/s
+2087:/\xE2\x1D\x49\x49/s
+2088:/\x49\x49\x49\x49/s
+2089:/\x81/s
+2090:/\x81.{1,9}\x7b\x22children\x22\x3a\x5b\x7b\x22name\x22\x3a\x22[a-z0-9_\x2e]+\x22\x2c\x22value\x22\x3a\x22[a-z0-9\x2b\x2f]+={0,2}\x22\x7d/s
+2091:/ST/s
+2092:/550\ 5\.7\.1/s
+2093:/echo(?:\ \x22\ \+\ \+\ \x22|\ \x22\+\ \+\x22)/s
+2094:/bin\x00bin\x00/s
+2095:/\-froot\x00/s
+2096:/(\d{1,5})?\x00?[\x00]+?\x00root\x00/s
+2097:/\x01(?:|rlogind\x3A\ Permission\ denied\.|1\xDB\xCD\x80\xE8\[\xFF\xFF\xFF)/s
+2098:/Location\s*\x3a\s*\w+\x3a\/\/([\n]*\x3a)?[\n]{128}/s
+2099:/A/s
+2100:/VERSION\x0A/s
+2101:/Amanda/s
+2102:/cybercop/s
+2103:/x\|00(?:\|p\x00_\x00c\x00m\x00d\x00s\x00h\x00e\x00l\x00l\x00|\|p\x00_\x00s\x00p\x00r\x00i\x00n\x00t\x00f\x00|\|p\x00_\x00r\x00e\x00g\x00)/s
+2104:/9\ \xD0\x00\x92\x01\xC2\x00R\x00U\x009\ \xEC\x00/s
+2105:/H\x00%\x00x\x00w\x00\x90\x00\x90\x00\x90\x00\x90\x00\x90\x003\x00\xC0\x00P\x00h\x00\.\x00/s
+2106:/r\x00a\x00i\x00s\x00e\x00r\x00r\x00o\x00r\x00/s
+2107:/<!/s
+2108:/MIT\-MAGIC\-COOKIE\-1/s
+2109:/l\x00\x0B\x00\x00\x00\x00\x00\x00\x00\x00\x00/s
+2110:/\-soa\ %p/s
+2111:/Version_Mapper/s
+2112:/GOBBLES/s
+2113:/1/s
+2114:/!"000,offset\ 11/s
+2115:/\x04\x82\x01\x00/s
+2116:/0\&\x02\x01\x00\x04\x06public\xA0\x19\x02\x01\x00\x02\x01\x00\x02\x01\x000\x0E0\x0C\x06\x08\+\x06\x01\x02\x01\x01\x05\x00\x05\x00/s
+2117:/\|04\ (?:01\ 00\||00\|)/s
+2118:/\x30(\x84....|\x82..|[\x80-\xFF])\x02(\x84\x00\x00\x00\x01.|\x82\x00\x01.|\x01.)\x04\x00/s
+2119:/08\x02\x01\x00\x04\x06public\xA4\+\x06/s
+2120:/0534CF61\-83C5\-4765\-B19B\-45F7A4E135D0/s
+2121:/obje(?:ctClass|ct)/s
+2122:/object\s[>]*type\s*=\s*[\x22\x27][\x22\x27]*\x2f{32}/s
+2123:/setTimeout\x28/s
+2124:/setTimeout\x28[\x22\x27][\x2C]*?\x5cx[\da-f]{2}[\x2C]*?[\da-f]{2,}\x5cx[\da-f]{2}/s
+2125:/addEventListener\x28/s
+2126:/addEventListener\x28[\x22\x27][\x2C]*?\x5cx[\da-f]{2}[\x2C]*?[\da-f]{2,}\x5cx[\da-f]{2}/s
+2127:/eval\(function\(p,a,c,k,e,r\)/s
+2128:/\x5B\x27parse\x27\x2B\x27Int\x27\x5D\x28/s
+2129:/MZ/s
+2130:/\x4C\x4C/s
+2131:/\x75\x14\x2A\x2A/s
+2132:/\|8A\ (?:10\ 80\ C2\ 3A\ 80\ F2\ 73\ 88\ 10\||10\ 80\ C2\ 4E\ 80\ F2\ 79\ 88\ 10\||10\ 80\ C2\ 67\ 80\ F2\ 24\ 88\ 10\||10\ 80\ EA\ 62\ 80\ F2\ B4\ 88\ 10\|)/s
+2133:/Sleepy!@\#qaz13402scvsde890/s
+2134:/\|0C\ (?:1F\ 1F\ 1F\ 4F\ 50\ 4C\ 4B\ 3F\ 57\ 4B\ 4B\ 4F\ 3F\ 4D\ 5A\ 4E\ 4A\ 5A\ 4C\ 4B\ 20\||1F\ 1F\ 1F\ 4D\ 5A\ 4C\ 4F\ 50\ 51\ 4C\ 5A\ 3F\ 2D\ 2F\ 2F\ 3F\ 50\ 54\ 3E\ 3E\ 3E\|)/s
+2135:/\xD3\xC4\xD2\xD1\xCE\xCF\xD2\xC4\xA1\xB3\xB1\xB1\xA1\xCE\xCA\xA0\xA0\xA0/s
+2136:/\x4F\x50\x4C\x4B\x3F\x57\x4B\x4B\x4F\x3F\x4D\x5A\x4E\x4A\x5A\x4C\x4B\x20\x1F/s
+2137:/\x15\x02\x14\x17\x08\x09\x14\x02\x67\x75\x77\x77\x67\x08\x0C\x66\x66\x66/s
+2138:/\|43\ (?:47\ 47\ 47\ 42\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 4F\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 43\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 4E\ 67\ 47\ 47\||47\ 47\ 47\ 45\ 67\ 47\ 47\ 43\ 47\ 47\ 47\ 44\ 67\ 47\ 47\|)/s
+2139:/\xD1\xCE\xD2\xD5\xA1\xC9\xD5\xD5\xD1\xA1\xD3\xC4\xD0\xD4\xC4\xD2\xD5\xBE/s
+2140:/,\|22(?:\|installerBehavior\x22:\{\x22hideOnInstall\x22:|\|countryId\x22:)/s
+2141:/option=com_joomlaupdate/s
+2142:/task(?:=update\.install|Id=)/s
+2143:/cgi\-bin\/create_user\.cgi/s
+2144:/subfun=/s
+2145:/VERIFY=/s
+2146:/ActiveXObject/s
+2147:/WScript\.Shell/s
+2148:/p\ o\ w\ e\ r\ s\ h\ e\ l\ l/s
+2149:/\xE0\x00\x00\x00\x00\x00/s
+2150:/MS_T120\x00/s
+2151:/Oracle\ Applications\ One\-Hour\ Install/s
+2152:/\/ab2\//s
+2153:/\/nstelemetry\.adp/s
+2154:/whois\x3A\/\//s
+2155:/Authorization\x3a(\s*|\s*\r?\n\s+)Basic\s+OmFkbWlu/s
+2156:/Authorization\x3a\s*Basic\s+(?-i)YWRtaW46YWRtaW4[=\s]/s
+2157:/\ \|3A(?:\|\.DCC\ CHAT\ chat|\|\.DCC\ SEND)/s
+2158:/select/s
+2159:/union/s
+2160:/where/s
+2161:/\ lik(?:e\ \x22%\x22|e\ '%')/s
+2162:/desc(?:ription=\x28|ribe\ )/s
+2163:/all_(?:constraints|tab_columns|tab_privs|tables|source|views)/s
+2164:/dba_(?:tablespace|tables)/s
+2165:/sys\.(?:dbms_repcat_fla_mas\.drop_column_group_from_flavor|dbms_repcat_untrusted\.register_snapshot_repgroup|dbms_repcat_sna_utl\.unregister_snapshot_repgroup|dbms_defer_internal_sys\.parallel_push_recovery|dbms_defer_repcat\.enable_propagation_to_dblink|dbms_repcat_sna_utl\.register_snapshot_repgroup|dbms_repcat_fla_mas\.add_column_group_to_flavor|dbms_repcat_sna_utl\.alter_snapshot_propagation|dbms_repcat_fla_mas\.obsolete_flavor_definition|dbms_repcat_conf\.comment_on_delete_resolution|dbms_repcat_sna_utl\.refresh_snapshot_repgroup|dbms_repcat_conf\.comment_on_unique_resolution|dbms_repcat_conf\.comment_on_update_resolution|dbms_repcat_fla_mas\.publish_flavor_definition|dbms_repcat_fla_mas\.drop_columns_from_flavor|dbms_repcat_sna\.unregister_snapshot_repgroup|dbms_aq_import_internal\.aq_table_defn_update|dbms_repcat_mas\.generate_replication_package|dbms_repcat_sna_utl\.create_snapshot_repgroup|dbms_repcat_sna_utl\.drop_snapshot_repobject|dbms_internal_repcat\.disable_receiver_trace|dbms_repcat_fla_mas\.purge_flavor_definition|dbms_repcat_sna_utl\.drop_snapshot_repgroup|dbms_repcat_sna\.alter_snapshot_propagation|dbms_internal_repcat\.enable_receiver_trace|dbms_repcat_sna\.refresh_snapshot_repschema|dbms_repcat_fla\.validate_flavor_definition|dbms_repcat_sna_utl\.switch_snapshot_master|dbms_repcat_sna\.register_snapshot_repgroup|dbms_repcat_conf\.comment_on_priority_group|dbms_repcat_mas\.rename_shadow_column_group|dbms_repcat_sna\.validate_for_local_flavor|dbms_repcat_sna\.create_snapshot_repobject|dbms_repcat_fla_mas\.add_columns_to_flavor|dbms_repcat_sna\.refresh_snapshot_repgroup|dbms_repcat_fla\.validate_for_local_flavor|dbms_repcat_conf\.alter_site_priority_site|dbms_repcat_conf\.comment_on_site_priority|dbms_repcat_sna\.generate_snapshot_support|dbms_repcat_conf\.alter_priority_nvarchar2|dbms_repcat_sna\.create_snapshot_repschema|dbms_repcat_auth\.revoke_surrogate_repcat|dbms_repcat_conf\.drop_priority_nvarchar2|dbms_repcat_mas\.do_deferred_repcat_admin|dbms_repcat_conf\.alter_priority_varchar2|dbms_repcat_sna\.create_snapshot_repgroup|dbms_repcat_conf\.drop_site_priority_site|dbms_repcat_auth\.grant_surrogate_repcat|dbms_repcat_conf\.drop_delete_resolution|dbms_repcat_conf\.drop_priority_varchar2|dbms_repcat_sna_utl\.repcat_import_check|dbms_repcat_fla\.begin_flavor_definition|dbms_repcat_conf\.add_priority_nvarchar2|dbms_repcat_conf\.drop_update_resolution|dbms_repcat_sna\.drop_snapshot_repobject|dbms_repcat_conf\.drop_unique_resolution|dbms_repcat_fla\.drop_object_from_flavor|dbms_repcat_fla\.abort_flavor_definition|dbms_repcat_mas\.suspend_master_activity|dbms_repcat_conf\.add_site_priority_site|dbms_repcat_mas\.create_master_repobject|dbms_repcat_sna\.drop_snapshot_repschema|dbms_repcat_conf\.define_priority_group|dbms_repcat_utl4\.drop_master_repobject|dbms_aqadm\.verify_queue_types_no_queue|dbms_repcat_sna\.drop_snapshot_repgroup|dbms_repcat_sna\.switch_snapshot_master|dbms_repcat_mas\.create_master_repgroup|dbms_repcat_conf\.add_unique_resolution|dbms_repcat_mas\.alter_master_repobject|dbms_repcat_conf\.alter_priority_number|dbms_repcat_conf\.add_update_resolution|dbms_repcat_conf\.add_priority_varchar2|dbms_repcat_mas\.resume_master_activity|dbms_repcat_conf\.add_delete_resolution|dbms_repcat_conf\.drop_priority_number|dbms_aqadm\.verify_queue_types_get_nrp|dbms_repcat_conf\.alter_priority_nchar|dbms_repcat_conf\.define_site_priority|dbms_repcat_fla\.add_object_to_flavor|dbms_repcat_conf\.alter_priority_date|dbms_repcat_conf\.add_priority_number|dbms_repcat_conf\.register_statistics|dbms_repcat_fla\.ensure_not_published|dbms_repcat_conf\.alter_site_priority|dbms_repcat_mas\.comment_on_repobject|dbms_repcat_mas\.drop_master_repgroup|dbms_repcat_conf\.alter_priority_char|dbms_repcat_conf\.drop_priority_nchar|dbms_repcat_conf\.drop_site_priority|dbms_repcat_conf\.alter_priority_raw|dbms_repcat_conf\.drop_priority_char|dbms_repcat\.alter_mview_propagation|dbms_repcat_conf\.add_priority_nchar|dbms_repcat_conf\.drop_priority_date|dbms_repcat_sna\.repcat_import_check|dbms_repcat_mas\.comment_on_repgroup|dbms_repcat_conf\.add_priority_char|dbms_repcat_conf\.drop_priority_raw|dbms_repcat_mas\.relocate_masterdef|dbms_repcat_conf\.add_priority_date|dbms_repcat_conf\.cancel_statistics|dbms_repcat_conf\.add_priority_raw|dbms_aqadm_sys\.verify_queue_types|dbms_repcat_conf\.purge_statistics|dbms_repcat_mas\.purge_master_log|dbms_repcat_fla\.set_local_flavor|dbms_repcat_sna\.set_local_flavor|dbms_rectifier_diff\.differences|dbms_repcat_conf\.alter_priority|dbms_repcat_conf\.drop_priority|dbms_repcat_utl\.drop_an_object|dbms_internal_repcat\.validate|dbms_rectifier_diff\.rectify|dbms_repcat_rq\.add_column|dbms_repcat_utl\.is_master|ltutil\.pushdeferredtxns|dbms_system\.ksdwrt|all_users)/s
+2166:/grant/s
+2167:/to/s
+2168:/alte(?:r\ database|r\ table|r\ user|r)/s
+2169:/identified\ by/s
+2170:/drop\ table/s
+2171:/crea(?:te\ database|te\ table|te)/s
+2172:/truncate\ table/s
+2173:/dbms(?:_repcat_instantiate\.drop_site_instantiation|_repcat_instantiate\.instantiate_offline|_repcat_instantiate\.instantiate_online|_repcat_sna_utl\.register_flavor_change|_repcat_admin\.unregister_user_repgroup|_repcat\.drop_column_group_from_flavor|_repcat\.generate_replication_package|_repcat\.unregister_snapshot_repgroup|_repcat\.generate_replication_trigger|_offline_og\.resume_subset_of_masters|_repcat\.comment_on_unique_resolution|_repcat\.comment_on_delete_resolution|_repcat\.generate_replication_support|_repcat\.comment_on_update_resolution|_repcat_admin\.register_user_repgroup|_repcat_auth\.revoke_surrogate_repcat|_repcat\.send_and_compare_old_values|_repcat_rgt\.drop_site_instantiation|_repcat\.register_snapshot_repgroup|_repcat\.alter_snapshot_propagation|_repcat\.validate_flavor_definition|_repcat\.obsolete_flavor_definition|_repcat\.rename_shadow_column_group|_repcat\.add_column_group_to_flavor|_repcat\.refresh_snapshot_repgroup|_repcat\.comment_on_mview_repsites|_repcat\.publish_flavor_definition|_repcat\.comment_on_priority_group|_repcat\.create_snapshot_repobject|_repcat\.validate_for_local_flavor|_repcat\.generate_snapshot_support|_repcat\.unregister_mview_repgroup|_repcat\.alter_site_priority_site|_repcat\.drop_columns_from_flavor|_repcat\.do_deferred_repcat_admin|_repcat\.comment_on_site_priority|_repcat\.alter_master_propagation|_repcat\.create_snapshot_repgroup|_repcat\.alter_priority_nvarchar2|_repcat\.comment_on_column_group|_repcat\.begin_flavor_definition|_repcat\.purge_flavor_definition|_repcat\.alter_mview_propagation|_repcat\.alter_priority_varchar2|_repcat_rgt\.instantiate_offline|_repcat\.suspend_master_activity|_repcat\.register_mview_repgroup|_repcat\.remove_master_databases|_repcat\.drop_site_priority_site|_offline_og\.begin_flavor_change|_repcat\.drop_snapshot_repobject|_repcat\.abort_flavor_definition|_repcat\.create_master_repobject|_offline_og\.begin_instantiation|_repcat\.drop_priority_nvarchar2|_repcat\.drop_object_from_flavor|_repcat\.drop_unique_resolution|_repcat\.resume_master_activity|_repcat\.create_master_repgroup|_repcat_rgt\.instantiate_online|_repcat\.add_priority_nvarchar2|_repcat\.alter_master_repobject|_repcat\.generate_mview_support|_repcat\.switch_snapshot_master|_repcat\.drop_snapshot_repgroup|_repcat\.drop_priority_varchar2|_repcat\.create_mview_repobject|_repcat\.drop_delete_resolution|_repcat\.add_site_priority_site|_repcat\.refresh_mview_repgroup|_repcat\.drop_update_resolution|_repcat\.define_priority_group|_repcat\.add_unique_resolution|_repcat\.add_priority_varchar2|_repcat\.create_mview_repgroup|_repcat\.add_delete_resolution|_repcat\.add_columns_to_flavor|_offline_og\.end_flavor_change|_repcat\.alter_priority_number|_repcat\.drop_master_repobject|_repcat\.add_update_resolution|_offline_og\.end_instantiation|_repcat\.alter_priority_nchar|_repcat\.drop_master_repgroup|_repcat\.drop_mview_repobject|_repcat\.drop_priority_number|_repcat\.add_object_to_flavor|_repcat\.define_site_priority|_repcat\.comment_on_repobject|_offline_snapshot\.begin_load|_repcat\.register_statistics|_repcat\.drop_priority_nchar|_repcat\.repcat_import_check|_repcat\.alter_priority_date|_repcat\.specify_new_masters|_repcat\.switch_mview_master|_rectifier_diff\.differences|_repcat\.comment_on_repgroup|_repcat\.comment_on_repsites|_repcat\.alter_priority_char|_repcat\.define_column_group|_repcat\.drop_grouped_column|_repcat\.alter_site_priority|_repcat\.drop_mview_repgroup|_repcat\.add_priority_number|_repcat\.alter_priority_raw|_repcat\.drop_site_priority|_offline_snapshot\.end_load|_repcat_rgt\.check_ddl_text|_repcat\.compare_old_values|_repcat\.drop_priority_date|_repcat\.relocate_masterdef|_repcat\.add_grouped_column|_repcat\.add_priority_nchar|_repcat\.drop_priority_char|_repcat\.cancel_statistics|_repcat\.drop_column_group|_repcat\.drop_priority_raw|_repcat\.make_column_group|_repcat\.add_priority_char|_repcat\.add_priority_date|_repcat\.purge_statistics|_repcat\.add_priority_raw|_repcat\.purge_master_log|_repcat\.set_local_flavor|_repcat\.send_old_values|_rectifier_diff\.rectify|_repcat\.alter_priority|_offline_og\.begin_load|_repcat\.drop_priority|_offline_og\.end_load|_repcat\.execute_ddl|_repcat\.set_columns)/s
+2174:/sysdbms_repcat_rgt\.check_ddl_text/s
+2175:/\(\s*(\x27[\x27]{1024,}|\x22[\x22]{1024,})/s
+2176:/CREATE/s
+2177:/DATABASE/s
+2178:/LINK/s
+2179:/USING\s*((\x27[\x27]{1000})|(\x22[\x22]{1000}))/s
+2180:/TIME_ZONE/s
+2181:/TIME_ZONE\s*=\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
+2182:/\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1024,}|\x22[\x22]{1024,})/s
+2183:/\(\s*TIMESTAMP\s*(\s*(\x27[\x27]+'|\x22[\x22]+\x22)\s*,)\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
+2184:/NUMTO/s
+2185:/NUMTO(DS|YM)INTERVAL\s*\(\s*\d+\s*,\s*((\x27[\x27]{1000,})|(\x22[\x22]{1000,}))/s
+2186:/ctx_output\.start_log/s
+2187:/ctxsys\.driddlr\.subindexpopulate/s
+2188:/mdsy(?:s\.sdo_admin\.sdo_code_size|s\.md2\.sdo_code_size|s\.md2\.validate_geom)/s
+2189:/ALTER\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
+2190:/CREATE\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
+2191:/TO_CHAR/s
+2192:/TO_CHAR\s*\(\s*SYSTIMESTAMP\s*,\s*(\x27[\x27]{256}|\x22[\x22]{256})/s
+2193:/\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})/s
+2194:/(\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*((\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*){2}(\x27[\x27]{1075,}|\x22[\x22]{1075,}))/s
+2195:/(\(\s*(\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*(\x27[\x27]{1075,}|\x22[\x22]{1075,})|\(\s*((\x27[\x27]*\x27|\x22[\x22]+\x22)\s*,\s*){2}(\x27[\x27]{1075,}|\x22[\x22]{1075,}))/s
+2196:/!"connect_data=\x28sid=/s
+2197:/!"address=\x28protocol=tcp/s
+2198:/\x0A\x00\x00\x01\x85\x04\x00\x00\x80root\x00/s
+2199:/\x0F\x00\x00\x00\x03show\ databases/s
+2200:/302/s
+2201:/=\+/s
+2202:/\*GOBBLE\*/s
+2203:/uname/s
+2204:/!@\x23/s
+2205:/\/vncviewer\.jar/s
+2206:/png\ \[\]\.\.Ks\ l44/s
+2207:/TERM=xterm/s
+2208:/lfstream\x26/s
+2209:/POST\x20\x2fg[ao]lfstream\x26/s
+2210:/POST\x20\x2f[a-z]+\.[a-z]{3}\x20HTTP\x2f1\.1\r\n/s
+2211:/\d+\x2d{2}\r\n/s
+2212:/POST\s\/[A-F0-9]{42}\s/s
+2213:/08x\x0D\x0A/s
+2214:/POST\x20\x2f[A-F\d]{42}\x20HTTP/s
+2215:/\[masscan\/1\.0\]/s
+2216:/GET \/[a-z]{8,12}\?[a-z] HTTP\/1.1/s
+2217:/\&priv=/s
+2218:/\&cred=/s
+2219:/\&card=/s
+2220:/\/shh\/\/bi/s
+2221:/M\-SEARCH/s
+2222:/ssdp\x3Adiscover/s
+2223:/gstsearch/s
+2224:/00/s
+2225:/MSNS(?:LP\/1\.0\ 603\ Decline|LP\/1\.0\ 200\ OK)/s
+2226:/CAL/s
+2227:/USR/s
+2228:/TWN/s
+2229:/\sLOGIN\s[\n]*?\{\s*(-|[3-9][0-9]{2}|2[6-9][0-9]|25[7-9]|[0-9]{4})/s
+2230:/LOGIN/s
+2231:/PARTIAL/s
+2232:/BODY\.PEEK\[/s
+2233:/\sPARTIAL.*BODY\.PEEK\[[\]]{1024}/s
+2234:/\sLOGIN\s[\n]*?%/s
+2235:/\sLOGIN\s\w+\s\{\d+\}[\r]?\n[\n]*?%/s
+2236:/\|81\ (?:F1\ 03\ 01\ 04\ 9B\ 81\ F1\ 01\||F1\ 03\ 01\ 04\ 9B\ 81\ F1\|)/s
+2237:/sock/s
+2238:/Qh\.dll/s
+2239:/E\ Fatal\ error,\ aborting\./s
+2240:/erro(?:r\ |r)/s
+2241:/I\ HATE\ YOU/s
+2242:/free\x28\x29\x3A\ warning\x3A\ chunk\ is\ already\ free/s
+2243:/E\ pr(?:otocol\ error\x3A\ invalid\ directory\ syntax\ in|otocol\ error\x3A\ Root\ request\ missing)/s
+2244:/cvs\ server\x3A\ cannot\ find\ module/s
+2245:/E\ cvs\ server\x3A\ warning\x3A\ cannot\ make\ directory\ CVS\ in\ \//s
+2246:/\-\-backup\-dir/s
+2247:/--backup-dir\s+\x2e\x2e\x2f/s
+2248:/Micr(?:osoft\ Windows|osoft\ Corp\.|osoft\ Corp)/s
+2249:/\x28\x00\x01\x00\x04\x00\x00\x00\x00\x00\x00\x00/s
+2250:/Argument/s
+2251:/Argument\s+\//s
+2252:/Directory/s
+2253:/Max\-dotdot/s
+2254:/Max-dotdot[\s\r\n]*\d{3,}/s
+2255:/PASS\s[\n]{49}/s
+2256:/USER\s[\n]{49}/s
+2257:/y049575046/s
+2258:/USER\s+y049575046/s
+2259:/RMD/s
+2260:/RMD\s+\x2f/s
+2261:/DESCRIBE/s
+2262:/DESCRIBE\s[\n]{300}/s
+2263:/sendsys\x3a[\n]{21}/s
+2264:/senduuname\x3a[\n]{21}/s
+2265:/version\x3a[\n]{21}/s
+2266:/checkgroups\x3a[\n]{21}/s
+2267:/ihave/s
+2268:/ihave\x3a[\n]{21}/s
+2269:/sendme\x3a[\n]{21}/s
+2270:/newgroup/s
+2271:/newgroup\x3a[\n]{32}/s
+2272:/rmgroup/s
+2273:/rmgroup\x3a[\n]{32}/s
+2274:/takethis/s
+2275:/!"\/takethis.*?Path\x3a.*?[\r]{0,1}?\n[\r]{0,1}\n\/is/s
+2276:/\Wfrom=[\x3b&\n]{100}/s
+2277:/YMSG/s
+2278:/<R/s
+2279:/\x3c(REQIMG|RVWCFG)\x3e/s
+2280:/GET[s]{432}/s
+2281:/HEAD[s]{432}/s
+2282:/PUT/s
+2283:/PUT[s]{432}/s
+2284:/POST[s]{432}/s
+2285:/TRACE[s]{432}/s
+2286:/DELETE[s]{432}/s
+2287:/LOCK[s]{432}/s
+2288:/MKCOL/s
+2289:/MKCOL[s]{432}/s
+2290:/COPY/s
+2291:/COPY[s]{432}/s
+2292:/MOVE/s
+2293:/MOVE[s]{432}/s
+2294:/PRIVMSG\s+[\s]+\s+\x3a\s*\x01SENDLINK\x7c[\x7c]{69}/s
+2295:/\{305(?:0f4d8\-98B5\-11CF\-BB82\-00AA00BDCE0B\}|0F3D9\-98B5\-11CF\-BB82\-00AA00BDCE0B\})/s
+2296:/\{25336920\-03f9\-11cf\-8fd0\-00aa00686f13\}/s
+2297:/\{48123bc4\-99d9\-11d1\-a6b3\-00c04fd91555\}/s
+2298:/WINDIR/s
+2299:/SYSDIR/s
+2300:/ABCJZDATEIV/s
+2301:/Insane\ Network\ vs\ 4\.0\ by\ Suid\ Flow\x0A\x0Dwww\.blackcode\.com\x0A\x0D\[r00t\]\x23/s
+2302:/DIST00000001/s
+2303:/\x5csecure\x5c[\x00]{50}/s
+2304:/1j\xD0\xD9/s
+2305:/ARKADMIN_GET_/s
+2306:/(CLIENT|MACHINE)_INFO/s
+2307:/ARKFS\x00root\x00root/s
+2308:/\x73\x00\x6E\x00\x6B\x00\x62\x00\x30\x00\x70\x00\x74\x00\x7A\x00/s
+2309:/\xFESMB/s
+2310:/\x0B\x00/s
+2311:/\x70\x00\x69\x00\x70\x00\x65\x00\x73\x00\x68\x00\x65\x00\x6C\x00\x6C\x00\x2D\x00\x70\x00\x69\x00\x70\x00\x65\x00\x6E\x00\x61\x00\x6D\x00\x65\x00/s
+2312:/iptux/s
+2313:/lws\x3Alws/s
+2314:/\.zollard\//s
+2315:/uptime=/s
+2316:/\&downlink=/s
+2317:/\&uplink=/s
+2318:/\&features=/s
+2319:/E\x00N\x00D\x00S\x00E\x00R\x00V\x00E\x00R\x00B\x00U\x00F\x00F\x00E\x00R\x00/s
+2320:/\x18\x03\x02\x00\x03\x01\x40\x00/s
+2321:/\|63\ (?:82\ 53\ 63\ 35\||82\ 53\ 63\|)/s
+2322:/\xFC/s
+2323:/([\xfc]).{0,50}([\x27])([\x20\x26\x3b\x7c]|[\x3c\x3e\x24]\x28)+/s
+2324:/\x63\x82\x53\x63.+?[\x0c-\xfe][\x05-\xff][\x20-\x7f]{0,250}\x27[\x20-\x7f]{3,250}\x23/s
+2325:/IHkoeWRrcnkpIikqNy95ZCB5LSl5ZCB5/s
+2326:/(stem|slick)\.php\?utma/s
+2327:/HHV1:/s
+2328:/HHV2:/s
+2329:/HHV3:\ 61456/s
+2330:/HHV4:/s
+2331:/\x60\xDB\x37\x37\x37\x37\x37\x37/s
+2332:/\x65\xDB\x37\x37\x37\x37\x37\x37/s
+2333:/\|09\ (?:4D\ 69\ 63\ 72\ 6F\ 73\ 6F\ 66\ 74\ 31\ 10\ 30\ 0E\ 06\ 03\ 55\ 04\ 0B\ 13\ 07\ 53\ 75\ 70\ 70\ 6F\ 72\ 74\ 31\ 0B\ 30\ 09\ 06\ 03\ 55\ 04\ 03\ 13\ 02\ 63\ 61\||44\ 80\ 0E\ DE\ B6\ FA\ 3B\ 5B\ 5D\ 52\ 33\ 91\ 0D\ 09\ 7F\||22\ 33\ 30\ 28\ 35\ 2C\|)/s
+2334:/HawkEye\ Keylogger/s
+2335:/Subj(?:ect\x3A\x20=\?utf\-8\?B\?SGF3a0V5ZSBMb2dnZXIg|ect:\ HawkEye\ Keylogger\ \x7C|ect:\ =\?utf\-8\?B)/s
+2336:/=0D=(?:0APassword|0AUsername|0ABrowser|0AWebsite|0A=0D=0A|0A)/s
+2337:/LvtfOWStYYHNbdiE15aNsOyg/s
+2338:/Let's\ Encrypt/s
+2339:/gloverkentok\.us/s
+2340:/My\ Company\ Name\ LTD\./s
+2341:/\x05/s
+2342:/MERA\ RTU/s
+2343:/EE\xA8\xC63/s
+2344:/ooh323/s
+2345:/myversion\x7C2\.5\.2\./s
+2346:/:\/\//s
+2347:/Frag/s
+2348:/Free/s
+2349:/\xFA\xFF\xFF/s
+2350:/\xF8\xFF\xFF/s
+2351:/856/s
+2352:/856\x9A\xF3\xEC\x89/s
+2353:/settings=\{\x22/s
+2354:/[?&]reportId=[&]*?\x2e\x2e\x2f/s
+2355:/3t2t3rgeg/s
+2356:/fg2eq34df/s
+2357:/f2tee4/s
+2358:/rvgvtfdf/s
+2359:/London/s
+2360:/example\.com/s
+2361:/Alaska/s
+2362:/John_Alaska@gmail\.com/s
+2363:/\x12\x02/s
+2364:/\x09/s
+2365:/\x2D\x7C\x2D/s
+2366:/s0\x2D\x7C\x2D/s
+2367:/s1\x2D\x7C\x2D/s
+2368:/s2\x2D\x7C\x2D/s
+2369:/s3\x2D\x7C\x2D/s
+2370:/\x59\x0D\xB1\xE7\x67\x23\x51\xBA\x5B\x5D\x52\x33\x91\x0D\x09\x7F/s
+2371:/pk/s
+2372:/\+CHANNEL\x0B/s
+2373:/line\-client/s
+2374:/S\x00e\x00m\x00i\x00n\x00a\x00r\x00_\x002\x000\x001\x008\x00_\x001\x00\.\x00A\x00O\x00\-\x00A\x00/s
+2375:/\/ws\?/s
+2376:/whisky_id=/s
+2377:/device_id=/s
+2378:/Upgrade:\ websocket/s
+2379:/Z/s
+2380:/\xA7\x06\x02\x04\x6C\x69\x6C\x00/s
 
 # === LOGICAL EXPRESSIONS (Rule Combinations with HS_FLAG_COMBINATION) ===
 100000:/(1)/c
@@ -2445,170 +2428,170 @@
 100044:/(218)/c
 100045:/(35 | 251 | 441 | 442 | 443 | 444 | 445 | 446)/c
 100046:/(13 | 105 | 106 | 120 | 126 | 182 | 218 | 226 | 231 | 232 | 267 | 316 | 415 | 447 | 448 | 449 | 450 | 451 | 452 | 453 | 454 | 455 | 456 | 457 | 458 | 459 | 460 | 461 | 462 | 463 | 464 | 465 | 466 | 467 | 468 | 469 | 470 | 471 | 472 | 473 | 474 | 475 | 476 | 477 | 478 | 479 | 480 | 481 | 482 | 483 | 484 | 485 | 486 | 487 | 488 | 489 | 490 | 491 | 492 | 493 | 494 | 495 | 496 | 497 | 498 | 499 | 500 | 501 | 502 | 503 | 504)/c
-100047:/(8 | 9 | 10 | 13 | 17 | 35 | 38 | 44 | 54 | 64 | 73 | 84 | 99 | 105 | 113 | 114 | 119 | 120 | 121 | 122 | 123 | 126 | 128 | 165 | 182 | 192 | 200 | 202 | 211 | 212 | 221 | 225 | 226 | 231 | 232 | 246 | 248 | 251 | 258 | 259 | 262 | 265 | 267 | 273 | 294 | 300 | 313 | 316 | 318 | 326 | 329 | 343 | 359 | 380 | 381 | 383 | 394 | 397 | 404 | 405 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 421 | 434 | 464 | 466 | 494 | 496 | 497 | 505 | 506 | 507 | 508 | 509 | 510 | 511 | 512 | 513 | 514 | 515 | 516 | 517 | 518 | 519 | 520 | 521 | 522 | 523 | 524 | 525 | 526 | 527 | 528 | 529 | 530 | 531 | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 | 541 | 542 | 543 | 544 | 545 | 546 | 547 | 548 | 549 | 550 | 551 | 552 | 553 | 554 | 555 | 556 | 557 | 558 | 559 | 560 | 561 | 562 | 563 | 564 | 565 | 566 | 567 | 568 | 569 | 570 | 571 | 572 | 573 | 574 | 575 | 576 | 577 | 578 | 579 | 580 | 581 | 582 | 583 | 584 | 585 | 586 | 587 | 588 | 589 | 590 | 591 | 592 | 593 | 594 | 595 | 596 | 597 | 598 | 599 | 600 | 601 | 602 | 603 | 604 | 605 | 606 | 607 | 608 | 609 | 610 | 611 | 612 | 613 | 614 | 615 | 616 | 617 | 618 | 619 | 620 | 621 | 622 | 623 | 624 | 625 | 626 | 627 | 628 | 629 | 630 | 631 | 632 | 633 | 634 | 635 | 636 | 637 | 638 | 639 | 640 | 641 | 642 | 643 | 644 | 645 | 646 | 647 | 648 | 649 | 650 | 651 | 652 | 653 | 654 | 655 | 656 | 657 | 658 | 659 | 660 | 661 | 662 | 663 | 664 | 665 | 666 | 667 | 668 | 669 | 670 | 671 | 672 | 673 | 674 | 675 | 676 | 677 | 678 | 679 | 680 | 681 | 682 | 683 | 684 | 685 | 686 | 687 | 688 | 689 | 690 | 691 | 692 | 693 | 694 | 695 | 696 | 697 | 698 | 699 | 700 | 701 | 702 | 703 | 704 | 705 | 706 | 707 | 708 | 709 | 710 | 711 | 712 | 713 | 714 | 715 | 716 | 717 | 718 | 719 | 720 | 721 | 722 | 723 | 724 | 725 | 726 | 727 | 728 | 729 | 730 | 731 | 732 | 733 | 734 | 735 | 736 | 737 | 738 | 739 | 740 | 741 | 742 | 743 | 744 | 745 | 746 | 747 | 748 | 749 | 750 | 751 | 752 | 753 | 754 | 755 | 756 | 757 | 758 | 759 | 760 | 761 | 762 | 763 | 764 | 765 | 766 | 767 | 768 | 769 | 770 | 771 | 772 | 773 | 774 | 775 | 776 | 777 | 778 | 779 | 780 | 781 | 782 | 783 | 784 | 785 | 786 | 787 | 788 | 789 | 790 | 791 | 792 | 793 | 794 | 795 | 796 | 797 | 798 | 799 | 800 | 801 | 802 | 803 | 804 | 805 | 806 | 807 | 808 | 809 | 810 | 811 | 812 | 813 | 814 | 815 | 816 | 817 | 818 | 819 | 820 | 821 | 822 | 823 | 824 | 825 | 826 | 827 | 828 | 829 | 830 | 831 | 832 | 833 | 834 | 835 | 836 | 837 | 838 | 839 | 840 | 841 | 842 | 843 | 844 | 845 | 846 | 847 | 848 | 849 | 850 | 851 | 852 | 853 | 854 | 855 | 856 | 857 | 858 | 859 | 860 | 861 | 862 | 863 | 864 | 865 | 866 | 867 | 868 | 869 | 870 | 871 | 872 | 873 | 874 | 875 | 876 | 877 | 878 | 879 | 880 | 881 | 882 | 883 | 884 | 885 | 886 | 887 | 888 | 889 | 890 | 891 | 892 | 893 | 894 | 895 | 896 | 897 | 898 | 899 | 900 | 901 | 902 | 903 | 904 | 905 | 906 | 907 | 908 | 909 | 910 | 911 | 912 | 913 | 914 | 915 | 916 | 917 | 918 | 919 | 920 | 921 | 922 | 923 | 924 | 925 | 926 | 927 | 928 | 929 | 930 | 931 | 932 | 933 | 934 | 935 | 936 | 937 | 938 | 939 | 940 | 941 | 942 | 943 | 944 | 945 | 946 | 947 | 948 | 949 | 950 | 951 | 952 | 953 | 954 | 955 | 956 | 957 | 958 | 959 | 960 | 961 | 962 | 963 | 964 | 965 | 966 | 967 | 968 | 969 | 970 | 971 | 972 | 973 | 974 | 975 | 976 | 977 | 978 | 979 | 980 | 981 | 982 | 983 | 984 | 985 | 986 | 987 | 988 | 989 | 990 | 991 | 992 | 993 | 994 | 995 | 996 | 997 | 998 | 999 | 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 | 1009 | 1010 | 1011 | 1012 | 1013 | 1014 | 1015 | 1016 | 1017 | 1018 | 1019 | 1020 | 1021 | 1022 | 1023 | 1024 | 1025 | 1026 | 1027 | 1028 | 1029 | 1030 | 1031 | 1032 | 1033 | 1034 | 1035 | 1036 | 1037 | 1038 | 1039 | 1040 | 1041 | 1042 | 1043 | 1044 | 1045 | 1046 | 1047 | 1048 | 1049 | 1050 | 1051 | 1052 | 1053 | 1054 | 1055 | 1056 | 1057 | 1058 | 1059 | 1060 | 1061 | 1062 | 1063 | 1064 | 1065 | 1066 | 1067 | 1068 | 1069 | 1070 | 1071 | 1072 | 1073 | 1074 | 1075 | 1076 | 1077 | 1078 | 1079 | 1080 | 1081 | 1082 | 1083 | 1084 | 1085 | 1086 | 1087 | 1088 | 1089 | 1090 | 1091 | 1092 | 1093 | 1094 | 1095 | 1096 | 1097 | 1098 | 1099 | 1100 | 1101 | 1102 | 1103 | 1104 | 1105 | 1106 | 1107 | 1108 | 1109 | 1110 | 1111 | 1112 | 1113 | 1114 | 1115 | 1116 | 1117 | 1118 | 1119 | 1120 | 1121 | 1122 | 1123 | 1124 | 1125 | 1126 | 1127 | 1128 | 1129 | 1130 | 1131 | 1132 | 1133 | 1134 | 1135 | 1136 | 1137 | 1138 | 1139 | 1140 | 1141 | 1142 | 1143 | 1144 | 1145 | 1146 | 1147 | 1148 | 1149 | 1150 | 1151 | 1152 | 1153 | 1154 | 1155 | 1156 | 1157 | 1158 | 1159 | 1160 | 1161 | 1162 | 1163 | 1164 | 1165 | 1166 | 1167 | 1168 | 1169 | 1170 | 1171 | 1172 | 1173 | 1174 | 1175 | 1176 | 1177 | 1178 | 1179 | 1180 | 1181 | 1182 | 1183 | 1184 | 1185 | 1186 | 1187 | 1188 | 1189 | 1190 | 1191 | 1192 | 1193 | 1194 | 1195 | 1196 | 1197 | 1198 | 1199 | 1200 | 1201 | 1202 | 1203 | 1204 | 1205 | 1206 | 1207 | 1208 | 1209 | 1210 | 1211 | 1212 | 1213 | 1214 | 1215 | 1216 | 1217 | 1218 | 1219 | 1220 | 1221 | 1222 | 1223 | 1224 | 1225 | 1226 | 1227 | 1228 | 1229 | 1230 | 1231 | 1232 | 1233 | 1234 | 1235 | 1236 | 1237 | 1238 | 1239 | 1240 | 1241 | 1242 | 1243 | 1244 | 1245 | 1246 | 1247 | 1248 | 1249 | 1250 | 1251 | 1252 | 1253 | 1254 | 1255 | 1256 | 1257 | 1258 | 1259 | 1260 | 1261 | 1262 | 1263 | 1264 | 1265 | 1266 | 1267 | 1268 | 1269 | 1270 | 1271 | 1272 | 1273 | 1274 | 1275 | 1276 | 1277 | 1278 | 1279 | 1280 | 1281 | 1282 | 1283 | 1284 | 1285 | 1286 | 1287 | 1288 | 1289 | 1290 | 1291 | 1292 | 1293 | 1294 | 1295 | 1296 | 1297 | 1298 | 1299 | 1300 | 1301 | 1302 | 1303 | 1304 | 1305 | 1306 | 1307 | 1308 | 1309 | 1310 | 1311 | 1312 | 1313 | 1314 | 1315 | 1316 | 1317 | 1318 | 1319 | 1320 | 1321 | 1322 | 1323 | 1324 | 1325 | 1326 | 1327 | 1328 | 1329 | 1330 | 1331 | 1332 | 1333 | 1334 | 1335 | 1336 | 1337 | 1338 | 1339 | 1340 | 1341 | 1342 | 1343 | 1344 | 1345 | 1346 | 1347 | 1348 | 1349 | 1350 | 1351 | 1352 | 1353 | 1354 | 1355 | 1356 | 1357 | 1358 | 1359 | 1360 | 1361 | 1362 | 1363 | 1364 | 1365 | 1366 | 1367 | 1368 | 1369 | 1370 | 1371 | 1372 | 1373 | 1374 | 1375 | 1376 | 1377 | 1378 | 1379 | 1380 | 1381 | 1382 | 1383 | 1384 | 1385 | 1386 | 1387 | 1388 | 1389 | 1390 | 1391 | 1392 | 1393 | 1394 | 1395 | 1396 | 1397 | 1398 | 1399 | 1400 | 1401 | 1402 | 1403 | 1404 | 1405 | 1406 | 1407 | 1408 | 1409 | 1410 | 1411 | 1412 | 1413 | 1414 | 1415 | 1416 | 1417 | 1418 | 1419 | 1420 | 1421 | 1422 | 1423 | 1424 | 1425 | 1426 | 1427 | 1428 | 1429 | 1430 | 1431 | 1432 | 1433 | 1434 | 1435 | 1436 | 1437 | 1438 | 1439 | 1440 | 1441 | 1442 | 1443 | 1444 | 1445 | 1446 | 1447 | 1448 | 1449 | 1450 | 1451 | 1452 | 1453 | 1454 | 1455 | 1456 | 1457 | 1458 | 1459 | 1460 | 1461 | 1462 | 1463 | 1464 | 1465 | 1466 | 1467 | 1468 | 1469 | 1470 | 1471 | 1472 | 1473 | 1474 | 1475 | 1476 | 1477 | 1478 | 1479 | 1480 | 1481 | 1482 | 1483 | 1484 | 1485 | 1486 | 1487 | 1488 | 1489 | 1490 | 1491 | 1492 | 1493 | 1494 | 1495 | 1496 | 1497 | 1498 | 1499 | 1500 | 1501 | 1502 | 1503 | 1504 | 1505 | 1506 | 1507 | 1508 | 1509 | 1510 | 1511 | 1512 | 1513 | 1514 | 1515 | 1516 | 1517 | 1518 | 1519 | 1520 | 1521 | 1522 | 1523 | 1524 | 1525 | 1526 | 1527 | 1528 | 1529 | 1530 | 1531 | 1532 | 1533 | 1534 | 1535 | 1536 | 1537 | 1538 | 1539 | 1540 | 1541 | 1542 | 1543 | 1544 | 1545 | 1546 | 1547 | 1548 | 1549 | 1550 | 1551 | 1552 | 1553 | 1554 | 1555 | 1556 | 1557 | 1558 | 1559 | 1560 | 1561 | 1562 | 1563 | 1564 | 1565 | 1566 | 1567 | 1568 | 1569 | 1570 | 1571 | 1572 | 1573 | 1574 | 1575 | 1576 | 1577 | 1578 | 1579 | 1580 | 1581 | 1582 | 1583 | 1584 | 1585 | 1586 | 1587 | 1588 | 1589 | 1590 | 1591 | 1592 | 1593 | 1594 | 1595 | 1596 | 1597 | 1598 | 1599 | 1600 | 1601 | 1602 | 1603 | 1604 | 1605 | 1606 | 1607 | 1608 | 1609 | 1610 | 1611 | 1612 | 1613 | 1614 | 1615 | 1616 | 1617 | 1618 | 1619 | 1620 | 1621 | 1622 | 1623 | 1624 | 1625 | 1626 | 1627 | 1628 | 1629 | 1630 | 1631 | 1632 | 1633 | 1634 | 1635 | 1636 | 1637 | 1638 | 1639 | 1640 | 1641 | 1642 | 1643 | 1644 | 1645 | 1646 | 1647 | 1648 | 1649 | 1650 | 1651 | 1652 | 1653 | 1654 | 1655 | 1656 | 1657 | 1658 | 1659 | 1660 | 1661 | 1662 | 1663 | 1664 | 1665 | 1666 | 1667 | 1668 | 1669 | 1670 | 1671 | 1672 | 1673 | 1674 | 1675 | 1676 | 1677 | 1678 | 1679 | 1680 | 1681 | 1682 | 1683 | 1684 | 1685 | 1686 | 1687 | 1688 | 1689 | 1690 | 1691 | 1692 | 1693 | 1694 | 1695 | 1696 | 1697 | 1698 | 1699 | 1700 | 1701 | 1702 | 1703 | 1704 | 1705 | 1706 | 1707 | 1708 | 1709 | 1710 | 1711 | 1712 | 1713 | 1714 | 1715 | 1716 | 1717 | 1718 | 1719 | 1720 | 1721 | 1722 | 1723 | 1724 | 1725 | 1726 | 1727 | 1728 | 1729 | 1730 | 1731 | 1732 | 1733 | 1734 | 1735 | 1736 | 1737 | 1738 | 1739 | 1740 | 1741 | 1742 | 1743 | 1744 | 1745 | 1746 | 1747 | 1748 | 1749 | 1750 | 1751 | 1752 | 1753 | 1754 | 1755 | 1756 | 1757 | 1758 | 1759 | 1760 | 1761 | 1762 | 1763 | 1764 | 1765 | 1766 | 1767 | 1768 | 1769 | 1770 | 1771 | 1772 | 1773 | 1774 | 1775 | 1776 | 1777 | 1778 | 1779 | 1780 | 1781 | 1782 | 1783 | 1784 | 1785 | 1786 | 1787 | 1788 | 1789 | 1790 | 1791 | 1792 | 1793 | 1794 | 1795 | 1796 | 1797 | 1798 | 1799 | 1800 | 1801 | 1802 | 1803 | 1804 | 1805 | 1806 | 1807 | 1808 | 1809 | 1810 | 1811 | 1812 | 1813 | 1814 | 1815 | 1816 | 1817 | 1818 | 1819 | 1820 | 1821 | 1822 | 1823 | 1824 | 1825 | 1826 | 1827 | 1828 | 1829 | 1830 | 1831 | 1832 | 1833 | 1834 | 1835 | 1836 | 1837 | 1838 | 1839 | 1840 | 1841 | 1842 | 1843 | 1844 | 1845 | 1846 | 1847 | 1848 | 1849 | 1850 | 1851 | 1852 | 1853 | 1854 | 1855 | 1856 | 1857 | 1858 | 1859 | 1860 | 1861 | 1862 | 1863 | 1864 | 1865 | 1866 | 1867 | 1868 | 1869 | 1870 | 1871 | 1872 | 1873 | 1874 | 1875 | 1876 | 1877 | 1878 | 1879 | 1880 | 1881 | 1882 | 1883 | 1884 | 1885 | 1886 | 1887 | 1888 | 1889 | 1890 | 1891 | 1892 | 1893 | 1894 | 1895 | 1896 | 1897 | 1898 | 1899 | 1900 | 1901 | 1902 | 1903 | 1904 | 1905 | 1906 | 1907 | 1908 | 1909 | 1910 | 1911 | 1912 | 1913 | 1914 | 1915 | 1916 | 1917 | 1918 | 1919 | 1920 | 1921 | 1922 | 1923 | 1924 | 1925 | 1926 | 1927 | 1928 | 1929 | 1930 | 1931 | 1932 | 1933 | 1934 | 1935 | 1936 | 1937 | 1938 | 1939 | 1940 | 1941 | 1942 | 1943 | 1944 | 1945 | 1946 | 1947 | 1948 | 1949 | 1950 | 1951 | 1952 | 1953 | 1954 | 1955 | 1956 | 1957 | 1958 | 1959 | 1960 | 1961 | 1962 | 1963 | 1964 | 1965 | 1966 | 1967 | 1968 | 1969 | 1970 | 1971 | 1972 | 1973 | 1974 | 1975 | 1976 | 1977 | 1978 | 1979 | 1980 | 1981 | 1982 | 1983 | 1984 | 1985 | 1986 | 1987 | 1988 | 1989 | 1990 | 1991 | 1992 | 1993 | 1994 | 1995 | 1996 | 1997 | 1998 | 1999 | 2000 | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 | 2032 | 2033 | 2034 | 2035 | 2036 | 2037 | 2038 | 2039 | 2040 | 2041 | 2042 | 2043 | 2044 | 2045)/c
+100047:/(8 | 9 | 10 | 13 | 17 | 35 | 38 | 44 | 54 | 64 | 73 | 84 | 99 | 105 | 113 | 114 | 119 | 120 | 121 | 122 | 123 | 126 | 128 | 165 | 182 | 192 | 200 | 202 | 211 | 212 | 221 | 225 | 226 | 231 | 232 | 246 | 248 | 251 | 258 | 259 | 262 | 265 | 267 | 273 | 294 | 300 | 313 | 316 | 318 | 326 | 329 | 343 | 359 | 380 | 381 | 383 | 394 | 397 | 404 | 405 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 421 | 434 | 464 | 466 | 494 | 496 | 497 | 505 | 506 | 507 | 508 | 509 | 510 | 511 | 512 | 513 | 514 | 515 | 516 | 517 | 518 | 519 | 520 | 521 | 522 | 523 | 524 | 525 | 526 | 527 | 528 | 529 | 530 | 531 | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 | 541 | 542 | 543 | 544 | 545 | 546 | 547 | 548 | 549 | 550 | 551 | 552 | 553 | 554 | 555 | 556 | 557 | 558 | 559 | 560 | 561 | 562 | 563 | 564 | 565 | 566 | 567 | 568 | 569 | 570 | 571 | 572 | 573 | 574 | 575 | 576 | 577 | 578 | 579 | 580 | 581 | 582 | 583 | 584 | 585 | 586 | 587 | 588 | 589 | 590 | 591 | 592 | 593 | 594 | 595 | 596 | 597 | 598 | 599 | 600 | 601 | 602 | 603 | 604 | 605 | 606 | 607 | 608 | 609 | 610 | 611 | 612 | 613 | 614 | 615 | 616 | 617 | 618 | 619 | 620 | 621 | 622 | 623 | 624 | 625 | 626 | 627 | 628 | 629 | 630 | 631 | 632 | 633 | 634 | 635 | 636 | 637 | 638 | 639 | 640 | 641 | 642 | 643 | 644 | 645 | 646 | 647 | 648 | 649 | 650 | 651 | 652 | 653 | 654 | 655 | 656 | 657 | 658 | 659 | 660 | 661 | 662 | 663 | 664 | 665 | 666 | 667 | 668 | 669 | 670 | 671 | 672 | 673 | 674 | 675 | 676 | 677 | 678 | 679 | 680 | 681 | 682 | 683 | 684 | 685 | 686 | 687 | 688 | 689 | 690 | 691 | 692 | 693 | 694 | 695 | 696 | 697 | 698 | 699 | 700 | 701 | 702 | 703 | 704 | 705 | 706 | 707 | 708 | 709 | 710 | 711 | 712 | 713 | 714 | 715 | 716 | 717 | 718 | 719 | 720 | 721 | 722 | 723 | 724 | 725 | 726 | 727 | 728 | 729 | 730 | 731 | 732 | 733 | 734 | 735 | 736 | 737 | 738 | 739 | 740 | 741 | 742 | 743 | 744 | 745 | 746 | 747 | 748 | 749 | 750 | 751 | 752 | 753 | 754 | 755 | 756 | 757 | 758 | 759 | 760 | 761 | 762 | 763 | 764 | 765 | 766 | 767 | 768 | 769 | 770 | 771 | 772 | 773 | 774 | 775 | 776 | 777 | 778 | 779 | 780 | 781 | 782 | 783 | 784 | 785 | 786 | 787 | 788 | 789 | 790 | 791 | 792 | 793 | 794 | 795 | 796 | 797 | 798 | 799 | 800 | 801 | 802 | 803 | 804 | 805 | 806 | 807 | 808 | 809 | 810 | 811 | 812 | 813 | 814 | 815 | 816 | 817 | 818 | 819 | 820 | 821 | 822 | 823 | 824 | 825 | 826 | 827 | 828 | 829 | 830 | 831 | 832 | 833 | 834 | 835 | 836 | 837 | 838 | 839 | 840 | 841 | 842 | 843 | 844 | 845 | 846 | 847 | 848 | 849 | 850 | 851 | 852 | 853 | 854 | 855 | 856 | 857 | 858 | 859 | 860 | 861 | 862 | 863 | 864 | 865 | 866 | 867 | 868 | 869 | 870 | 871 | 872 | 873 | 874 | 875 | 876 | 877 | 878 | 879 | 880 | 881 | 882 | 883 | 884 | 885 | 886 | 887 | 888 | 889 | 890 | 891 | 892 | 893 | 894 | 895 | 896 | 897 | 898 | 899 | 900 | 901 | 902 | 903 | 904 | 905 | 906 | 907 | 908 | 909 | 910 | 911 | 912 | 913 | 914 | 915 | 916 | 917 | 918 | 919 | 920 | 921 | 922 | 923 | 924 | 925 | 926 | 927 | 928 | 929 | 930 | 931 | 932 | 933 | 934 | 935 | 936 | 937 | 938 | 939 | 940 | 941 | 942 | 943 | 944 | 945 | 946 | 947 | 948 | 949 | 950 | 951 | 952 | 953 | 954 | 955 | 956 | 957 | 958 | 959 | 960 | 961 | 962 | 963 | 964 | 965 | 966 | 967 | 968 | 969 | 970 | 971 | 972 | 973 | 974 | 975 | 976 | 977 | 978 | 979 | 980 | 981 | 982 | 983 | 984 | 985 | 986 | 987 | 988 | 989 | 990 | 991 | 992 | 993 | 994 | 995 | 996 | 997 | 998 | 999 | 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 | 1009 | 1010 | 1011 | 1012 | 1013 | 1014 | 1015 | 1016 | 1017 | 1018 | 1019 | 1020 | 1021 | 1022 | 1023 | 1024 | 1025 | 1026 | 1027 | 1028 | 1029 | 1030 | 1031 | 1032 | 1033 | 1034 | 1035 | 1036 | 1037 | 1038 | 1039 | 1040 | 1041 | 1042 | 1043 | 1044 | 1045 | 1046 | 1047 | 1048 | 1049 | 1050 | 1051 | 1052 | 1053 | 1054 | 1055 | 1056 | 1057 | 1058 | 1059 | 1060 | 1061 | 1062 | 1063 | 1064 | 1065 | 1066 | 1067 | 1068 | 1069 | 1070 | 1071 | 1072 | 1073 | 1074 | 1075 | 1076 | 1077 | 1078 | 1079 | 1080 | 1081 | 1082 | 1083 | 1084 | 1085 | 1086 | 1087 | 1088 | 1089 | 1090 | 1091 | 1092 | 1093 | 1094 | 1095 | 1096 | 1097 | 1098 | 1099 | 1100 | 1101 | 1102 | 1103 | 1104 | 1105 | 1106 | 1107 | 1108 | 1109 | 1110 | 1111 | 1112 | 1113 | 1114 | 1115 | 1116 | 1117 | 1118 | 1119 | 1120 | 1121 | 1122 | 1123 | 1124 | 1125 | 1126 | 1127 | 1128 | 1129 | 1130 | 1131 | 1132 | 1133 | 1134 | 1135 | 1136 | 1137 | 1138 | 1139 | 1140 | 1141 | 1142 | 1143 | 1144 | 1145 | 1146 | 1147 | 1148 | 1149 | 1150 | 1151 | 1152 | 1153 | 1154 | 1155 | 1156 | 1157 | 1158 | 1159 | 1160 | 1161 | 1162 | 1163 | 1164 | 1165 | 1166 | 1167 | 1168 | 1169 | 1170 | 1171 | 1172 | 1173 | 1174 | 1175 | 1176 | 1177 | 1178 | 1179 | 1180 | 1181 | 1182 | 1183 | 1184 | 1185 | 1186 | 1187 | 1188 | 1189 | 1190 | 1191 | 1192 | 1193 | 1194 | 1195 | 1196 | 1197 | 1198 | 1199 | 1200 | 1201 | 1202 | 1203 | 1204 | 1205 | 1206 | 1207 | 1208 | 1209 | 1210 | 1211 | 1212 | 1213 | 1214 | 1215 | 1216 | 1217 | 1218 | 1219 | 1220 | 1221 | 1222 | 1223 | 1224 | 1225 | 1226 | 1227 | 1228 | 1229 | 1230 | 1231 | 1232 | 1233 | 1234 | 1235 | 1236 | 1237 | 1238 | 1239 | 1240 | 1241 | 1242 | 1243 | 1244 | 1245 | 1246 | 1247 | 1248 | 1249 | 1250 | 1251 | 1252 | 1253 | 1254 | 1255 | 1256 | 1257 | 1258 | 1259 | 1260 | 1261 | 1262 | 1263 | 1264 | 1265 | 1266 | 1267 | 1268 | 1269 | 1270 | 1271 | 1272 | 1273 | 1274 | 1275 | 1276 | 1277 | 1278 | 1279 | 1280 | 1281 | 1282 | 1283 | 1284 | 1285 | 1286 | 1287 | 1288 | 1289 | 1290 | 1291 | 1292 | 1293 | 1294 | 1295 | 1296 | 1297 | 1298 | 1299 | 1300 | 1301 | 1302 | 1303 | 1304 | 1305 | 1306 | 1307 | 1308 | 1309 | 1310 | 1311 | 1312 | 1313 | 1314 | 1315 | 1316 | 1317 | 1318 | 1319 | 1320 | 1321 | 1322 | 1323 | 1324 | 1325 | 1326 | 1327 | 1328 | 1329 | 1330 | 1331 | 1332 | 1333 | 1334 | 1335 | 1336 | 1337 | 1338 | 1339 | 1340 | 1341 | 1342 | 1343 | 1344 | 1345 | 1346 | 1347 | 1348 | 1349 | 1350 | 1351 | 1352 | 1353 | 1354 | 1355 | 1356 | 1357 | 1358 | 1359 | 1360 | 1361 | 1362 | 1363 | 1364 | 1365 | 1366 | 1367 | 1368 | 1369 | 1370 | 1371 | 1372 | 1373 | 1374 | 1375 | 1376 | 1377 | 1378 | 1379 | 1380 | 1381 | 1382 | 1383 | 1384 | 1385 | 1386 | 1387 | 1388 | 1389 | 1390 | 1391 | 1392 | 1393 | 1394 | 1395 | 1396 | 1397 | 1398 | 1399 | 1400 | 1401 | 1402 | 1403 | 1404 | 1405 | 1406 | 1407 | 1408 | 1409 | 1410 | 1411 | 1412 | 1413 | 1414 | 1415 | 1416 | 1417 | 1418 | 1419 | 1420 | 1421 | 1422 | 1423 | 1424 | 1425 | 1426 | 1427 | 1428 | 1429 | 1430 | 1431 | 1432 | 1433 | 1434 | 1435 | 1436 | 1437 | 1438 | 1439 | 1440 | 1441 | 1442 | 1443 | 1444 | 1445 | 1446 | 1447 | 1448 | 1449 | 1450 | 1451 | 1452 | 1453 | 1454 | 1455 | 1456 | 1457 | 1458 | 1459 | 1460 | 1461 | 1462 | 1463 | 1464 | 1465 | 1466 | 1467 | 1468 | 1469 | 1470 | 1471 | 1472 | 1473 | 1474 | 1475 | 1476 | 1477 | 1478 | 1479 | 1480 | 1481 | 1482 | 1483 | 1484 | 1485 | 1486 | 1487 | 1488 | 1489 | 1490 | 1491 | 1492 | 1493 | 1494 | 1495 | 1496 | 1497 | 1498 | 1499 | 1500 | 1501 | 1502 | 1503 | 1504 | 1505 | 1506 | 1507 | 1508 | 1509 | 1510 | 1511 | 1512 | 1513 | 1514 | 1515 | 1516 | 1517 | 1518 | 1519 | 1520 | 1521 | 1522 | 1523 | 1524 | 1525 | 1526 | 1527 | 1528 | 1529 | 1530 | 1531 | 1532 | 1533 | 1534 | 1535 | 1536 | 1537 | 1538 | 1539 | 1540 | 1541 | 1542 | 1543 | 1544 | 1545 | 1546 | 1547 | 1548 | 1549 | 1550 | 1551 | 1552 | 1553 | 1554 | 1555 | 1556 | 1557 | 1558 | 1559 | 1560 | 1561 | 1562 | 1563 | 1564 | 1565 | 1566 | 1567 | 1568 | 1569 | 1570 | 1571 | 1572 | 1573 | 1574 | 1575 | 1576 | 1577 | 1578 | 1579 | 1580 | 1581 | 1582 | 1583 | 1584 | 1585 | 1586 | 1587 | 1588 | 1589 | 1590 | 1591 | 1592 | 1593 | 1594 | 1595 | 1596 | 1597 | 1598 | 1599 | 1600 | 1601 | 1602 | 1603 | 1604 | 1605 | 1606 | 1607 | 1608 | 1609 | 1610 | 1611 | 1612 | 1613 | 1614 | 1615 | 1616 | 1617 | 1618 | 1619 | 1620 | 1621 | 1622 | 1623 | 1624 | 1625 | 1626 | 1627 | 1628 | 1629 | 1630 | 1631 | 1632 | 1633 | 1634 | 1635 | 1636 | 1637 | 1638 | 1639 | 1640 | 1641 | 1642 | 1643 | 1644 | 1645 | 1646 | 1647 | 1648 | 1649 | 1650 | 1651 | 1652 | 1653 | 1654 | 1655 | 1656 | 1657 | 1658 | 1659 | 1660 | 1661 | 1662 | 1663 | 1664 | 1665 | 1666 | 1667 | 1668 | 1669 | 1670 | 1671 | 1672 | 1673 | 1674 | 1675 | 1676 | 1677 | 1678 | 1679 | 1680 | 1681 | 1682 | 1683 | 1684 | 1685 | 1686 | 1687 | 1688 | 1689 | 1690 | 1691 | 1692 | 1693 | 1694 | 1695 | 1696 | 1697 | 1698 | 1699 | 1700 | 1701 | 1702 | 1703 | 1704 | 1705 | 1706 | 1707 | 1708 | 1709 | 1710 | 1711 | 1712 | 1713 | 1714 | 1715 | 1716 | 1717 | 1718 | 1719 | 1720 | 1721 | 1722 | 1723 | 1724 | 1725 | 1726 | 1727 | 1728 | 1729 | 1730 | 1731 | 1732 | 1733 | 1734 | 1735 | 1736 | 1737 | 1738 | 1739 | 1740 | 1741 | 1742 | 1743 | 1744 | 1745 | 1746 | 1747 | 1748 | 1749 | 1750 | 1751 | 1752 | 1753 | 1754 | 1755 | 1756 | 1757 | 1758 | 1759 | 1760 | 1761 | 1762 | 1763 | 1764 | 1765 | 1766 | 1767 | 1768 | 1769 | 1770 | 1771 | 1772 | 1773 | 1774 | 1775 | 1776 | 1777 | 1778 | 1779 | 1780 | 1781 | 1782 | 1783 | 1784 | 1785 | 1786 | 1787 | 1788 | 1789 | 1790 | 1791 | 1792 | 1793 | 1794 | 1795 | 1796 | 1797 | 1798 | 1799 | 1800 | 1801 | 1802 | 1803 | 1804 | 1805 | 1806 | 1807 | 1808 | 1809 | 1810 | 1811 | 1812 | 1813 | 1814 | 1815 | 1816 | 1817 | 1818 | 1819 | 1820 | 1821 | 1822 | 1823 | 1824 | 1825 | 1826 | 1827 | 1828 | 1829 | 1830 | 1831 | 1832 | 1833 | 1834 | 1835 | 1836 | 1837 | 1838 | 1839 | 1840 | 1841 | 1842 | 1843 | 1844 | 1845 | 1846 | 1847 | 1848 | 1849 | 1850 | 1851 | 1852 | 1853 | 1854 | 1855 | 1856 | 1857 | 1858 | 1859 | 1860 | 1861 | 1862 | 1863 | 1864 | 1865 | 1866 | 1867 | 1868 | 1869 | 1870 | 1871 | 1872 | 1873 | 1874 | 1875 | 1876 | 1877 | 1878 | 1879 | 1880 | 1881 | 1882 | 1883 | 1884 | 1885 | 1886 | 1887 | 1888 | 1889 | 1890 | 1891 | 1892 | 1893 | 1894 | 1895 | 1896 | 1897 | 1898 | 1899 | 1900 | 1901 | 1902 | 1903 | 1904 | 1905 | 1906 | 1907 | 1908 | 1909 | 1910 | 1911 | 1912 | 1913 | 1914 | 1915 | 1916 | 1917 | 1918 | 1919 | 1920 | 1921 | 1922 | 1923 | 1924 | 1925 | 1926 | 1927 | 1928 | 1929 | 1930 | 1931 | 1932 | 1933 | 1934 | 1935 | 1936 | 1937 | 1938 | 1939 | 1940 | 1941 | 1942 | 1943 | 1944 | 1945 | 1946 | 1947 | 1948 | 1949 | 1950 | 1951 | 1952 | 1953 | 1954 | 1955 | 1956 | 1957 | 1958 | 1959 | 1960 | 1961 | 1962 | 1963 | 1964 | 1965 | 1966 | 1967 | 1968 | 1969 | 1970 | 1971 | 1972 | 1973 | 1974 | 1975 | 1976 | 1977 | 1978 | 1979 | 1980 | 1981 | 1982 | 1983 | 1984 | 1985 | 1986 | 1987 | 1988 | 1989 | 1990 | 1991 | 1992 | 1993 | 1994 | 1995 | 1996 | 1997 | 1998 | 1999 | 2000 | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 | 2027 | 2028 | 2029)/c
 100048:/(165)/c
-100049:/(218 | 2046)/c
-100050:/(2047)/c
-100051:/(2048 | 2049 | 2050)/c
-100052:/(15 | 29 | 154 | 209 | 219 | 369 | 503 | 1440 | 2051 | 2052 | 2053 | 2054 | 2055 | 2056 | 2057 | 2058 | 2059)/c
-100053:/(2060)/c
-100054:/(2061)/c
-100055:/(298 & 2062)/c
-100056:/(2063)/c
-100057:/(2064)/c
+100049:/(218 | 2030)/c
+100050:/(2031)/c
+100051:/(2032 | 2033 | 2034)/c
+100052:/(15 | 29 | 154 | 209 | 219 | 369 | 503 | 1438 | 2035 | 2036 | 2037 | 2038 | 2039 | 2040 | 2041 | 2042 | 2043)/c
+100053:/(2044)/c
+100054:/(2045)/c
+100055:/(298 & 2046)/c
+100056:/(2047)/c
+100057:/(2048)/c
 100058:/(211)/c
-100059:/(2065 | 2066 | 2067)/c
+100059:/(2049 | 2050 | 2051)/c
 100060:/(35)/c
 100061:/(35 | 54 | 85 | 89 | 628 | 923)/c
-100062:/(226 | 1601 | 2068 | 2069)/c
-100063:/(10 | 26 | 27 | 33 | 35 | 38 | 39 | 123 | 126 | 245 | 326 | 497 | 583 | 653 | 731 | 869 | 977 | 1161 | 1189 | 1337 | 1390 | 1403 | 2056 | 2070 | 2071 | 2072 | 2073 | 2074 | 2075 | 2076 | 2077 | 2078 | 2079 | 2080 | 2081 | 2082 | 2083 | 2084 | 2085 | 2086 | 2087 | 2088 | 2089 | 2090 | 2091 | 2092 | 2093 | 2094 | 2095)/c
-100064:/(2096 | 2097 | 2098)/c
-100065:/(154 | 394 | 1505 | 1714 | 2099 | 2100 | 2101 | 2102 | 2103 | 2104 | 2105 | 2106)/c
-100066:/(2107)/c
-100067:/(2108)/c
+100062:/(226 | 1599 | 2052 | 2053)/c
+100063:/(10 | 26 | 27 | 33 | 35 | 38 | 39 | 123 | 126 | 245 | 326 | 497 | 583 | 653 | 731 | 869 | 977 | 1161 | 1189 | 1336 | 1388 | 1401 | 2040 | 2054 | 2055 | 2056 | 2057 | 2058 | 2059 | 2060 | 2061 | 2062 | 2063 | 2064 | 2065 | 2066 | 2067 | 2068 | 2069 | 2070 | 2071 | 2072 | 2073 | 2074 | 2075 | 2076 | 2077 | 2078 | 2079)/c
+100064:/(2080 | 2081 | 2082)/c
+100065:/(154 | 394 | 1503 | 1711 | 2083 | 2084 | 2085 | 2086 | 2087 | 2088 | 2089 | 2090)/c
+100066:/(2091)/c
+100067:/(2092)/c
 100068:/(35)/c
 100069:/(35)/c
-100070:/(1260 | 2109)/c
-100071:/(2110 | 2111)/c
-100072:/(121 | 2109 | 2112)/c
-100073:/(2113)/c
-100074:/(35 | 233 | 2114)/c
-100075:/(2115)/c
-100076:/(2116)/c
-100077:/(2117)/c
+100070:/(1260 | 2093)/c
+100071:/(2094 | 2095)/c
+100072:/(121 | 2093 | 2096)/c
+100073:/(2097)/c
+100074:/(35 | 233 | 2098)/c
+100075:/(2099)/c
+100076:/(2100)/c
+100077:/(2101)/c
 100078:/(121 | 209)/c
-100079:/(2118)/c
+100079:/(2102)/c
 100080:/(35 | 126)/c
-100081:/(428 | 2119 | 2120 | 2121 | 2122)/c
-100082:/(2119)/c
+100081:/(428 | 2103 | 2104 | 2105 | 2106)/c
+100082:/(2103)/c
 100083:/(428)/c
 100084:/(218)/c
 100085:/(154)/c
-100086:/(204 | 513 | 2123)/c
-100087:/(2124 | 2125)/c
+100086:/(204 | 513 | 2107)/c
+100087:/(2108 | 2109)/c
 100088:/(678)/c
-100089:/(2113)/c
+100089:/(2097)/c
 100090:/(316)/c
 100091:/(35)/c
-100092:/(2126)/c
-100093:/(35 | 149 | 219 | 2127 | 2128)/c
-100094:/(2129 & 2130)/c
-100095:/(24 | 2131)/c
-100096:/(1679 | 2067)/c
-100097:/(28 | 127 | 2132 | 2133 | 2134)/c
-100098:/(2135)/c
-100099:/(21 | 53 | 180 | 220 | 226 | 326 | 349 | 394 | 427 | 498 | 499 | 502 | 830 | 866 | 923 | 1050 | 1633 | 1787 | 2054 | 2055 | 2136 | 2137 | 2138 | 2139 | 2140 | 2141 | 2142 | 2143 | 2144 | 2145 | 2146 | 2147 | 2148 | 2149 | 2150 | 2151 | 2152 | 2153 | 2154 | 2155 | 2156 | 2157 | 2158 | 2159 | 2160 | 2161 | 2162 | 2163 | 2164 | 2165)/c
-100100:/(29 | 121 | 2166 | 2167)/c
-100101:/(2168)/c
-100102:/(122 | 2169)/c
+100092:/(2110)/c
+100093:/(35 | 149 | 219 | 2111 | 2112)/c
+100094:/(2113 & 2114)/c
+100095:/(24 | 2115)/c
+100096:/(1677 | 2051)/c
+100097:/(28 | 127 | 2116 | 2117 | 2118)/c
+100098:/(2119)/c
+100099:/(21 | 53 | 180 | 220 | 226 | 326 | 349 | 394 | 427 | 498 | 499 | 502 | 830 | 866 | 923 | 1050 | 1631 | 1781 | 2038 | 2039 | 2120 | 2121 | 2122 | 2123 | 2124 | 2125 | 2126 | 2127 | 2128 | 2129 | 2130 | 2131 | 2132 | 2133 | 2134 | 2135 | 2136 | 2137 | 2138 | 2139 | 2140 | 2141 | 2142 | 2143 | 2144 | 2145 | 2146 | 2147 | 2148)/c
+100100:/(29 | 121 | 2149 | 2150)/c
+100101:/(2151)/c
+100102:/(122 | 2152)/c
 100103:/(35)/c
-100104:/(2170)/c
-100105:/(944 | 945 | 1791 | 2171 | 2172 | 2173)/c
+100104:/(2153)/c
+100105:/(944 | 945 | 1785 | 2154 | 2155 | 2156)/c
 100106:/(149)/c
-100107:/(45 | 1375 | 2174)/c
-100108:/(7 | 58 | 347 | 490 | 838 | 2175 | 2176 | 2177 | 2178 | 2179 | 2180 | 2181 | 2182 | 2183 | 2184 | 2185 | 2186 | 2187 | 2188 | 2189 | 2190 | 2191 | 2192 | 2193 | 2194 | 2195 | 2196 | 2197 | 2198 | 2199 | 2200 | 2201 | 2202 | 2203 | 2204 | 2205 | 2206 | 2207 | 2208 | 2209 | 2210 | 2211 | 2212)/c
-100109:/(2179 & 2213 & 2214)/c
-100110:/(15 | 34 | 35 | 1282 | 2053)/c
-100111:/(120 | 2113 | 2215 | 2216)/c
-100112:/(13 & 2217 & 2218)/c
-100113:/(2219)/c
-100114:/(2220)/c
+100107:/(45 | 1373 | 2157)/c
+100108:/(7 | 58 | 347 | 490 | 838 | 2158 | 2159 | 2160 | 2161 | 2162 | 2163 | 2164 | 2165 | 2166 | 2167 | 2168 | 2169 | 2170 | 2171 | 2172 | 2173 | 2174 | 2175 | 2176 | 2177 | 2178 | 2179 | 2180 | 2181 | 2182 | 2183 | 2184 | 2185 | 2186 | 2187 | 2188 | 2189 | 2190 | 2191 | 2192 | 2193 | 2194 | 2195)/c
+100109:/(2162 & 2196 & 2197)/c
+100110:/(15 | 34 | 35 | 1281 | 2037)/c
+100111:/(120 | 2097 | 2198 | 2199)/c
+100112:/(13 & 2200 & 2201)/c
+100113:/(2202)/c
+100114:/(2203)/c
 100115:/(35)/c
-100116:/(2221)/c
-100117:/(2222)/c
-100118:/(2223)/c
-100119:/(126 | 149 | 211 | 226 | 245 | 316 | 496 | 583 | 653 | 960 | 1022 | 1086 | 1089 | 1128 | 1184 | 1189 | 1264 | 1354 | 1462 | 1540 | 1751 | 2224 | 2225 | 2226 | 2227 | 2228 | 2229 | 2230 | 2231 | 2232 | 2233 | 2234 | 2235 | 2236)/c
+100116:/(2204)/c
+100117:/(2205)/c
+100118:/(2206)/c
+100119:/(126 | 149 | 211 | 226 | 245 | 316 | 496 | 583 | 653 | 960 | 1022 | 1086 | 1089 | 1128 | 1184 | 1189 | 1264 | 1353 | 1460 | 1538 | 1746 | 2207 | 2208 | 2209 | 2210 | 2211 | 2212 | 2213 | 2214 | 2215 | 2216 | 2217 | 2218 | 2219)/c
 100120:/(35)/c
-100121:/(35 | 149 | 2237)/c
-100122:/(2238 & 2239)/c
+100121:/(35 | 149 | 2220)/c
+100122:/(2221 & 2222)/c
 100123:/(35)/c
 100124:/(35)/c
 100125:/(35)/c
 100126:/(35)/c
-100127:/(2240)/c
-100128:/(2241)/c
-100129:/(226 & 2068 & 2242)/c
-100130:/(2243 | 2244 | 2245)/c
-100131:/(2246 | 2247 | 2248 | 2249 | 2250 | 2251 | 2252)/c
-100132:/(28 | 208 | 2086 | 2253 | 2254 | 2255)/c
-100133:/(13 | 2256 | 2257 | 2258 | 2259 | 2260 | 2261 | 2262)/c
-100134:/(34 & 99 & 2113)/c
-100135:/(28 | 209 | 2113)/c
+100127:/(2223)/c
+100128:/(2224)/c
+100129:/(226 & 2052 & 2225)/c
+100130:/(2226 | 2227 | 2228)/c
+100131:/(2229 | 2230 | 2231 | 2232 | 2233 | 2234 | 2235)/c
+100132:/(28 | 208 | 2070 | 2236 | 2237 | 2238)/c
+100133:/(13 | 2239 | 2240 | 2241 | 2242 | 2243 | 2244 | 2245)/c
+100134:/(34 & 99 & 2097)/c
+100135:/(28 | 209 | 2097)/c
 100136:/(35 & 163)/c
 100137:/(35)/c
-100138:/(592 | 2263 | 2264)/c
+100138:/(592 | 2246 | 2247)/c
 100139:/(838)/c
 100140:/(121)/c
-100141:/(466 | 2265)/c
-100142:/(2266)/c
+100141:/(466 | 2248)/c
+100142:/(2249)/c
 100143:/(121 & 149)/c
-100144:/(2267 | 2268 | 2269 | 2270 | 2271)/c
-100145:/(45 | 53 | 2272 | 2273)/c
-100146:/(45 | 2274 | 2275 | 2276 | 2277)/c
+100144:/(2250 | 2251 | 2252 | 2253 | 2254)/c
+100145:/(45 | 53 | 2255 | 2256)/c
+100146:/(45 | 2257 | 2258 | 2259 | 2260)/c
 100147:/(205)/c
-100148:/(513 & 2278 & 2279)/c
-100149:/(8 | 1992 | 2086 | 2280 | 2281 | 2282 | 2283 | 2284 | 2285 | 2286 | 2287 | 2288 | 2289 | 2290 | 2291 | 2292)/c
-100150:/(2293)/c
-100151:/(35 | 121 | 2294)/c
-100152:/(35 | 121 | 2294)/c
-100153:/(121 & 2294)/c
-100154:/(2294)/c
-100155:/(2295 & 2296)/c
-100156:/(421 | 496 | 579 | 672 | 894 | 1189 | 2297 | 2298 | 2299 | 2300 | 2301 | 2302 | 2303 | 2304 | 2305 | 2306 | 2307 | 2308 | 2309 | 2310)/c
-100157:/(2048)/c
-100158:/(1375 | 2311)/c
-100159:/(226 | 1137 | 2312 | 2313 | 2314)/c
-100160:/(2315 | 2316 | 2317)/c
-100161:/(2318)/c
-100162:/(2319)/c
-100163:/(427 & 2320)/c
-100164:/(2321)/c
-100165:/(2322 | 2323 | 2324)/c
+100148:/(513 & 2261 & 2262)/c
+100149:/(8 | 1977 | 2070 | 2263 | 2264 | 2265 | 2266 | 2267 | 2268 | 2269 | 2270 | 2271 | 2272 | 2273 | 2274 | 2275)/c
+100150:/(2276)/c
+100151:/(35 | 121 | 2277)/c
+100152:/(35 | 121 | 2277)/c
+100153:/(121 & 2277)/c
+100154:/(2277)/c
+100155:/(2278 & 2279)/c
+100156:/(421 | 496 | 579 | 672 | 894 | 1189 | 2280 | 2281 | 2282 | 2283 | 2284 | 2285 | 2286 | 2287 | 2288 | 2289 | 2290 | 2291 | 2292 | 2293)/c
+100157:/(2032)/c
+100158:/(1373 | 2294)/c
+100159:/(226 | 1137 | 2295 | 2296 | 2297)/c
+100160:/(2298 | 2299 | 2300)/c
+100161:/(2301)/c
+100162:/(2302)/c
+100163:/(427 & 2303)/c
+100164:/(2304)/c
+100165:/(2305 | 2306 | 2307)/c
 100166:/(165)/c
-100167:/(2069)/c
+100167:/(2053)/c
 100168:/(35 | 165)/c
 100169:/(489)/c
-100170:/(35 | 265 | 427 | 2060 | 2325 | 2326 | 2327 | 2328)/c
+100170:/(35 | 265 | 427 | 2044 | 2308 | 2309 | 2310 | 2311)/c
 100171:/(428)/c
-100172:/(2329 & 2330)/c
-100173:/(2331)/c
-100174:/(1082 & 1088 & 1291 & 1337 & 1364 & 1546 & 1622 & 2332 & 2333 & 2334 & 2335)/c
-100175:/(2336)/c
+100172:/(2312 & 2313)/c
+100173:/(2314)/c
+100174:/(1082 & 1088 & 1290 & 1336 & 1362 & 1544 & 1620 & 2315 & 2316 & 2317 & 2318)/c
+100175:/(2319)/c
 100176:/(211)/c
-100177:/(2337)/c
-100178:/(24 | 105 | 406 | 592 | 2338 | 2339 | 2340 | 2341)/c
+100177:/(2320)/c
+100178:/(24 | 105 | 406 | 592 | 2321 | 2322 | 2323 | 2324)/c
 100179:/(105)/c
-100180:/(105 | 889 | 1184 | 2342 | 2343)/c
-100181:/(2344 & 2345 & 2346 & 2347)/c
-100182:/(2348 | 2349)/c
-100183:/(2348 | 2349)/c
+100180:/(105 | 889 | 1184 | 2325 | 2326)/c
+100181:/(2327 & 2328 & 2329 & 2330)/c
+100182:/(2331 | 2332)/c
+100183:/(2331 | 2332)/c
 100184:/(164 & 393)/c
-100185:/(2350)/c
-100186:/(653 | 1383 | 1691 | 1700 | 2351 | 2352 | 2353)/c
-100187:/(15 & 2053)/c
-100188:/(14 | 16 | 35 | 730 | 2354 | 2355 | 2356 | 2357)/c
-100189:/(29 | 164 | 2053 | 2358 | 2359 | 2360 | 2361)/c
-100190:/(2362)/c
+100185:/(2333)/c
+100186:/(653 | 1381 | 1689 | 1698 | 2334 | 2335 | 2336)/c
+100187:/(15 & 2037)/c
+100188:/(14 | 16 | 35 | 730 | 2337 | 2338 | 2339 | 2340)/c
+100189:/(29 | 164 | 2037 | 2341 | 2342 | 2343 | 2344)/c
+100190:/(2345)/c
 100191:/(326 & 393)/c
 100192:/(35 & 165)/c
-100193:/(35 | 633 | 2363)/c
-100194:/(2364 & 2365 & 2366 & 2367)/c
-100195:/(2368 & 2369)/c
-100196:/(513 | 1746 | 2159 | 2370 | 2371)/c
-100197:/(14 | 16 | 35 | 2372 | 2373 | 2374 | 2375 | 2376 | 2377 | 2378 | 2379)/c
-100198:/(149 & 2380)/c
-100199:/(123 & 165 & 2381)/c
-100200:/(226 | 496 | 653 | 2382)/c
-100201:/(226 | 2383 | 2384 | 2385 | 2386)/c
-100202:/(2350 & 2387)/c
-100203:/(2350)/c
-100204:/(121 & 431 & 2388)/c
-100205:/(2389 & 2390)/c
+100193:/(35 | 633 | 2346)/c
+100194:/(2347 & 2348 & 2349 & 2350)/c
+100195:/(2351 & 2352)/c
+100196:/(513 | 1742 | 2142 | 2353 | 2354)/c
+100197:/(14 | 16 | 35 | 2355 | 2356 | 2357 | 2358 | 2359 | 2360 | 2361 | 2362)/c
+100198:/(149 & 2363)/c
+100199:/(123 & 165 & 2364)/c
+100200:/(226 | 496 | 653 | 2365)/c
+100201:/(226 | 2366 | 2367 | 2368 | 2369)/c
+100202:/(2333 & 2370)/c
+100203:/(2333)/c
+100204:/(121 & 431 & 2371)/c
+100205:/(2372 & 2373)/c
 100206:/(496)/c
 100207:/(620)/c
-100208:/(2391)/c
+100208:/(2374)/c
 100209:/(35 & 165)/c
-100210:/(653 | 2392 | 2393 | 2394 | 2395)/c
-100211:/(126 & 2358 & 2396 & 2397)/c
-100212:/(126 & 2358 & 2396 & 2397)/c
-100213:/(232 & 2138)/c
+100210:/(653 | 2375 | 2376 | 2377 | 2378)/c
+100211:/(126 & 2341 & 2379 & 2380)/c
+100212:/(126 & 2341 & 2379 & 2380)/c
+100213:/(232 & 2121)/c
