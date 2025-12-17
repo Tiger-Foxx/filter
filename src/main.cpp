@@ -3,8 +3,8 @@
 #include "../include/core/engine.hpp"
 #include "../include/utils/logger.hpp"
 #include "../include/config.hpp"
-// On inclut les headers concrets pour l'instanciation
-#include "../include/fastpath/ip_radix.hpp"
+// Index composite (IP Trie + Port Hash) pour lookup O(1)
+#include "../include/fastpath/rule_index.hpp"
 #include "../include/deep/hs_matcher.hpp"
 
 #include <csignal>
@@ -28,21 +28,21 @@ int main() {
     std::signal(SIGINT, signal_handler);
     std::signal(SIGTERM, signal_handler);
 
-    fox::log::info("=== FOX ENGINE (Research PoC) ===");
+    fox::log::info("=== FOX ENGINE (Research PoC - Composite Index) ===");
 
     // 2. Structures de données Persistantes (Heap)
-    // Elles doivent survivre tout le runtime.
-    auto* trie = new fox::fastpath::IPRadixTrie<fox::core::RuleDefinition>();
+    // CompositeRuleIndex = IP Radix Trie + Port Hash Map pour O(1) lookup
+    auto* index = new fox::fastpath::CompositeRuleIndex<fox::core::RuleDefinition>();
     auto* matcher = new fox::deep::HSMatcher();
 
     // 3. Chargement (Loader)
-    if (!fox::io::Loader::load_all(*trie, *matcher)) {
+    if (!fox::io::Loader::load_all(*index, *matcher)) {
         fox::log::error("Critical: Failed to load configuration.");
         return 1;
     }
 
     // 4. Init Engine Singleton
-    fox::core::Engine::instance().init(trie, matcher);
+    fox::core::Engine::instance().init(index, matcher);
 
     // 5. Init Network Interface
     fox::io::NFQueue nfqueue(fox::config::NFQUEUE_ID);
@@ -57,7 +57,7 @@ int main() {
     nfqueue.run();
 
     // 7. Cleanup (Atteint après Ctrl+C)
-    delete trie;
+    delete index;
     delete matcher;
     
     fox::log::info("Bye.");

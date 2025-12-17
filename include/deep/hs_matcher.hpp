@@ -1,6 +1,7 @@
 #ifndef FOX_DEEP_HS_MATCHER_HPP
 #define FOX_DEEP_HS_MATCHER_HPP
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <span>
