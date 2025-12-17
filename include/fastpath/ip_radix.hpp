@@ -15,20 +15,24 @@ namespace fox::fastpath {
 
     /**
      * Nœud du Radix Trie.
-     * Optimisé pour la localité de cache (taille minimale).
+     * MODIFIÉ: Stocke une LISTE de règles au lieu d'une seule.
+     * Raison: Plusieurs règles peuvent avoir la même IP source mais des ports différents.
      */
     template <typename T>
     struct TrieNode {
         std::unique_ptr<TrieNode> left;  // Bit 0
         std::unique_ptr<TrieNode> right; // Bit 1
-        T* payload = nullptr;            // Donnée associée (ex: RuleDefinition*)
+        std::vector<T*> payloads;        // Liste de règles associées (peut être vide)
 
-        bool is_leaf() const { return payload != nullptr; }
+        bool is_leaf() const { return !payloads.empty(); }
     };
 
     /**
      * Radix Trie spécialisé pour IPv4 (Key = uint32_t).
      * Complexité Lookup : O(32) -> O(1) constant.
+     * 
+     * MODIFIÉ: Retourne maintenant une LISTE de règles candidates.
+     * L'Engine doit ensuite vérifier les ports pour chaque candidat.
      */
     template <typename T>
     class IPRadixTrie {
@@ -65,39 +69,48 @@ namespace fox::fastpath {
                 }
             }
 
-            // Assignation du payload au nœud final
-            // Note: En cas d'écrasement (règles dupliquées), la dernière gagne.
-            // L'optimiseur Python est censé avoir fusionné les doublons.
-            current->payload = value;
+            // MODIFIÉ: Ajouter à la liste au lieu d'écraser
+            current->payloads.push_back(value);
         }
 
         /**
-         * Recherche le match le plus spécifique (Longest Prefix Match).
-         * @param ip_net_order IP en Network Byte Order (Big Endian) provenant du header IP brut
-         * @return Pointeur vers la règle ou nullptr
+         * Recherche TOUTES les règles qui matchent (Longest Prefix Match + ancêtres).
+         * @param ip_net_order IP en Network Byte Order (Big Endian)
+         * @return Vector de pointeurs vers les règles candidates
          */
-        const T* lookup(uint32_t ip_net_order) const {
-            return lookup_internal(ntohl(ip_net_order));
+        std::vector<const T*> lookup_all(uint32_t ip_net_order) const {
+            return lookup_all_internal(ntohl(ip_net_order));
         }
 
         /**
-         * Recherche avec IP déjà en Host Order (depuis Packet::src_ip()/dst_ip()).
+         * Recherche avec IP déjà en Host Order.
          * @param ip_host_order IP en Host Byte Order
-         * @return Pointeur vers la règle ou nullptr
+         * @return Vector de règles candidates
+         */
+        std::vector<const T*> lookup_all_host_order(uint32_t ip_host_order) const {
+            return lookup_all_internal(ip_host_order);
+        }
+
+        /**
+         * LEGACY: Retourne la première règle trouvée (pour rétro-compatibilité).
+         * DÉPRÉCIÉ: Utiliser lookup_all_host_order à la place.
          */
         const T* lookup_host_order(uint32_t ip_host_order) const {
-            return lookup_internal(ip_host_order);
+            auto results = lookup_all_internal(ip_host_order);
+            return results.empty() ? nullptr : results[0];
         }
 
     private:
         std::unique_ptr<TrieNode<T>> root;
 
-        const T* lookup_internal(uint32_t ip) const {
+        std::vector<const T*> lookup_all_internal(uint32_t ip) const {
+            std::vector<const T*> all_matches;
             const TrieNode<T>* current = root.get();
-            const T* last_match = nullptr;
 
-            // On note le match racine s'il existe (ex: règle 0.0.0.0/0)
-            if (current->payload) last_match = current->payload;
+            // Collecter les règles de la racine (ex: 0.0.0.0/0)
+            for (const T* p : current->payloads) {
+                all_matches.push_back(p);
+            }
 
             for (int i = 0; i < 32; ++i) {
                 bool bit = (ip >> (31 - i)) & 1;
@@ -110,13 +123,13 @@ namespace fox::fastpath {
                     current = current->left.get();
                 }
 
-                // Si ce nœud contient une règle, c'est un candidat plus spécifique
-                if (current->payload) {
-                    last_match = current->payload;
+                // Collecter toutes les règles de ce nœud
+                for (const T* p : current->payloads) {
+                    all_matches.push_back(p);
                 }
             }
 
-            return last_match;
+            return all_matches;
         }
 
         // Helper parsing CIDR (ex: "10.0.0.1/24")

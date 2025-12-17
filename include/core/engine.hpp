@@ -81,93 +81,99 @@ namespace fox::core {
             // =========================================================================
             // NIVEAU 1 : FASTPATH (IP / Port / Proto)
             // =========================================================================
-            const RuleDefinition* rule = _trie->lookup_host_order(pkt.src_ip());
+            // MODIFIÉ: Récupérer TOUTES les règles candidates (même IP, ports différents)
+            auto candidate_rules = _trie->lookup_all_host_order(pkt.src_ip());
             
-            if (!rule) {
+            if (candidate_rules.empty()) {
                 if (verbose) fox::log::debug("No rule matched src_ip in Radix Trie -> ACCEPT");
                 return Verdict::ACCEPT;
             }
             
             if (verbose) {
-                fox::log::debug("Radix Trie matched rule id=" + std::to_string(rule->id) + 
-                               " hs_id=" + std::to_string(rule->hs_id) +
-                               " action=" + rule->action);
+                fox::log::debug("Radix Trie found " + std::to_string(candidate_rules.size()) + " candidate rules");
             }
             
-            // Validation IP Destination
-            if (!match_ip_binary(pkt.dst_ip(), rule->optimized_dst_ips)) {
-                if (verbose) fox::log::debug("Dst IP mismatch -> ACCEPT");
-                return Verdict::ACCEPT;
-            }
-            
-            // Validation Ports
-            if (!fox::fastpath::PortMatcher::match(pkt.dst_port(), *rule)) {
-                if (verbose) fox::log::debug("Dst Port mismatch -> ACCEPT");
-                return Verdict::ACCEPT;
-            }
-            if (!fox::fastpath::PortMatcher::match_src(pkt.src_port(), *rule)) {
-                if (verbose) fox::log::debug("Src Port mismatch -> ACCEPT");
-                return Verdict::ACCEPT;
-            }
-            
-            // Validation Protocole
-            if (rule->get_proto_id() != 0 && rule->get_proto_id() != pkt.protocol()) {
-                if (verbose) fox::log::debug("Protocol mismatch -> ACCEPT");
-                return Verdict::ACCEPT;
-            }
-
-            if (verbose) fox::log::debug("L3/L4 filters PASSED, checking L7...");
-
-            // =========================================================================
-            // NIVEAU 2 : DEEP PATH (Inspection L7)
-            // =========================================================================
-            
-            // Verdict immédiat si pas d'inspection L7 requise
-            if (rule->hs_id == 0) {
-                if (verbose) fox::log::verdict("NO_L7_CHECK", rule->id, 0);
-                return rule->get_verdict();
-            }
-
-            bool matched = false;
-            
-            if (pkt.protocol() == IPPROTO_TCP) {
-                if (verbose) fox::log::debug("TCP packet -> Reassembler (Simplex mode)");
+            // Itérer sur chaque règle candidate et vérifier les filtres L3/L4
+            for (const RuleDefinition* rule : candidate_rules) {
+                if (verbose) {
+                    fox::log::debug("Checking rule id=" + std::to_string(rule->id) + 
+                                   " hs_id=" + std::to_string(rule->hs_id) +
+                                   " action=" + rule->action);
+                }
                 
-                // Utiliser la clé canonique déjà calculée + IP source pour Simplex
-                // NOUVEAU: Passer la règle complète pour gérer la logique multi-pattern
-                matched = _reassembler->process_packet(
-                    canonical_key, 
-                    pkt.src_ip(),  // SIMPLEX: IP source pour détecter la direction
-                    pkt.tcp_seq(), 
-                    pkt.is_syn(), 
-                    pkt.is_fin(), 
-                    pkt.is_rst(), 
-                    pkt.payload(), 
-                    *rule  // Passer la règle entière au lieu de juste hs_id
-                );
+                // Validation IP Destination
+                if (!match_ip_binary(pkt.dst_ip(), rule->optimized_dst_ips)) {
+                    if (verbose) fox::log::debug("  -> Dst IP mismatch, skip");
+                    continue;
+                }
                 
-            } else {
-                // UDP / ICMP : Scan direct (pas de réassemblage)
-                if (!pkt.payload().empty()) {
-                    if (rule->is_multi) {
-                        // Règle multi-pattern : utiliser scan_block_multi avec logique AND/OR
-                        if (verbose) fox::log::debug("UDP/ICMP multi-pattern scan (" + 
-                                                    std::string(rule->is_or ? "OR" : "AND") + ")");
-                        matched = _matcher->scan_block_multi(pkt.payload(), rule->atomic_ids, rule->is_or);
-                    } else {
-                        // Règle mono-pattern : scan direct
-                        if (verbose) fox::log::debug("UDP/ICMP direct scan, hs_id=" + std::to_string(rule->hs_id));
-                        matched = _matcher->scan_block(pkt.payload(), rule->hs_id);
+                // Validation Ports
+                if (!fox::fastpath::PortMatcher::match(pkt.dst_port(), *rule)) {
+                    if (verbose) fox::log::debug("  -> Dst Port mismatch, skip");
+                    continue;
+                }
+                if (!fox::fastpath::PortMatcher::match_src(pkt.src_port(), *rule)) {
+                    if (verbose) fox::log::debug("  -> Src Port mismatch, skip");
+                    continue;
+                }
+                
+                // Validation Protocole
+                if (rule->get_proto_id() != 0 && rule->get_proto_id() != pkt.protocol()) {
+                    if (verbose) fox::log::debug("  -> Protocol mismatch, skip");
+                    continue;
+                }
+
+                if (verbose) fox::log::debug("  -> L3/L4 filters PASSED, checking L7...");
+
+                // =================================================================
+                // NIVEAU 2 : DEEP PATH (Inspection L7)
+                // =================================================================
+                
+                // Verdict immédiat si pas d'inspection L7 requise
+                if (rule->hs_id == 0) {
+                    if (verbose) fox::log::verdict("NO_L7_CHECK", rule->id, 0);
+                    return rule->get_verdict();
+                }
+
+                bool matched = false;
+                
+                if (pkt.protocol() == IPPROTO_TCP) {
+                    if (verbose) fox::log::debug("TCP packet -> Reassembler (Simplex mode)");
+                    
+                    // Utiliser la clé canonique déjà calculée + IP source pour Simplex
+                    matched = _reassembler->process_packet(
+                        canonical_key, 
+                        pkt.src_ip(),
+                        pkt.tcp_seq(), 
+                        pkt.is_syn(), 
+                        pkt.is_fin(), 
+                        pkt.is_rst(), 
+                        pkt.payload(), 
+                        *rule
+                    );
+                    
+                } else {
+                    // UDP / ICMP : Scan direct (pas de réassemblage)
+                    if (!pkt.payload().empty()) {
+                        if (rule->is_multi) {
+                            if (verbose) fox::log::debug("UDP/ICMP multi-pattern scan (" + 
+                                                        std::string(rule->is_or ? "OR" : "AND") + ")");
+                            matched = _matcher->scan_block_multi(pkt.payload(), rule->atomic_ids, rule->is_or);
+                        } else {
+                            if (verbose) fox::log::debug("UDP/ICMP direct scan, hs_id=" + std::to_string(rule->hs_id));
+                            matched = _matcher->scan_block(pkt.payload(), rule->hs_id);
+                        }
                     }
                 }
-            }
 
-            if (matched) {
-                fox::log::verdict("MATCH->DROP", rule->id, rule->hs_id);
-                return rule->get_verdict();
+                if (matched) {
+                    fox::log::verdict("MATCH->DROP", rule->id, rule->hs_id);
+                    return rule->get_verdict();
+                }
             }
             
-            if (verbose) fox::log::debug("No L7 match -> ACCEPT");
+            // Aucune règle n'a matché complètement
+            if (verbose) fox::log::debug("No rule fully matched -> ACCEPT");
             return Verdict::ACCEPT;
         }
 
