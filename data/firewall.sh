@@ -7,93 +7,120 @@ iptables -F FOX_FILTER
 iptables -D INPUT -j FOX_FILTER 2>/dev/null
 iptables -I INPUT -j FOX_FILTER
 
-# 3. Injecting 84 Firewall Rules
+# 2. Creating 1 shared IP sets
+ipset destroy fox_set0 2>/dev/null
+ipset create fox_set0 hash:net
+ipset add fox_set0 0.0.0.0/5
+ipset add fox_set0 11.0.0.0/8
+ipset add fox_set0 12.0.0.0/6
+ipset add fox_set0 128.0.0.0/2
+ipset add fox_set0 16.0.0.0/4
+ipset add fox_set0 192.0.0.0/9
+ipset add fox_set0 192.128.0.0/11
+ipset add fox_set0 192.160.0.0/13
+ipset add fox_set0 192.169.0.0/16
+ipset add fox_set0 192.170.0.0/15
+ipset add fox_set0 192.172.0.0/14
+ipset add fox_set0 192.176.0.0/12
+ipset add fox_set0 192.192.0.0/10
+ipset add fox_set0 193.0.0.0/8
+ipset add fox_set0 194.0.0.0/7
+ipset add fox_set0 196.0.0.0/6
+ipset add fox_set0 200.0.0.0/5
+ipset add fox_set0 208.0.0.0/4
+ipset add fox_set0 224.0.0.0/3
+ipset add fox_set0 32.0.0.0/3
+ipset add fox_set0 64.0.0.0/2
+ipset add fox_set0 8.0.0.0/7
+
+# 3. Injecting 85 Firewall Rules
 iptables -A FOX_FILTER -p icmp -s 3.3.3.3/32 -j DROP
 iptables -A FOX_FILTER -p udp -m multiport --dports 7 -j DROP
-iptables -A FOX_FILTER -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
+iptables -A FOX_FILTER -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
 iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
 iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
-iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
-iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
-iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
 iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
 iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
 iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
 iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p icmp -j DROP
-iptables -A FOX_FILTER -p tcp -j DROP
-iptables -A FOX_FILTER -p tcp -j DROP
-iptables -A FOX_FILTER -p tcp -m multiport --dports 135,136:139 -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
+iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
+iptables -A FOX_FILTER -p icmp -s 10.0.0.0/8 -j DROP
+iptables -A FOX_FILTER -p icmp -s 192.168.0.0/16 -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p icmp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p tcp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p tcp -m set --match-set fox_set0 src -j DROP
+iptables -A FOX_FILTER -p tcp -m set --match-set fox_set0 src -m multiport --dports 135,136:139 -j DROP
 iptables -A FOX_FILTER -p udp -m multiport --dports 161,162 -j DROP
-iptables -A FOX_FILTER -p tcp -m multiport --dports 161,162,705 -j DROP
-iptables -A FOX_FILTER -p tcp -m multiport --dports 139,445 -j DROP
+iptables -A FOX_FILTER -p udp -m set --match-set fox_set0 src -m multiport --dports 161,162 -j DROP
+iptables -A FOX_FILTER -p tcp -m set --match-set fox_set0 src -m multiport --dports 161,162,705 -j DROP
+iptables -A FOX_FILTER -p tcp -m set --match-set fox_set0 src -m multiport --dports 139,445 -j DROP
