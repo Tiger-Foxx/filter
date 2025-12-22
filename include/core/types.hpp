@@ -73,9 +73,11 @@ namespace fox::core {
         }
 
         Verdict get_verdict() const {
-            // Optimisation: on suppose que l'input est validé par le Python
-            if (action[0] == 'd' || action[0] == 'r') return Verdict::DROP; // drop/reject
-            return Verdict::ACCEPT;
+            // PoC Early Rejection: TOUTE règle avec pattern qui matche → DROP
+            // On sacrifie la distinction alert/drop de Snort pour maximiser
+            // l'efficacité du filtrage (principe du module de rejet précoce).
+            // Les règles pure L3/L4 (hs_id=0) sont gérées différemment dans Engine.
+            return Verdict::DROP;
         }
 
         // Binding MessagePack (Case Sensitive avec Python src/exporter.py !)

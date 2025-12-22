@@ -113,8 +113,12 @@ namespace fox::core {
                 // NIVEAU 2 : DEEP PATH (Inspection L7)
                 // =================================================================
                 if (rule->hs_id == 0) {
-                    if (verbose) fox::log::verdict("NO_L7_CHECK", rule->id, 0);
-                    return rule->get_verdict();
+                    // Règle pure L3/L4 sans pattern. Ces règles sont typiquement
+                    // des règles de log ("alert any any") qui ne doivent PAS
+                    // court-circuiter les règles de filtrage avec patterns.
+                    // On les ignore pour le filtrage actif.
+                    if (verbose) fox::log::debug("  -> hs_id=0 (pure L3/L4), skipping to next rule");
+                    continue;
                 }
 
                 bool matched = false;
