@@ -71,7 +71,7 @@ namespace fox::core {
             // NIVEAU 1 : FASTPATH - INDEX COMPOSITE (IP + Port) en O(1)
             // =========================================================================
             // NOUVEAU: Lookup par (IP_src, Port_dst) directement
-            // Retourne UNIQUEMENT les règles qui matchent cette combinaison
+            // Retourne UNIQUEMENT les règles qui matchent cette combinaison l
             auto candidate_rules = _index->lookup(pkt.src_ip(), pkt.dst_port());
             
             if (candidate_rules.empty()) {
