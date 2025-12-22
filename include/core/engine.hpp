@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <atomic>
+#include <set>
 #include "../fastpath/rule_index.hpp"
 #include "../fastpath/port_map.hpp"
 #include "../deep/hs_matcher.hpp"
@@ -82,7 +83,42 @@ namespace fox::core {
                 fox::log::debug("Composite Index found " + std::to_string(candidate_rules.size()) + " matching rules");
             }
 
-            // Itérer sur les règles candidates (beaucoup moins qu'avant!)
+            // =================================================================
+            // PHASE 1 : SCAN UNIQUE (Une seule passe Hyperscan)
+            // =================================================================
+            std::set<uint32_t> matched_hs_ids;
+            
+            if (pkt.protocol() == IPPROTO_TCP) {
+                // Pour TCP, utiliser le reassembler qui gère le scan incrémental
+                bool already_malicious = _reassembler->reassemble_and_scan(
+                    canonical_key, 
+                    pkt.src_ip(),
+                    pkt.tcp_seq(), 
+                    pkt.is_syn(), 
+                    pkt.is_fin(), 
+                    pkt.is_rst(), 
+                    pkt.payload(),
+                    matched_hs_ids
+                );
+                
+                if (already_malicious) {
+                    if (verbose) fox::log::debug("Flow already MALICIOUS -> DROP");
+                    return Verdict::DROP;
+                }
+            } else {
+                // Pour UDP/ICMP, scan direct du payload
+                if (!pkt.payload().empty()) {
+                    _matcher->scan_collect_all(pkt.payload(), matched_hs_ids);
+                }
+            }
+            
+            if (verbose && !matched_hs_ids.empty()) {
+                fox::log::debug("[HS] Scan collected " + std::to_string(matched_hs_ids.size()) + " matching pattern IDs");
+            }
+
+            // =================================================================
+            // PHASE 2 : VÉRIFICATION DES RÈGLES (sans re-scanner)
+            // =================================================================
             for (const RuleDefinition* rule : candidate_rules) {
                 if (verbose) {
                     fox::log::debug("Checking rule id=" + std::to_string(rule->id) + 
@@ -109,43 +145,50 @@ namespace fox::core {
 
                 if (verbose) fox::log::debug("  -> L3/L4 PASSED, checking L7...");
 
-                // =================================================================
-                // NIVEAU 2 : DEEP PATH (Inspection L7)
-                // =================================================================
+                // =============================================================
+                // NIVEAU 2 : DEEP PATH (Vérification Pattern)
+                // =============================================================
                 if (rule->hs_id == 0) {
-                    // Règle pure L3/L4 sans pattern. Ces règles sont typiquement
-                    // des règles de log ("alert any any") qui ne doivent PAS
-                    // court-circuiter les règles de filtrage avec patterns.
-                    // On les ignore pour le filtrage actif.
-                    if (verbose) fox::log::debug("  -> hs_id=0 (pure L3/L4), skipping to next rule");
+                    // Règle pure L3/L4 sans pattern - ignorer pour le filtrage actif
+                    if (verbose) fox::log::debug("  -> hs_id=0 (pure L3/L4), skipping");
                     continue;
                 }
 
                 bool matched = false;
                 
-                if (pkt.protocol() == IPPROTO_TCP) {
-                    matched = _reassembler->process_packet(
-                        canonical_key, 
-                        pkt.src_ip(),
-                        pkt.tcp_seq(), 
-                        pkt.is_syn(), 
-                        pkt.is_fin(), 
-                        pkt.is_rst(), 
-                        pkt.payload(), 
-                        *rule
-                    );
-                } else {
-                    if (!pkt.payload().empty()) {
-                        if (rule->is_multi) {
-                            matched = _matcher->scan_block_multi(pkt.payload(), rule->atomic_ids, rule->is_or);
-                        } else {
-                            matched = _matcher->scan_block(pkt.payload(), rule->hs_id);
+                if (rule->is_multi) {
+                    // Règle multi-pattern : vérifier logique AND/OR
+                    if (rule->is_or) {
+                        // OR : Au moins UN des atomic_ids doit être présent
+                        for (uint32_t id : rule->atomic_ids) {
+                            if (matched_hs_ids.count(id) > 0) {
+                                matched = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        // AND : TOUS les atomic_ids doivent être présents
+                        matched = true;
+                        for (uint32_t id : rule->atomic_ids) {
+                            if (matched_hs_ids.count(id) == 0) {
+                                matched = false;
+                                break;
+                            }
                         }
                     }
+                } else {
+                    // Règle simple : vérifier si hs_id est dans l'ensemble
+                    matched = matched_hs_ids.count(rule->hs_id) > 0;
                 }
 
                 if (matched) {
                     fox::log::verdict("MATCH->DROP", rule->id, rule->hs_id);
+                    
+                    // Marquer le flux TCP comme malveillant pour Fast Drop futur
+                    if (pkt.protocol() == IPPROTO_TCP) {
+                        _reassembler->mark_malicious(canonical_key);
+                    }
+                    
                     return rule->get_verdict();
                 }
             }

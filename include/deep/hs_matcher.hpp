@@ -47,6 +47,17 @@ namespace fox::deep {
                               bool is_or) const;
 
         /**
+         * Scan UNIQUE : Collecte TOUS les IDs qui matchent dans le payload.
+         * Utilisé pour scanner une seule fois avant de vérifier les règles.
+         * 
+         * @param payload Données à scanner
+         * @param[out] matched_ids Ensemble qui recevra tous les IDs matchés
+         * @return true si au moins un pattern a matché
+         */
+        bool scan_collect_all(std::span<const uint8_t> payload, 
+                              std::set<uint32_t>& matched_ids) const;
+
+        /**
          * Ouvre un stream Hyperscan pour le mode TCP Reassembly.
          * @return Pointeur vers le stream HS ou nullptr en cas d'échec.
          */
@@ -80,6 +91,11 @@ namespace fox::deep {
          * @param stream Le contexte stream à fermer
          */
         void close_stream(hs_stream_t* stream);
+
+        /**
+         * Accès au scratch space pour le scan direct dans le reassembler.
+         */
+        hs_scratch_t* get_scratch() const { return scratch; }
 
     private:
         hs_database_t* db = nullptr;

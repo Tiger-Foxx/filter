@@ -210,6 +210,23 @@ namespace fox::deep {
         return (err == HS_SCAN_TERMINATED);
     }
 
+    bool HSMatcher::scan_collect_all(std::span<const uint8_t> payload, 
+                                      std::set<uint32_t>& matched_ids) const {
+        if (!db || !scratch || payload.empty()) return false;
+        
+        matched_ids.clear();
+        
+        hs_stream_t* stream = nullptr;
+        hs_error_t err = hs_open_stream(db, 0, &stream);
+        if (err != HS_SUCCESS) return false;
+
+        err = hs_scan_stream(stream, reinterpret_cast<const char*>(payload.data()), 
+                             payload.size(), 0, scratch, match_handler_collect, &matched_ids);
+        hs_close_stream(stream, scratch, nullptr, nullptr);
+        
+        return !matched_ids.empty();
+    }
+
     hs_stream_t* HSMatcher::open_stream() {
         if (!db) return nullptr;
         hs_stream_t* stream = nullptr;
