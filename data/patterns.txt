@@ -12,7 +12,7 @@
 11:/USER\s+w0rm/s
 12:/NetSphere/s
 13:/GateCrasher/s
-14:/Serv(?:er\ Prent\ <please>\x0D\x0A|er:\ UploadServer|er\.CreateObject|letOutputStream|er\x3A\ eMule|ice\ Pack\ |er\[path\]=|er)/s
+14:/Serv(?:er\ Prent\ <please>\x0D\x0A|er:\ UploadServer|er\.CreateObject|er\x3A\ eMule|letOutputStream|ice\ Pack\ |er\[path\]=|er)/s
 15:/On\-Line\.\.\./s
 16:/GateCrasher\s+v\d+\x2E\d+\x2C\s+Server\s+On-Line\x2E\x2E\x2E/s
 17:/c\x3A\x5C/s
@@ -43,7 +43,7 @@
 42:/spoofworks/s
 43:/[0-9]{1,5}\x00/s
 44:/skillz/s
-45:/logi(?:n\x3A\ root|n\ incorrect|npost\x7C|n\x3A|ncreds=|n=0)/s
+45:/logi(?:n\x3A\ root|n\ incorrect|npost\x7C|ncreds=|n\x3A|n=0)/s
 46:/l44/s
 47:/\*HELLO\*/s
 48:/betaalmostdone/s
@@ -68,7 +68,7 @@
 67:/1\|C0(?:\ B0\|\?1\xDB\xB3\xFF1\xC9\xCD\x801\xC0|\ B0\ 02\ CD\ 80\ 85\ C0\|uL\xEBL\^\xB0)/s
 68:/\x89\xF7\x29\xC7\x89\xF3\x89\xF9\x89\xF2\xAC<\xFE/s
 69:/\xEB(?:_\x9A\xFF\xFF\xFF\xFF\x07\xFF\xC3\^1\xC0\x89F\x9D|E\xEB\ \[\xFC3\xC9\xB1\x82\x8B\xF3\x80\+|n\^\xC6\x06\x9A1\xC9\x89N\x01\xC6F\x05|@\^1\xC0@\x89F\x04\x89\xC3@\x89\x06|K\[S2\xE4\x83\xC3\x0BK\x88\x23\xB8Pw|\/_\xEBJ\^\x89\xFB\x89>\x89\xF2|V\^VVV1\xD2\x88V\x0B\x88V\x1E)/s
-70:/\|90\ (?:1A\ C0\ 0F\ 90\ 02\|\ \|08\ 92\ 02\|\ \|0F\ D0\ 23\ BF\ F8\||90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\||90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\||90\ 90\ E8\ C0\ FF\ FF\ FF\|\/bin\/sh)/s
+70:/\|90\ (?:90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\||1A\ C0\ 0F\ 90\ 02\|\ \|08\ 92\ 02\|\ \|0F\ D0\ 23\ BF\ F8\||90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\ 90\||90\ 90\ E8\ C0\ FF\ FF\ FF\|\/bin\/sh)/s
 71:/\+\+\+ath/s
 72:/\|FF\ (?:FF\ FF\ FF\ FF\ FF\ 00\ 00\ FE\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ 88\ FF\||FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\ FF\||F3\ FF\ F3\ FF\ F3\ FF\ F3\ FF\ F3\||FF\|KADM0\.0A\x00\x00\xFB\x03|FF\ FF\ FF\ 00\ 00\||ED\ 00\ 00\ 00\ 00\||FF\ FF\ FF\ FF\ FF\||F4\ FF\ FD\ 06\||D8\|)/s
 73:/NAME(?:NAME|=)/s
@@ -85,7 +85,7 @@
 84:/GET\ \/(?:\ HTTP\/1\.1\x0D\x0AAccept:\ \*\/\*\x0D\x0AAccept\-Language:|logo\.png\ HTTP\/1\.1\x0D\x0A|\ HTTP\/1\.1\x0D\x0A\x0D\x0A|123456789\.functionss|\?1\ HTTP\/1\.1|\ HTTP\/1\.1|\?)/s
 85:/\xB4\ \xB4!\x8B\xCC\x83\xE9\x04\x8B\x193\xC9f\xB9\x10/s
 86:/\|01\ (?:00\ 00\ 00\ 01\ 01\ 00\ 00\ 01\ 00\ 00\ 00\ 00\ 00\ 04\ 00\ 03\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\ 10\||02\ 03\ 04\ 05\ 06\ 07\ 08\ 09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\||03\ 00\ 00\ 00\ 00\ 00\ 01\ 00\ 02\ 02\ E8\||00\ 00\ 00\ 68\ 01\ 00\ 00\||02\ 00\ 14\||00\ 00\ 00\||02\ 00\||00\ 10\|)/s
-87:/\|80\ (?:1C\|@\x11\x80\x1C@\x11\x80\x1C@\x11\x80\x1C@\x11|07\ 00\ 00\ 07\ 00\ 00\ 04\ 00\ 00\ 00\ 00\ 00\||00\ 07\ 00\ 00\ 00\ 00\ 00\ 01\|\?\x00\x01\x02|01\||02\|)/s
+87:/\|80\ (?:1C\|@\x11\x80\x1C@\x11\x80\x1C@\x11\x80\x1C@\x11|00\ 07\ 00\ 00\ 00\ 00\ 00\ 01\|\?\x00\x01\x02|07\ 00\ 00\ 07\ 00\ 00\ 04\ 00\ 00\ 00\ 00\ 00\||01\||02\|)/s
 88:/\^\xB0\x02\x89\x06\xFE\xC8\x89F\x04\xB0\x06\x89F/s
 89:/cmd_rootsh/s
 90:/a\ b\ c\ d\ e\ f/s
@@ -97,7 +97,7 @@
 96:/\~root/s
 97:/CWD\s+~root/s
 98:/PASS\ ddd@\x0A/s
-99:/pass(?:word=g00dPa\$\$w0rD|\ \-iss@iss|word=MD5Sum|word=admin|word=12345|\ \-cklaus|\ \-satan|\ \-saint|word%5d=|\ wh00t|word1=|word2=|word=|wd|=)/s
+99:/pass(?:word=g00dPa\$\$w0rD|word=MD5Sum|\ \-iss@iss|\ \-cklaus|word=12345|word=admin|\ \-satan|\ \-saint|word%5d=|\ wh00t|word1=|word2=|word=|wd|=)/s
 100:/RETR/s
 101:/\.%20\./s
 102:/SITE/s
@@ -106,7 +106,7 @@
 105:/\-\-use\-compress\-program/s
 106:/\|10\ (?:11\ 12\ 13\ 14\ 15\ 16\ 17\ 18\ 19\ 1A\ 1B\ 1C\ 1D\ 1E\ 1F\||05\|)/s
 107:/\|08\ (?:09\ 0A\ 0B\ 0C\ 0D\ 0E\ 0F\ 10\ 11\ 12\ 13\ 14\ 15\ 16\ 17\||2A\ 2A\ 01\ 00\||02\|)/s
-108:/\|00\ (?:00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 02\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 88\ 0D\ 00\ 00\ 5C\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\|P\x01\x01\x00\x02\x03\x00\x00\x24\x01\x01\x00\x00\x80\x01\x00\x06\x80\x02\x00\x02\x80\x03\x00\x03\x80\x04\x00\x05\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x24\x02\x01\x00\x00\x80\x01\x00\x05\x80\x02\x00\x01\x80\x03\x00\x03\x80\x04\x00\x02\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x10|AC\ D3\ 62\ 78\ 26\ 76\ 31\ E5\ E7\ E5\ 1D\ C2\ 3C\ 15\ 40\ 25\ 2F\ 90\ BD\ 1F\ 7F\ 0E\ 5E\ 33\ 77\ EC\ 0C\ 1E\ 6B\ 61\ 47\||00\ A2\ 30\ 81\ 9F\ 30\ 0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 81\ 8D\ 00\ 30\ 81\ 89\ 02\ 81\ 81\ 00\||00\ 00\ 00\|W\x00i\x00n\x00d\x00o\x00w\x00s\x00\ \x00N\x00T\x00\ \x001\x003\x008\x001|00\ 03\ E7\ 00\ 00\ 00\ 00\ 00\ 00\ 00\|e\|00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 0D\ 05\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 10\ 00\ 01\ C0\ 0C\ 00\ 10\ 00\ 01\ 00\ 00\ 00\ 02\ 01\ 00\ FF\|v=DKIM1\x5C\x3B\ p=|44\ 00\ 65\ 00\ 73\ 00\ 6B\ 00\ 74\ 00\ 6F\ 00\ 70\ 00\ 2E\ 00\ 69\ 00\ 6E\ 00\ 69\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 08\ 09\ 0A\ 0B\||DE\ C5\ 45\ 99\ 14\ 1E\ F5\ 7E\ 56\ 78\ DF\ 23\ CE\ 8A\ 12\||01\ 86\ F3\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 0F\ 00\ 00\ 00\ 01\||C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\||00\ 00\ 02\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 05\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 08\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 03\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 02\||0C\ 00\ 00\ 00\ 01\ 01\ 00\ 06\ 02\||00\|E\|00\ 00\|E\|00\ 00\|@\x00|92\ 93\ 45\ 3A\ 42\ 8B\ 15\ 4C\||DC\ 5E\ AE\ E6\ 3E\ EC\ 78\ EC\||D3\ 62\ 47\ DA\ 62\ 4A\ A1\ 34\||00\ 00\ 01\ 01\ 00\ 00\ 18\||01\ 00\ 02\ 00\ 01\ 00\||00\ 00\ 00\\xEE\xEE\xEE\xEE\xEE\xEE01\ 00\ 03\ 00\ 01\ 00\||00\ 00\ 01\ 00\ 00\ 00\||05\|child\x01\x00\x16|01\|W\x00\x00\x00\x18|80\ 00\ 00\ 00\||00\ 00\ 04\||01\ 86\ A9\||00\ 00\ 0D\||01\ 86\ A2\||00\ 00\ 06\||00\ 00\ 08\||01\ 86\ A0\||00\ 78\ 9C\||00\ 00\ 01\||01\ 86\ A5\||04\ 93\ F3\||00\ 00\ 00\||00\ 00\ 0B\||00\ 00\ 03\||00\ 00\ 02\||01\ 00\ 01\||00\ 00\ 09\||00\ 00\ 05\||01\ 87\ 88\||01\ 86\ A4\||07\|nemesis|05\ F7\|h|03\ 0D\|p|12\ 5C\||00\ 00\||01\|\/|01\|C|1D\||00\||19\||02\||98\||04\||18\||01\||12\|)/s
+108:/\|00\ (?:00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 01\ 10\ 02\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 88\ 0D\ 00\ 00\ 5C\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\|P\x01\x01\x00\x02\x03\x00\x00\x24\x01\x01\x00\x00\x80\x01\x00\x06\x80\x02\x00\x02\x80\x03\x00\x03\x80\x04\x00\x05\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x24\x02\x01\x00\x00\x80\x01\x00\x05\x80\x02\x00\x01\x80\x03\x00\x03\x80\x04\x00\x02\x80\x0B\x00\x01\x00\x0C\x00\x04\x00\x01Q\x80\x00\x00\x00\x10|00\ A2\ 30\ 81\ 9F\ 30\ 0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 81\ 8D\ 00\ 30\ 81\ 89\ 02\ 81\ 81\ 00\||AC\ D3\ 62\ 78\ 26\ 76\ 31\ E5\ E7\ E5\ 1D\ C2\ 3C\ 15\ 40\ 25\ 2F\ 90\ BD\ 1F\ 7F\ 0E\ 5E\ 33\ 77\ EC\ 0C\ 1E\ 6B\ 61\ 47\||00\ 00\ 00\|W\x00i\x00n\x00d\x00o\x00w\x00s\x00\ \x00N\x00T\x00\ \x001\x003\x008\x001|00\ 03\ E7\ 00\ 00\ 00\ 00\ 00\ 00\ 00\|e\|00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 0D\ 05\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||00\ 10\ 00\ 01\ C0\ 0C\ 00\ 10\ 00\ 01\ 00\ 00\ 00\ 02\ 01\ 00\ FF\|v=DKIM1\x5C\x3B\ p=|44\ 00\ 65\ 00\ 73\ 00\ 6B\ 00\ 74\ 00\ 6F\ 00\ 70\ 00\ 2E\ 00\ 69\ 00\ 6E\ 00\ 69\ 00\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\||01\ 86\ F3\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 0F\ 00\ 00\ 00\ 01\||DE\ C5\ 45\ 99\ 14\ 1E\ F5\ 7E\ 56\ 78\ DF\ 23\ CE\ 8A\ 12\||C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\ 00\ C0\ 05\ 08\||00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 00\ 08\ 09\ 0A\ 0B\||00\ 00\ 02\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 05\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 08\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 02\||00\ 00\ 01\ 00\ 00\ 00\ 01\ 00\ 00\ 00\ 03\||0C\ 00\ 00\ 00\ 01\ 01\ 00\ 06\ 02\||00\|E\|00\ 00\|E\|00\ 00\|@\x00|92\ 93\ 45\ 3A\ 42\ 8B\ 15\ 4C\||DC\ 5E\ AE\ E6\ 3E\ EC\ 78\ EC\||D3\ 62\ 47\ DA\ 62\ 4A\ A1\ 34\||00\ 00\ 01\ 01\ 00\ 00\ 18\||00\ 00\ 01\ 00\ 00\ 00\||01\ 00\ 03\ 00\ 01\ 00\||00\ 00\ 00\\xEE\xEE\xEE\xEE\xEE\xEE01\ 00\ 02\ 00\ 01\ 00\||01\|W\x00\x00\x00\x18|05\|child\x01\x00\x16|80\ 00\ 00\ 00\||00\ 00\ 01\||00\ 00\ 06\||00\ 00\ 04\||00\ 00\ 02\||00\ 00\ 08\||01\ 86\ A5\||04\ 93\ F3\||00\ 00\ 0D\||01\ 86\ A9\||00\ 00\ 0B\||00\ 78\ 9C\||00\ 00\ 03\||01\ 00\ 01\||01\ 86\ A4\||01\ 86\ A0\||01\ 87\ 88\||00\ 00\ 05\||01\ 86\ A2\||00\ 00\ 09\||00\ 00\ 00\||07\|nemesis|03\ 0D\|p|05\ F7\|h|12\ 5C\||00\ 00\||01\|C|01\|\/|12\||98\||01\||02\||1D\||04\||18\||00\||19\|)/s
 109:/Pinging\ from\ Del/s
 110:/\xA9\ Sustainable\ So/s
 111:/0123456789abcdefghijklmnop/s
@@ -135,7 +135,7 @@
 134:/uid=0\x28root\x29/s
 135:/\|05\ (?:00\|>|00\|)/s
 136:/ADMINISTRATOR/s
-137:/ftp\|(?:7C\||3A\|)/s
+137:/ftp\|(?:3A\||7C\|)/s
 138:/pccsmysqladm\/incs\/dbconnect\.inc/s
 139:/@PJL\ RDYMSG\ DISPLAY\ =/s
 140:/Inva(?:lid\ login|lid\ URL)/s
@@ -143,12 +143,12 @@
 142:/\+\x06\x10@\x14\xD1\x02\x19/s
 143:/\x5C\.(?:\.\.\x00\x00\x00|\.\/\x00\x00\x00)/s
 144:/MSG/s
-145:/Cont(?:ent\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22data\x22\x3B\ filename=\x22data\.bin\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22key\x22\x3B\ filename=\x22key\.bin\x22|ent\-type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ |ent\-Type\x3A\x20multipart\/form\-data\x3B\ boundary=MS_D0wnl0ad3r|ent\-Type\x3A\x20application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22board_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22user_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22file1\x22|ent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Type:\ application\/x\-www\-Form\-urlencoded\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream\x0D\x0A|ent\-Type:\ application\/json\x5C\x3B\ charset=utf\-8|ent\-Type:\ multipart\/form\-data,\ boundary=7DF051D|ent\-Type:\ multipart\/form\-data\x3B\ boundary=|ent\-Type\x3A\ binary\/octet\-stream\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream|ent\-Disposition:\ form\-data\x3B\ name=|ent\-Type\x3A\ application\/x\-msnmsgrp2p|ent\-Type:\ application\/octet\-stream|ent\-Type\x3A\ application\/x\-icq|ent\-Type\x3A\x20octet\-stream|ent\-Length\x3A\x200\x0D\x0A|ent\-Length:\ 157\x0D\x0A|ent\-Length:\ 150\x0D\x0A|ent\-Length:\ 201\x0D\x0A|ent\-Length:\ 128\x0D\x0A|ent\-Length:\ 13\x0D\x0A|ent\-Length:\ 6\x0D\x0A|ent\-Length:\ 0\x0D\x0A|ent\-Disposition\x3A|ent\-Length:\ 166|ent\-Length\x3A|ent\-Length:\ 30|ent\-Disposition|ent\-Length:\ 16|ent\-Length:\ 8|ent\-Length:\ 0|ent\-Type\x3A|ent\-type\x3A|ent\-Encoding|ent\-length:|ent\-Length|ent\-type:|ent\-Type:|ent\-Type)/s
+145:/Cont(?:ent\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22data\x22\x3B\ filename=\x22data\.bin\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22key\x22\x3B\ filename=\x22key\.bin\x22|ent\-type:\ application\/x\-www\-form\-urlencoded\x0D\x0AContent\-Length:\ |ent\-Type\x3A\x20multipart\/form\-data\x3B\ boundary=MS_D0wnl0ad3r|ent\-Type\x3A\x20application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Disposition:\ form\-data\x3B\ name=\x22board_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22user_id\x22|ent\-Disposition:\ form\-data\x3B\ name=\x22file1\x22|ent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|ent\-Type:\ application\/x\-www\-Form\-urlencoded\x0D\x0A|ent\-Type:\ application\/json\x5C\x3B\ charset=utf\-8|ent\-Type\x3A\x20application\/octet\-stream\x0D\x0A|ent\-Type:\ multipart\/form\-data,\ boundary=7DF051D|ent\-Type:\ multipart\/form\-data\x3B\ boundary=|ent\-Type\x3A\ binary\/octet\-stream\x0D\x0A|ent\-Type\x3A\x20application\/octet\-stream|ent\-Type\x3A\ application\/x\-msnmsgrp2p|ent\-Disposition:\ form\-data\x3B\ name=|ent\-Type:\ application\/octet\-stream|ent\-Type\x3A\ application\/x\-icq|ent\-Type\x3A\x20octet\-stream|ent\-Length\x3A\x200\x0D\x0A|ent\-Length:\ 128\x0D\x0A|ent\-Length:\ 150\x0D\x0A|ent\-Length:\ 201\x0D\x0A|ent\-Length:\ 157\x0D\x0A|ent\-Length:\ 13\x0D\x0A|ent\-Length:\ 6\x0D\x0A|ent\-Length:\ 0\x0D\x0A|ent\-Disposition\x3A|ent\-Length:\ 166|ent\-Length\x3A|ent\-Length:\ 16|ent\-Disposition|ent\-Length:\ 30|ent\-Length:\ 0|ent\-type\x3A|ent\-Type\x3A|ent\-Length:\ 8|ent\-Encoding|ent\-length:|ent\-Length|ent\-Type:|ent\-type:|ent\-Type)/s
 146:/text(?:o=%0D%0A|\/plain)/s
-147:/User(?:\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.3\x3B\ WOW64\)\ AppleWebKit\/537\.36\ \(KHTML,\ like\ Gecko\)\ Chrome\/35\.0\.1916\.114\ Safari\/537\.36\x0D\x0AHost:\ checkip\.dyndns\.org\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0\)\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AHost:\ |\-Agent\x3A\ Opera\/10\.80\ \x28Windows\ NT\ 5\.1\x3B\ U\x3B\ Edition\ Yx\x3B\ en\x29\ Presto\/2\.9\.168\ Version\/11\.52\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\x20\x28compatible\x3B\x20MSIE\ 6\.0\x3B\x20MS\ Web\ Services\ Client\ Protocol|\-Agent:\ Mozilla\/6\.1\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 5\.3\x3B\ Trident\/5\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 10\.0\x3B\ Windows\ NT\ 6\.2\x3B\ Trident\/4\.0\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\ SV1\)\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ rv:7\.0\.1\)\ Gecko\/20100101\ Firefox\/7\.0\.1\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:23\.0\)\ Gecko\/20100101\ Firefox\/23\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.01\x3B\ Windows\ NT\ 5\.0\x29|\x2DAgent\x3A\x20Mozilla\x2F3\.0\x20\x28compatible\x3B\x20Indy\ Library\x29\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 6\.1\x3B|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.0\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3BMSIE\ 7\.0\x3BWindows\ NT\ 6\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.5\)|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Win32\)\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 2\.0\x3B|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)\x0D\x0A|\-Agent:\ Opera\/11\ \x28Windows\ NT\ 5\.1\x3B\x20\x3B\ x86\x29|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSI\ 6\.0\x3B|\-Agent\x3A\x20Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x29\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\ Webtrends\ Security\ Analyzer\x0D\x0A|\x2DAgent\x3A\x20Morfeus\x20Fucking\x20Scanner|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\x20\)|\-Agent\x3A\x20Apache\-HttpClient\x2FUNAVAILABLE|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ |\-Agent\x3A\x20NSIS_Inetc\ \(Mozilla\)\x0D\x0A|\-Agent:\ Microsoft\ Internet\ Explorer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\)\x0D\x0A|\-Agent\x3A\ bUQ8QmvUpI57udWFxQHPkuyKDfc3T8u5|\-Agent\x3A\ NSIS_ToolkitOffers\ \(Mozilla\)|\-Agent\x3A\ Brontok\.A8\ Browser\x0D\x0A|\-Agent\x3A\ Updates\ downloader\x0D\x0A|\-Agent\x3A\x20Mozilla\/5\.0\ \(compatible|\-Agent\x3A\x20UAC\/1\.0\.0\ \(Android\ |\-Agent\x3A\x20Apache\-HttpClient\x2F|\-Agent\x3A\x20Sendori\-Client\-Win32|\-Agent\x3A\x20NewBrandTest\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\x0D\x0A|\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:\ |\-Agent:\ http:\/\/www\.pershop\.com\.br\/|\-Agent\x3A\x20DNS\ Check\x0D\x0A|\-Agent\x3A\ Mozi1la\/4\.0\x0D\x0A|\-Agent\x3A\ Opera\x5C9\.64\x0A|\-Agent\x3A\ Ray\-Downer\x0D\x0A|\-Agent\x3A\ Java1\.2\.1\x0D\x0A|\-Agent\x3A\x20macrotest\x0D\x0A|\-Agent\x3A\x20SearchProtect\x3B|\-Agent:\ macsearch\/1\ CFNetwork\/|\-Agent:\ Google\ Omaha\x0D\x0A|\-Agent\x3A\x20Mindspark\ MIP\ |\-Agent:\ hello\ crazyk\x0D\x0A|\-Agent\x3A\x20ALIZER\x0D\x0A|\-Agent\x3A\ Uploador\x0D\x0A|\-Agent:\ Mazilla\/5\.0\x0D\x0A|\-Agent\x3A\x20EMERY\x0D\x0A|\-Agent:\ Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20Microsoft\ BITS|\-Agent\x3A\ NOKIAN95\x2FWEB|\-Agent\x3A\x20Python\-urllib\/|\-Agent:\ User\-Agent:\ Mozilla\/|\-Agent\x3A\x20BURAN\x0D\x0A|\-Agent\x3A\ xmsSofts_1\.0\.0_|\-Agent:\ Google\ page\x0D\x0A|\-Agent\x3A\ Zollard\x0D\x0A|\-Agent:\ ITRANSLATOR\x0D\x0A|\-Agent\x3A\x20core\-project|\-Agent\x3A\ Microsoft\ BITS|\-Agent:\ realupdate\x0D\x0A|\-Agent\x3A\x20Installer\/23|\-Agent\x3A\ Mozilla\ v5\.1|\-Agent:\ Microsoft\ Office\ |\-Agent\x3A\ runddll32\.exe|\-Agent\x3A\ WinHttpClient|\-Agent:\ HTTPREAD\x0D\x0A|\-Agent:\ SpellingChecker\/22|\-Agent\x3A\ asafaweb\.com|\-Agent\x3A\x20Useragents|\-Agent:\ Install\x0D\x0A|\-Agent:\ RUpdate\x0D\x0A|\-Agent\x3A\x20HttpEngine|\-Agent:\ fortis\x0D\x0A|\-Agent\x3A\x20Vitruvian|\-Agent\x3A\x20DataCha0s|\-Agent:\ TixDll\x0D\x0A|\-Agent\x3A\x20C:\x5C|\-Agent\x3A\ SEX\x2F1|\-Agent:\ win32\x0D\x0A|\-Agent:\ Treck\x0D\x0A|\-Agent\x3A\ z00sAgent|\-Agent\x3A\ Quicktime|\-Agent\x3A\x20Mozilla|\-Agent:\ lynx\x0D\x0A|\-Agent:\ LinqurySearch|\-Agent\x3A\ USR\-KL|\-Agent:\ pb\x0D\x0A|\-Agent\x3A\ Ufasoft|\-Agent\x3A\x20mpck_|\-Agent:\ Mozilla\/5\.0|\x2DAgent\x3A\x20|\-Agent:\ hots\ scot|\-Agent\x3A\x20SK|\-Agent:\ something|\-Agent:\ Mozilla\/7|\-Agent:\ BLP_bbot|\-Agent:\ usrnode\/|\-Agent\x3A\x20|\-Agent\x3AICQ|32LogonProcesss|\-Agent\x3A\ |\-Agent:\ curl\/|\-Agent:\ wget|\-Agent\x3A|\-Agent:|\-Agent|name:)/s
+147:/User(?:\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.3\x3B\ WOW64\)\ AppleWebKit\/537\.36\ \(KHTML,\ like\ Gecko\)\ Chrome\/35\.0\.1916\.114\ Safari\/537\.36\x0D\x0AHost:\ checkip\.dyndns\.org\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0\)\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0AHost:\ |\-Agent\x3A\ Opera\/10\.80\ \x28Windows\ NT\ 5\.1\x3B\ U\x3B\ Edition\ Yx\x3B\ en\x29\ Presto\/2\.9\.168\ Version\/11\.52\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\x20\x28compatible\x3B\x20MSIE\ 6\.0\x3B\x20MS\ Web\ Services\ Client\ Protocol|\-Agent:\ Mozilla\/6\.1\ \(compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 5\.3\x3B\ Trident\/5\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 10\.0\x3B\ Windows\ NT\ 6\.2\x3B\ Trident\/4\.0\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\ SV1\)\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ rv:7\.0\.1\)\ Gecko\/20100101\ Firefox\/7\.0\.1\x0D\x0A|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:23\.0\)\ Gecko\/20100101\ Firefox\/23\.0|\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Trident\/7\.0\x3B\ rv:11\.0\)\ like\ Gecko\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0A|\x2DAgent\x3A\x20Mozilla\x2F3\.0\x20\x28compatible\x3B\x20Indy\ Library\x29\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.01\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 6\.1\x3B|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 7\.0\x3B\ Windows\ NT\ 5\.1\x3B\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 5\.0\x3B\ Windows\ NT\ 5\.0\x29|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3BMSIE\ 7\.0\x3BWindows\ NT\ 6\.0\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ Win32\x3B\ WinHttp\.WinHttpRequest\.5\)|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Win32\)\x0D\x0A|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MyApp\)\x0D\x0A\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x3B\ MSIE\ 2\.0\x3B|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)\x0D\x0A|\-Agent:\ Opera\/11\ \x28Windows\ NT\ 5\.1\x3B\x20\x3B\ x86\x29|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\ SEObot\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSI\ 6\.0\x3B|\-Agent\x3A\x20Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\)|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\)\x0D\x0A|\-Agent\x3A\x20Mozilla\/4\.0\ \(compatible\x3B\ Synapse\)|\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\-Agent\x3A\ Mozilla\/4\.0\ \x28compatible\x29\x0D\x0A|\x2DAgent\x3A\x20Morfeus\x20Fucking\x20Scanner|\-Agent\x3A\ Webtrends\ Security\ Analyzer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(compatible\x3B\x20\)|\-Agent\x3A\x20Apache\-HttpClient\x2FUNAVAILABLE|\-Agent\x3A\x20NSIS_Inetc\ \(Mozilla\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\x3B\ MSIE\ |\-Agent:\ Microsoft\ Internet\ Explorer\x0D\x0A|\-Agent\x3A\ Mozilla\/4\.0\ \(SEObot\)\x0D\x0A|\-Agent:\ Mozilla\/4\.0\ \(compatible\)\x0D\x0A|\-Agent\x3A\ bUQ8QmvUpI57udWFxQHPkuyKDfc3T8u5|\-Agent\x3A\ NSIS_ToolkitOffers\ \(Mozilla\)|\-Agent\x3A\ Brontok\.A8\ Browser\x0D\x0A|\-Agent\x3A\ Updates\ downloader\x0D\x0A|\-Agent\x3A\x20Mozilla\/5\.0\ \(compatible|\-Agent\x3A\x20Apache\-HttpClient\x2F|\-Agent\x3A\x20UAC\/1\.0\.0\ \(Android\ |\-Agent\x3A\x20NewBrandTest\x0D\x0A|\-Agent\x3A\x20Sendori\-Client\-Win32|\-Agent\x3A\x20Mozilla\/4\.0\x0D\x0A|\-Agent:\ Mozilla\/5\.0\x0D\x0AHost:\ |\-Agent:\ http:\/\/www\.pershop\.com\.br\/|\-Agent\x3A\ Opera\x5C9\.64\x0A|\-Agent\x3A\x20DNS\ Check\x0D\x0A|\-Agent\x3A\ Mozi1la\/4\.0\x0D\x0A|\-Agent\x3A\ Java1\.2\.1\x0D\x0A|\-Agent\x3A\ Ray\-Downer\x0D\x0A|\-Agent\x3A\x20macrotest\x0D\x0A|\-Agent\x3A\x20SearchProtect\x3B|\-Agent\x3A\x20ALIZER\x0D\x0A|\-Agent\x3A\x20Mindspark\ MIP\ |\-Agent:\ macsearch\/1\ CFNetwork\/|\-Agent:\ hello\ crazyk\x0D\x0A|\-Agent:\ Google\ Omaha\x0D\x0A|\-Agent\x3A\ Uploador\x0D\x0A|\-Agent:\ User\-Agent:\ Mozilla\/|\-Agent:\ Google\ page\x0D\x0A|\-Agent\x3A\x20Microsoft\ BITS|\-Agent\x3A\x20EMERY\x0D\x0A|\-Agent\x3A\ Zollard\x0D\x0A|\-Agent:\ Mazilla\/5\.0\x0D\x0A|\-Agent:\ Mozilla\/4\.0\x0D\x0A|\-Agent\x3A\x20BURAN\x0D\x0A|\-Agent\x3A\x20Python\-urllib\/|\-Agent\x3A\ NOKIAN95\x2FWEB|\-Agent\x3A\ xmsSofts_1\.0\.0_|\-Agent:\ ITRANSLATOR\x0D\x0A|\-Agent\x3A\ Microsoft\ BITS|\-Agent:\ realupdate\x0D\x0A|\-Agent\x3A\x20core\-project|\-Agent\x3A\ Mozilla\ v5\.1|\-Agent\x3A\x20Installer\/23|\-Agent\x3A\ runddll32\.exe|\-Agent:\ Microsoft\ Office\ |\-Agent\x3A\ WinHttpClient|\-Agent\x3A\ asafaweb\.com|\-Agent:\ HTTPREAD\x0D\x0A|\-Agent:\ SpellingChecker\/22|\-Agent\x3A\x20Useragents|\-Agent:\ RUpdate\x0D\x0A|\-Agent\x3A\x20HttpEngine|\-Agent:\ Install\x0D\x0A|\-Agent\x3A\x20Vitruvian|\-Agent\x3A\x20DataCha0s|\-Agent:\ TixDll\x0D\x0A|\-Agent:\ fortis\x0D\x0A|\-Agent\x3A\ SEX\x2F1|\-Agent\x3A\x20C:\x5C|\-Agent:\ Treck\x0D\x0A|\-Agent:\ win32\x0D\x0A|\-Agent\x3A\ z00sAgent|\-Agent\x3A\x20Mozilla|\-Agent\x3A\ Quicktime|\-Agent:\ lynx\x0D\x0A|\-Agent:\ LinqurySearch|\-Agent:\ pb\x0D\x0A|\-Agent:\ Mozilla\/5\.0|\-Agent\x3A\ Ufasoft|\-Agent\x3A\ USR\-KL|\-Agent\x3A\x20mpck_|\x2DAgent\x3A\x20|\-Agent:\ hots\ scot|\-Agent\x3A\x20SK|\-Agent:\ Mozilla\/7|\-Agent:\ something|\-Agent:\ BLP_bbot|\-Agent:\ usrnode\/|\-Agent\x3A\x20|\-Agent\x3AICQ|32LogonProcesss|\-Agent\x3A\ |\-Agent:\ wget|\-Agent\x3A|\-Agent:|\-Agent|name:)/s
 148:/STOR/s
 149:/1MB/s
-150:/MKD\ (?:\.|\ )/s
+150:/MKD\ (?:\ |\.)/s
 151:/USER\s+(anonymous|ftp)[\w]*[\r\n]/s
 152:/MKD/s
 153:/WinGate>/s
@@ -168,7 +168,7 @@
 167:/Amanda/s
 168:/cybercop/s
 169:/\x0Ahelp\x0Aquite\x0A/s
-170:/\|03\ (?:E0\ F8\|%\x03\xE0\xF8%\x03\xE0\xF8%\x03\xE0\xF8%|00\ 00\ 0B\ 06\ E0\ 00\ 00\ 00\ 00\ 00\||00\ 00\||00\ 01\||00\||01\|)/s
+170:/\|03\ (?:E0\ F8\|%\x03\xE0\xF8%\x03\xE0\xF8%\x03\xE0\xF8%|00\ 00\ 0B\ 06\ E0\ 00\ 00\ 00\ 00\ 00\||00\ 01\||00\ 00\||01\||00\|)/s
 171:/\|24\ (?:0F\ 12\|4\|24\ 0F\ 12\|4\|24\ 0F\ 12\|4\|24\ 0F\ 12\|4|7B\|)/s
 172:/O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82O\xFF\xFB\x82/s
 173:/G\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1FG\xFF\x04\x1F/s
@@ -177,7 +177,7 @@
 176:/\|13\ (?:2F\ 22\ 35\ 22\ 67\ 26\ 35\ 22\ 29\ 27\ 33\ 67\ 28\ 37\ 22\ 29\ 67\ 37\ 28\ 35\ 33\ 34\ 69\||C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\ 13\ C0\ 1C\ A6\|)/s
 177:/\|A6\ (?:4D\ AA\ E1\ 65\ 52\ A5\ E1\ E3\ 58\ 76\ E1\ 81\ 4D\ A5\ E1\ CE\ 48\ 9C\ E1\ BB\ 4D\ A5\ E1\ CE\ 48\ A9\ E1\ A1\ 4D\ A5\ E1\||1C\ C0\ 13\ A6\ 1C\ C0\ 13\ A6\ 1C\ C0\ 13\ A6\ 1C\ C0\ 13\|)/s
 178:/\|82\ (?:F4\ DE\ D4\ D3\ C2\ CA\ F5\ C8\ C8\ D3\ 82\ FB\ F4\ DE\ D4\ D3\ C2\ CA\ 94\ 95\ FB\ D4\ D1\ C4\ CF\ C8\ D4\ D3\ 89\ C2\ DF\ C2\ 87\ 8A\ CC\ 87\ 00\||10\|\ \|17\ 91\ D0\|\ \|08\|)/s
-179:/\|B0\ (?:00\ B0\ 00\ B0\ 00\ B0\ 00\ 26\ 00\ 26\ 00\ 26\ 00\||17\ CD\ 80\||B5\ CD\ 80\|)/s
+179:/\|B0\ (?:00\ B0\ 00\ B0\ 00\ B0\ 00\ 26\ 00\ 26\ 00\ 26\ 00\||B5\ CD\ 80\||17\ CD\ 80\|)/s
 180:/\x0AD\//s
 181:/charset\ =\ \x22\x22/s
 182:/expn/s
@@ -191,7 +191,7 @@
 190:/rcpt to\:\s*decode/s
 191:/MAIL\ (?:FROM:\ <Reademal\.com>\x0D\x0A|FROM\x3A\ \x7C\/usr\/ucb\/tail|FROM\x3A)/s
 192:/Croo(?:t\x09\x09\x09\x09\x09\x09\x09Mprog,P=\/bin|t\x0D\x0AMprog,\ P=\/bin\/)/s
-193:/\x0AC(?:ontent\-Length:\ 164\x0D\x0AUser\-Agent:\ |ontent\-Length\x3A\x20|root\x0D\x0AMprog|\x3Adaemon\x0AR|root\x0AMprog)/s
+193:/\x0AC(?:ontent\-Length:\ 164\x0D\x0AUser\-Agent:\ |ontent\-Length\x3A\x20|\x3Adaemon\x0AR|root\x0D\x0AMprog|root\x0AMprog)/s
 194:/vrfy/s
 195:/vrfy\s+decode/s
 196:/s\|00(?:\|e\|00\|l\x00e\x00c\x00t\x00\ \x00v\x00e\x00r\x00i\x00f\x00i\x00c\x00a\x00n\x00d\x00o\x00\ \x00f\x00r\x00o\x00m\x00\ \x00v\x00e\x00r\x00i\x00f\x00i\x00c\x00a\x00n\x00d\x00o\x00\ \x00w\x00h\x00e\x00r\x00e\x00\ \x00i\x00d\x00_\x00p\x00c\x00=\x00|\|p\x00_\x00d\x00e\x00l\x00e\x00t\x00e\x00_\x00a\x00l\x00e\x00r\x00t\x00|\|p\x00_\x00d\x00e\x00l\x00e\x00t\x00e\x00_\x00a\x00l\x00e\x00|\|p\x00_\x00s\x00t\x00a\x00r\x00t\x00_\x00j\x00o\x00b\x00|\|p\x00_\x00p\x00a\x00s\x00s\x00w\x00o\x00r\x00d\x00|\|p\x00_\x00a\x00d\x00d\x00u\x00s\x00e\x00r\x00)/s
@@ -224,7 +224,7 @@
 223:/temp(?:late=\.\.\/\.\.\/\.\.\/|late=\.\.\/|late=|late|l=)/s
 224:/\/glimpse/s
 225:/\/inf(?:o\.php\?message=|o\.php\?act=|osrch\.cgi\?|osrch\.cgi|o\.php\?|o\.xml|o2www)/s
-226:/\/nph(?:\-exploitscanget\.cgi|\-publish\.cgi|\-maillist\.pl|\-test\-cgi|pd\.php)/s
+226:/\/nph(?:\-exploitscanget\.cgi|\-maillist\.pl|\-publish\.cgi|\-test\-cgi|pd\.php)/s
 227:/\/rguest\.exe/s
 228:/\/rwwwshell\.pl/s
 229:/\/textcounter\.pl/s
@@ -260,16 +260,16 @@
 259:/\/bash/s
 260:/\/phf/s
 261:/\/ppdscgi\.exe/s
-262:/\/sen(?:dmessage\.cgi|sepost\.exe|dform\.cgi|dmail\.cfm|dtemp\.pl)/s
+262:/\/sen(?:dmessage\.cgi|sepost\.exe|dmail\.cfm|dform\.cgi|dtemp\.pl)/s
 263:/\/AnyForm2/s
-264:/\/bb\-(?:hostsvc\.sh\?|histsvc\.sh|histlog\.sh|hostsvc\.sh|replog\.sh|hist\.sh\?|hist\.sh|rep\.sh)/s
+264:/\/bb\-(?:hostsvc\.sh\?|histlog\.sh|histsvc\.sh|hostsvc\.sh|hist\.sh\?|replog\.sh|hist\.sh|rep\.sh)/s
 265:/\/red(?:irect\.exe|irect)/s
 266:/\/pals\-cgi/s
 267:/tstisapi\.dll/s
 268:/\/cfcache\.map/s
 269:/CF_S(?:ETDATASOURCEUSERNAME\x28\x29|ETDATASOURCEPASSWORD\x28\x29)/s
 270:/\/cfappman\/index\.cfm/s
-271:/CFUS(?:ION_DBCONNECTIONS_FLUSH\x28\x29|ION_SETTINGS_REFRESH\x28\x29|ION_VERIFYMAIL\x28\x29|ION_SETODBCINI\x28\x29|ION_GETODBCINI\x28\x29|ION_GETODBCDSN\x28\x29|ION_DECRYPT\x28\x29|ION_ENCRYPT\x28\x29)/s
+271:/CFUS(?:ION_DBCONNECTIONS_FLUSH\x28\x29|ION_SETTINGS_REFRESH\x28\x29|ION_GETODBCDSN\x28\x29|ION_GETODBCINI\x28\x29|ION_VERIFYMAIL\x28\x29|ION_SETODBCINI\x28\x29|ION_ENCRYPT\x28\x29|ION_DECRYPT\x28\x29)/s
 272:/CF_ISCOLDFUSIONDATASOURCE\x28\x29/s
 273:/\/onrequestend\.cfm/s
 274:/POST/s
@@ -312,7 +312,7 @@
 311:/\s{230,}\.htr/s
 312:/\x0A\.pl/s
 313:/\/issamples\/query\.asp/s
-314:/\/sho(?:wthread\.php\?yz=|wthread\.php\?|w_new\.php\?|psearch\.asp|wphoto\.php|utbox\.php|wcode\.asp|pper\.cgi|p\.cgi)/s
+314:/\/sho(?:wthread\.php\?yz=|wthread\.php\?|psearch\.asp|w_new\.php\?|wphoto\.php|utbox\.php|wcode\.asp|pper\.cgi|p\.cgi)/s
 315:/\/srchadm/s
 316:/Tran(?:sfer\-Encoding\x3A|slate\x3A\ F)/s
 317:/\.htw/s
@@ -321,12 +321,12 @@
 320:/REVLOG\ \//s
 321:/INDEX/s
 322:/GETPROPERTIES/s
-323:/filen(?:ame=\x22full__setup\.zip\x22\x0D\x0A|ame=FuneralCeremony_|ame=atom\.jar|ame=site\.jar|ame=|ame)/s
+323:/filen(?:ame=\x22full__setup\.zip\x22\x0D\x0A|ame=FuneralCeremony_|ame=site\.jar|ame=atom\.jar|ame=|ame)/s
 324:/board=/s
 325:/file=/s
 326:/\.jsp/s
 327:/!"\/\w+\s+[\n\s\?]*\.jsp\/ims/s
-328:/%252(?:4%257B|4%7b|ejsp|4\{)/s
+328:/%252(?:4%257B|ejsp|4%7b|4\{)/s
 329:/ftp\.exe/s
 330:/xp_enumdsn/s
 331:/xp_filelist/s
@@ -382,7 +382,7 @@
 381:/cat/s
 382:/\/cat(?:alog\.nsf|gy\.cgi|info)/s
 383:/\/dom(?:cfg\.nsf|log\.nsf)/s
-384:/\/log(?:s\.php\?\&prog=|on\.aspx\?Id=|icworks\.ini|in\.htm\?|in1\.asp|in\.htm|in\.php|in\.uix|\.php\?|\.php|\.nsf)/s
+384:/\/log(?:s\.php\?\&prog=|on\.aspx\?Id=|icworks\.ini|in\.htm\?|in1\.asp|in\.uix|in\.php|in\.htm|\.php\?|\.nsf|\.php)/s
 385:/\/names\.nsf/s
 386:/\/PSUser\/PSCOErrPage\.htm/s
 387:/\?wp\-/s
@@ -436,7 +436,7 @@
 435:/\/fp4areg\.dll/s
 436:/\/level\//s
 437:/\x2flevel\x2f\d+\x2f(exec|configure)/s
-438:/\|0D\ (?:0A\|Accept:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.9,\*\/\*\x3Bq=0\.8\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/5\.0\ \(Windows\x3B\ U\x3B\ Windows\ NT\ 6\.1\x3B\ pt\-BR\x3B\ rv:1\.9\.2b5\)\ Gecko\/20091204\ Firefox\/3\.6b5\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0AConnection:\ close\x0D\x0AUser\-Agent:\ |0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-store,no\-cache\x0D\x0APragma:\ no\-cache\x0D\x0AConnection:\ Keep\-Alive\x0D\x0A\x0D\x0A|0A\|User\-Agent\x3A\ Mozilla\/5\.0\ \x28compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AUser\-Agent:\ |0A\|Content\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Accept\x3A\x20text\/html,\ image\/gif,\ image\/jpeg,\ \*\x3B\ q=\.2,\ \*\/\*\x3B\ q=\.2\x0D\x0A|0A\|Connection:\ close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0AContent\-Length:\ |0A\|Accept\-Encoding:\x0D\x0AConnection:\ close\x0D\x0AContent\-Length:\ |0A\|Content\x2DDisposition\x3A\x20form\x2Ddata\x3B\x20name\x3D\x22|0A\|Connection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Connection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache|0A\|Accept\x2DEncoding\x3A\x20gzip\x2Cdeflateidentity\x0D\x0A|0A\|Content\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept\-Encoding:\ gzip,deflate,\ identity\x0D\x0A|0A\|Content\-Type:\ application\/octet\-stream\x0D\x0A|0A\|Accept\x2DEncoding\x3A\x20identity\x0D\x0A|0A\|Location:\ https:\/\/dl\.dropboxusercontent\.com\/|0A\|Cache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|\[Yes\]\x0D\x0A\xFF\xFE\x08\xFF\xFD\&|0A\|Accept\-Language\x3A\x20ko\x0D\x0A|0A\|User\-Agent:\ Mozilla\/4\.0\x0D\x0A|0A\|Connection:\ Close\x0D\x0A\x0D\x0A|0A\|Upgrade:\ tcp\/1\x0D\x0A|0A\|User\-Agent:\ Mozilla\/|0A\ 0D\ 0A\ 0F\ 0F\ 09\||0A\|User\-Agent:\ Java\/|0A\|redirect:\ http:\/\/|0A\ 0D\ 0A\|\&nome=|0A\ 0D\ 0A\|murica|0A\|Cookie:\ SID1=|0A\|User\-Agent:\ |0A\|URL:\ http|0A\|builddate:|00\ 05\ 00\||0A\ 0D\ 0A\||0A\|uuid:\ |0A\|aid:\ |0A\|URL:\ |0A\|LGSN=|0A\|TP=|0A\|)/s
+438:/\|0D\ (?:0A\|Accept:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.9,\*\/\*\x3Bq=0\.8\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ WOW64\x3B\ rv:12\.0\)\ Gecko\/20100101\ Firefox\/12\.0\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/5\.0\ \(Windows\x3B\ U\x3B\ Windows\ NT\ 6\.1\x3B\ pt\-BR\x3B\ rv:1\.9\.2b5\)\ Gecko\/20091204\ Firefox\/3\.6b5\x0D\x0A\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|0A\|Accept:\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0AConnection:\ close\x0D\x0AUser\-Agent:\ |0A\|Cache\-Control:\ no\-store,no\-cache\x0D\x0APragma:\ no\-cache\x0D\x0AConnection:\ Keep\-Alive\x0D\x0A\x0D\x0A|0A\|User\-Agent\x3A\ Mozilla\/5\.0\ \x28compatible\x3B\ MSIE\ 9\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/5\.0|0A\|Cache\-Control:\ no\-cache\x0D\x0AConnection:\ close\x0D\x0APragma:\ no\-cache\x0D\x0AUser\-Agent:\ |0A\|Content\-Length:\ 13\x0D\x0AConnection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Accept\x3A\x20text\/html,\ image\/gif,\ image\/jpeg,\ \*\x3B\ q=\.2,\ \*\/\*\x3B\ q=\.2\x0D\x0A|0A\|Connection:\ close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0AContent\-Length:\ |0A\|Accept\-Encoding:\x0D\x0AConnection:\ close\x0D\x0AContent\-Length:\ |0A\|Connection:\ Close\x0D\x0ACache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|Content\x2DDisposition\x3A\x20form\x2Ddata\x3B\x20name\x3D\x22|0A\|Connection\x3A\ Keep\-Alive\x0D\x0ACache\-Control\x3A\ no\-cache|0A\|Accept\x2DEncoding\x3A\x20gzip\x2Cdeflateidentity\x0D\x0A|0A\|Content\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A|0A\|Accept\-Encoding:\ gzip,deflate,\ identity\x0D\x0A|0A\|Content\-Type:\ application\/octet\-stream\x0D\x0A|0A\|Accept\x2DEncoding\x3A\x20identity\x0D\x0A|0A\|Location:\ https:\/\/dl\.dropboxusercontent\.com\/|0A\|Cache\-Control:\ no\-cache\x0D\x0A\x0D\x0A|0A\|\[Yes\]\x0D\x0A\xFF\xFE\x08\xFF\xFD\&|0A\|Accept\-Language\x3A\x20ko\x0D\x0A|0A\|Connection:\ Close\x0D\x0A\x0D\x0A|0A\|User\-Agent:\ Mozilla\/4\.0\x0D\x0A|0A\|Upgrade:\ tcp\/1\x0D\x0A|0A\|User\-Agent:\ Mozilla\/|0A\ 0D\ 0A\ 0F\ 0F\ 09\||0A\|User\-Agent:\ Java\/|0A\|redirect:\ http:\/\/|0A\ 0D\ 0A\|\&nome=|0A\|Cookie:\ SID1=|0A\ 0D\ 0A\|murica|0A\|User\-Agent:\ |0A\|builddate:|0A\|URL:\ http|0A\ 0D\ 0A\||00\ 05\ 00\||0A\|uuid:\ |0A\|aid:\ |0A\|URL:\ |0A\|LGSN=|0A\|TP=|0A\|)/s
 439:/_PHPLIB\[libdir\]/s
 440:/\/db_mysql\.inc/s
 441:/\/root\.exe/s
@@ -580,10 +580,10 @@
 579:/union/s
 580:/where/s
 581:/\ lik(?:e\ \x22%\x22|e\ '%')/s
-582:/all_(?:constraints|tab_columns|tab_privs|tables|source|views)/s
+582:/all_(?:constraints|tab_columns|tab_privs|source|tables|views)/s
 583:/dba_(?:tablespace|tables)/s
-584:/user(?:_dnstools_administrator=true|_logged_in=true|name\ too\ long|_tablespace|name=MD5Sum|file_name=|name=admin|name%5d=|defined=|=)/s
-585:/sys\.(?:dbms_repcat_fla_mas\.drop_column_group_from_flavor|dbms_repcat_sna_utl\.unregister_snapshot_repgroup|dbms_repcat_untrusted\.register_snapshot_repgroup|dbms_repcat_fla_mas\.add_column_group_to_flavor|dbms_repcat_sna_utl\.register_snapshot_repgroup|dbms_defer_internal_sys\.parallel_push_recovery|dbms_repcat_sna_utl\.alter_snapshot_propagation|dbms_repcat_fla_mas\.obsolete_flavor_definition|dbms_defer_repcat\.enable_propagation_to_dblink|dbms_repcat_conf\.comment_on_update_resolution|dbms_repcat_fla_mas\.publish_flavor_definition|dbms_repcat_sna_utl\.refresh_snapshot_repgroup|dbms_repcat_conf\.comment_on_delete_resolution|dbms_repcat_conf\.comment_on_unique_resolution|dbms_repcat_mas\.generate_replication_package|dbms_aq_import_internal\.aq_table_defn_update|dbms_repcat_sna_utl\.create_snapshot_repgroup|dbms_repcat_fla_mas\.drop_columns_from_flavor|dbms_repcat_sna\.unregister_snapshot_repgroup|dbms_repcat_fla_mas\.purge_flavor_definition|dbms_repcat_sna_utl\.drop_snapshot_repobject|dbms_internal_repcat\.disable_receiver_trace|dbms_repcat_sna_utl\.drop_snapshot_repgroup|dbms_repcat_fla\.validate_flavor_definition|dbms_repcat_conf\.comment_on_priority_group|dbms_repcat_sna\.alter_snapshot_propagation|dbms_repcat_sna\.refresh_snapshot_repschema|dbms_repcat_sna\.register_snapshot_repgroup|dbms_repcat_mas\.rename_shadow_column_group|dbms_internal_repcat\.enable_receiver_trace|dbms_repcat_sna_utl\.switch_snapshot_master|dbms_repcat_fla\.validate_for_local_flavor|dbms_repcat_sna\.create_snapshot_repobject|dbms_repcat_sna\.validate_for_local_flavor|dbms_repcat_conf\.comment_on_site_priority|dbms_repcat_fla_mas\.add_columns_to_flavor|dbms_repcat_sna\.generate_snapshot_support|dbms_repcat_sna\.create_snapshot_repschema|dbms_repcat_conf\.alter_priority_nvarchar2|dbms_repcat_sna\.refresh_snapshot_repgroup|dbms_repcat_conf\.alter_site_priority_site|dbms_repcat_conf\.drop_priority_nvarchar2|dbms_repcat_mas\.do_deferred_repcat_admin|dbms_repcat_conf\.drop_site_priority_site|dbms_repcat_auth\.revoke_surrogate_repcat|dbms_repcat_sna\.create_snapshot_repgroup|dbms_repcat_conf\.alter_priority_varchar2|dbms_repcat_auth\.grant_surrogate_repcat|dbms_repcat_sna\.drop_snapshot_repschema|dbms_repcat_conf\.drop_delete_resolution|dbms_repcat_conf\.drop_update_resolution|dbms_repcat_fla\.drop_object_from_flavor|dbms_repcat_mas\.suspend_master_activity|dbms_repcat_sna_utl\.repcat_import_check|dbms_repcat_conf\.add_priority_nvarchar2|dbms_repcat_fla\.abort_flavor_definition|dbms_repcat_fla\.begin_flavor_definition|dbms_repcat_conf\.drop_priority_varchar2|dbms_repcat_mas\.create_master_repobject|dbms_repcat_conf\.add_site_priority_site|dbms_repcat_conf\.drop_unique_resolution|dbms_repcat_sna\.drop_snapshot_repobject|dbms_repcat_conf\.define_priority_group|dbms_repcat_mas\.create_master_repgroup|dbms_repcat_mas\.resume_master_activity|dbms_repcat_mas\.alter_master_repobject|dbms_repcat_sna\.drop_snapshot_repgroup|dbms_repcat_conf\.add_delete_resolution|dbms_repcat_utl4\.drop_master_repobject|dbms_repcat_conf\.add_priority_varchar2|dbms_repcat_sna\.switch_snapshot_master|dbms_repcat_conf\.alter_priority_number|dbms_aqadm\.verify_queue_types_no_queue|dbms_repcat_conf\.add_update_resolution|dbms_repcat_conf\.add_unique_resolution|dbms_repcat_conf\.define_site_priority|dbms_repcat_conf\.alter_priority_nchar|dbms_repcat_conf\.drop_priority_number|dbms_aqadm\.verify_queue_types_get_nrp|dbms_repcat_fla\.ensure_not_published|dbms_repcat_conf\.alter_site_priority|dbms_repcat_fla\.add_object_to_flavor|dbms_repcat_conf\.alter_priority_date|dbms_repcat_conf\.register_statistics|dbms_repcat_mas\.comment_on_repobject|dbms_repcat_conf\.add_priority_number|dbms_repcat_conf\.alter_priority_char|dbms_repcat_conf\.drop_priority_nchar|dbms_repcat_mas\.drop_master_repgroup|dbms_repcat_sna\.repcat_import_check|dbms_repcat_conf\.drop_priority_char|dbms_repcat_conf\.alter_priority_raw|dbms_repcat_conf\.drop_priority_date|dbms_repcat_mas\.comment_on_repgroup|dbms_repcat_conf\.drop_site_priority|dbms_repcat\.alter_mview_propagation|dbms_repcat_conf\.add_priority_nchar|dbms_repcat_conf\.add_priority_date|dbms_repcat_conf\.drop_priority_raw|dbms_repcat_conf\.cancel_statistics|dbms_repcat_mas\.relocate_masterdef|dbms_repcat_conf\.add_priority_char|dbms_aqadm_sys\.verify_queue_types|dbms_repcat_conf\.add_priority_raw|dbms_repcat_conf\.purge_statistics|dbms_repcat_fla\.set_local_flavor|dbms_repcat_mas\.purge_master_log|dbms_repcat_sna\.set_local_flavor|dbms_rectifier_diff\.differences|dbms_repcat_conf\.alter_priority|dbms_repcat_utl\.drop_an_object|dbms_repcat_conf\.drop_priority|dbms_internal_repcat\.validate|dbms_rectifier_diff\.rectify|dbms_repcat_utl\.is_master|dbms_repcat_rq\.add_column|ltutil\.pushdeferredtxns|dbms_system\.ksdwrt|all_users)/s
+584:/user(?:_dnstools_administrator=true|_logged_in=true|name\ too\ long|name=MD5Sum|_tablespace|name=admin|file_name=|name%5d=|defined=|=)/s
+585:/sys\.(?:dbms_repcat_fla_mas\.drop_column_group_from_flavor|dbms_repcat_untrusted\.register_snapshot_repgroup|dbms_repcat_sna_utl\.unregister_snapshot_repgroup|dbms_repcat_fla_mas\.add_column_group_to_flavor|dbms_repcat_sna_utl\.alter_snapshot_propagation|dbms_repcat_sna_utl\.register_snapshot_repgroup|dbms_defer_internal_sys\.parallel_push_recovery|dbms_defer_repcat\.enable_propagation_to_dblink|dbms_repcat_fla_mas\.obsolete_flavor_definition|dbms_repcat_fla_mas\.publish_flavor_definition|dbms_repcat_sna_utl\.refresh_snapshot_repgroup|dbms_repcat_conf\.comment_on_delete_resolution|dbms_repcat_conf\.comment_on_update_resolution|dbms_repcat_conf\.comment_on_unique_resolution|dbms_repcat_mas\.generate_replication_package|dbms_repcat_sna\.unregister_snapshot_repgroup|dbms_repcat_fla_mas\.drop_columns_from_flavor|dbms_repcat_sna_utl\.create_snapshot_repgroup|dbms_aq_import_internal\.aq_table_defn_update|dbms_repcat_fla_mas\.purge_flavor_definition|dbms_internal_repcat\.disable_receiver_trace|dbms_repcat_sna_utl\.drop_snapshot_repobject|dbms_repcat_fla\.validate_flavor_definition|dbms_repcat_sna\.register_snapshot_repgroup|dbms_repcat_mas\.rename_shadow_column_group|dbms_repcat_sna_utl\.switch_snapshot_master|dbms_internal_repcat\.enable_receiver_trace|dbms_repcat_sna\.refresh_snapshot_repschema|dbms_repcat_conf\.comment_on_priority_group|dbms_repcat_sna\.alter_snapshot_propagation|dbms_repcat_sna_utl\.drop_snapshot_repgroup|dbms_repcat_sna\.create_snapshot_repschema|dbms_repcat_conf\.comment_on_site_priority|dbms_repcat_fla_mas\.add_columns_to_flavor|dbms_repcat_sna\.create_snapshot_repobject|dbms_repcat_sna\.refresh_snapshot_repgroup|dbms_repcat_sna\.generate_snapshot_support|dbms_repcat_conf\.alter_priority_nvarchar2|dbms_repcat_conf\.alter_site_priority_site|dbms_repcat_fla\.validate_for_local_flavor|dbms_repcat_sna\.validate_for_local_flavor|dbms_repcat_mas\.do_deferred_repcat_admin|dbms_repcat_sna\.create_snapshot_repgroup|dbms_repcat_conf\.drop_priority_nvarchar2|dbms_repcat_auth\.revoke_surrogate_repcat|dbms_repcat_conf\.drop_site_priority_site|dbms_repcat_conf\.alter_priority_varchar2|dbms_repcat_sna\.drop_snapshot_repschema|dbms_repcat_conf\.drop_delete_resolution|dbms_repcat_auth\.grant_surrogate_repcat|dbms_repcat_conf\.add_site_priority_site|dbms_repcat_conf\.add_priority_nvarchar2|dbms_repcat_sna\.drop_snapshot_repobject|dbms_repcat_mas\.create_master_repobject|dbms_repcat_conf\.drop_update_resolution|dbms_repcat_fla\.begin_flavor_definition|dbms_repcat_fla\.drop_object_from_flavor|dbms_repcat_mas\.suspend_master_activity|dbms_repcat_conf\.drop_unique_resolution|dbms_repcat_conf\.drop_priority_varchar2|dbms_repcat_fla\.abort_flavor_definition|dbms_repcat_sna_utl\.repcat_import_check|dbms_repcat_conf\.add_update_resolution|dbms_repcat_utl4\.drop_master_repobject|dbms_repcat_sna\.switch_snapshot_master|dbms_repcat_mas\.alter_master_repobject|dbms_repcat_conf\.add_priority_varchar2|dbms_repcat_mas\.create_master_repgroup|dbms_aqadm\.verify_queue_types_no_queue|dbms_repcat_sna\.drop_snapshot_repgroup|dbms_repcat_conf\.add_delete_resolution|dbms_repcat_conf\.alter_priority_number|dbms_repcat_conf\.add_unique_resolution|dbms_repcat_conf\.define_priority_group|dbms_repcat_mas\.resume_master_activity|dbms_repcat_conf\.alter_priority_nchar|dbms_repcat_conf\.drop_priority_number|dbms_repcat_conf\.define_site_priority|dbms_aqadm\.verify_queue_types_get_nrp|dbms_repcat_fla\.add_object_to_flavor|dbms_repcat_conf\.alter_site_priority|dbms_repcat_conf\.alter_priority_date|dbms_repcat_mas\.comment_on_repobject|dbms_repcat_conf\.add_priority_number|dbms_repcat_conf\.drop_priority_nchar|dbms_repcat_conf\.alter_priority_char|dbms_repcat_fla\.ensure_not_published|dbms_repcat_conf\.register_statistics|dbms_repcat_mas\.drop_master_repgroup|dbms_repcat_conf\.drop_site_priority|dbms_repcat\.alter_mview_propagation|dbms_repcat_sna\.repcat_import_check|dbms_repcat_conf\.drop_priority_char|dbms_repcat_conf\.alter_priority_raw|dbms_repcat_mas\.comment_on_repgroup|dbms_repcat_conf\.drop_priority_date|dbms_repcat_conf\.add_priority_nchar|dbms_repcat_mas\.relocate_masterdef|dbms_repcat_conf\.add_priority_date|dbms_repcat_conf\.add_priority_char|dbms_repcat_conf\.cancel_statistics|dbms_repcat_conf\.drop_priority_raw|dbms_repcat_conf\.purge_statistics|dbms_repcat_conf\.add_priority_raw|dbms_aqadm_sys\.verify_queue_types|dbms_repcat_sna\.set_local_flavor|dbms_repcat_fla\.set_local_flavor|dbms_repcat_mas\.purge_master_log|dbms_repcat_conf\.alter_priority|dbms_rectifier_diff\.differences|dbms_repcat_utl\.drop_an_object|dbms_repcat_conf\.drop_priority|dbms_internal_repcat\.validate|dbms_rectifier_diff\.rectify|dbms_repcat_utl\.is_master|dbms_repcat_rq\.add_column|ltutil\.pushdeferredtxns|dbms_system\.ksdwrt|all_users)/s
 586:/grant/s
 587:/alte(?:r\ database|r\ table|r\ user|r)/s
 588:/identified\ by/s
@@ -620,7 +620,7 @@
 619:/\/as_(?:web4\.exe|web\.exe)/s
 620:/\/b2\/b2\-include\//s
 621:/b2in(?:c=|c)/s
-622:/http(?:\x3A\x2F\x2F1\.usa\.gov|:\/www\.acunetix\.com|_passwdConfirm=|_passwd=|\x3A\/\/|\x7C)/s
+622:/http(?:\x3A\x2F\x2F1\.usa\.gov|:\/www\.acunetix\.com|_passwdConfirm=|\x3A\/\/|_passwd=|\x7C)/s
 623:/\/phf\?Q/s
 624:/query=%00/s
 625:/\/\.DS_Store/s
@@ -680,7 +680,7 @@
 679:/NEWER/s
 680:/SITE\s+NEWER/s
 681:/distloc=\x3B/s
-682:/next(?:=\.\.\/|_page=)/s
+682:/next(?:_page=|=\.\.\/)/s
 683:/\/\.cobalt\/siteUserMod\/siteUserMod\.cgi/s
 684:/\/XSQLConfig\.xml/s
 685:/\/dms0/s
@@ -753,7 +753,7 @@
 752:/\/par(?:se_xml\.cgi|tner\.php)/s
 753:/From(?:Base64String|\x3A)/s
 754:/<><><><><><><><><><><><><><><><><><><><><><>/s
-755:/Acce(?:pt\x3A\ \*\/\*\x0D\x0AAccept\-Language\x3A\ en\-us\x0D\x0AContent\-Type\x3A\ application\/octet\-stream\x0D\x0AContent\-Length\x3A\ |pt:\ application\/xml,application\/xhtml\+xml,text\/html\x3Bq=0\.9,text\/plain\x3Bq=0\.8,image\/png,\*\/\*\x3Bq=0\.5\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|pt\x3A\x20application\/x\-shockwave\-flash,\ image\/gif,\ image\/jpeg,\ image\/pjpeg,\ \*\/\*\x0D\x0A|pt:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.8,\*\/\*\x3Bq=0\.9\x0D\x0A|pt:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ |pt\x3A\ \*\/\*\x0ATranslate\x3A\ f\x0AContent\-length\x3A5276\x0A\x0A|pt\-Charset:\ ISO\-8859\-1,utf\-8\x3Bq=0\.7,\*\x3Bq=0\.7\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AAccept\-Language\x3A\x20en\-us\x0D\x0A|pt\x3A\x20application\/javascript\x2C\x20\x2A\x2F\x2A\x3Bq=0\.8|pt:\ \*\/\*\x0D\x0AConnection\x3A\x20Close\x0D\x0A|pt\-Encoding\x3A\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Language:\ en\-us,en\x3Bq=0\.5\x0D\x0A|pt\-Encoding\x3A\x20gzip,\ deflate\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AUA\-CPU\x3A\x20|pt\-Encoding\x3A\x20identity\x0D\x0A|pt\-Encoding:\ gzip,\ deflate\x0D\x0A|pt\-Encoding\x3A\ gzip,\ deflate,\ br|pt\-Language\x3A\x20en\-us\x0D\x0A|pt\-Encoding:\ none\x0D\x0A\x0D\x0A|pt\-Language:\ en\-us\x3B\x0D\x0A|pt\-Encoding:\ gzip,\ deflate,\ br|pt\-Language:\ en\-US\x0D\x0A|pt\-Encoding:\ gzip,\ deflate|pt\-Encoding\x3A\ identity|pt\x3A\x20\*\/\*\x0D\x0A|pt\-Language:\ en\-us|pt:\ \*\/\*\x0D\x0A|pt\-Encoding:\ gzip|pt\x3A\x20\*\/\*|pt\x3A\ \*\/\*|pt\-Encoding:|pt:\ \*\/\*|pt:\*\/\*)/s
+755:/Acce(?:pt\x3A\ \*\/\*\x0D\x0AAccept\-Language\x3A\ en\-us\x0D\x0AContent\-Type\x3A\ application\/octet\-stream\x0D\x0AContent\-Length\x3A\ |pt:\ application\/xml,application\/xhtml\+xml,text\/html\x3Bq=0\.9,text\/plain\x3Bq=0\.8,image\/png,\*\/\*\x3Bq=0\.5\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)\x0D\x0A\x0D\x0A|pt\x3A\x20application\/x\-shockwave\-flash,\ image\/gif,\ image\/jpeg,\ image\/pjpeg,\ \*\/\*\x0D\x0A|pt:\ text\/html,application\/xhtml\+xml,application\/xml\x3Bq=0\.8,\*\/\*\x3Bq=0\.9\x0D\x0A|pt:\ \*\/\*\x0D\x0AContent\-Type:\ application\/x\-www\-form\-urlencoded\x0D\x0A\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ |pt\x3A\ \*\/\*\x0ATranslate\x3A\ f\x0AContent\-length\x3A5276\x0A\x0A|pt\-Charset:\ ISO\-8859\-1,utf\-8\x3Bq=0\.7,\*\x3Bq=0\.7\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AAccept\-Language\x3A\x20en\-us\x0D\x0A|pt:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0A|pt\x3A\x20application\/javascript\x2C\x20\x2A\x2F\x2A\x3Bq=0\.8|pt:\ \*\/\*\x0D\x0AConnection\x3A\x20Close\x0D\x0A|pt\-Encoding\x3A\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Encoding:\ identity,\ \*\x3Bq=0\x0D\x0A|pt\-Language:\ en\-us,en\x3Bq=0\.5\x0D\x0A|pt\-Encoding\x3A\x20gzip,\ deflate\x0D\x0A|pt\x3A\x20\*\/\*\x0D\x0AUA\-CPU\x3A\x20|pt\-Encoding\x3A\x20identity\x0D\x0A|pt\-Encoding:\ gzip,\ deflate\x0D\x0A|pt\-Encoding\x3A\ gzip,\ deflate,\ br|pt\-Language\x3A\x20en\-us\x0D\x0A|pt\-Encoding:\ none\x0D\x0A\x0D\x0A|pt\-Language:\ en\-us\x3B\x0D\x0A|pt\-Encoding:\ gzip,\ deflate,\ br|pt\-Language:\ en\-US\x0D\x0A|pt\-Encoding:\ gzip,\ deflate|pt\-Encoding\x3A\ identity|pt\x3A\x20\*\/\*\x0D\x0A|pt\-Language:\ en\-us|pt:\ \*\/\*\x0D\x0A|pt\-Encoding:\ gzip|pt\x3A\x20\*\/\*|pt\x3A\ \*\/\*|pt\-Encoding:|pt:\ \*\/\*|pt:\*\/\*)/s
 756:/\/album\.pl/s
 757:/myaccount\/login\.asp/s
 758:/DELE/s
@@ -839,7 +839,7 @@
 838:/LIST\s+\x22-W\s+\d+/s
 839:/\/pls\/portal\/PORTAL_DEMO/s
 840:/\/psdoccgi/s
-841:/!"\|0(?:A\|Accept\-Encoding\x3A\x20"|D\ 0A\|Accept\-Language:"|D\ 0A\|User\-Agent:"|A\|Referer\x3A"|A\|Cookie\x3A"|D\ 0A\|Referer:"|D\ 0A\|Accept\-"|D\ 0A\|Cookie:"|D\|",within\ 10|A\|",within\ 10|D\ 0A\|Accept"|A\|Referer")/s
+841:/!"\|0(?:A\|Accept\-Encoding\x3A\x20"|D\ 0A\|Accept\-Language:"|D\ 0A\|User\-Agent:"|A\|Referer\x3A"|D\ 0A\|Referer:"|D\ 0A\|Accept\-"|A\|Cookie\x3A"|D\ 0A\|Cookie:"|D\|",within\ 10|A\|",within\ 10|D\ 0A\|Accept"|A\|Referer")/s
 842:/Content-Length\x3A\s*[2-9][0-9]{9}/s
 843:/\/UpdateClasses\.php/s
 844:/\/Title\.php/s
@@ -858,7 +858,7 @@
 857:/Directory/s
 858:/PASS\s[\n]{49}/s
 859:/USER\s[\n]{49}/s
-860:/\/fox(?:web\.dll|web\.exe)/s
+860:/\/fox(?:web\.exe|web\.dll)/s
 861:/\/ShopDisplayProducts\.asp/s
 862:/\/sgdynamo\.exe/s
 863:/\/bsml\.pl/s
@@ -878,7 +878,7 @@
 877:/notification\.php/s
 878:/\/ad_member\.php/s
 879:/emailer\.php/s
-880:/\/def(?:ault\.aspx\?ver=|ault_header\.php|ault\.htm|ines\.php)/s
+880:/\/def(?:ault_header\.php|ault\.aspx\?ver=|ault\.htm|ines\.php)/s
 881:/WEBCHATPATH=/s
 882:/db_mysql\.php/s
 883:/english\.php/s
@@ -961,7 +961,7 @@
 960:/\/header\.php/s
 961:/systempath=/s
 962:/systempath=(https?|ftps?|php)/s
-963:/dbms(?:_repcat_instantiate\.drop_site_instantiation|_repcat_instantiate\.instantiate_offline|_repcat_sna_utl\.register_flavor_change|_repcat_admin\.unregister_user_repgroup|_repcat_instantiate\.instantiate_online|_repcat\.drop_column_group_from_flavor|_repcat\.unregister_snapshot_repgroup|_repcat\.generate_replication_package|_repcat\.comment_on_delete_resolution|_repcat\.comment_on_unique_resolution|_repcat\.comment_on_update_resolution|_repcat_auth\.revoke_surrogate_repcat|_offline_og\.resume_subset_of_masters|_repcat\.generate_replication_trigger|_repcat_admin\.register_user_repgroup|_repcat\.generate_replication_support|_repcat\.send_and_compare_old_values|_repcat_rgt\.drop_site_instantiation|_repcat\.register_snapshot_repgroup|_repcat\.alter_snapshot_propagation|_repcat\.obsolete_flavor_definition|_repcat\.add_column_group_to_flavor|_repcat\.rename_shadow_column_group|_repcat\.validate_flavor_definition|_repcat\.publish_flavor_definition|_repcat\.validate_for_local_flavor|_repcat\.unregister_mview_repgroup|_repcat\.create_snapshot_repobject|_repcat\.comment_on_priority_group|_repcat\.generate_snapshot_support|_repcat\.comment_on_mview_repsites|_repcat\.refresh_snapshot_repgroup|_repcat\.alter_priority_nvarchar2|_repcat\.drop_columns_from_flavor|_repcat\.create_snapshot_repgroup|_repcat\.alter_master_propagation|_repcat\.comment_on_site_priority|_repcat\.alter_site_priority_site|_repcat\.do_deferred_repcat_admin|_repcat\.drop_object_from_flavor|_offline_og\.begin_flavor_change|_repcat\.purge_flavor_definition|_repcat\.remove_master_databases|_repcat\.alter_mview_propagation|_repcat\.suspend_master_activity|_offline_og\.begin_instantiation|_repcat\.drop_site_priority_site|_repcat\.drop_priority_nvarchar2|_repcat\.create_master_repobject|_repcat_rgt\.instantiate_offline|_repcat\.register_mview_repgroup|_repcat\.drop_snapshot_repobject|_repcat\.abort_flavor_definition|_repcat\.begin_flavor_definition|_repcat\.comment_on_column_group|_repcat\.alter_priority_varchar2|_repcat\.add_priority_nvarchar2|_repcat\.alter_master_repobject|_repcat_rgt\.instantiate_online|_repcat\.drop_update_resolution|_repcat\.drop_priority_varchar2|_repcat\.drop_unique_resolution|_repcat\.switch_snapshot_master|_repcat\.refresh_mview_repgroup|_repcat\.generate_mview_support|_repcat\.drop_snapshot_repgroup|_repcat\.add_site_priority_site|_repcat\.drop_delete_resolution|_repcat\.create_master_repgroup|_repcat\.create_mview_repobject|_repcat\.resume_master_activity|_repcat\.add_delete_resolution|_repcat\.add_columns_to_flavor|_offline_og\.end_flavor_change|_repcat\.add_priority_varchar2|_repcat\.define_priority_group|_repcat\.add_unique_resolution|_repcat\.add_update_resolution|_repcat\.create_mview_repgroup|_offline_og\.end_instantiation|_repcat\.drop_master_repobject|_repcat\.alter_priority_number|_repcat\.drop_master_repgroup|_repcat\.add_object_to_flavor|_repcat\.alter_priority_nchar|_repcat\.define_site_priority|_repcat\.drop_mview_repobject|_offline_snapshot\.begin_load|_repcat\.comment_on_repobject|_repcat\.drop_priority_number|_repcat\.comment_on_repsites|_repcat\.register_statistics|_repcat\.comment_on_repgroup|_repcat\.drop_priority_nchar|_repcat\.alter_site_priority|_repcat\.define_column_group|_repcat\.add_priority_number|_rectifier_diff\.differences|_repcat\.alter_priority_date|_repcat\.drop_grouped_column|_repcat\.repcat_import_check|_repcat\.drop_mview_repgroup|_repcat\.alter_priority_char|_repcat\.specify_new_masters|_repcat\.switch_mview_master|_repcat\.alter_priority_raw|_offline_snapshot\.end_load|_repcat\.add_priority_nchar|_repcat_rgt\.check_ddl_text|_repcat\.add_grouped_column|_repcat\.drop_site_priority|_repcat\.drop_priority_date|_repcat\.compare_old_values|_repcat\.relocate_masterdef|_repcat\.drop_priority_char|_repcat\.make_column_group|_repcat\.add_priority_char|_repcat\.drop_column_group|_repcat\.drop_priority_raw|_repcat\.add_priority_date|_repcat\.cancel_statistics|_repcat\.set_local_flavor|_repcat\.purge_statistics|_repcat\.purge_master_log|_repcat\.add_priority_raw|_repcat\.send_old_values|_rectifier_diff\.rectify|_repcat\.alter_priority|_offline_og\.begin_load|_repcat\.drop_priority|_offline_og\.end_load|_repcat\.execute_ddl|_repcat\.set_columns)/s
+963:/dbms(?:_repcat_instantiate\.drop_site_instantiation|_repcat_instantiate\.instantiate_offline|_repcat_sna_utl\.register_flavor_change|_repcat_admin\.unregister_user_repgroup|_repcat_instantiate\.instantiate_online|_repcat\.drop_column_group_from_flavor|_repcat\.generate_replication_support|_repcat\.comment_on_unique_resolution|_repcat\.comment_on_delete_resolution|_repcat\.comment_on_update_resolution|_repcat\.generate_replication_package|_repcat_admin\.register_user_repgroup|_repcat\.generate_replication_trigger|_repcat_auth\.revoke_surrogate_repcat|_repcat\.unregister_snapshot_repgroup|_offline_og\.resume_subset_of_masters|_repcat_rgt\.drop_site_instantiation|_repcat\.send_and_compare_old_values|_repcat\.obsolete_flavor_definition|_repcat\.add_column_group_to_flavor|_repcat\.register_snapshot_repgroup|_repcat\.validate_flavor_definition|_repcat\.rename_shadow_column_group|_repcat\.alter_snapshot_propagation|_repcat\.validate_for_local_flavor|_repcat\.create_snapshot_repobject|_repcat\.refresh_snapshot_repgroup|_repcat\.comment_on_mview_repsites|_repcat\.comment_on_priority_group|_repcat\.generate_snapshot_support|_repcat\.unregister_mview_repgroup|_repcat\.publish_flavor_definition|_repcat\.do_deferred_repcat_admin|_repcat\.alter_site_priority_site|_repcat\.alter_master_propagation|_repcat\.comment_on_site_priority|_repcat\.alter_priority_nvarchar2|_repcat\.create_snapshot_repgroup|_repcat\.drop_columns_from_flavor|_repcat\.create_master_repobject|_repcat\.suspend_master_activity|_repcat\.abort_flavor_definition|_repcat\.drop_snapshot_repobject|_repcat_rgt\.instantiate_offline|_repcat\.remove_master_databases|_repcat\.purge_flavor_definition|_repcat\.drop_object_from_flavor|_repcat\.alter_priority_varchar2|_repcat\.drop_priority_nvarchar2|_repcat\.drop_site_priority_site|_repcat\.register_mview_repgroup|_repcat\.begin_flavor_definition|_offline_og\.begin_instantiation|_offline_og\.begin_flavor_change|_repcat\.alter_mview_propagation|_repcat\.comment_on_column_group|_repcat\.drop_update_resolution|_repcat\.drop_priority_varchar2|_repcat\.generate_mview_support|_repcat\.add_priority_nvarchar2|_repcat\.refresh_mview_repgroup|_repcat\.switch_snapshot_master|_repcat\.add_site_priority_site|_repcat\.alter_master_repobject|_repcat\.create_mview_repobject|_repcat\.drop_unique_resolution|_repcat\.drop_snapshot_repgroup|_repcat\.resume_master_activity|_repcat_rgt\.instantiate_online|_repcat\.drop_delete_resolution|_repcat\.create_master_repgroup|_repcat\.add_priority_varchar2|_repcat\.add_update_resolution|_offline_og\.end_flavor_change|_offline_og\.end_instantiation|_repcat\.add_columns_to_flavor|_repcat\.define_priority_group|_repcat\.create_mview_repgroup|_repcat\.add_delete_resolution|_repcat\.add_unique_resolution|_repcat\.alter_priority_number|_repcat\.drop_master_repobject|_repcat\.add_object_to_flavor|_repcat\.alter_priority_nchar|_repcat\.define_site_priority|_offline_snapshot\.begin_load|_repcat\.drop_master_repgroup|_repcat\.comment_on_repobject|_repcat\.drop_mview_repobject|_repcat\.drop_priority_number|_repcat\.drop_mview_repgroup|_repcat\.switch_mview_master|_repcat\.drop_grouped_column|_repcat\.register_statistics|_rectifier_diff\.differences|_repcat\.alter_site_priority|_repcat\.alter_priority_date|_repcat\.alter_priority_char|_repcat\.add_priority_number|_repcat\.repcat_import_check|_repcat\.specify_new_masters|_repcat\.drop_priority_nchar|_repcat\.define_column_group|_repcat\.comment_on_repgroup|_repcat\.comment_on_repsites|_repcat\.drop_priority_char|_repcat\.relocate_masterdef|_offline_snapshot\.end_load|_repcat\.compare_old_values|_repcat\.drop_site_priority|_repcat_rgt\.check_ddl_text|_repcat\.drop_priority_date|_repcat\.add_priority_nchar|_repcat\.alter_priority_raw|_repcat\.add_grouped_column|_repcat\.drop_column_group|_repcat\.add_priority_date|_repcat\.drop_priority_raw|_repcat\.cancel_statistics|_repcat\.make_column_group|_repcat\.add_priority_char|_repcat\.add_priority_raw|_repcat\.set_local_flavor|_repcat\.purge_master_log|_repcat\.purge_statistics|_repcat\.send_old_values|_rectifier_diff\.rectify|_repcat\.alter_priority|_offline_og\.begin_load|_repcat\.drop_priority|_offline_og\.end_load|_repcat\.execute_ddl|_repcat\.set_columns)/s
 964:/Location\x3a(\s*|\s*\r?\n\s+)*URL\s*\x3a/s
 965:/Content-Length\s*\x3a\s*-\d+/s
 966:/\/cry(?:stalimagehandler\.aspx|stalimagehandler|pt_1_sell)/s
@@ -971,7 +971,7 @@
 970:/PRIVMSG\s+[\s]+\s+\x3a\s*\x01SENDLINK\x7c[\x7c]{69}/s
 971:/\/NessusTest/s
 972:/id=/s
-973:/\{305(?:0f4d8\-98B5\-11CF\-BB82\-00AA00BDCE0B\}|0F3D9\-98B5\-11CF\-BB82\-00AA00BDCE0B\})/s
+973:/\{305(?:0F3D9\-98B5\-11CF\-BB82\-00AA00BDCE0B\}|0f4d8\-98B5\-11CF\-BB82\-00AA00BDCE0B\})/s
 974:/Basic/s
 975:/Authorization\x3a(\s*|\s*\r?\n\s+)Basic\s+=/s
 976:/sysdbms_repcat_rgt\.check_ddl_text/s
@@ -999,7 +999,7 @@
 998:/\/sresult\.exe/s
 999:/ctx_output\.start_log/s
 1000:/ctxsys\.driddlr\.subindexpopulate/s
-1001:/mdsy(?:s\.sdo_admin\.sdo_code_size|s\.md2\.validate_geom|s\.md2\.sdo_code_size)/s
+1001:/mdsy(?:s\.sdo_admin\.sdo_code_size|s\.md2\.sdo_code_size|s\.md2\.validate_geom)/s
 1002:/ALTER\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
 1003:/CREATE\s.*?FILE\s+((AS|MEMBER|TO)\s+)?(\x27[\x27]{512}|\x22[\x22]{512})/s
 1004:/TO_CHAR/s
@@ -1065,7 +1065,7 @@
 1064:/href=/s
 1065:/file=open_calendar\.js/s
 1066:/<htm(?:l><head><meta\ http\-equiv=\x22refresh|l><body><applet\x20code=)/s
-1067:/\x20(?:form\-data\x3B\x20name=\x22sysinfo\x22|form\-data\x3B\x20name=\x22uright\x22|form\-data\x3B\x20name=\x22cname\x22|form\-data\x3B\x20name=\x22ltime\x22|form\-data\x3B\x20name=\x22uname\x22|form\-data\x3B\x20name=\x22uid\x22|OS\x3A\x20|CPU\x3A|archive=|\/t)/s
+1067:/\x20(?:form\-data\x3B\x20name=\x22sysinfo\x22|form\-data\x3B\x20name=\x22uright\x22|form\-data\x3B\x20name=\x22uname\x22|form\-data\x3B\x20name=\x22cname\x22|form\-data\x3B\x20name=\x22ltime\x22|form\-data\x3B\x20name=\x22uid\x22|OS\x3A\x20|CPU\x3A|archive=|\/t)/s
 1068:/disp(?:lay\-culture=en\x3Bcheck=true\x3Blbcs=0\x3Bsess\-id=|lay\x3Anone\x3B)/s
 1069:/([@\x2da-z0-9]+?\x5e){10}/s
 1070:/GET\ http\x3A\x2F\x2F/s
@@ -1086,7 +1086,7 @@
 1085:/%Sys(?:temDrive%|temRoot%)/s
 1086:/%TEMP%/s
 1087:/%TMP%/s
-1088:/%USE(?:RPROFILE%|RDOMAIN%|RNAME%|RDATA%)/s
+1088:/%USE(?:RPROFILE%|RDOMAIN%|RDATA%|RNAME%)/s
 1089:/%WINDIR%/s
 1090:/%PUBLIC%/s
 1091:/%PSModulePath%/s
@@ -1111,7 +1111,7 @@
 1110:/[>]*\x2f\x2f\d{1,3}\x2e\d{1,3}\x2e\d{1,3}\x2e\d{1,3}/s
 1111:/http\x3A\x2f\x2f1\.usa\.gov\x2f[a-f0-9]{6,8}/s
 1112:/\x2FConfig\x2Etxt/s
-1113:/Mozi(?:lla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/4\.0\x3B\ SLCC2\x3B\ \.NET\ CLR\ 2\.0\.50727\x3B\ \.NET\ CLR\ 3\.5\.30729\x3B\ \.NET\ CLR\ 3\.0\.30729\x3B\ Media\ Center\ PC\ 6\.0\)|lla\x2F4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Windows\ NT\ 5\.1\x3B\ Trident\/4\.0\)|lla\x2F3\x2E0\x20\x28compatible\x3B\x20Indy\x20Library\x29\x0D\x0A|lla\/4\.0\ \x28compatible\x3B\ MSIE\ 4\.01\x3B\ Windows\ NT\x29\x0D\x0A|lla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Win64\x3B\ x64\)\x3B\ |lla\x2F3\.0\ \x28Compatible\x29\x3BBrutus\x2FAET)/s
+1113:/Mozi(?:lla\/4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Windows\ NT\ 6\.1\x3B\ Trident\/4\.0\x3B\ SLCC2\x3B\ \.NET\ CLR\ 2\.0\.50727\x3B\ \.NET\ CLR\ 3\.5\.30729\x3B\ \.NET\ CLR\ 3\.0\.30729\x3B\ Media\ Center\ PC\ 6\.0\)|lla\x2F4\.0\ \(compatible\x3B\ MSIE\ 8\.0\x3B\ Windows\ NT\ 5\.1\x3B\ Trident\/4\.0\)|lla\/4\.0\ \x28compatible\x3B\ MSIE\ 4\.01\x3B\ Windows\ NT\x29\x0D\x0A|lla\x2F3\x2E0\x20\x28compatible\x3B\x20Indy\x20Library\x29\x0D\x0A|lla\/5\.0\ \(Windows\ NT\ 6\.1\x3B\ Win64\x3B\ x64\)\x3B\ |lla\x2F3\.0\ \x28Compatible\x29\x3BBrutus\x2FAET)/s
 1114:/\.php\?i(?:d=|p=)/s
 1115:/\&os=/s
 1116:/\&name=/s
@@ -1128,7 +1128,7 @@
 1127:/Via\x3A/s
 1128:/\x2f\d{3}\x2f\d{3}\x2ehtml/s
 1129:/\&uid=/s
-1130:/\|3B\ (?:02\ 49\ 86\ 4B\ DF\ D7\ D7\ 6C\ E2\ 2F\ 36\ 81\ 01\ 24\ 3F\||20\|filename=Postal\-Receipt\.zip\x0D\x0A|20\|filename=BookingDetails\.zip\x0D\x0A|20\|filename=PostalReceipt\.zip\x0D\x0A|20\|filename=BookingInfo\.zip\x0D\x0A|20\|filename=CostcoForm\.zip\x0D\x0A|20\|Windows\ NT\ 5\.0\x0D\x0AHost:|20\|filename=exe\.exe\x0D\x0A|20\|MSIE\x207\.0\x3B\x20|20\|MSIE\ 6\.0\x3B\x20|20\|MRA\x205\.10\x20|20\|MSIE\ 28\x3B\x20|20\|MSIE\x20|20\|sv\x3A|20\|id\x3A)/s
+1130:/\|3B\ (?:02\ 49\ 86\ 4B\ DF\ D7\ D7\ 6C\ E2\ 2F\ 36\ 81\ 01\ 24\ 3F\||20\|filename=Postal\-Receipt\.zip\x0D\x0A|20\|filename=BookingDetails\.zip\x0D\x0A|20\|filename=PostalReceipt\.zip\x0D\x0A|20\|filename=BookingInfo\.zip\x0D\x0A|20\|filename=CostcoForm\.zip\x0D\x0A|20\|Windows\ NT\ 5\.0\x0D\x0AHost:|20\|filename=exe\.exe\x0D\x0A|20\|MSIE\x207\.0\x3B\x20|20\|MRA\x205\.10\x20|20\|MSIE\ 6\.0\x3B\x20|20\|MSIE\ 28\x3B\x20|20\|MSIE\x20|20\|sv\x3A|20\|id\x3A)/s
 1131:/\x26uid\x3d[a-f0-9]{16}(|\x26)/s
 1132:/\.php\?php=receipt/s
 1133:/\x2f[a-z0-9]+\.php\?php\x3dreceipt/s
@@ -1203,7 +1203,7 @@
 1202:/User\x2dAgent\x3a\s[\r\n]*?\x3b\x20id\x3a[A-F0-9]{8}\x2d([A-F0-9]{4}\x2d){3}[A-F0-9]{12}\)[\r\n]*?\r\n/s
 1203:/\/nosignal\.jpg\?/s
 1204:/\x2fnosignal\.jpg\?\d\.\d+/s
-1205:/Host(?::\ bitly\.com\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|:\ bit\.ly\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\x3A\x20checkip\.dyndns\.org|:\ dl\.dropbox\.com\x0D\x0A|:\ www\.fedex\.com\x0D\x0A|\x3A\ a\.topgunnphoto\.com|\x3A\x20j\.maxmind\.com|:\ mbfce24rgn65bx3g\.|:\ www\.usatoday\.com|:\ default\x0D\x0A|:\ www\.google\.com|\x3A\x20xn\-\-|BD=|:\ |:)/s
+1205:/Host(?::\ bitly\.com\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|:\ bit\.ly\x0D\x0AAccept:\ text\/html,\ \*\/\*\x0D\x0AAccept\-Encoding:\ identity\x0D\x0AUser\-Agent:\ Mozilla\/3\.0\ \(compatible\x3B\ Indy\ Library\)|\x3A\x20checkip\.dyndns\.org|:\ dl\.dropbox\.com\x0D\x0A|\x3A\ a\.topgunnphoto\.com|:\ www\.fedex\.com\x0D\x0A|\x3A\x20j\.maxmind\.com|:\ www\.usatoday\.com|:\ mbfce24rgn65bx3g\.|:\ default\x0D\x0A|:\ www\.google\.com|\x3A\x20xn\-\-|:\ |BD=|:)/s
 1206:/\/ksa\.txt/s
 1207:/op=/s
 1208:/\&nmpc=/s
@@ -1214,9 +1214,9 @@
 1213:/blob(?:headername2=Location|headername2=Refresh|headervalue2=)/s
 1214:/\-201(?:3\.zip\x0D\x0A|3\.exe)/s
 1215:/\.png/s
-1216:/!"Us(?:er\-Agent\x3A|er\-Agent:\ |er\-Agent\x3A\x20"|er\-Agent:|er\-Agent|er\-Agent\x3A"|er\-Agent:\ "|er\-Agent:"|er\-Agent")/s
+1216:/!"Us(?:er\-Agent\x3A|er\-Agent\x3A\x20"|er\-Agent:\ |er\-Agent:|er\-Agent|er\-Agent\x3A"|er\-Agent:\ "|er\-Agent:"|er\-Agent")/s
 1217:/\/thinner\/thumb\?img=/s
-1218:/\|2F\ (?:2A\ 14\ 20\||70\ 6F\ 63\|)/s
+1218:/\|2F\ (?:70\ 6F\ 63\||2A\ 14\ 20\|)/s
 1219:/0aW1lP/s
 1220:/time(?:\x3A\x20|=)/s
 1221:/\&src=/s
@@ -1232,12 +1232,12 @@
 1231:/sousi\.extasix\.com\x0D\x0A/s
 1232:/(exe|dll|scr|rar|ps1|bat)/s
 1233:/Opera\/10\x20/s
-1234:/!"Re(?:ferer\x3A|ferer\x3A\x20"|ferer:|ferer\x3A\ "|ferer|ferer\x3A"|ferer:"|ferer")/s
+1234:/!"Re(?:ferer\x3A|ferer\x3A\x20"|ferer:|ferer\x3A\ "|ferer\x3A"|ferer:"|ferer")/s
 1235:/\/ccbill\/m\.php\?id=/s
 1236:/<ifr(?:ame\ src=\x22YOUR\x2520BROWSER\x2520HAS\x2520BEEN\x2520LOCKED|ame)/s
 1237:/<\/iframe>/s
 1238:/\/feed\?req=http/s
-1239:/\x3B\ (?:MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0AAccept:\ \*\/\*\x0D\x0A|name=\x22arquivo\x22\x3B\ filename=\x22C:\x5C|name=\x22data\x22\x3B\ filename=\x22|MSIE\ 6\.0\x3B\x20|MSIE\ 7\.1\x3B\x20|MSIE\ 7\.2\x3B\x20|filename=|MSIE\ |core=)/s
+1239:/\x3B\ (?:MSIE\ 6\.0\x3B\ Windows\ NT\ 5\.1\)\x0D\x0AAccept:\ \*\/\*\x0D\x0A|name=\x22arquivo\x22\x3B\ filename=\x22C:\x5C|name=\x22data\x22\x3B\ filename=\x22|MSIE\ 7\.1\x3B\x20|MSIE\ 7\.2\x3B\x20|MSIE\ 6\.0\x3B\x20|filename=|MSIE\ |core=)/s
 1240:/Host\x3a\x20\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\r?\n/s
 1241:/PCRatd/s
 1242:/hostid=/s
@@ -1264,7 +1264,7 @@
 1263:/\.jpg/s
 1264:/\.jpg\x20HTTP\/1\.[01]\r\nUser\x2dAgent\x3a\x20[a-z]+\r\nHost\x3a\x20[a-z0-9\x2d\x2e]+\.com\.br\r\n\r\n/s
 1265:/\.lavaibrasilok\.com\x0D\x0A\x0D\x0A/s
-1266:/!"Ac(?:cept\x3A|cept\-Encoding:\ "|cept\-Language:\ "|cept\-Encoding:"|cept\-Language:"|cept\-Encoding"|cept\-Language"|cept\x3A\x20"|cept\x3A"|cept\-"|cept:"|cept")/s
+1266:/!"Ac(?:cept\-Encoding:\ "|cept\x3A|cept\-Language:\ "|cept\-Encoding:"|cept\-Language:"|cept\-Encoding"|cept\-Language"|cept\x3A\x20"|cept\x3A"|cept\-"|cept:"|cept")/s
 1267:/http\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
 1268:/stop\x7C/s
 1269:/stop\x7c\d+\x7c\d+\x7C[a-z0-9]+\x2E[a-z]{2,3}\x7C[a-z0-9]+\x7C/s
@@ -1317,7 +1317,7 @@
 1316:/\x00<script\ type=\x22text\/javascript\x22\ src=\x22\/scripts\/default0\.js\x22><\/script>\x00/s
 1317:/\r\nReferer\x3A\x20http\x3A\x2F\x2f[a-z0-9\x2d\x2e]+\x2F\x3Fdo\x3Dpayment\x26ver\x3D\d+\x26sid\x3D\d+\x26sn\x3D\d+\r\n/s
 1318:/\x2F\d{10}/s
-1319:/\/lin(?:kendorse\.html|k\.php\?)/s
+1319:/\/linkendorse\.html/s
 1320:/op=IncluirAvisos\&/s
 1321:/<\x5C\x5C\x5C>IDLE<\x5C\x5C\x5C>/s
 1322:/\/natpay\.html\?/s
@@ -1461,7 +1461,7 @@
 1460:/\&pixGuid=/s
 1461:/\&rnd=/s
 1462:/GET\x20\x2f[a-z]{1,12}\.exe\x20HTTP\x2f1\.1\r\nUser\x2dAgent\x3a\x20Mozilla\x2f[\x20-\x7e]{10,100}\)\r\nHost\x3a\x20[a-z0-9\x2e\x2d]{6,32}\r\nConnection\x3a\x20Keep\x2dAlive\r\n\r\n/s
-1463:/\x22(?:c\x22\+\x22r\x22\x3A2\+\x22e\x22\+\x22a\x22\+\x22t\x22\+\x22e\x22\+\x22E\x22\+\x22l\x22\+\x22e\x22\+\x22m\x22\+\(\(f\)\?\x22e\x22\+\x22n\x22\+\x22t\x22\x3A\x22\x22|fr\x22\+\x22omCh\x22\+\x22arCo\x22\+\x22de\x22|method\x22\x3A\x22mining\.extranonce\.subscribe\x22|method\x22\x3A\x22mining\.subscribe\x22|method\x22\x3A\x22mining\.authorize\x22|installation_session_id\x22|encryptedData\x22|line2\x22\x3A\x22|command_line\x22|encryptedKey\x22|environment\x22|params\x22\x3A|event_type\x22|country\x22|magic\x22|id\x22)/s
+1463:/\x22(?:c\x22\+\x22r\x22\x3A2\+\x22e\x22\+\x22a\x22\+\x22t\x22\+\x22e\x22\+\x22E\x22\+\x22l\x22\+\x22e\x22\+\x22m\x22\+\(\(f\)\?\x22e\x22\+\x22n\x22\+\x22t\x22\x3A\x22\x22|fr\x22\+\x22omCh\x22\+\x22arCo\x22\+\x22de\x22|method\x22\x3A\x22mining\.extranonce\.subscribe\x22|method\x22\x3A\x22mining\.authorize\x22|method\x22\x3A\x22mining\.subscribe\x22|installation_session_id\x22|encryptedData\x22|line2\x22\x3A\x22|command_line\x22|encryptedKey\x22|environment\x22|params\x22\x3A|event_type\x22|country\x22|magic\x22|id\x22)/s
 1464:/=\ \|2(?:2\|applet\x22\x3B\x20|2\|object\x22\x3B\x20)/s
 1465:/=\x27param\x27\x3B\x20/s
 1466:/\.zip\x27\x3B\ <\/script>/s
@@ -1542,7 +1542,7 @@
 1541:/\&t1=/s
 1542:/\&hid=/s
 1543:/\&rid=/s
-1544:/\&dat(?:e=|a=)/s
+1544:/\&dat(?:a=|e=)/s
 1545:/\/HNAP1/s
 1546:/\/tmUnblock\.cgi/s
 1547:/%74%74%63%70%5f%69%70/s
@@ -1714,7 +1714,7 @@
 1713:/Referer\x3a\x20[\x20-\x7E]*?\/wp\x2dadmin\/[a-z\d\x2d]+?\.php\r\n/s
 1714:/\x60\xDB\x37\x37\x37\x37\x37\x37/s
 1715:/\x75\x14\x2A\x2A/s
-1716:/\|8A\ (?:10\ 80\ C2\ 3A\ 80\ F2\ 73\ 88\ 10\||10\ 80\ EA\ 62\ 80\ F2\ B4\ 88\ 10\||10\ 80\ C2\ 4E\ 80\ F2\ 79\ 88\ 10\||10\ 80\ C2\ 67\ 80\ F2\ 24\ 88\ 10\|)/s
+1716:/\|8A\ (?:10\ 80\ C2\ 3A\ 80\ F2\ 73\ 88\ 10\||10\ 80\ C2\ 4E\ 80\ F2\ 79\ 88\ 10\||10\ 80\ C2\ 67\ 80\ F2\ 24\ 88\ 10\||10\ 80\ EA\ 62\ 80\ F2\ B4\ 88\ 10\|)/s
 1717:/\x65\xDB\x37\x37\x37\x37\x37\x37/s
 1718:/\|7B\ (?:22\|line1\x22\x3A\x22|22\|id\x22\x3A|08\ 2A\ 2A\|)/s
 1719:/Sleepy!@\#qaz13402scvsde890/s
@@ -1729,7 +1729,7 @@
 1728:/\xE2\x1D\x49\x49/s
 1729:/\x49\x49\x49\x49/s
 1730:/\/dmp\/api\//s
-1731:/\/che(?:ck\.action\?iid=|ckupdate\.asmx|ckupdate|ck\?iid=)/s
+1731:/\/che(?:ck\.action\?iid=|ckupdate\.asmx|ck\?iid=|ckupdate)/s
 1732:/SOAPAction\x3A\x20/s
 1733:/SOAPAction\x3a[\r\n]*Get(ServerTime|FileList|File)\x22/s
 1734:/<\?xml/s
@@ -1813,7 +1813,7 @@
 1812:/forwarded=/s
 1813:/GET \/[a-z]{8,12}\?[a-z] HTTP\/1.1/s
 1814:/sname=/s
-1815:/\|16\ (?:03\ 02\||03\ 01\||03\ 03\||03\|)/s
+1815:/\|16\ (?:03\ 01\||03\ 02\||03\ 03\||03\|)/s
 1816:/\|30\ (?:0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\ 01\ 05\ 00\ 03\ 82\||0D\ 06\ 09\ 2A\ 86\ 48\ 86\ F7\ 0D\ 01\ 01\||82\|)/s
 1817:/\|A0\ (?:03\ 02\ 01\ 02\ 02\||CD\ 37\ A4\ 5B\|)/s
 1818:/\x06\x03\x55\x04\x03\x0C/s
@@ -1866,7 +1866,7 @@
 1865:/\/Query\.asp\?loginid=/s
 1866:/\x9B\x4F\xB0\x75\xE2\x76\x96\x04\x5A\xF1\xF9\x43\xD4\xA2\x6B/s
 1867:/\x76\x13\x85\x45\x17\x1B/s
-1868:/\|55\ (?:04\ 0A\ 0C\ 16\|Tiongon\ Wledb\ A\.M\.B\.A\.|04\ 03\ 0C\ 17\|tsre131\.eollaieefi\.jprs|04\ 03\ 0C\ 16\|pepa634\.omeewengreq\.mz|04\ 03\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 0A\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 0B\ 13\ 13\|Code\ Signing\ Bureau|04\ 07\ 0C\ 13\|Bandar\ Seri\ Begawan|04\ 0A\ 0C\ 12\|Cowchi\ Aromep\ LTD\.|04\ 0A\ 0C\ 10\|Wiqur\ Hitin\ ehf\.|04\ 03\ 0C\ 10\|ina\.themanyag\.zm|04\ 0A\ 0C\ 10\|Souppi\ Otiop\ SEM|04\ 03\ 0C\ 11\|puppeitursilth\.cz|04\ 0A\ 0C\ 0E\|Merwh\ Whena\ NL|04\ 07\ 13\ 0E\|Redwood\ Shores|04\ 03\ 0C\ 0E\|wthcethesmw\.ph|04\ 0A\ 13\ 0C\|assylias\.Inc|04\ 07\ 0C\ 0B\|Ouagadougou|04\ 08\ 13\ 0A\|California|04\ 07\ 0C\ 09\|Bujumbura|04\ 07\ 0C\ 08\|Melekeok|04\ 03\ 13\ 08\|assylias|04\ 07\ 0C\ 06\|Lisbon|04\ 06\ 13\ 02\|BN|04\ 06\ 13\ 02\|US|04\ 06\ 13\ 02\|PW|04\ 06\ 13\ 02\|FR)/s
+1868:/\|55\ (?:04\ 0A\ 0C\ 16\|Tiongon\ Wledb\ A\.M\.B\.A\.|04\ 03\ 0C\ 17\|tsre131\.eollaieefi\.jprs|04\ 03\ 0C\ 16\|pepa634\.omeewengreq\.mz|04\ 0A\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 03\ 13\ 14\|Oracle\ America,\ Inc\.|04\ 07\ 0C\ 13\|Bandar\ Seri\ Begawan|04\ 0B\ 13\ 13\|Code\ Signing\ Bureau|04\ 0A\ 0C\ 12\|Cowchi\ Aromep\ LTD\.|04\ 0A\ 0C\ 10\|Wiqur\ Hitin\ ehf\.|04\ 03\ 0C\ 10\|ina\.themanyag\.zm|04\ 0A\ 0C\ 10\|Souppi\ Otiop\ SEM|04\ 03\ 0C\ 11\|puppeitursilth\.cz|04\ 0A\ 0C\ 0E\|Merwh\ Whena\ NL|04\ 07\ 13\ 0E\|Redwood\ Shores|04\ 03\ 0C\ 0E\|wthcethesmw\.ph|04\ 0A\ 13\ 0C\|assylias\.Inc|04\ 07\ 0C\ 0B\|Ouagadougou|04\ 08\ 13\ 0A\|California|04\ 07\ 0C\ 09\|Bujumbura|04\ 03\ 13\ 08\|assylias|04\ 07\ 0C\ 08\|Melekeok|04\ 07\ 0C\ 06\|Lisbon|04\ 06\ 13\ 02\|BN|04\ 06\ 13\ 02\|US|04\ 06\ 13\ 02\|FR|04\ 06\ 13\ 02\|PW)/s
 1869:/FeintedEscalator/s
 1870:/InkingGrange/s
 1871:/USER\ obitex@benfoods\.tk\x0D\x0A/s
@@ -1916,7 +1916,7 @@
 1915:/\/[a-z0-9]{8,10}\x3f[A-Za-z]{7,10}\x3d[A-Za-z]{6,10}/s
 1916:/=P4CK3T=/s
 1917:/8_=_8/s
-1918:/=0D=(?:0AUsername|0APassword|0AWebsite|0ABrowser|0A=0D=0A|0A)/s
+1918:/=0D=(?:0AUsername|0APassword|0ABrowser|0AWebsite|0A=0D=0A|0A)/s
 1919:/iSpy(?:\ Keylogger|Kelogger)/s
 1920:/Comp(?:uter\ Information|GZ\x3A\x20)/s
 1921:/zwlviewforumogaf\.php/s
@@ -2274,135 +2274,134 @@
 2273:/sd=/s
 2274:/vs=/s
 2275:/ar=/s
-2276:/\/link\.php\?.{4,20}&\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/s
-2277:/alphayz=/s
-2278:/\/ws\?/s
-2279:/whisky_id=/s
-2280:/device_id=/s
-2281:/Upgrade:\ websocket/s
-2282:/\x63\x82\x53\x63.+?[\x0c-\xfe][\x05-\xff][\x20-\x7f]{0,250}\x27[\x20-\x7f]{3,250}\x23/s
-2283:/_spacertoofee=/s
-2284:/hondacbrheavy/s
-2285:/_truthcolor=/s
-2286:/dramafrine/s
-2287:/\/vpns\//s
-2288:/NSC_USER:/s
-2289:/\*dJU!\*JE\&!M@UNQ@/s
-2290:/t34kjfdla45l/s
-2291:/_web(?:ident_f|ident_s)/s
-2292:/\x81.{1,9}\x7b\x22children\x22\x3a\x5b\x7b\x22name\x22\x3a\x22[a-z0-9_\x2e]+\x22\x2c\x22value\x22\x3a\x22[a-z0-9\x2b\x2f]+={0,2}\x22\x7d/s
-2293:/\xA7\x06\x02\x04\x6C\x69\x6C\x00/s
-2294:/\x0A_domainkey/s
-2295:/aqlKZ7wjzg0iKM00E1WB\/jq9_RA46w91EKl9A02Dv\/nbNdZiLsB1ci8Ph0fb64\/9Ks1YxAE86iz9A0dUiDl/s
-2296:/(\/check|\/v1\/stats|\/gql|\/1.5\/95648064|\/u\/0\/_\/og\/botguard\/get|\/ev\/\w{3}001001)/s
-2297:/ses\-/s
-2298:/\x3BSIDCC=AN0\-TY21iJHH32j2m\x3BFHBv3=B/s
-2299:/(\/api2|\/en-us|\/gp|\/v1|\/v3|\/v4|\/wp-content|\/wp-includes)/s
-2300:/X\-Timer:\ S1593010188\.776402,VS0,VE1/s
-2301:/Strict\-Transport\-Security:\ max\-age=10890000/s
-2302:/X\-Cache:\ HIT,\ HIT/s
-2303:/Vary(?::\ X\-AbVariant,\ X\-AltUrl,\ Accept\-Encoding|:\ Accept\-Encoding,\ Fastly\-SSL)/s
-2304:/gnt_ub=86\x5C\x3Bgnt_sb=18\x5C\x3Busprivacy=1YNY\x5C\x3BDigiTrust\.v1\.identity=/s
-2305:/\/v1\/push/s
-2306:/cli/s
-2307:/l\-/s
-2308:/sess\-=/s
-2309:/\x2f(updates|license\x2feula|docs\x2foffice|software-activation)/s
-2310:/nid/s
-2311:/msg\-/s
-2312:/Sec\-Fetch\-Dest:/s
-2313:/empty/s
-2314:/requ(?:est\.getParameter|est_origin=user)/s
-2315:/parent_request_id=/s
-2316:/parent_request_id=[&\x3B]{128}/s
-2317:/_gat(?:_global=1|_www=1)/s
-2318:/recent_locations/s
-2319:/bse=/s
-2320:/bse=[&\x3B]{128}/s
-2321:/client\-=/s
-2322:/\/v1\/(queue|profile|docs\/wsdl|pull)/s
-2323:/nyt\-gdpr=0\x3Bnyt\-purr=cfh\x3Bnyt\-geo=US\}/s
-2324:/GET\s(?:\/ads\/google|\/vi-assets\/static-assets|\/v1\/preferences|\/idcta\/translations|\/v2\/preferences)/s
-2325:/POST\s(?:\/track|\/api\/v1\/survey\/embed|\/svc\/weather\/v2)/s
-2326:/x\-timer:\ S1580937960\.346550,VS0,VE0/s
-2327:/x\-api\-version:\ F\-X/s
-2328:/x\-Firefox\-Spdy:\ h2/s
-2329:/x\-served\-by:\ cache\-mdw17344\-MDW/s
-2330:/\xFESMB/s
-2331:/\x70\x00\x69\x00\x70\x00\x65\x00\x73\x00\x68\x00\x65\x00\x6C\x00\x6C\x00\x2D\x00\x70\x00\x69\x00\x70\x00\x65\x00\x6E\x00\x61\x00\x6D\x00\x65\x00/s
-2332:/\/DDIService\.svc\/SetObject/s
-2333:/VirtualDirectory/s
-2334:/ExternalUrl/s
-2335:/FilePathName/s
-2336:/\/mgmt\/tm\/util\/bash/s
-2337:/X\-CMD\x3A/s
-2338:/X\-KEY\x3A/s
-2339:/Resu(?:lts\ of\ \x27|ltSetMetaData)/s
-2340:/\x27\ execution:\x0A\x0A/s
-2341:/<form\ action=\x22\x22\ method=\x22GET\x22>/s
-2342:/<inp(?:ut\ type=\x22text\x22\ name=\x22serverid\x22|ut\ type=\x22submit\x22\ value=\x22Run\x22>|ut\ type=\x22text\x22\ name=\x22cmd\x22)/s
-2343:/hashid=/s
-2344:/\/licenseserverproto\.cgi/s
-2345:/(|&)(server)?id=/s
-2346:/(|&)id=/s
-2347:/\/mee(?:ting_testmsjava\.cgi|ting_testjs\.cgi)/s
-2348:/(|&)(name|img|cert)=/s
-2349:/[?&]id=/s
-2350:/\/adfs\/services\/policystoretransfer/s
-2351:/KComWExec\.execCmd/s
-2352:/Emai(?:l=|l)/s
-2353:/(|&)Email=[&]*?(\x2f|%(25)?2f)autodiscover/s
-2354:/[?&]Email=[&]*?\x2fautodiscover/s
-2355:/Email=[\x3b\r\n]*?(\x2f|%(25)?2f)autodiscover/s
-2356:/\{25336920\-03f9\-11cf\-8fd0\-00aa00686f13\}/s
-2357:/\{48123bc4\-99d9\-11d1\-a6b3\-00c04fd91555\}/s
-2358:/\$\{jndi:/s
-2359:/\$\{lower:/s
-2360:/\x24{(\x24{(upper|lower):j}|j)(\x24{(upper|lower):n}|n)(\x24{(upper|lower):d}|d)(\x24{(upper|lower):i}|i)(\x24{(upper|lower)::}|:)/s
-2361:/jndi/s
-2362:/(%(25)?24|\x24)(%(25)?7b|\x7b)jndi(%(25)?3a|\x3a)/s
-2363:/\$\{upper:/s
-2364:/lower/s
-2365:/(%(25)?24|\x24)(%(25)?7b|\x7b)lower(%(25)?3a|\x3a)/s
-2366:/upper/s
-2367:/(%(25)?24|\x24)(%(25)?7b|\x7b)upper(%(25)?3a|\x3a)/s
-2368:/%24%(?:257b|7b)/s
-2369:/%24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2370:/\x24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2371:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d\x80-\xff]*?\x3a[\x7d]*?\x7d)/s
-2372:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d]*?\x3a[\x7d]*?\x7d)/s
-2373:/[\w\x2d\x20]+\x3a[\r\n]*?\x24\x7b(jndi|lower|upper)\x3a/s
-2374:/%2524%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2375:/%24\{/s
-2376:/%24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2377:/%2524\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2378:/%24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2379:/\$%7b/s
-2380:/\x24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2381:/\$%257b/s
-2382:/\x24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2383:/%2524%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
-2384:/\x24\x7b(jndi|lower|upper|.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*[jndi\x7d\x3a\x2d]{1,4}[\x22\x27]?[\x3a\x7djndi])/s
-2385:/javaC(?:lassName|odeBase)/s
-2386:/javaFactory/s
-2387:/\.class/s
-2388:/\.action/s
-2389:/getRuntime/s
-2390:/exec/s
-2391:/pty\.spawn\(\x22\/bin\//s
-2392:/DriverManager\.getConnection/s
-2393:/java\.util\.\*/s
-2394:/extends\ ClassLoader/s
-2395:/defineClass/s
-2396:/getInstance\(\x22AES\x22\)/s
-2397:/java/s
-2398:/\x24\x7b[\x7d]*?javax?\x2e[\x7d]*?\x28/s
-2399:/Powershell/s
-2400:/i[\w-]{2,20}=[\w-]{2,50}_\d{2,20}/s
-2401:/Accept-Encoding:\x20*[\r\n]*\x2c[\x20\x09]*\x2c/s
-2402:/\x24\x7b.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*([jndi\x7d\x3a\x2d]|\x5cu00[a-f0-9]{2}){1,4}[\x22\x27]?[\x3a\x7djndi]/s
-2403:/X\-F5\-Auth/s
-2404:/Connection:[\r\n]*?X-F5-Auth/s
+2276:/alphayz=/s
+2277:/\/ws\?/s
+2278:/whisky_id=/s
+2279:/device_id=/s
+2280:/Upgrade:\ websocket/s
+2281:/\x63\x82\x53\x63.+?[\x0c-\xfe][\x05-\xff][\x20-\x7f]{0,250}\x27[\x20-\x7f]{3,250}\x23/s
+2282:/_spacertoofee=/s
+2283:/hondacbrheavy/s
+2284:/_truthcolor=/s
+2285:/dramafrine/s
+2286:/\/vpns\//s
+2287:/NSC_USER:/s
+2288:/\*dJU!\*JE\&!M@UNQ@/s
+2289:/t34kjfdla45l/s
+2290:/_web(?:ident_s|ident_f)/s
+2291:/\x81.{1,9}\x7b\x22children\x22\x3a\x5b\x7b\x22name\x22\x3a\x22[a-z0-9_\x2e]+\x22\x2c\x22value\x22\x3a\x22[a-z0-9\x2b\x2f]+={0,2}\x22\x7d/s
+2292:/\xA7\x06\x02\x04\x6C\x69\x6C\x00/s
+2293:/\x0A_domainkey/s
+2294:/aqlKZ7wjzg0iKM00E1WB\/jq9_RA46w91EKl9A02Dv\/nbNdZiLsB1ci8Ph0fb64\/9Ks1YxAE86iz9A0dUiDl/s
+2295:/(\/check|\/v1\/stats|\/gql|\/1.5\/95648064|\/u\/0\/_\/og\/botguard\/get|\/ev\/\w{3}001001)/s
+2296:/ses\-/s
+2297:/\x3BSIDCC=AN0\-TY21iJHH32j2m\x3BFHBv3=B/s
+2298:/(\/api2|\/en-us|\/gp|\/v1|\/v3|\/v4|\/wp-content|\/wp-includes)/s
+2299:/X\-Timer:\ S1593010188\.776402,VS0,VE1/s
+2300:/Strict\-Transport\-Security:\ max\-age=10890000/s
+2301:/X\-Cache:\ HIT,\ HIT/s
+2302:/Vary(?::\ X\-AbVariant,\ X\-AltUrl,\ Accept\-Encoding|:\ Accept\-Encoding,\ Fastly\-SSL)/s
+2303:/gnt_ub=86\x5C\x3Bgnt_sb=18\x5C\x3Busprivacy=1YNY\x5C\x3BDigiTrust\.v1\.identity=/s
+2304:/\/v1\/push/s
+2305:/cli/s
+2306:/l\-/s
+2307:/sess\-=/s
+2308:/\x2f(updates|license\x2feula|docs\x2foffice|software-activation)/s
+2309:/nid/s
+2310:/msg\-/s
+2311:/Sec\-Fetch\-Dest:/s
+2312:/empty/s
+2313:/requ(?:est\.getParameter|est_origin=user)/s
+2314:/parent_request_id=/s
+2315:/parent_request_id=[&\x3B]{128}/s
+2316:/_gat(?:_global=1|_www=1)/s
+2317:/recent_locations/s
+2318:/bse=/s
+2319:/bse=[&\x3B]{128}/s
+2320:/client\-=/s
+2321:/\/v1\/(queue|profile|docs\/wsdl|pull)/s
+2322:/nyt\-gdpr=0\x3Bnyt\-purr=cfh\x3Bnyt\-geo=US\}/s
+2323:/GET\s(?:\/ads\/google|\/vi-assets\/static-assets|\/v1\/preferences|\/idcta\/translations|\/v2\/preferences)/s
+2324:/POST\s(?:\/track|\/api\/v1\/survey\/embed|\/svc\/weather\/v2)/s
+2325:/x\-timer:\ S1580937960\.346550,VS0,VE0/s
+2326:/x\-api\-version:\ F\-X/s
+2327:/x\-Firefox\-Spdy:\ h2/s
+2328:/x\-served\-by:\ cache\-mdw17344\-MDW/s
+2329:/\xFESMB/s
+2330:/\x70\x00\x69\x00\x70\x00\x65\x00\x73\x00\x68\x00\x65\x00\x6C\x00\x6C\x00\x2D\x00\x70\x00\x69\x00\x70\x00\x65\x00\x6E\x00\x61\x00\x6D\x00\x65\x00/s
+2331:/\/DDIService\.svc\/SetObject/s
+2332:/VirtualDirectory/s
+2333:/ExternalUrl/s
+2334:/FilePathName/s
+2335:/\/mgmt\/tm\/util\/bash/s
+2336:/X\-CMD\x3A/s
+2337:/X\-KEY\x3A/s
+2338:/Resu(?:lts\ of\ \x27|ltSetMetaData)/s
+2339:/\x27\ execution:\x0A\x0A/s
+2340:/<form\ action=\x22\x22\ method=\x22GET\x22>/s
+2341:/<inp(?:ut\ type=\x22text\x22\ name=\x22serverid\x22|ut\ type=\x22submit\x22\ value=\x22Run\x22>|ut\ type=\x22text\x22\ name=\x22cmd\x22)/s
+2342:/hashid=/s
+2343:/\/licenseserverproto\.cgi/s
+2344:/(|&)(server)?id=/s
+2345:/(|&)id=/s
+2346:/\/mee(?:ting_testmsjava\.cgi|ting_testjs\.cgi)/s
+2347:/(|&)(name|img|cert)=/s
+2348:/[?&]id=/s
+2349:/\/adfs\/services\/policystoretransfer/s
+2350:/KComWExec\.execCmd/s
+2351:/Emai(?:l=|l)/s
+2352:/(|&)Email=[&]*?(\x2f|%(25)?2f)autodiscover/s
+2353:/[?&]Email=[&]*?\x2fautodiscover/s
+2354:/Email=[\x3b\r\n]*?(\x2f|%(25)?2f)autodiscover/s
+2355:/\{25336920\-03f9\-11cf\-8fd0\-00aa00686f13\}/s
+2356:/\{48123bc4\-99d9\-11d1\-a6b3\-00c04fd91555\}/s
+2357:/\$\{jndi:/s
+2358:/\$\{lower:/s
+2359:/\x24{(\x24{(upper|lower):j}|j)(\x24{(upper|lower):n}|n)(\x24{(upper|lower):d}|d)(\x24{(upper|lower):i}|i)(\x24{(upper|lower)::}|:)/s
+2360:/jndi/s
+2361:/(%(25)?24|\x24)(%(25)?7b|\x7b)jndi(%(25)?3a|\x3a)/s
+2362:/\$\{upper:/s
+2363:/lower/s
+2364:/(%(25)?24|\x24)(%(25)?7b|\x7b)lower(%(25)?3a|\x3a)/s
+2365:/upper/s
+2366:/(%(25)?24|\x24)(%(25)?7b|\x7b)upper(%(25)?3a|\x3a)/s
+2367:/%24%(?:257b|7b)/s
+2368:/%24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2369:/\x24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2370:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d\x80-\xff]*?\x3a[\x7d]*?\x7d)/s
+2371:/\x24\x7b(jndi|[\x7d\x80-\xff]*?\x24\x7b[\x7d]*?\x3a[\x7d]*?\x7d)/s
+2372:/[\w\x2d\x20]+\x3a[\r\n]*?\x24\x7b(jndi|lower|upper)\x3a/s
+2373:/%2524%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2374:/%24\{/s
+2375:/%24\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2376:/%2524\x7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2377:/%24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2378:/\$%7b/s
+2379:/\x24%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2380:/\$%257b/s
+2381:/\x24%257b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2382:/%2524%7b.{0,200}(%(25)?24|\x24)(%(25)?7b|\x7b).{0,200}(%(25)?3a|\x3a)(%(25)?(27\x2D5c|22)|[\x27\x2d\x5c\x22])*([jndi\x7d\x3a\x2d]|(%(25)?(7d\x3A2d))|(%(25)?5c|\x5c)u00[a-f0-9]{2}){1,4}(%(25)?(22|27)|[\x22\x27])?(%(25)?(3a|7d)|[\x3a\x7djndi])/s
+2383:/\x24\x7b(jndi|lower|upper|.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*[jndi\x7d\x3a\x2d]{1,4}[\x22\x27]?[\x3a\x7djndi])/s
+2384:/javaC(?:lassName|odeBase)/s
+2385:/javaFactory/s
+2386:/\.class/s
+2387:/\.action/s
+2388:/getRuntime/s
+2389:/exec/s
+2390:/pty\.spawn\(\x22\/bin\//s
+2391:/DriverManager\.getConnection/s
+2392:/java\.util\.\*/s
+2393:/extends\ ClassLoader/s
+2394:/defineClass/s
+2395:/getInstance\(\x22AES\x22\)/s
+2396:/java/s
+2397:/\x24\x7b[\x7d]*?javax?\x2e[\x7d]*?\x28/s
+2398:/Powershell/s
+2399:/i[\w-]{2,20}=[\w-]{2,50}_\d{2,20}/s
+2400:/Accept-Encoding:\x20*[\r\n]*\x2c[\x20\x09]*\x2c/s
+2401:/\x24\x7b.{0,200}\x24\x7b.{0,200}\x3a[\x27\x22\x2d\x5c]*([jndi\x7d\x3a\x2d]|\x5cu00[a-f0-9]{2}){1,4}[\x22\x27]?[\x3a\x7djndi]/s
+2402:/X\-F5\-Auth/s
+2403:/Connection:[\r\n]*?X-F5-Auth/s
 
 # === LOGICAL EXPRESSIONS (Rule Combinations with HS_FLAG_COMBINATION) ===
 100000:/(5 & 6)/c
@@ -3429,78 +3428,77 @@
 101021:/(2269 & 2270)/c
 101022:/(1702 & 2271)/c
 101023:/(972 & 2272 & 2273 & 2274 & 2275)/c
-101024:/(147 & 1234 & 1319 & 2276)/c
-101025:/(314 & 2277)/c
-101026:/(147 & 2278 & 2279 & 2280 & 2281)/c
-101027:/(2181 & 2282)/c
-101028:/(2283 & 2284)/c
-101029:/(2285 & 2286)/c
-101030:/(2287 & 2288)/c
-101031:/(1741 & 1978 & 2292)/c
-101032:/(108 & 2294)/c
-101033:/(108 & 2294)/c
-101034:/(141 & 438 & 841)/c
-101035:/(274 & 438 & 841 & 1556)/c
-101036:/(755 & 1741 & 2296 & 2297)/c
-101037:/(755 & 1068 & 2298 & 2299)/c
-101038:/(145 & 1626 & 2300 & 2301 & 2302 & 2303)/c
-101039:/(1205 & 2304)/c
-101040:/(755 & 1741 & 2305 & 2306 & 2307)/c
-101041:/(698 & 755 & 2308 & 2309)/c
-101042:/(755 & 1741 & 2310 & 2311)/c
-101043:/(2312 & 2313 & 2314 & 2315 & 2316)/c
-101044:/(2317 & 2318 & 2319 & 2320)/c
-101045:/(755 & 785 & 2321 & 2322)/c
-101046:/(2323 & 2324)/c
-101047:/(1741 & 2325)/c
-101048:/(14 & 1626 & 2303 & 2326 & 2327 & 2328 & 2329)/c
-101049:/(274 & 438 & 841)/c
-101050:/(438 & 637)/c
-101051:/(2330 & 2331)/c
-101052:/(135 & 2330 & 2331)/c
-101053:/(2332 & 2333 & 2334)/c
-101054:/(2332 & 2333 & 2335)/c
-101055:/(218 & 2336)/c
-101056:/(274 & 2337 & 2338)/c
-101057:/(2339 & 2340)/c
-101058:/(2341 & 2342)/c
-101059:/(918 & 2343)/c
-101060:/(972 & 2344 & 2345)/c
-101061:/(972 & 2346)/c
-101062:/(274 & 2347 & 2348)/c
-101063:/(972 & 2349)/c
-101064:/(274 & 2350)/c
-101065:/(14 & 2351)/c
-101066:/(2352 & 2353)/c
-101067:/(2352 & 2354)/c
-101068:/(145 & 2352)/c
-101069:/(2352 & 2355)/c
+101024:/(314 & 2276)/c
+101025:/(147 & 2277 & 2278 & 2279 & 2280)/c
+101026:/(2181 & 2281)/c
+101027:/(2282 & 2283)/c
+101028:/(2284 & 2285)/c
+101029:/(2286 & 2287)/c
+101030:/(1741 & 1978 & 2291)/c
+101031:/(108 & 2293)/c
+101032:/(108 & 2293)/c
+101033:/(141 & 438 & 841)/c
+101034:/(274 & 438 & 841 & 1556)/c
+101035:/(755 & 1741 & 2295 & 2296)/c
+101036:/(755 & 1068 & 2297 & 2298)/c
+101037:/(145 & 1626 & 2299 & 2300 & 2301 & 2302)/c
+101038:/(1205 & 2303)/c
+101039:/(755 & 1741 & 2304 & 2305 & 2306)/c
+101040:/(698 & 755 & 2307 & 2308)/c
+101041:/(755 & 1741 & 2309 & 2310)/c
+101042:/(2311 & 2312 & 2313 & 2314 & 2315)/c
+101043:/(2316 & 2317 & 2318 & 2319)/c
+101044:/(755 & 785 & 2320 & 2321)/c
+101045:/(2322 & 2323)/c
+101046:/(1741 & 2324)/c
+101047:/(14 & 1626 & 2302 & 2325 & 2326 & 2327 & 2328)/c
+101048:/(274 & 438 & 841)/c
+101049:/(438 & 637)/c
+101050:/(2329 & 2330)/c
+101051:/(135 & 2329 & 2330)/c
+101052:/(2331 & 2332 & 2333)/c
+101053:/(2331 & 2332 & 2334)/c
+101054:/(218 & 2335)/c
+101055:/(274 & 2336 & 2337)/c
+101056:/(2338 & 2339)/c
+101057:/(2340 & 2341)/c
+101058:/(918 & 2342)/c
+101059:/(972 & 2343 & 2344)/c
+101060:/(972 & 2345)/c
+101061:/(274 & 2346 & 2347)/c
+101062:/(972 & 2348)/c
+101063:/(274 & 2349)/c
+101064:/(14 & 2350)/c
+101065:/(2351 & 2352)/c
+101066:/(2351 & 2353)/c
+101067:/(145 & 2351)/c
+101068:/(2351 & 2354)/c
+101069:/(145 & 2355)/c
 101070:/(145 & 2356)/c
-101071:/(145 & 2357)/c
-101072:/(2359 & 2360)/c
-101073:/(2361 & 2362)/c
-101074:/(2360 & 2363)/c
-101075:/(2364 & 2365)/c
-101076:/(2366 & 2367)/c
-101077:/(2368 & 2369)/c
-101078:/(171 & 2373)/c
-101079:/(328 & 2374)/c
-101080:/(2375 & 2376)/c
-101081:/(328 & 2377)/c
-101082:/(2368 & 2378)/c
-101083:/(2379 & 2380)/c
-101084:/(2381 & 2382)/c
-101085:/(328 & 2383)/c
-101086:/(673 & 2384)/c
-101087:/(1029 & 2385 & 2386)/c
-101088:/(438 & 2387)/c
-101089:/(2388 & 2389 & 2390)/c
-101090:/(14 & 2314 & 2339 & 2392)/c
-101091:/(183 & 2393 & 2394 & 2395 & 2396)/c
-101092:/(14 & 2314 & 2339 & 2392)/c
-101093:/(183 & 2393 & 2394 & 2395 & 2396)/c
-101094:/(2397 & 2398)/c
-101095:/(1094 & 2399)/c
-101096:/(384 & 1876 & 2400)/c
-101097:/(755 & 2401)/c
-101098:/(1556 & 2403 & 2404)/c
+101071:/(2358 & 2359)/c
+101072:/(2360 & 2361)/c
+101073:/(2359 & 2362)/c
+101074:/(2363 & 2364)/c
+101075:/(2365 & 2366)/c
+101076:/(2367 & 2368)/c
+101077:/(171 & 2372)/c
+101078:/(328 & 2373)/c
+101079:/(2374 & 2375)/c
+101080:/(328 & 2376)/c
+101081:/(2367 & 2377)/c
+101082:/(2378 & 2379)/c
+101083:/(2380 & 2381)/c
+101084:/(328 & 2382)/c
+101085:/(673 & 2383)/c
+101086:/(1029 & 2384 & 2385)/c
+101087:/(438 & 2386)/c
+101088:/(2387 & 2388 & 2389)/c
+101089:/(14 & 2313 & 2338 & 2391)/c
+101090:/(183 & 2392 & 2393 & 2394 & 2395)/c
+101091:/(14 & 2313 & 2338 & 2391)/c
+101092:/(183 & 2392 & 2393 & 2394 & 2395)/c
+101093:/(2396 & 2397)/c
+101094:/(1094 & 2398)/c
+101095:/(384 & 1876 & 2399)/c
+101096:/(755 & 2400)/c
+101097:/(1556 & 2402 & 2403)/c
