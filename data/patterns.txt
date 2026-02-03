@@ -4362,6 +4362,13 @@
 4361:/Connection\x3A/s
 4362:/X\-F5\-Auth/s
 4363:/Connection:[\r\n]*?X-F5-Auth/s
+4364:/XSS/s
+4365:/alert/is
+4366:/javascript/is
+4367:/onerror/is
+4368:/onload/is
+4369:/UNION/is
+4370:/SELECT/is
 
 # === LOGICAL EXPRESSIONS (Rule Combinations with HS_FLAG_COMBINATION) ===
 100000:/(5 & 6)/c
