@@ -367,38 +367,33 @@ namespace fox::io {
             _threads.emplace_back(&NFQueueMulti::worker_loop, this, ctx.get());
         }
 
-        // Thread de monitoring des stats (toutes les 5 secondes)
-        std::thread stats_thread([this]() {
-            uint64_t last_total = 0;
-            auto last_time = std::chrono::steady_clock::now();
+        // Monitoring loop dans le thread principal (toutes les 5 secondes)
+        uint64_t last_total = 0;
+        auto last_time = std::chrono::steady_clock::now();
+        
+        while (_running.load(std::memory_order_relaxed)) {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            if (!_running.load(std::memory_order_relaxed)) break;
             
-            while (_running.load(std::memory_order_relaxed)) {
-                std::this_thread::sleep_for(std::chrono::seconds(5));
-                if (!_running.load(std::memory_order_relaxed)) break;
-                
-                auto now = std::chrono::steady_clock::now();
-                double elapsed = std::chrono::duration<double>(now - last_time).count();
-                
-                uint64_t current_total = total_packets();
-                uint64_t delta = current_total - last_total;
-                double pps = delta / elapsed;
-                
-                // Stats par thread
-                std::string per_thread = "";
-                for (size_t i = 0; i < _workers.size(); ++i) {
-                    uint64_t pkts = _workers[i]->packets_processed.load(std::memory_order_relaxed);
-                    per_thread += "T" + std::to_string(i) + ":" + std::to_string(pkts) + " ";
-                }
-                
-                std::cout << "[STATS] " << std::fixed << std::setprecision(0) 
-                          << pps << " pkt/s | Total: " << current_total 
-                          << " | Drop: " << total_dropped()
-                          << " | " << per_thread << std::endl;
-                
-                last_total = current_total;
-                last_time = now;
+            auto now = std::chrono::steady_clock::now();
+            double elapsed = std::chrono::duration<double>(now - last_time).count();
+            
+            uint64_t current_total = total_packets();
+            uint64_t delta = current_total - last_total;
+            double pps = delta / elapsed;
+            
+            // Stats par thread
+            std::cout << "[STATS] " << std::fixed << std::setprecision(0) 
+                      << pps << " pkt/s | Total: " << current_total 
+                      << " | Drop: " << total_dropped() << " | ";
+            for (size_t i = 0; i < _workers.size(); ++i) {
+                std::cout << "T" << i << ":" << _workers[i]->packets_processed.load(std::memory_order_relaxed) << " ";
             }
-        });
+            std::cout << std::endl << std::flush;
+            
+            last_total = current_total;
+            last_time = now;
+        }
 
         // Attendre tous les threads workers
         for (auto& t : _threads) {
@@ -407,20 +402,15 @@ namespace fox::io {
             }
         }
         
-        // Arrêter le thread de stats
-        if (stats_thread.joinable()) {
-            stats_thread.join();
-        }
-        
         // Afficher les stats finales
-        fox::log::info("=== FINAL STATS ===");
+        std::cout << "\n=== FINAL STATS ===" << std::endl;
         for (size_t i = 0; i < _workers.size(); ++i) {
-            fox::log::info("  Thread " + std::to_string(i) + ": " + 
-                          std::to_string(_workers[i]->packets_processed.load()) + " packets, " +
-                          std::to_string(_workers[i]->packets_dropped.load()) + " dropped");
+            std::cout << "  Thread " << i << ": " 
+                      << _workers[i]->packets_processed.load() << " packets, "
+                      << _workers[i]->packets_dropped.load() << " dropped" << std::endl;
         }
-        fox::log::info("Total: " + std::to_string(total_packets()) + " packets, " +
-                       std::to_string(total_dropped()) + " dropped");
+        std::cout << "  TOTAL: " << total_packets() << " packets, " 
+                  << total_dropped() << " dropped" << std::endl;
     }
 
     void NFQueueMulti::stop() {
