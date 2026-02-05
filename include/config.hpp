@@ -8,11 +8,11 @@ namespace fox::config {
 
     // --- DEBUG MODE ---
     // Mettre à true pour activer les logs verbeux (désactiver en production)
-    constexpr bool DEBUG_MODE = true;
+    constexpr bool DEBUG_MODE = false;
     
     // Affiche les N premiers paquets en détail (0 = tous, mais TRÈS lent !)
     // Recommandé: 10-50 pour debug, 0 pour prod
-    constexpr uint32_t DEBUG_FIRST_N_PACKETS = 20;
+    constexpr uint32_t DEBUG_FIRST_N_PACKETS = 0;
 
     // --- ARTEFACTS PATHS ---
     // Note: Ces chemins sont relatifs au répertoire d'exécution.
@@ -33,9 +33,10 @@ namespace fox::config {
 
     // --- DEEP INSPECTION CONFIG ---
     // Nombre max de flux TCP simultanés en mémoire
-    constexpr uint32_t MAX_CONCURRENT_FLOWS = 100000;
+    constexpr uint32_t MAX_CONCURRENT_FLOWS = 50000;
     // Timeout d'inactivité pour les flux TCP (en secondes)
-    constexpr uint32_t FLOW_TIMEOUT_SEC = 60;
+    // 10 secondes suffit largement pour HTTP (évite accumulation)
+    constexpr uint32_t FLOW_TIMEOUT_SEC = 10;
     // Taille max de la fenêtre de réassemblage par flux (10MB)
     constexpr uint32_t MAX_REASSEMBLY_WINDOW = 10*1024 * 1024;
 }

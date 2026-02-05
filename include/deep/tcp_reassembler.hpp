@@ -2,22 +2,23 @@
 #define FOX_DEEP_TCP_REASSEMBLER_HPP
 
 /**
- * TcpReassembler Simplex - Architecture "Bare Metal" inspirée de Suricata
+ * TcpReassembler - Architecture Mode BLOCK Hyperscan
  * 
- * OPTIMISATION CRITIQUE (Fichier Expert 08/12/25) :
- * =================================================
+ * CHANGEMENT ARCHITECTURAL CRITIQUE - Février 2026
+ * ================================================
  * 
- * Mode SIMPLEX : On ne scanne QUE le trafic Client→Serveur
+ * AVANT (Mode STREAM - LENT) :
+ * - Un hs_stream_t par connexion TCP (open_stream/scan_stream/close_stream)
+ * - Accumulation : 1000 connexions = 1000 streams Hyperscan
+ * - Timeout 60s + cleanup insuffisant = effondrement progressif (1500 → 200 req/sec)
  * 
- * Gains :
- * - CPU : Trafic retour (Server→Client) traité en O(1)
- * - RAM : Division par 2 (un seul stream par session)
- * - Robustesse : Focus sur la reconstruction de l'attaque
+ * MAINTENANT (Mode BLOCK - RAPIDE comme Suricata) :
+ * - TcpStream gère UNIQUEMENT le réassemblage TCP
+ * - Une fois les données ordonnées, un SEUL appel hs_scan() en mode BLOCK
+ * - Pas de stream Hyperscan par connexion
+ * - Performance constante quel que soit le nombre de connexions
  * 
- * Fonctionnement :
- * 1. Au SYN, on mémorise l'IP source comme "client_ip"
- * 2. Paquets venant du client_ip → SCAN Hyperscan
- * 3. Paquets venant du serveur → touch() seulement (maintien timeout)
+ * Mode SIMPLEX maintenu : On ne scanne QUE le trafic Client→Serveur
  */
 
 #include "tcp_stream.hpp"
@@ -34,7 +35,7 @@ namespace fox::deep {
     // Session Unidirectionnelle (Optimisée pour Client -> Serveur)
     struct TcpSession {
         uint32_t client_ip = 0;           // L'IP qu'on surveille (Source de l'attaque)
-        std::unique_ptr<TcpStream> stream; // Un seul stream !
+        std::unique_ptr<TcpStream> stream; // Réassemblage TCP uniquement
         bool malicious = false;            // Verdict caché
     };
 
@@ -44,13 +45,7 @@ namespace fox::deep {
             _sessions.reserve(fox::config::MAX_CONCURRENT_FLOWS);
         }
 
-        ~TcpReassembler() {
-            for (auto& kv : _sessions) {
-                if (kv.second.stream) {
-                    _matcher->close_stream(kv.second.stream->get_hs_stream());
-                }
-            }
-        }
+        ~TcpReassembler() = default; // Plus de cleanup Hyperscan nécessaire
 
         /**
          * Check O(1) : Est-ce un flux déjà condamné ?
@@ -75,28 +70,23 @@ namespace fox::deep {
         void handle_lifecycle(const fox::core::FlowKey& key, 
                               bool is_fin, 
                               bool is_rst) {
-            if (is_rst) {
+            if (is_rst || is_fin) {
                 remove_session(key);
-                return;
             }
-            if (is_fin) {
-                remove_session(key);
-                return;
-            }
-            // Sinon, on ne fait rien - le flux reste marqué MALICIOUS
         }
 
         /**
-         * Point d'entrée principal - Mode SIMPLEX
+         * NOUVELLE ARCHITECTURE - Point d'entrée principal
+         * 
+         * Réassemble le paquet TCP et scanne en MODE BLOCK.
          * 
          * @param key Clé de flux canonique (bidirectionnelle)
          * @param src_ip IP source du paquet actuel (CRITIQUE pour savoir qui parle)
          * @param seq Numéro de séquence TCP
          * @param is_syn/is_fin/is_rst Flags TCP
          * @param payload Données du segment
-         * @param rule Règle avec hs_id, atomic_ids, is_multi, is_or
          * 
-         * @return true si le paquet doit être droppé
+         * @return true si le paquet doit être droppé (match trouvé ou flux déjà condamné)
          */
         bool process_packet(const fox::core::FlowKey& key, 
                             uint32_t src_ip,
@@ -104,15 +94,13 @@ namespace fox::deep {
                             bool is_syn, 
                             bool is_fin, 
                             bool is_rst,
-                            std::span<const uint8_t> payload,
-                            const fox::core::RuleDefinition& rule) {
+                            std::span<const uint8_t> payload) {
 
             // Maintenance légère (tous les 2048 paquets)
             if ((++_ops & 0x7FF) == 0) cleanup();
 
             // RST = Reset brutal
             if (is_rst) {
-                fox::log::reassembly("RST received, removing stream");
                 remove_session(key);
                 return false;
             }
@@ -127,26 +115,18 @@ namespace fox::deep {
                 if (_sessions.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
                     force_cleanup();
                     if (_sessions.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
-                        fox::log::reassembly("Max flows reached, dropping");
                         return false;
                     }
                 }
 
-                hs_stream_t* hs_ctx = _matcher->open_stream();
-                if (!hs_ctx) {
-                    fox::log::reassembly("Failed to open HS stream");
-                    return false;
-                }
-
                 TcpSession session;
-                session.client_ip = src_ip; // Verrouiller cette IP comme "Client"
+                session.client_ip = src_ip;
                 
                 // +1 si SYN pour consommer le numéro de séquence virtuel
                 uint32_t init_seq = seq + 1;
-                session.stream = std::make_unique<TcpStream>(init_seq, hs_ctx);
+                session.stream = std::make_unique<TcpStream>(init_seq);
                 
                 it = _sessions.emplace(key, std::move(session)).first;
-                fox::log::reassembly("New stream created");
             }
 
             TcpSession& session = it->second;
@@ -154,7 +134,6 @@ namespace fox::deep {
             // Fast Drop si déjà condamné
             if (session.malicious) {
                 if (is_fin) {
-                    fox::log::reassembly("FIN on DROPPED stream, cleaning up");
                     remove_session(key);
                 }
                 return true; // Maintenir le DROP
@@ -179,40 +158,23 @@ namespace fox::deep {
             // Ajustement seq pour le SYN initial déjà consommé
             uint32_t effective_seq = is_syn ? seq + 1 : seq;
             
-            // Réassemblage
-            std::vector<uint8_t> data = session.stream->process_segment(effective_seq, payload);
+            // Réassemblage (retourne données ordonnées via zero-copy)
+            auto data = session.stream->push_segment_zerocopy(effective_seq, payload);
             
-            if constexpr (fox::config::DEBUG_MODE) {
-                if (!data.empty()) {
-                    fox::log::reassembly("Reassembled data ready for scan", data.size());
-                    fox::log::payload_ascii(data.data(), data.size(), 200);
-                }
-            }
-
             // Scan s'il y a des données ordonnées
             bool matched = false;
             if (!data.empty()) {
-                // NOUVEAU: Utiliser scan_multi si règle multi-pattern
-                if (rule.is_multi) {
-                    matched = _matcher->scan_stream_multi(session.stream->get_hs_stream(), 
-                                                          data, 
-                                                          rule.atomic_ids, 
-                                                          rule.is_or);
-                } else {
-                    matched = _matcher->scan_stream(session.stream->get_hs_stream(), data, rule.hs_id);
-                }
-                fox::log::hs_match(rule.hs_id, matched);
+                // MODE BLOCK : Un seul appel hs_scan(), pas de stream
+                matched = _matcher->scan(data.data(), data.size());
                 
                 if (matched) {
                     session.stream->set_dropped();
                     session.malicious = true;
-                    fox::log::reassembly("Stream marked as DROPPED");
                 }
             }
 
             // Fin de connexion
             if (is_fin) {
-                fox::log::reassembly("FIN received, removing stream");
                 remove_session(key);
             }
 
@@ -220,18 +182,8 @@ namespace fox::deep {
         }
 
         /**
-         * NOUVELLE ARCHITECTURE : Réassemblage + Scan UNIQUE
-         * 
-         * Cette méthode réassemble le paquet et scanne en collectant TOUS les IDs matchés.
-         * L'Engine peut ensuite vérifier quelles règles sont satisfaites sans re-scanner.
-         * 
-         * @param key Clé de flux canonique
-         * @param src_ip IP source du paquet
-         * @param seq Numéro de séquence TCP
-         * @param is_syn/is_fin/is_rst Flags TCP
-         * @param payload Données du segment
-         * @param[out] matched_ids Ensemble des IDs de patterns matchés
-         * @return true si le paquet doit être droppé (flux déjà condamné)
+         * Alternative : Réassemble et collecte tous les IDs matchés
+         * (Pour l'Engine qui gère la logique multi-règles)
          */
         bool reassemble_and_scan(const fox::core::FlowKey& key, 
                                   uint32_t src_ip,
@@ -240,106 +192,62 @@ namespace fox::deep {
                                   bool is_fin, 
                                   bool is_rst,
                                   std::span<const uint8_t> payload,
-                                  std::set<uint32_t>& matched_ids) {
+                                  std::vector<uint32_t>& matched_ids) {
 
             matched_ids.clear();
 
-            // Maintenance légère (tous les 2048 paquets)
             if ((++_ops & 0x7FF) == 0) cleanup();
 
-            // RST = Reset brutal
             if (is_rst) {
-                fox::log::reassembly("RST received, removing stream");
                 remove_session(key);
                 return false;
             }
 
             auto it = _sessions.find(key);
 
-            // Nouveau flux
             if (it == _sessions.end()) {
-                // On n'accepte de créer un état QUE sur un SYN
                 if (!is_syn) return false;
 
                 if (_sessions.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
                     force_cleanup();
                     if (_sessions.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
-                        fox::log::reassembly("Max flows reached, dropping");
                         return false;
                     }
                 }
 
-                hs_stream_t* hs_ctx = _matcher->open_stream();
-                if (!hs_ctx) {
-                    fox::log::reassembly("Failed to open HS stream");
-                    return false;
-                }
-
                 TcpSession session;
                 session.client_ip = src_ip;
-                uint32_t init_seq = seq + 1;
-                session.stream = std::make_unique<TcpStream>(init_seq, hs_ctx);
+                session.stream = std::make_unique<TcpStream>(seq + 1);
                 
                 it = _sessions.emplace(key, std::move(session)).first;
-                fox::log::reassembly("New stream created");
             }
 
             TcpSession& session = it->second;
 
-            // Fast Drop si déjà condamné
             if (session.malicious) {
-                if (is_fin) {
-                    fox::log::reassembly("FIN on DROPPED stream, cleaning up");
-                    remove_session(key);
-                }
-                return true; // Maintenir le DROP
+                if (is_fin) remove_session(key);
+                return true;
             }
 
-            // DISCRIMINATION DIRECTIONNELLE
             if (src_ip != session.client_ip) {
                 session.stream->touch();
                 if (is_fin) remove_session(key);
                 return false;
             }
 
-            // RÉASSEMBLAGE
             uint32_t effective_seq = is_syn ? seq + 1 : seq;
-            std::vector<uint8_t> data = session.stream->process_segment(effective_seq, payload);
+            auto data = session.stream->push_segment_zerocopy(effective_seq, payload);
             
-            if constexpr (fox::config::DEBUG_MODE) {
-                if (!data.empty()) {
-                    fox::log::reassembly("Reassembled data ready for scan", data.size());
-                    fox::log::payload_ascii(data.data(), data.size(), 200);
-                }
-            }
-
-            // SCAN UNIQUE : Collecter TOUS les IDs matchés
             if (!data.empty()) {
-                hs_scan_stream(session.stream->get_hs_stream(), 
-                              reinterpret_cast<const char*>(data.data()), 
-                              data.size(), 0, _matcher->get_scratch(), 
-                              [](unsigned int id, unsigned long long, unsigned long long, 
-                                 unsigned int, void* ctx) -> int {
-                                  auto* ids = static_cast<std::set<uint32_t>*>(ctx);
-                                  ids->insert(id);
-                                  return 0; // Continuer pour collecter tous les matchs
-                              }, 
-                              &matched_ids);
-                
-                if constexpr (fox::config::DEBUG_MODE) {
-                    if (!matched_ids.empty()) {
-                        fox::log::debug("[HS] Collected " + std::to_string(matched_ids.size()) + " pattern IDs");
-                    }
-                }
+                // MODE BLOCK avec collecte de tous les IDs
+                _matcher->scan_collect_all(data.data(), data.size(), matched_ids);
             }
 
-            // Fin de connexion
             if (is_fin) {
-                fox::log::reassembly("FIN received, removing stream");
                 remove_session(key);
             }
 
-            return false; // Le DROP sera déterminé par l'Engine après vérification des règles
+            return false; // Le DROP sera déterminé par l'Engine
         }
 
         /**
@@ -352,40 +260,28 @@ namespace fox::deep {
                 if (it->second.stream) {
                     it->second.stream->set_dropped();
                 }
-                fox::log::reassembly("Stream marked as DROPPED");
             }
         }
+
+        size_t session_count() const { return _sessions.size(); }
 
     private:
         HSMatcher* _matcher;
         std::unordered_map<fox::core::FlowKey, TcpSession, fox::core::FlowKeyHash> _sessions;
         uint64_t _ops = 0;
-        static constexpr uint64_t CLEANUP_INTERVAL = 10000;
 
         void remove_session(const fox::core::FlowKey& key) {
-            auto it = _sessions.find(key);
-            if (it != _sessions.end()) {
-                if (it->second.stream) {
-                    _matcher->close_stream(it->second.stream->get_hs_stream());
-                }
-                _sessions.erase(it);
-            }
+            _sessions.erase(key);
         }
 
         void cleanup() {
-            size_t removed = 0;
             auto it = _sessions.begin();
             while (it != _sessions.end()) {
                 if (it->second.stream && it->second.stream->is_expired(fox::config::FLOW_TIMEOUT_SEC)) {
-                    _matcher->close_stream(it->second.stream->get_hs_stream());
                     it = _sessions.erase(it);
-                    removed++;
                 } else {
                     ++it;
                 }
-            }
-            if (removed > 0) {
-                fox::log::reassembly(("Cleaned " + std::to_string(removed) + " expired streams").c_str());
             }
         }
 

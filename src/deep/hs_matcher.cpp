@@ -1,15 +1,40 @@
+/**
+ * hs_matcher.cpp - Hyperscan Multi-Pattern Matcher (BLOCK MODE)
+ * 
+ * CHANGEMENT ARCHITECTURAL CRITIQUE - Février 2026
+ * ================================================
+ * 
+ * AVANT : HS_MODE_STREAM
+ * - Créait un stream Hyperscan par connexion TCP
+ * - Maintient l'état entre les segments
+ * - PROBLÈME : 10-100x plus lent que BLOCK mode
+ * - PROBLÈME : Accumulation de streams = effondrement progressif (1500 → 200 req/sec)
+ * 
+ * APRÈS : HS_MODE_BLOCK (comme Suricata)
+ * - Un seul appel hs_scan() par buffer
+ * - Pas d'état à maintenir
+ * - Pas d'allocation/désallocation de stream
+ * - Performance maximale
+ * 
+ * Le réassemblage TCP se fait AVANT le scan :
+ * 1. TCPReassembler accumule les segments dans un buffer
+ * 2. Une fois le buffer prêt, on appelle HSMatcher::scan() en mode BLOCK
+ * 3. Pas de stream Hyperscan nécessaire
+ * 
+ * Référence : Suricata util-mpm-hs.c utilise EXCLUSIVEMENT HS_MODE_BLOCK
+ */
+
 #include "../../include/deep/hs_matcher.hpp"
 #include "../../include/utils/logger.hpp"
 #include <fstream>
 #include <vector>
-#include <set>
 #include <iostream>
 
 namespace fox::deep {
 
     HSMatcher::~HSMatcher() {
-        if (scratch) hs_free_scratch(scratch);
-        if (db) hs_free_database(db);
+        if (scratch_) hs_free_scratch(scratch_);
+        if (db_) hs_free_database(db_);
     }
 
     /**
@@ -20,34 +45,17 @@ namespace fox::deep {
      * - 'm' : HS_FLAG_MULTILINE (^ et $ matchent les lignes)
      * - 's' : HS_FLAG_DOTALL (. matche aussi \n)
      * - 'H' : HS_FLAG_SINGLEMATCH (un seul match par pattern)
-     * - 'c' : HS_FLAG_COMBINATION (logique combinatoire AND/OR)
      */
     unsigned int HSMatcher::parse_flags(const std::string& flags_str) {
         unsigned int flags = 0;
-        bool has_combination = false;
 
-        // Première passe : détecter si c'est une expression combinatoire
-        for (char c : flags_str) {
-            if (c == 'c') {
-                has_combination = true;
-                break;
-            }
-        }
-
-        // IMPORTANT: HS_FLAG_COMBINATION n'accepte que HS_FLAG_QUIET et HS_FLAG_SINGLEMATCH
-        // Tous les autres flags (CASELESS, DOTALL, etc.) sont INTERDITS avec COMBINATION
-        if (has_combination) {
-            flags = HS_FLAG_COMBINATION | HS_FLAG_SINGLEMATCH;
-            return flags;
-        }
-
-        // Pour les patterns normaux (non-combinatoires)
         for (char c : flags_str) {
             switch (c) {
                 case 'i': flags |= HS_FLAG_CASELESS; break;
                 case 'm': flags |= HS_FLAG_MULTILINE; break;
                 case 's': flags |= HS_FLAG_DOTALL; break;
                 case 'H': flags |= HS_FLAG_SINGLEMATCH; break;
+                // 'c' (combination) est ignoré - on skip ces patterns
             }
         }
 
@@ -103,21 +111,15 @@ namespace fox::deep {
                 }
 
                 // IMPORTANT: Skip les expressions combinatoires (flag 'c')
-                // HS_FLAG_COMBINATION + HS_MODE_STREAM = "unordered match" error
                 // On compile UNIQUEMENT les patterns atomiques
                 // La logique AND/OR sera gérée en C++ après le scan
                 if (f_str.find('c') != std::string::npos) {
-                    // C'est une expression combinatoire, on la skip
                     continue;
                 }
 
                 storage.push_back(regex);
                 flags.push_back(parse_flags(f_str));
                 ids.push_back(id);
-                
-                fox::log::debug("Loaded pattern ID=" + std::to_string(id) + 
-                               " flags=0x" + std::to_string(flags.back()) +
-                               " regex=" + regex.substr(0, 50) + (regex.size() > 50 ? "..." : ""));
                                
             } catch (const std::exception& e) { 
                 fox::log::debug("Parse error line " + std::to_string(line_num) + ": " + e.what());
@@ -136,16 +138,22 @@ namespace fox::deep {
             expressions.push_back(s.c_str());
         }
 
-        // IMPORTANT : HS_MODE_STREAM pour supporter le TCP Reassembly
-        hs_compile_error_t* err;
+        // =========================================================================
+        // CHANGEMENT CRITIQUE : HS_MODE_BLOCK au lieu de HS_MODE_STREAM
+        // =========================================================================
+        // Suricata utilise exclusivement HS_MODE_BLOCK pour le MPM.
+        // C'est 10-100x plus rapide que le mode STREAM.
+        // Le réassemblage TCP se fait AVANT le scan, pas pendant.
+        // =========================================================================
+        hs_compile_error_t* err = nullptr;
         hs_error_t compile_result = hs_compile_multi(
             expressions.data(), 
             flags.data(), 
             ids.data(), 
-            expressions.size(), 
-            HS_MODE_STREAM, 
+            static_cast<unsigned int>(expressions.size()), 
+            HS_MODE_BLOCK,  // <-- CRITIQUE : BLOCK au lieu de STREAM
             nullptr, 
-            &db, 
+            &db_, 
             &err
         );
         
@@ -154,7 +162,7 @@ namespace fox::deep {
             int err_expr = err ? err->expression : -1;
             
             fox::log::error("HS Compile failed: " + err_msg);
-            if (err_expr >= 0 && err_expr < (int)storage.size()) {
+            if (err_expr >= 0 && err_expr < static_cast<int>(storage.size())) {
                 fox::log::error("Problematic pattern ID=" + std::to_string(ids[err_expr]) + 
                                " : " + storage[err_expr]);
             }
@@ -163,179 +171,87 @@ namespace fox::deep {
             return false;
         }
 
-        if (hs_alloc_scratch(db, &scratch) != HS_SUCCESS) {
+        if (hs_alloc_scratch(db_, &scratch_) != HS_SUCCESS) {
             fox::log::error("Failed to allocate Hyperscan scratch space");
             return false;
         }
         
-        fox::log::info("Hyperscan compiled " + std::to_string(expressions.size()) + " patterns (Streaming Mode).");
+        pattern_count_ = expressions.size();
+        fox::log::info("Hyperscan compiled " + std::to_string(pattern_count_) + 
+                       " patterns (BLOCK Mode - High Performance)");
         return true;
     }
 
-    // Callback unique utilisé pour stopper le scan dès qu'on trouve l'ID cible
-    static int match_handler(unsigned int id, unsigned long long, unsigned long long, unsigned int, void* ctx) {
-        uint32_t target = *static_cast<uint32_t*>(ctx);
-        // Si l'ID trouvé est celui qu'on cherche, on arrête le scan
-        // Note: Pour les expressions combinatoires, Hyperscan déclenche le callback
-        // UNIQUEMENT quand toute l'expression logique est satisfaite
-        return (id == target) ? HS_SCAN_TERMINATED : 0;
-    }
-    
-    /**
-     * Callback pour scan multi-pattern : collecte TOUS les IDs matchés dans un set.
-     * Utilisé pour implémenter la logique AND/OR en C++ 
-     * (car HS_FLAG_COMBINATION n'est pas compatible avec HS_MODE_STREAM)
-     */
-    static int match_handler_collect(unsigned int id, unsigned long long, unsigned long long, unsigned int, void* ctx) {
-        std::set<uint32_t>* matched_ids = static_cast<std::set<uint32_t>*>(ctx);
-        matched_ids->insert(id);
-        // Continuer le scan pour collecter tous les matchs
-        return 0;
+    // =========================================================================
+    // CALLBACKS HYPERSCAN
+    // =========================================================================
+
+    // Callback qui retourne true dès le premier match (pour scan rapide)
+    static int match_any_callback(unsigned int /*id*/, 
+                                   unsigned long long /*from*/, 
+                                   unsigned long long /*to*/, 
+                                   unsigned int /*flags*/, 
+                                   void* ctx) {
+        bool* found = static_cast<bool*>(ctx);
+        *found = true;
+        return 1;  // Stop scan immédiatement
     }
 
-    bool HSMatcher::scan_block(std::span<const uint8_t> payload, uint32_t target_id) const {
-        if (!db || !scratch) return false;
-        uint32_t ctx = target_id;
-        
-        // En mode STREAM, on doit utiliser l'API Stream même pour un block unique
-        // car hs_scan() n'est pas supporté sur une DB compilée en STREAM
-        
-        hs_stream_t* stream = nullptr;
-        hs_error_t err = hs_open_stream(db, 0, &stream);
-        if (err != HS_SUCCESS) return false;
-
-        err = hs_scan_stream(stream, reinterpret_cast<const char*>(payload.data()), payload.size(), 0, scratch, match_handler, &ctx);
-        hs_close_stream(stream, scratch, nullptr, nullptr);
-        
-        return (err == HS_SCAN_TERMINATED);
+    // Callback qui collecte tous les IDs matchés (pour scan complet)
+    static int match_collect_callback(unsigned int id, 
+                                       unsigned long long /*from*/, 
+                                       unsigned long long /*to*/, 
+                                       unsigned int /*flags*/, 
+                                       void* ctx) {
+        std::vector<uint32_t>* matched = static_cast<std::vector<uint32_t>*>(ctx);
+        matched->push_back(id);
+        return 0;  // Continuer le scan
     }
 
-    bool HSMatcher::scan_collect_all(std::span<const uint8_t> payload, 
-                                      std::set<uint32_t>& matched_ids) const {
-        if (!db || !scratch || payload.empty()) return false;
+    // =========================================================================
+    // API PRINCIPALE - MODE BLOCK
+    // =========================================================================
+
+    bool HSMatcher::scan(const uint8_t* data, size_t len) const {
+        if (!db_ || !scratch_ || !data || len == 0) return false;
         
+        bool found = false;
+        
+        // hs_scan() direct - pas de stream, pas d'allocation
+        hs_error_t err = hs_scan(
+            db_,
+            reinterpret_cast<const char*>(data),
+            static_cast<unsigned int>(len),
+            0,           // flags
+            scratch_,
+            match_any_callback,
+            &found
+        );
+        
+        // HS_SCAN_TERMINATED signifie qu'on a trouvé un match et stoppé
+        return found || (err == HS_SCAN_TERMINATED);
+    }
+
+    bool HSMatcher::scan_collect_all(const uint8_t* data, size_t len, 
+                                      std::vector<uint32_t>& matched_ids) const {
         matched_ids.clear();
         
-        hs_stream_t* stream = nullptr;
-        hs_error_t err = hs_open_stream(db, 0, &stream);
-        if (err != HS_SUCCESS) return false;
-
-        err = hs_scan_stream(stream, reinterpret_cast<const char*>(payload.data()), 
-                             payload.size(), 0, scratch, match_handler_collect, &matched_ids);
-        hs_close_stream(stream, scratch, nullptr, nullptr);
+        if (!db_ || !scratch_ || !data || len == 0) return false;
+        
+        // Réserver de l'espace pour éviter les réallocations
+        matched_ids.reserve(32);
+        
+        hs_scan(
+            db_,
+            reinterpret_cast<const char*>(data),
+            static_cast<unsigned int>(len),
+            0,
+            scratch_,
+            match_collect_callback,
+            &matched_ids
+        );
         
         return !matched_ids.empty();
     }
 
-    hs_stream_t* HSMatcher::open_stream() {
-        if (!db) return nullptr;
-        hs_stream_t* stream = nullptr;
-        hs_error_t err = hs_open_stream(db, 0, &stream);
-        if (err != HS_SUCCESS) {
-            fox::log::debug("Failed to open Hyperscan stream");
-            return nullptr;
-        }
-        return stream;
-    }
-
-    bool HSMatcher::scan_stream(hs_stream_t* stream, std::span<const uint8_t> data, uint32_t target_id) {
-        if (!stream || !scratch) return false;
-        uint32_t ctx = target_id;
-        hs_error_t err = hs_scan_stream(stream, reinterpret_cast<const char*>(data.data()), data.size(), 0, scratch, match_handler, &ctx);
-        return (err == HS_SCAN_TERMINATED);
-    }
-
-    void HSMatcher::close_stream(hs_stream_t* stream) {
-        if (stream && scratch) {
-            hs_close_stream(stream, scratch, nullptr, nullptr);
-        }
-    }
-    
-    // ===========================================================================
-    // NOUVELLES MÉTHODES MULTI-PATTERN (AND/OR Logic en C++)
-    // ===========================================================================
-    // Ces méthodes existent car HS_FLAG_COMBINATION n'est PAS supporté en 
-    // HS_MODE_STREAM (erreur "Have unordered match in sub-expressions").
-    // 
-    // Solution : Scanner et collecter tous les IDs atomiques matchés,
-    // puis vérifier la logique AND/OR en C++.
-    // ===========================================================================
-    
-    bool HSMatcher::scan_block_multi(std::span<const uint8_t> payload, 
-                                      const std::vector<uint32_t>& atomic_ids, 
-                                      bool is_or) const {
-        if (!db || !scratch || atomic_ids.empty()) return false;
-        
-        // Cas spécial : un seul ID (pas vraiment multi, mais possible)
-        if (atomic_ids.size() == 1) {
-            return scan_block(payload, atomic_ids[0]);
-        }
-        
-        // Collecter tous les IDs qui matchent
-        std::set<uint32_t> matched_ids;
-        
-        hs_stream_t* stream = nullptr;
-        hs_error_t err = hs_open_stream(db, 0, &stream);
-        if (err != HS_SUCCESS) return false;
-        
-        err = hs_scan_stream(stream, reinterpret_cast<const char*>(payload.data()), 
-                             payload.size(), 0, scratch, match_handler_collect, &matched_ids);
-        hs_close_stream(stream, scratch, nullptr, nullptr);
-        
-        // Vérifier la logique AND/OR
-        if (is_or) {
-            // OR : Au moins UN des atomic_ids doit être présent
-            for (uint32_t id : atomic_ids) {
-                if (matched_ids.count(id) > 0) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            // AND : TOUS les atomic_ids doivent être présents
-            for (uint32_t id : atomic_ids) {
-                if (matched_ids.count(id) == 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-    
-    bool HSMatcher::scan_stream_multi(hs_stream_t* stream, 
-                                       std::span<const uint8_t> data, 
-                                       const std::vector<uint32_t>& atomic_ids, 
-                                       bool is_or) {
-        if (!stream || !scratch || atomic_ids.empty()) return false;
-        
-        // Cas spécial : un seul ID
-        if (atomic_ids.size() == 1) {
-            return scan_stream(stream, data, atomic_ids[0]);
-        }
-        
-        // Collecter tous les IDs qui matchent
-        std::set<uint32_t> matched_ids;
-        
-        hs_scan_stream(stream, reinterpret_cast<const char*>(data.data()), 
-                       data.size(), 0, scratch, match_handler_collect, &matched_ids);
-        
-        // Vérifier la logique AND/OR
-        if (is_or) {
-            // OR : Au moins UN des atomic_ids doit être présent
-            for (uint32_t id : atomic_ids) {
-                if (matched_ids.count(id) > 0) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            // AND : TOUS les atomic_ids doivent être présents
-            for (uint32_t id : atomic_ids) {
-                if (matched_ids.count(id) == 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
 }

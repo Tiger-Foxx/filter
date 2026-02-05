@@ -2,16 +2,26 @@
 #define FOX_DEEP_TCP_STREAM_HPP
 
 /**
- * TcpStream Simplex - Architecture "Bare Metal" inspirée de Suricata
+ * TcpStream Simplex - Architecture "Bare Metal" (Mode BLOCK Hyperscan)
  * 
- * OPTIMISATIONS CRITIQUES (Fichier Expert 08/12/25) :
- * ===================================================
+ * CHANGEMENT ARCHITECTURAL - Février 2026
+ * =======================================
+ * 
+ * AVANT : Chaque TcpStream possédait un hs_stream_t (Hyperscan stream context)
+ *         Problème : Allocation/libération par connexion, accumulation = effondrement
+ * 
+ * MAINTENANT : TcpStream gère UNIQUEMENT le réassemblage TCP
+ *              Le scan est fait en mode BLOCK sur le buffer complet (par l'Engine)
+ *              Plus de hs_stream_t par connexion = pas d'accumulation
+ * 
+ * OPTIMISATIONS MAINTENUES :
+ * ==========================
  * 
  * 1. SIMPLEX STREAM : On ne scanne QUE le trafic Client→Serveur
  *    - Le trafic retour (Server→Client) est ignoré (touch() seulement)
  *    - Gain : CPU divisé par 2, RAM divisée par 2
  * 
- * 2. ZERO-COPY : Paquets in-order passés directement à Hyperscan
+ * 2. ZERO-COPY : Paquets in-order passés directement
  *    - Pas de copie si seq == next_seq (99% des cas)
  *    - Copie uniquement pour les OOO (gaps)
  * 
@@ -27,9 +37,6 @@
 #include <map>
 #include <span>
 #include <chrono>
-#include <hs/hs.h>
-
-namespace fox::deep { class HSMatcher; }
 
 namespace fox::deep {
 
@@ -53,19 +60,20 @@ namespace fox::deep {
         // Profondeur max de réassemblage (1MB comme Suricata)
         static constexpr size_t REASSEMBLY_DEPTH = 1024 * 1024;
 
-        TcpStream() = default; // Pour Memory Pool
+        TcpStream() = default;
         
-        // Constructeur legacy
-        TcpStream(uint32_t seq, hs_stream_t* hs_ctx) {
-            init(seq, hs_ctx);
+        /**
+         * Constructeur simplifié (plus de hs_stream_t)
+         */
+        explicit TcpStream(uint32_t seq) {
+            init(seq);
         }
         
         /**
-         * Initialise le stream (appelé après get() du pool)
+         * Initialise le stream
          */
-        void init(uint32_t seq, hs_stream_t* hs_ctx) {
+        void init(uint32_t seq) {
             _next_seq = seq;
-            _hs_stream = hs_ctx;
             _state = State::ACTIVE;
             _buffered_bytes = 0;
             _total_scanned = 0;
@@ -74,10 +82,9 @@ namespace fox::deep {
         }
 
         /**
-         * Reset pour réutilisation par le pool
+         * Reset pour réutilisation
          */
         void reset() {
-            _hs_stream = nullptr;
             _state = State::ACTIVE;
             _buffered_bytes = 0;
             _total_scanned = 0;
@@ -85,9 +92,8 @@ namespace fox::deep {
         }
 
         // Accesseurs
-        hs_stream_t* get_hs_stream() const { return _hs_stream; }
         State get_state() const { return _state; }
-        State get_verdict() const { return _state; } // Alias
+        State get_verdict() const { return _state; }
         
         bool is_dropped() const { return _state == State::MALICIOUS; }
         void set_dropped() { _state = State::MALICIOUS; }
@@ -188,7 +194,6 @@ namespace fox::deep {
 
     private:
         uint32_t _next_seq = 0;
-        hs_stream_t* _hs_stream = nullptr;
         State _state = State::ACTIVE;
         std::chrono::steady_clock::time_point _last_activity;
         
