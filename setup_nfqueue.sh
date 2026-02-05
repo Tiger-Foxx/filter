@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# FoxEngine NFQUEUE Setup Script
+# FoxEngine NFQUEUE Setup Script (Multi-Thread)
 # =============================================================================
 # Topology:
 #   [Client 10.10.1.10] <---> [FILTREUR] <---> [Serveur 10.10.2.20]
@@ -8,8 +8,13 @@
 #   Client side:  eno3 (10.10.1.1/24)
 #   Server side:  enp5s0f0  (10.10.2.1/24)
 #
+# Multi-Queue Architecture:
+#   Le kernel distribue les paquets sur N queues via hash(5-tuple).
+#   Chaque queue est traitée par un thread dédié.
+#   Les paquets d'un même flux TCP vont toujours à la même queue.
+#
 # Usage:
-#   ./setup_nfqueue.sh          # Configure NFQUEUE (Client->Server filtered)
+#   ./setup_nfqueue.sh          # Configure NFQUEUE Multi-Queue (4 threads)
 #   ./setup_nfqueue.sh clean    # Remove all rules
 #   ./setup_nfqueue.sh status   # Show current rules
 # =============================================================================
@@ -32,7 +37,10 @@ SERVER_IP="10.10.2.20"
 CLIENT_IFACE="eno3"  # Interface côté client
 SERVER_IFACE="enp5s0f0"   # Interface côté serveur
 
-QUEUE_NUM=0
+# Multi-Queue Configuration (doit correspondre à config.hpp)
+QUEUE_START=0      # START_QUEUE_ID dans config.hpp
+QUEUE_COUNT=4      # NUM_QUEUES dans config.hpp
+QUEUE_END=$((QUEUE_START + QUEUE_COUNT - 1))
 
 # Check root
 if [ "$EUID" -ne 0 ]; then
@@ -54,8 +62,13 @@ clean_rules() {
     # Remove ALL occurrences of NFQUEUE rules (loop until none left)
     local count=0
     
-    # Remove Client->Server NFQUEUE rules
-    while iptables -D FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-num ${QUEUE_NUM} 2>/dev/null; do
+    # Remove Client->Server NFQUEUE rules (multi-queue)
+    while iptables -D FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} 2>/dev/null; do
+        ((count++))
+    done
+    
+    # Remove legacy single-queue rules (backward compat)
+    while iptables -D FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-num 0 2>/dev/null; do
         ((count++))
     done
     
@@ -64,12 +77,16 @@ clean_rules() {
         ((count++))
     done
     
-    # Also remove any generic NFQUEUE rules on queue 0 (safety)
-    while iptables -D FORWARD -j NFQUEUE --queue-num ${QUEUE_NUM} 2>/dev/null; do
+    # Also remove any generic NFQUEUE rules (safety)
+    while iptables -D FORWARD -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} 2>/dev/null; do
         ((count++))
     done
     
-    while iptables -D INPUT -j NFQUEUE --queue-num ${QUEUE_NUM} 2>/dev/null; do
+    while iptables -D FORWARD -j NFQUEUE --queue-num 0 2>/dev/null; do
+        ((count++))
+    done
+    
+    while iptables -D INPUT -j NFQUEUE --queue-num 0 2>/dev/null; do
         ((count++))
     done
     
@@ -101,22 +118,26 @@ setup_rules() {
     iptables -I FORWARD -s ${SERVER_NET} -d ${CLIENT_NET} -j ACCEPT
     
     # =========================================================================
-    # RULE 2: Client -> Server = NFQUEUE (filtered by FoxEngine)
+    # RULE 2: Client -> Server = NFQUEUE Multi-Queue (filtered by FoxEngine)
     # =========================================================================
-    echo -e "${GREEN}>>> [2/2] Client->Server: NFQUEUE (filtered)${NC}"
-    iptables -I FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-num ${QUEUE_NUM}
+    echo -e "${GREEN}>>> [2/2] Client->Server: NFQUEUE Multi-Queue (${QUEUE_COUNT} threads)${NC}"
+    iptables -I FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END}
     
     echo ""
     echo -e "${GREEN}=============================================${NC}"
-    echo -e "${GREEN}   NFQUEUE SETUP COMPLETE!${NC}"
+    echo -e "${GREEN}   NFQUEUE MULTI-THREAD SETUP COMPLETE!${NC}"
     echo -e "${GREEN}=============================================${NC}"
     echo ""
     echo -e "Traffic flow:"
-    echo -e "  ${YELLOW}Client -> Server:${NC} Inspected by FoxEngine (Queue ${QUEUE_NUM})"
+    echo -e "  ${YELLOW}Client -> Server:${NC} Inspected by FoxEngine (Queues ${QUEUE_START}-${QUEUE_END}, ${QUEUE_COUNT} threads)"
     echo -e "  ${GREEN}Server -> Client:${NC} Accepted (no inspection)"
     echo ""
+    echo -e "${BLUE}Architecture:${NC}"
+    echo -e "  Kernel hash(5-tuple) → Queue N → Thread N"
+    echo -e "  Même flux TCP = même thread (pas de locks)"
+    echo ""
     echo -e "${YELLOW}Now start FoxEngine:${NC}"
-    echo -e "  sudo ./bin/fox-engine"
+    echo -e "  sudo ./fox-engine"
     echo ""
     echo -e "${YELLOW}To remove rules later:${NC}"
     echo -e "  sudo ./setup_nfqueue.sh clean"

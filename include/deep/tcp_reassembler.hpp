@@ -41,11 +41,17 @@ namespace fox::deep {
 
     class TcpReassembler {
     public:
-        explicit TcpReassembler(HSMatcher* matcher) : _matcher(matcher) {
+        explicit TcpReassembler(HSMatcher* matcher, hs_scratch_t* scratch = nullptr) 
+            : _matcher(matcher), _scratch(scratch) {
             _sessions.reserve(fox::config::MAX_CONCURRENT_FLOWS);
         }
 
-        ~TcpReassembler() = default; // Plus de cleanup Hyperscan nécessaire
+        ~TcpReassembler() = default;
+        
+        /**
+         * Définit le scratch space (pour multi-thread, chaque thread a son scratch)
+         */
+        void set_scratch(hs_scratch_t* scratch) { _scratch = scratch; }
 
         /**
          * Check O(1) : Est-ce un flux déjà condamné ?
@@ -240,7 +246,12 @@ namespace fox::deep {
             
             if (!data.empty()) {
                 // MODE BLOCK avec collecte de tous les IDs
-                _matcher->scan_collect_all(data.data(), data.size(), matched_ids);
+                // Utilise le scratch per-thread si disponible, sinon legacy
+                if (_scratch) {
+                    _matcher->scan_collect_all(data.data(), data.size(), matched_ids, _scratch);
+                } else {
+                    _matcher->scan_collect_all(data.data(), data.size(), matched_ids);
+                }
             }
 
             if (is_fin) {
@@ -267,6 +278,7 @@ namespace fox::deep {
 
     private:
         HSMatcher* _matcher;
+        hs_scratch_t* _scratch = nullptr;  // Scratch per-thread (nullptr = utilise legacy)
         std::unordered_map<fox::core::FlowKey, TcpSession, fox::core::FlowKeyHash> _sessions;
         uint64_t _ops = 0;
 

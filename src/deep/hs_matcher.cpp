@@ -178,8 +178,22 @@ namespace fox::deep {
         
         pattern_count_ = expressions.size();
         fox::log::info("Hyperscan compiled " + std::to_string(pattern_count_) + 
-                       " patterns (BLOCK Mode - High Performance)");
+                       " patterns (BLOCK Mode - Multi-Thread Ready)");
         return true;
+    }
+
+    // =========================================================================
+    // MULTI-THREAD SUPPORT
+    // =========================================================================
+    
+    hs_scratch_t* HSMatcher::alloc_scratch_for_thread() const {
+        if (!db_) return nullptr;
+        
+        hs_scratch_t* thread_scratch = nullptr;
+        if (hs_alloc_scratch(db_, &thread_scratch) != HS_SUCCESS) {
+            return nullptr;
+        }
+        return thread_scratch;
     }
 
     // =========================================================================
@@ -209,49 +223,57 @@ namespace fox::deep {
     }
 
     // =========================================================================
-    // API PRINCIPALE - MODE BLOCK
+    // API THREAD-SAFE (avec scratch fourni)
     // =========================================================================
 
-    bool HSMatcher::scan(const uint8_t* data, size_t len) const {
-        if (!db_ || !scratch_ || !data || len == 0) return false;
+    bool HSMatcher::scan(const uint8_t* data, size_t len, hs_scratch_t* scratch) const {
+        if (!db_ || !scratch || !data || len == 0) return false;
         
         bool found = false;
-        
-        // hs_scan() direct - pas de stream, pas d'allocation
         hs_error_t err = hs_scan(
             db_,
             reinterpret_cast<const char*>(data),
             static_cast<unsigned int>(len),
-            0,           // flags
-            scratch_,
+            0,
+            scratch,
             match_any_callback,
             &found
         );
         
-        // HS_SCAN_TERMINATED signifie qu'on a trouvé un match et stoppé
         return found || (err == HS_SCAN_TERMINATED);
     }
 
     bool HSMatcher::scan_collect_all(const uint8_t* data, size_t len, 
-                                      std::vector<uint32_t>& matched_ids) const {
+                                      std::vector<uint32_t>& matched_ids,
+                                      hs_scratch_t* scratch) const {
         matched_ids.clear();
+        if (!db_ || !scratch || !data || len == 0) return false;
         
-        if (!db_ || !scratch_ || !data || len == 0) return false;
-        
-        // Réserver de l'espace pour éviter les réallocations
         matched_ids.reserve(32);
-        
         hs_scan(
             db_,
             reinterpret_cast<const char*>(data),
             static_cast<unsigned int>(len),
             0,
-            scratch_,
+            scratch,
             match_collect_callback,
             &matched_ids
         );
         
         return !matched_ids.empty();
+    }
+
+    // =========================================================================
+    // API LEGACY (mono-thread, utilise scratch_ interne)
+    // =========================================================================
+
+    bool HSMatcher::scan(const uint8_t* data, size_t len) const {
+        return scan(data, len, scratch_);
+    }
+
+    bool HSMatcher::scan_collect_all(const uint8_t* data, size_t len, 
+                                      std::vector<uint32_t>& matched_ids) const {
+        return scan_collect_all(data, len, matched_ids, scratch_);
     }
 
 }

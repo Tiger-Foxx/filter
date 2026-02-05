@@ -1,18 +1,27 @@
+/**
+ * FOX Engine - Multi-Thread IPS
+ * 
+ * Architecture Multi-Queue NFQUEUE pour scalabilité linéaire.
+ * 
+ * Configuration iptables requise:
+ *   sudo iptables -A FORWARD -j NFQUEUE --queue-balance 0:3
+ * 
+ * Le kernel distribue les paquets sur les queues par hash(5-tuple),
+ * garantissant que les paquets d'un même flux TCP vont au même thread.
+ */
+
 #include "../include/io/loader.hpp"
 #include "../include/io/nfqueue.hpp"
-#include "../include/core/engine.hpp"
 #include "../include/utils/logger.hpp"
 #include "../include/config.hpp"
-// Index composite (IP Trie + Port Hash) pour lookup O(1)
 #include "../include/fastpath/rule_index.hpp"
 #include "../include/deep/hs_matcher.hpp"
 
 #include <csignal>
 #include <iostream>
-#include <thread>
 
 // Pointeur global pour l'arrêt propre via Signal Handler
-fox::io::NFQueue* g_queue = nullptr;
+fox::io::NFQueueMulti* g_queue = nullptr;
 
 void signal_handler(int sig) {
     if (g_queue) {
@@ -28,10 +37,12 @@ int main() {
     std::signal(SIGINT, signal_handler);
     std::signal(SIGTERM, signal_handler);
 
-    fox::log::info("=== FOX ENGINE (Research PoC - Composite Index) ===");
+    uint32_t num_threads = fox::config::get_num_queues();
+    
+    fox::log::info("=== FOX ENGINE (Multi-Thread IPS) ===");
+    fox::log::info("Threads: " + std::to_string(num_threads));
 
     // 2. Structures de données Persistantes (Heap)
-    // CompositeRuleIndex = IP Radix Trie + Port Hash Map pour O(1) lookup
     auto* index = new fox::fastpath::CompositeRuleIndex<fox::core::RuleDefinition>();
     auto* matcher = new fox::deep::HSMatcher();
 
@@ -41,22 +52,19 @@ int main() {
         return 1;
     }
 
-    // 4. Init Engine Singleton
-    fox::core::Engine::instance().init(index, matcher);
-
-    // 5. Init Network Interface
-    fox::io::NFQueue nfqueue(fox::config::NFQUEUE_ID);
+    // 4. Init Multi-Queue NFQUEUE
+    fox::io::NFQueueMulti nfqueue(fox::config::START_QUEUE_ID, num_threads);
     g_queue = &nfqueue;
 
-    if (!nfqueue.init()) {
-        fox::log::error("Critical: Failed to bind NFQUEUE.");
+    if (!nfqueue.init(index, matcher)) {
+        fox::log::error("Critical: Failed to initialize NFQUEUE workers.");
         return 1;
     }
 
-    // 6. Run (Bloquant)
+    // 5. Run (Lance tous les threads workers)
     nfqueue.run();
 
-    // 7. Cleanup (Atteint après Ctrl+C)
+    // 6. Cleanup (Atteint après Ctrl+C)
     delete index;
     delete matcher;
     
