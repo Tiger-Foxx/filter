@@ -327,30 +327,49 @@ MessagePack array of rule objects. Each rule:
 
 ---
 
-## 7. Build & Run
+## 7. Build & Execution
 
 ### Prerequisites (Debian/Ubuntu)
+The following libraries are required for compilation and runtime:
 ```bash
 sudo apt install -y build-essential cmake \
     libnetfilter-queue-dev libnfnetlink-dev libmnl-dev \
     libhyperscan-dev libmsgpack-dev pkg-config
 ```
 
-### Compilation
-```bash
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j$(nproc)
-```
+### 7.1 Compilation (Using build.sh)
+It is highly recommended to use the provided `build.sh` script. It automatically calculates the best thread count for compilation and organizes the output.
 
-### Execution
 ```bash
-# 1. Setup NFQUEUE (once)
+# General usage
+./build.sh [debug|release|clean]
+
+# Recommended build
+chmod +x build.sh
+./build.sh release
+```
+The resulting binary will be placed in the `bin/` directory.
+
+### 7.2 Environment Setup (Using setup_nfqueue.sh)
+Before running the engine, the Linux kernel must be configured to route traffic to the `NFQUEUE` subsystem. The `setup_nfqueue.sh` script handles iptables rules, IP forwarding, and RPS (Receive Packet Steering) for optimal multi-core performance.
+
+**Note**: You should verify the interface names (`CLIENT_IFACE`, `SERVER_IFACE`) and networks (`CLIENT_NET`, `SERVER_NET`) inside the script before running it.
+
+**Commands:**
+- `sudo ./setup_nfqueue.sh`: Full setup. Diverts traffic from Client to Server into Queues 0-3 and enables automated RPS on NICs.
+- `sudo ./setup_nfqueue.sh status`: Verifies that the rules are correctly injected and shows packet counters.
+- `sudo ./setup_nfqueue.sh clean`: Removesthe FoxEngine rules and restores default forwarding.
+
+### 7.3 Running the Engine
+The engine requires root privileges to bind to the Netfilter queues.
+
+```bash
+# 1. Setup the environment
 sudo ./setup_nfqueue.sh
 
-# 2. Run engine (requires root for Netfilter binding)
-sudo ./build/fox-engine
+# 2. Run the engine (from the root or bin directory)
+sudo ./bin/fox-engine
 
-# 3. Teardown
-sudo ./setup_nfqueue.sh clean
+# 3. Monitor performance
+# The engine will display per-thread statistics every 5 seconds.
 ```
