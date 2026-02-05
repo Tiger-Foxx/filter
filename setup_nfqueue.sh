@@ -62,7 +62,12 @@ clean_rules() {
     # Remove ALL occurrences of NFQUEUE rules (loop until none left)
     local count=0
     
-    # Remove Client->Server NFQUEUE rules (multi-queue)
+    # Remove Client->Server NFQUEUE rules (multi-queue with cpu-fanout)
+    while iptables -D FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} --queue-cpu-fanout 2>/dev/null; do
+        ((count++))
+    done
+    
+    # Remove Client->Server NFQUEUE rules (multi-queue without cpu-fanout)
     while iptables -D FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} 2>/dev/null; do
         ((count++))
     done
@@ -78,6 +83,10 @@ clean_rules() {
     done
     
     # Also remove any generic NFQUEUE rules (safety)
+    while iptables -D FORWARD -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} --queue-cpu-fanout 2>/dev/null; do
+        ((count++))
+    done
+    
     while iptables -D FORWARD -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} 2>/dev/null; do
         ((count++))
     done
@@ -119,9 +128,32 @@ setup_rules() {
     
     # =========================================================================
     # RULE 2: Client -> Server = NFQUEUE Multi-Queue (filtered by FoxEngine)
+    # --queue-cpu-fanout : Utilise le CPU qui traite le paquet pour choisir la queue
+    # Combiné avec RPS, ça distribue mieux les paquets sur les threads
     # =========================================================================
-    echo -e "${GREEN}>>> [2/2] Client->Server: NFQUEUE Multi-Queue (${QUEUE_COUNT} threads)${NC}"
-    iptables -I FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END}
+    echo -e "${GREEN}>>> [2/2] Client->Server: NFQUEUE Multi-Queue (${QUEUE_COUNT} threads, CPU fanout)${NC}"
+    iptables -I FORWARD -s ${CLIENT_NET} -d ${SERVER_NET} -j NFQUEUE --queue-balance ${QUEUE_START}:${QUEUE_END} --queue-cpu-fanout
+    
+    # =========================================================================
+    # ACTIVER RPS (Receive Packet Steering) pour distribuer les paquets sur les CPUs
+    # =========================================================================
+    echo -e "${BLUE}>>> Enabling RPS (Receive Packet Steering) on interfaces...${NC}"
+    
+    # Calculer le masque CPU (tous les CPUs)
+    NUM_CPUS=$(nproc)
+    CPU_MASK=$(printf '%x' $((2**NUM_CPUS - 1)))
+    
+    # Activer RPS sur l'interface client
+    if [ -d "/sys/class/net/${CLIENT_IFACE}/queues/rx-0" ]; then
+        echo ${CPU_MASK} > /sys/class/net/${CLIENT_IFACE}/queues/rx-0/rps_cpus 2>/dev/null || true
+        echo -e "  RPS enabled on ${CLIENT_IFACE} (mask: ${CPU_MASK})"
+    fi
+    
+    # Activer RPS sur l'interface serveur  
+    if [ -d "/sys/class/net/${SERVER_IFACE}/queues/rx-0" ]; then
+        echo ${CPU_MASK} > /sys/class/net/${SERVER_IFACE}/queues/rx-0/rps_cpus 2>/dev/null || true
+        echo -e "  RPS enabled on ${SERVER_IFACE} (mask: ${CPU_MASK})"
+    fi
     
     echo ""
     echo -e "${GREEN}=============================================${NC}"
