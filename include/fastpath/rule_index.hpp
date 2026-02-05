@@ -2,28 +2,28 @@
 #define FOX_FASTPATH_RULE_INDEX_HPP
 
 /**
- * RuleIndex - Index composite IP + Port pour lookup O(1)
+ * RuleIndex - Composite IP + Port index for O(1) lookup
  * 
- * PROBLÈME RÉSOLU:
+ * PROBLEM SOLVED:
  * ================
- * L'ancien Radix Trie retournait TOUTES les règles avec src_ip=any (214 règles!)
- * car toutes matchaient 0.0.0.0/0 à la racine du Trie.
- * Résultat: Scan linéaire O(N) de toutes les règles = PIRE que Snort!
+ * The previous Radix Trie returned ALL rules with src_ip=any (e.g. 214 rules!)
+ * because they all matched 0.0.0.0/0 at the root of the Trie.
+ * Result: Linear O(N) scan of all rules = WORSE than Snort!
  * 
  * SOLUTION:
  * =========
- * Index à deux niveaux:
- *   1. Radix Trie sur IP Source (comme avant)
- *   2. Hash Map sur Port Destination (NOUVEAU)
+ * Two-level index:
+ *   1. Radix Trie on Source IP (as before)
+ *   2. Hash Map on Destination Port (NEW)
  * 
- * Complexité: O(32) + O(1) = O(1) constant
+ * Complexity: O(32) + O(1) = O(1) constant
  * 
  * STRUCTURE:
  * ==========
- * IP Source → {
- *     port 80   → [règle1, règle2]
- *     port 443  → [règle3]
- *     port ANY  → [règle4, règle5]  // Règles avec dst_port = any
+ * Source IP → {
+ *     port 80   → [rule1, rule2]
+ *     port 443  → [rule3]
+ *     port ANY  → [rule4, rule5]  // Rules with dst_port = any
  * }
  */
 
@@ -38,37 +38,37 @@
 
 namespace fox::fastpath {
 
-    // Port spécial pour les règles qui matchent "any" port
+    //Port spécial pour les règles qui matchent "any" port
     static constexpr uint32_t PORT_ANY = 0xFFFFFFFF;
 
     /**
-     * Index des règles par port destination.
-     * Permet un lookup O(1) après le filtrage IP.
+     * Rule index by destination port.
+     * Enables O(1) lookup after IP filtering.
      */
     template <typename T>
     class PortIndex {
     public:
         /**
-         * Ajoute une règle à l'index.
-         * Si la règle a des ports spécifiques, indexe par chaque port.
-         * Si la règle a port=any, indexe sous PORT_ANY.
+         * Adds a rule to the index.
+         * If the rule has specific ports, index by each port.
+         * If the rule has port=any, index under PORT_ANY.
          */
         void add_rule(T* rule) {
             if (rule->dst_ports.empty()) {
-                // Port = any → accessible via PORT_ANY
+                // Port = any -> accessible via PORT_ANY
                 any_port_rules.push_back(rule);
             } else {
-                // Indexer par chaque port/range
+                // Index by each port/range
                 for (const auto& range : rule->dst_ports) {
-                    // Pour les ranges larges (ex: 0-65535), on les met dans any_port
+                    // For wide ranges (e.g. 0-65535), put in any_port
                     if (range.start == 0 && range.end == 65535) {
                         any_port_rules.push_back(rule);
                     } else if (range.end - range.start > 100) {
-                        // Range trop large pour indexer individuellement
-                        // On le met dans une liste de ranges à vérifier
+                        // Range too wide to index individually
+                        // Put in a list of ranges to verify
                         wide_range_rules.push_back(rule);
                     } else {
-                        // Range petit: indexer chaque port individuellement
+                        // Small range: index each port individually
                         for (uint32_t p = range.start; p <= range.end; ++p) {
                             port_map[p].push_back(rule);
                         }
@@ -78,13 +78,13 @@ namespace fox::fastpath {
         }
 
         /**
-         * Récupère les règles qui matchent un port donné.
-         * Complexité: O(1) pour le lookup + O(k) pour les rules any/wide
+         * Retrieves rules matching a given port.
+         * Complexity: O(1) for lookup + O(k) for any/wide rules
          */
         std::vector<const T*> get_rules(uint16_t port) const {
             std::vector<const T*> result;
             
-            // 1. Règles avec ce port spécifique
+            // 1. Rules with this specific port
             auto it = port_map.find(port);
             if (it != port_map.end()) {
                 for (T* r : it->second) {
@@ -92,12 +92,12 @@ namespace fox::fastpath {
                 }
             }
             
-            // 2. Règles avec port = any
+            // 2. Rules with port = any
             for (T* r : any_port_rules) {
                 result.push_back(r);
             }
             
-            // 3. Règles avec ranges larges (vérification nécessaire)
+            // 3. Rules with wide ranges (verification required)
             for (T* r : wide_range_rules) {
                 for (const auto& range : r->dst_ports) {
                     if (port >= range.start && port <= range.end) {
@@ -112,25 +112,25 @@ namespace fox::fastpath {
 
     private:
         std::unordered_map<uint32_t, std::vector<T*>> port_map;  // port → rules
-        std::vector<T*> any_port_rules;   // Règles avec port = any (0-65535)
-        std::vector<T*> wide_range_rules; // Règles avec ranges larges à vérifier
+        std::vector<T*> any_port_rules;   // Rules with port = any (0-65535)
+        std::vector<T*> wide_range_rules; // Rules with wide ranges to verify
     };
 
     /**
-     * Nœud du Radix Trie avec index de ports intégré.
+     * Radix Trie node with integrated port index.
      */
     template <typename T>
     struct IndexedTrieNode {
         std::unique_ptr<IndexedTrieNode> left;
         std::unique_ptr<IndexedTrieNode> right;
-        PortIndex<T> port_index;  // Index des ports pour ce préfixe IP
+        PortIndex<T> port_index;  // Port index for this IP prefix
 
-        bool has_rules() const { return true; } // Simplifié
+        bool has_rules() const { return true; } // Simplified
     };
 
     /**
-     * Index composite: Radix Trie (IP) + Hash Map (Port)
-     * Complexité totale: O(32) + O(1) = O(1)
+     * Composite index: Radix Trie (IP) + Hash Map (Port)
+     * Total complexity: O(32) + O(1) = O(1)
      */
     template <typename T>
     class CompositeRuleIndex {
@@ -138,10 +138,10 @@ namespace fox::fastpath {
         CompositeRuleIndex() : root(std::make_unique<IndexedTrieNode<T>>()) {}
 
         /**
-         * Insère une règle dans l'index composite.
-         * La règle est indexée par:
-         *   1. Son IP source (dans le Radix Trie)
-         *   2. Son port destination (dans le PortIndex du nœud)
+         * Inserts a rule into the composite index.
+         * The rule is indexed by:
+         *   1. Its source IP (in the Radix Trie)
+         *   2. Its destination port (in the node's PortIndex)
          */
         void insert(T* rule) {
             for (const auto& cidr_str : rule->src_ips) {
@@ -166,24 +166,24 @@ namespace fox::fastpath {
                     }
                 }
 
-                // Ajouter la règle dans le PortIndex de ce nœud
+                // Add rule to the PortIndex of this node
                 current->port_index.add_rule(rule);
             }
         }
 
         /**
-         * Lookup composite: IP + Port en O(1).
-         * Retourne les règles qui matchent EXACTEMENT cette combinaison IP:Port.
+         * Composite lookup: IP + Port in O(1).
+         * Returns rules matching EXACTLY this IP:Port combination.
          */
         std::vector<const T*> lookup(uint32_t src_ip_host_order, uint16_t dst_port) const {
             std::vector<const T*> all_matches;
             const IndexedTrieNode<T>* current = root.get();
 
-            // Collecter depuis la racine (0.0.0.0/0)
+            // Collect from root (0.0.0.0/0)
             auto root_rules = current->port_index.get_rules(dst_port);
             all_matches.insert(all_matches.end(), root_rules.begin(), root_rules.end());
 
-            // Descendre dans le Trie
+            // Descend into the Trie
             for (int i = 0; i < 32; ++i) {
                 bool bit = (src_ip_host_order >> (31 - i)) & 1;
 
@@ -195,7 +195,7 @@ namespace fox::fastpath {
                     current = current->left.get();
                 }
 
-                // Collecter les règles de ce nœud qui matchent le port
+                // Collect rules from this node matching the port
                 auto node_rules = current->port_index.get_rules(dst_port);
                 all_matches.insert(all_matches.end(), node_rules.begin(), node_rules.end());
             }
@@ -207,7 +207,7 @@ namespace fox::fastpath {
         std::unique_ptr<IndexedTrieNode<T>> root;
 
         static bool parse_cidr(const std::string& cidr, uint32_t& out_ip, int& out_len) {
-            // Cas spécial "any" = 0.0.0.0/0
+            // Special case "any" = 0.0.0.0/0
             if (cidr == "any" || cidr == "0.0.0.0/0") {
                 out_ip = 0;
                 out_len = 0;
@@ -235,4 +235,4 @@ namespace fox::fastpath {
 
 }
 
-#endif // FOX_FASTPATH_RULE_INDEX_HPP
+#endif //FOX_FASTPATH_RULE_INDEX_HPP

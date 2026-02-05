@@ -1,27 +1,5 @@
 /**
  * hs_matcher.cpp - Hyperscan Multi-Pattern Matcher (BLOCK MODE)
- * 
- * CHANGEMENT ARCHITECTURAL CRITIQUE - Février 2026
- * ================================================
- * 
- * AVANT : HS_MODE_STREAM
- * - Créait un stream Hyperscan par connexion TCP
- * - Maintient l'état entre les segments
- * - PROBLÈME : 10-100x plus lent que BLOCK mode
- * - PROBLÈME : Accumulation de streams = effondrement progressif (1500 → 200 req/sec)
- * 
- * APRÈS : HS_MODE_BLOCK (comme Suricata)
- * - Un seul appel hs_scan() par buffer
- * - Pas d'état à maintenir
- * - Pas d'allocation/désallocation de stream
- * - Performance maximale
- * 
- * Le réassemblage TCP se fait AVANT le scan :
- * 1. TCPReassembler accumule les segments dans un buffer
- * 2. Une fois le buffer prêt, on appelle HSMatcher::scan() en mode BLOCK
- * 3. Pas de stream Hyperscan nécessaire
- * 
- * Référence : Suricata util-mpm-hs.c utilise EXCLUSIVEMENT HS_MODE_BLOCK
  */
 
 #include "../../include/deep/hs_matcher.hpp"
@@ -38,13 +16,13 @@ namespace fox::deep {
     }
 
     /**
-     * Parse les flags du format patterns.txt vers les flags Hyperscan.
+     * Parses flags from patterns.txt format to Hyperscan flags.
      * 
-     * Flags supportés:
+     * Supported flags:
      * - 'i' : HS_FLAG_CASELESS (case-insensitive)
-     * - 'm' : HS_FLAG_MULTILINE (^ et $ matchent les lignes)
-     * - 's' : HS_FLAG_DOTALL (. matche aussi \n)
-     * - 'H' : HS_FLAG_SINGLEMATCH (un seul match par pattern)
+     * - 'm' : HS_FLAG_MULTILINE (^ and $ match lines)
+     * - 's' : HS_FLAG_DOTALL (. also matches \n)
+     * - 'H' : HS_FLAG_SINGLEMATCH (only one match per pattern)
      */
     unsigned int HSMatcher::parse_flags(const std::string& flags_str) {
         unsigned int flags = 0;
@@ -55,11 +33,11 @@ namespace fox::deep {
                 case 'm': flags |= HS_FLAG_MULTILINE; break;
                 case 's': flags |= HS_FLAG_DOTALL; break;
                 case 'H': flags |= HS_FLAG_SINGLEMATCH; break;
-                // 'c' (combination) est ignoré - on skip ces patterns
+                // 'c' (combination) is ignored - we skip these patterns
             }
         }
 
-        // Si pas de flags spécifiés, ajouter DOTALL par défaut
+        // Default to DOTALL if no flags specified
         if (flags == 0) {
             flags = HS_FLAG_DOTALL;
         }
@@ -76,9 +54,7 @@ namespace fox::deep {
             return false;
         }
 
-        // On stocke d'abord toutes les chaînes pour garantir la stabilité mémoire,
-        // puis on prendra les c_str() après la boucle (évite les pointeurs invalides
-        // dus aux réallocations de vector pendant le push_back).
+        // Store strings first to ensure memory stability before taking c_str() pointers.
         std::vector<std::string> storage;
         std::vector<unsigned int> flags;
         std::vector<unsigned int> ids;
@@ -104,15 +80,15 @@ namespace fox::deep {
                 std::string regex = line.substr(s1 + 1, s2 - s1 - 1);
                 std::string f_str = line.substr(s2 + 1);
 
-                // Skip les patterns vides
+                // Skip empty patterns
                 if (regex.empty()) {
                     fox::log::debug("Skipping empty pattern at line " + std::to_string(line_num));
                     continue;
                 }
 
-                // IMPORTANT: Skip les expressions combinatoires (flag 'c')
-                // On compile UNIQUEMENT les patterns atomiques
-                // La logique AND/OR sera gérée en C++ après le scan
+                // IMPORTANT: Skip combinatorial expressions (flag 'c')
+                // We ONLY compile atomic patterns. 
+                // AND/OR logic is handled in C++ after scanning.
                 if (f_str.find('c') != std::string::npos) {
                     continue;
                 }
@@ -129,29 +105,29 @@ namespace fox::deep {
 
         if (storage.empty()) {
             fox::log::info("No patterns found in file.");
-            return true; // Pas une erreur fatale
+            return true; //Pas une erreur fatale
         }
 
-        // Maintenant que storage ne bougera plus, on peut référencer les c_str()
+        //Maintenant que storage ne bougera plus, on peut référencer les c_str()
         expressions.reserve(storage.size());
         for (const auto& s : storage) {
             expressions.push_back(s.c_str());
         }
 
-        // =========================================================================
-        // CHANGEMENT CRITIQUE : HS_MODE_BLOCK au lieu de HS_MODE_STREAM
-        // =========================================================================
-        // Suricata utilise exclusivement HS_MODE_BLOCK pour le MPM.
-        // C'est 10-100x plus rapide que le mode STREAM.
-        // Le réassemblage TCP se fait AVANT le scan, pas pendant.
-        // =========================================================================
+       
+        //CHANGEMENT CRITIQUE : HS_MODE_BLOCK au lieu de HS_MODE_STREAM
+       
+        //Suricata utilise exclusivement HS_MODE_BLOCK pour le MPM.
+        //C'est 10-100x plus rapide que le mode STREAM.
+        //Le réassemblage TCP se fait AVANT le scan, pas pendant.
+       
         hs_compile_error_t* err = nullptr;
         hs_error_t compile_result = hs_compile_multi(
             expressions.data(), 
             flags.data(), 
             ids.data(), 
             static_cast<unsigned int>(expressions.size()), 
-            HS_MODE_BLOCK,  // <-- CRITIQUE : BLOCK au lieu de STREAM
+            HS_MODE_BLOCK,  //<-- CRITIQUE : BLOCK au lieu de STREAM
             nullptr, 
             &db_, 
             &err
@@ -182,9 +158,9 @@ namespace fox::deep {
         return true;
     }
 
-    // =========================================================================
-    // MULTI-THREAD SUPPORT
-    // =========================================================================
+   
+    //MULTI-THREAD SUPPORT
+   
     
     hs_scratch_t* HSMatcher::alloc_scratch_for_thread() const {
         if (!db_) return nullptr;
@@ -196,11 +172,11 @@ namespace fox::deep {
         return thread_scratch;
     }
 
-    // =========================================================================
-    // CALLBACKS HYPERSCAN
-    // =========================================================================
+   
+    //CALLBACKS HYPERSCAN
+   
 
-    // Callback qui retourne true dès le premier match (pour scan rapide)
+    //Callback qui retourne true dès le premier match (pour scan rapide)
     static int match_any_callback(unsigned int /*id*/, 
                                    unsigned long long /*from*/, 
                                    unsigned long long /*to*/, 
@@ -208,10 +184,10 @@ namespace fox::deep {
                                    void* ctx) {
         bool* found = static_cast<bool*>(ctx);
         *found = true;
-        return 1;  // Stop scan immédiatement
+        return 1;  //Stop scan immédiatement
     }
 
-    // Callback qui collecte tous les IDs matchés (pour scan complet)
+    //Callback qui collecte tous les IDs matchés (pour scan complet)
     static int match_collect_callback(unsigned int id, 
                                        unsigned long long /*from*/, 
                                        unsigned long long /*to*/, 
@@ -219,12 +195,12 @@ namespace fox::deep {
                                        void* ctx) {
         std::vector<uint32_t>* matched = static_cast<std::vector<uint32_t>*>(ctx);
         matched->push_back(id);
-        return 0;  // Continuer le scan
+        return 0;  //Continuer le scan
     }
 
-    // =========================================================================
-    // API THREAD-SAFE (avec scratch fourni)
-    // =========================================================================
+   
+    //API THREAD-SAFE (avec scratch fourni)
+   
 
     bool HSMatcher::scan(const uint8_t* data, size_t len, hs_scratch_t* scratch) const {
         if (!db_ || !scratch || !data || len == 0) return false;
@@ -263,9 +239,9 @@ namespace fox::deep {
         return !matched_ids.empty();
     }
 
-    // =========================================================================
-    // API LEGACY (mono-thread, utilise scratch_ interne)
-    // =========================================================================
+   
+    //API LEGACY (mono-thread, utilise scratch_ interne)
+   
 
     bool HSMatcher::scan(const uint8_t* data, size_t len) const {
         return scan(data, len, scratch_);

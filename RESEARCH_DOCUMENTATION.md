@@ -35,9 +35,9 @@ Dans les architectures de sécurité réseau traditionnelles, le trafic traverse
 ### 1.2 Mesure du Problème
 
 Sur notre banc de test CloudLab (8 cores), une chaîne traditionnelle composée de :
-- **iptables** (Firewall L3/L4)
-- **Suricata** (IPS)
-- **ModSecurity** (WAF)
+- **iptables** (Firewall L3/L4) x1
+- **Suricata** (IPS) x1 sachant qu'on peut augmenter le nombre et plus on augmente plus ca ralenti
+- **ModSecurity** (WAF) x1 sachant qu'on peut augmenter le nombre et plus on augmente plus ca ralenti
 
 **Résultat** : ~2000 req/sec maximum, avec une latence élevée.
 
@@ -573,9 +573,9 @@ Transfer/sec:      1.62MB
 
 ### 7.3 Quand Éviter FOX
 
-- ❌ Besoin de **forensics** et alertes détaillées
-- ❌ Règles qui changent **fréquemment** (recompilation Hyperscan coûteuse)
-- ❌ Inspection **bidirectionnelle** requise
+-  Besoin de **forensics** et alertes détaillées
+-  Règles qui changent **fréquemment** (recompilation Hyperscan coûteuse)
+-  Inspection **bidirectionnelle** requise
 
 ---
 

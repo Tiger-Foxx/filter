@@ -32,11 +32,11 @@
 
 namespace fox::deep {
 
-    // Session Unidirectionnelle (Optimisée pour Client -> Serveur)
+    //Session Unidirectionnelle (Optimisée pour Client -> Serveur)
     struct TcpSession {
-        uint32_t client_ip = 0;           // L'IP qu'on surveille (Source de l'attaque)
-        std::unique_ptr<TcpStream> stream; // Réassemblage TCP uniquement
-        bool malicious = false;            // Verdict caché
+        uint32_t client_ip = 0;           //L'IP qu'on surveille (Source de l'attaque)
+        std::unique_ptr<TcpStream> stream; //Réassemblage TCP uniquement
+        bool malicious = false;            //Verdict caché
     };
 
     class TcpReassembler {
@@ -102,10 +102,10 @@ namespace fox::deep {
                             bool is_rst,
                             std::span<const uint8_t> payload) {
 
-            // Maintenance légère (tous les 2048 paquets)
+            //Maintenance légère (tous les 2048 paquets)
             if ((++_ops & 0x7FF) == 0) cleanup();
 
-            // RST = Reset brutal
+            //RST = Reset brutal
             if (is_rst) {
                 remove_session(key);
                 return false;
@@ -113,9 +113,9 @@ namespace fox::deep {
 
             auto it = _sessions.find(key);
 
-            // Nouveau flux
+            //Nouveau flux
             if (it == _sessions.end()) {
-                // On n'accepte de créer un état QUE sur un SYN
+                //On n'accepte de créer un état QUE sur un SYN
                 if (!is_syn) return false;
 
                 if (_sessions.size() >= fox::config::MAX_CONCURRENT_FLOWS) {
@@ -128,7 +128,7 @@ namespace fox::deep {
                 TcpSession session;
                 session.client_ip = src_ip;
                 
-                // +1 si SYN pour consommer le numéro de séquence virtuel
+                //+1 si SYN pour consommer le numéro de séquence virtuel
                 uint32_t init_seq = seq + 1;
                 session.stream = std::make_unique<TcpStream>(init_seq);
                 
@@ -137,40 +137,40 @@ namespace fox::deep {
 
             TcpSession& session = it->second;
 
-            // Fast Drop si déjà condamné
+            //Fast Drop si déjà condamné
             if (session.malicious) {
                 if (is_fin) {
                     remove_session(key);
                 }
-                return true; // Maintenir le DROP
+                return true; //Maintenir le DROP
             }
 
-            // =========================================================
-            // DISCRIMINATION DIRECTIONNELLE (L'Optimisation Simplex)
-            // =========================================================
+            //=========================================================
+            //DISCRIMINATION DIRECTIONNELLE (L'Optimisation Simplex)
+            //=========================================================
             if (src_ip != session.client_ip) {
-                // TRAFIC RETOUR (Serveur -> Client)
-                // On garde la session en vie (évite timeout), mais ZÉRO scan
+                //TRAFIC RETOUR (Serveur -> Client)
+                //On garde la session en vie (évite timeout), mais ZÉRO scan
                 session.stream->touch();
                 
                 if (is_fin) remove_session(key);
-                return false; // PASS immédiat
+                return false; //PASS immédiat
             }
 
-            // =========================================================
-            // TRAFIC MONTANT (Client -> Serveur) -> INSPECTION
-            // =========================================================
+            //=========================================================
+            //TRAFIC MONTANT (Client -> Serveur) -> INSPECTION
+            //=========================================================
             
-            // Ajustement seq pour le SYN initial déjà consommé
+            //Ajustement seq pour le SYN initial déjà consommé
             uint32_t effective_seq = is_syn ? seq + 1 : seq;
             
-            // Réassemblage (retourne données ordonnées via zero-copy)
+            //Réassemblage (retourne données ordonnées via zero-copy)
             auto data = session.stream->push_segment_zerocopy(effective_seq, payload);
             
-            // Scan s'il y a des données ordonnées
+            //Scan s'il y a des données ordonnées
             bool matched = false;
             if (!data.empty()) {
-                // MODE BLOCK : Un seul appel hs_scan(), pas de stream
+                //MODE BLOCK : Un seul appel hs_scan(), pas de stream
                 matched = _matcher->scan(data.data(), data.size());
                 
                 if (matched) {
@@ -179,7 +179,7 @@ namespace fox::deep {
                 }
             }
 
-            // Fin de connexion
+            //Fin de connexion
             if (is_fin) {
                 remove_session(key);
             }
@@ -245,8 +245,8 @@ namespace fox::deep {
             auto data = session.stream->push_segment_zerocopy(effective_seq, payload);
             
             if (!data.empty()) {
-                // MODE BLOCK avec collecte de tous les IDs
-                // Utilise le scratch per-thread si disponible, sinon legacy
+                //MODE BLOCK avec collecte de tous les IDs
+                //Utilise le scratch per-thread si disponible, sinon legacy
                 if (_scratch) {
                     _matcher->scan_collect_all(data.data(), data.size(), matched_ids, _scratch);
                 } else {
@@ -258,7 +258,7 @@ namespace fox::deep {
                 remove_session(key);
             }
 
-            return false; // Le DROP sera déterminé par l'Engine
+            return false; //Le DROP sera déterminé par l'Engine
         }
 
         /**
@@ -278,7 +278,7 @@ namespace fox::deep {
 
     private:
         HSMatcher* _matcher;
-        hs_scratch_t* _scratch = nullptr;  // Scratch per-thread (nullptr = utilise legacy)
+        hs_scratch_t* _scratch = nullptr;  //Scratch per-thread (nullptr = utilise legacy)
         std::unordered_map<fox::core::FlowKey, TcpSession, fox::core::FlowKeyHash> _sessions;
         uint64_t _ops = 0;
 
@@ -303,4 +303,4 @@ namespace fox::deep {
     };
 }
 
-#endif // FOX_DEEP_TCP_REASSEMBLER_HPP
+#endif //FOX_DEEP_TCP_REASSEMBLER_HPP

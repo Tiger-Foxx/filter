@@ -8,26 +8,16 @@
 
 namespace fox::core {
 
-    /**
-     * Clé de flux CANONIQUE (bidirectionnelle).
-     * 
-     * CORRECTION CRITIQUE : Une connexion TCP a deux directions (client→server, server→client).
-     * Avec une clé non-canonique, les paquets dans les deux sens créent des entrées différentes.
-     * Résultat : le verdict DROP n'est pas appliqué aux paquets retour.
-     * 
-     * Solution : Canonicaliser en triant IPs puis Ports.
-     * Ainsi FlowKey(A,B,p1,p2) == FlowKey(B,A,p2,p1)
-     */
     struct FlowKey {
         uint32_t ip_low;
         uint32_t ip_high;
         uint16_t port_low;
         uint16_t port_high;
 
-        // Constructeur par défaut
+        //Constructeur par défaut
         FlowKey() : ip_low(0), ip_high(0), port_low(0), port_high(0) {}
 
-        // Constructeur avec canonicalisation automatique (Host Order IPs)
+        //Constructeur avec canonicalisation automatique (Host Order IPs)
         FlowKey(uint32_t src_ip, uint32_t dst_ip, uint16_t src_port, uint16_t dst_port) {
             if (src_ip < dst_ip) {
                 ip_low = src_ip;
@@ -40,7 +30,7 @@ namespace fox::core {
                 port_low = dst_port;
                 port_high = src_port;
             } else {
-                // IPs identiques (rare mais possible en loopback)
+                //IPs identiques (rare mais possible en loopback)
                 ip_low = src_ip;
                 ip_high = dst_ip;
                 port_low = std::min(src_port, dst_port);
@@ -69,4 +59,4 @@ namespace fox::core {
     };
 }
 
-#endif // FOX_CORE_FLOW_KEY_HPP
+#endif //FOX_CORE_FLOW_KEY_HPP

@@ -2,18 +2,8 @@
 #define FOX_DEEP_HS_MATCHER_HPP
 
 /**
- * HSMatcher - Moteur Hyperscan Multi-Thread (Mode BLOCK)
+ * HSMatcher - Multi-Threaded Hyperscan Engine (BLOCK Mode)
  * 
- * ARCHITECTURE MULTI-THREAD
- * =========================
- * 
- * Hyperscan requiert un "scratch space" par thread concurrent.
- * La DB est thread-safe et partagée, mais le scratch ne l'est pas.
- * 
- * Solution:
- * - Une seule DB compilée (partagée, read-only)
- * - Un scratch par thread (alloué via alloc_scratch_for_thread)
- * - Chaque worker appelle scan() avec son propre scratch
  */
 
 #include <cstdint>
@@ -29,40 +19,40 @@ namespace fox::deep {
         HSMatcher() = default;
         ~HSMatcher();
 
-        // Interdiction de copie
+        // Copy prevention
         HSMatcher(const HSMatcher&) = delete;
         HSMatcher& operator=(const HSMatcher&) = delete;
 
         /**
-         * Charge et compile la DB Hyperscan (thread-safe, appelé une seule fois)
+         * Loads and compiles the Hyperscan database (thread-safe, called once)
          */
         bool init(const std::string& patterns_path);
 
         /**
-         * Alloue un scratch space pour un thread worker.
-         * DOIT être appelé par chaque thread AVANT d'utiliser scan().
-         * Le scratch retourné appartient à l'appelant qui doit le libérer.
+         * Allocates a scratch space for a worker thread.
+         * MUST be called by each thread BEFORE using scan().
+         * Caller is responsible for the returned scratch space.
          * 
-         * @return Scratch space pour ce thread, ou nullptr si erreur
+         * @return Scratch space for this thread, or nullptr if error
          */
         hs_scratch_t* alloc_scratch_for_thread() const;
 
         /**
-         * Scan avec scratch fourni (THREAD-SAFE)
-         * Chaque thread utilise son propre scratch.
+         * Scan with provided scratch (THREAD-SAFE)
+         * Each thread uses its own scratch space.
          */
         bool scan(const uint8_t* data, size_t len, hs_scratch_t* scratch) const;
 
         /**
-         * Scan et collecte tous les IDs (THREAD-SAFE)
+         * Scan and collect all IDs (THREAD-SAFE)
          */
         bool scan_collect_all(const uint8_t* data, size_t len,
                               std::vector<uint32_t>& matched_ids,
                               hs_scratch_t* scratch) const;
 
         /**
-         * Versions legacy (utilisent le scratch interne - NON THREAD-SAFE)
-         * Gardées pour compatibilité mono-thread
+         * Legacy versions (using internal scratch - NOT THREAD-SAFE)
+         * Kept for single-threaded compatibility
          */
         bool scan(const uint8_t* data, size_t len) const;
         bool scan_collect_all(const uint8_t* data, size_t len,
@@ -73,7 +63,7 @@ namespace fox::deep {
 
     private:
         hs_database_t* db_ = nullptr;
-        hs_scratch_t* scratch_ = nullptr;  // Scratch legacy pour mono-thread
+        hs_scratch_t* scratch_ = nullptr;  // Legacy scratch for single-thread
         uint32_t pattern_count_ = 0;
 
         static unsigned int parse_flags(const std::string& flags_str);
@@ -81,4 +71,4 @@ namespace fox::deep {
 
 }
 
-#endif // FOX_DEEP_HS_MATCHER_HPP
+#endif //FOX_DEEP_HS_MATCHER_HPP

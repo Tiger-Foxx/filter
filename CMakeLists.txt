@@ -13,7 +13,7 @@ endif()
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(NFQ REQUIRED libnetfilter_queue)
-pkg_check_modules(NFNL REQUIRED libnfnetlink) # AJOUT CRITIQUE
+pkg_check_modules(NFNL REQUIRED libnfnetlink)
 pkg_check_modules(MNL REQUIRED libmnl)
 pkg_check_modules(HS REQUIRED libhs)
 

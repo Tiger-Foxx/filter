@@ -9,9 +9,9 @@
 #   Server side:  enp5s0f0  (10.10.2.1/24)
 #
 # Multi-Queue Architecture:
-#   Le kernel distribue les paquets sur N queues via hash(5-tuple).
-#   Chaque queue est traitée par un thread dédié.
-#   Les paquets d'un même flux TCP vont toujours à la même queue.
+#   Packet distribution via hash(5-tuple) load balancing.
+#   One dedicated thread per queue.
+#   Flow Affinity: Packets from same TCP stream hit the same queue.
 #
 # Usage:
 #   ./setup_nfqueue.sh          # Configure NFQUEUE Multi-Queue (4 threads)

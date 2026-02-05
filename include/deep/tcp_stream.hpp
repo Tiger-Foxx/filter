@@ -42,22 +42,22 @@ namespace fox::deep {
 
     class TcpStream {
     public:
-        // État persistant du flux
+        //État persistant du flux
         enum class State : uint8_t {
-            ACTIVE,     // En cours d'analyse
-            MALICIOUS,  // Match confirmé → Fast Drop permanent
-            BROKEN      // Flux incohérent/DoS → Drop de sécurité
+            ACTIVE,     //En cours d'analyse
+            MALICIOUS,  //Match confirmé → Fast Drop permanent
+            BROKEN      //Flux incohérent/DoS → Drop de sécurité
         };
 
-        // Pour rétro-compatibilité avec l'ancien code
+        //Pour rétro-compatibilité avec l'ancien code
         using StreamVerdict = State;
         static constexpr State INSPECTING = State::ACTIVE;
         static constexpr State DROPPED = State::MALICIOUS;
 
-        // Anti-DoS : Max 512KB de buffer pour les paquets OOO
+        //Anti-DoS : Max 512KB de buffer pour les paquets OOO
         static constexpr size_t MAX_OOO_BUFFER = 512 * 1024;
         
-        // Profondeur max de réassemblage (1MB comme Suricata)
+        //Profondeur max de réassemblage (1MB comme Suricata)
         static constexpr size_t REASSEMBLY_DEPTH = 1024 * 1024;
 
         TcpStream() = default;
@@ -91,7 +91,7 @@ namespace fox::deep {
             _ooo_buffer.clear();
         }
 
-        // Accesseurs
+        //Accesseurs
         State get_state() const { return _state; }
         State get_verdict() const { return _state; }
         
@@ -122,29 +122,29 @@ namespace fox::deep {
             touch();
             
             if (_state != State::ACTIVE) {
-                return {}; // Flux mort
+                return {}; //Flux mort
             }
 
             size_t len = payload.size();
             if (len == 0) {
-                return {}; // Pure ACK
+                return {}; //Pure ACK
             }
 
-            // Limite de profondeur anti-DoS
+            //Limite de profondeur anti-DoS
             if (_total_scanned > REASSEMBLY_DEPTH) {
-                return {}; // Bypass après 1MB (comme Suricata)
+                return {}; //Bypass après 1MB (comme Suricata)
             }
 
-            // Arithmétique signée pour wraparound (RFC 1982)
+            //Arithmétique signée pour wraparound (RFC 1982)
             int32_t diff = static_cast<int32_t>(seq - _next_seq);
 
-            // 1. RETRANSMISSION/OVERLAP (diff < 0)
+            //1. RETRANSMISSION/OVERLAP (diff < 0)
             if (diff < 0) {
                 int32_t overlap_end = diff + static_cast<int32_t>(len);
                 if (overlap_end <= 0) {
-                    return {}; // Entièrement dans le passé
+                    return {}; //Entièrement dans le passé
                 }
-                // Extraire la partie nouvelle
+                //Extraire la partie nouvelle
                 size_t skip = static_cast<size_t>(-diff);
                 payload = payload.subspan(skip);
                 seq = _next_seq;
@@ -152,20 +152,20 @@ namespace fox::deep {
                 diff = 0;
             }
 
-            // 2. FAST PATH : IN-ORDER (diff == 0)
+            //2. FAST PATH : IN-ORDER (diff == 0)
             if (diff == 0) {
                 _next_seq += static_cast<uint32_t>(len);
                 _total_scanned += len;
                 
-                // Drainer le buffer OOO si on a comblé un trou
+                //Drainer le buffer OOO si on a comblé un trou
                 drain_ooo_buffer();
                 
-                // ZERO-COPY : Retourner directement le span original
+                //ZERO-COPY : Retourner directement le span original
                 return payload;
             }
 
-            // 3. SLOW PATH : OUT-OF-ORDER (diff > 0)
-            if (static_cast<uint32_t>(diff) < 1048576) { // Fenêtre max 1MB
+            //3. SLOW PATH : OUT-OF-ORDER (diff > 0)
+            if (static_cast<uint32_t>(diff) < 1048576) { //Fenêtre max 1MB
                 if (_buffered_bytes + len <= MAX_OOO_BUFFER) {
                     if (_ooo_buffer.find(seq) == _ooo_buffer.end()) {
                         _ooo_buffer.emplace(seq, 
@@ -173,12 +173,12 @@ namespace fox::deep {
                         _buffered_bytes += len;
                     }
                 } else {
-                    // Buffer overflow → Marquer comme cassé
+                    //Buffer overflow → Marquer comme cassé
                     _state = State::BROKEN;
                 }
             }
 
-            return {}; // Pas de données ordonnées disponibles
+            return {}; //Pas de données ordonnées disponibles
         }
 
         /**
@@ -197,7 +197,7 @@ namespace fox::deep {
         State _state = State::ACTIVE;
         std::chrono::steady_clock::time_point _last_activity;
         
-        // Buffer OOO (gaps)
+        //Buffer OOO (gaps)
         std::map<uint32_t, std::vector<uint8_t>> _ooo_buffer;
         size_t _buffered_bytes = 0;
         size_t _total_scanned = 0;
@@ -211,17 +211,17 @@ namespace fox::deep {
                 int32_t buf_diff = static_cast<int32_t>(it->first - _next_seq);
                 
                 if (buf_diff == 0) {
-                    // Ce morceau est maintenant in-order
+                    //Ce morceau est maintenant in-order
                     _next_seq += static_cast<uint32_t>(it->second.size());
                     _total_scanned += it->second.size();
                     _buffered_bytes -= it->second.size();
                     _ooo_buffer.erase(it);
                 } else if (buf_diff < 0) {
-                    // Fragment obsolète
+                    //Fragment obsolète
                     _buffered_bytes -= it->second.size();
                     _ooo_buffer.erase(it);
                 } else {
-                    break; // Trou restant
+                    break; //Trou restant
                 }
             }
         }
@@ -229,4 +229,4 @@ namespace fox::deep {
 
 }
 
-#endif // FOX_DEEP_TCP_STREAM_HPP
+#endif //FOX_DEEP_TCP_STREAM_HPP

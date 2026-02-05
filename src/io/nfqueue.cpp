@@ -54,16 +54,16 @@
 
 namespace fox::io {
 
-    // Structure étendue pour passer le contexte complet au callback
+    //Structure étendue pour passer le contexte complet au callback
     struct CallbackContext {
         WorkerContext* worker;
         fox::fastpath::CompositeRuleIndex<fox::core::RuleDefinition>* index;
         fox::deep::HSMatcher* matcher;
     };
 
-    // =========================================================================
-    // PACKET PROCESSING (inline pour performance)
-    // =========================================================================
+   
+    //PACKET PROCESSING (inline pour performance)
+   
     
     static inline fox::Verdict process_packet_inline(
         const fox::core::Packet& pkt,
@@ -76,7 +76,7 @@ namespace fox::io {
             return fox::Verdict::ACCEPT;
         }
 
-        // NIVEAU 0.5 : Bypass flux déjà condamnés
+        //NIVEAU 0.5 : Bypass flux déjà condamnés
         fox::core::FlowKey canonical_key;
         
         if (pkt.protocol() == IPPROTO_TCP) {
@@ -90,14 +90,14 @@ namespace fox::io {
             }
         }
 
-        // NIVEAU 1 : FastPath - Index Composite
+        //NIVEAU 1 : FastPath - Index Composite
         auto candidate_rules = index->lookup(pkt.src_ip(), pkt.dst_port());
         
         if (candidate_rules.empty()) {
             return fox::Verdict::ACCEPT;
         }
 
-        // PHASE 1 : Scan Hyperscan (utilise le scratch du thread)
+        // PHASE 1 : Hyperscan Scan (uses thread's scratch space)
         std::vector<uint32_t> matched_hs_ids;
         matched_hs_ids.reserve(32);
         
@@ -117,16 +117,16 @@ namespace fox::io {
                 return fox::Verdict::DROP;
             }
         } else {
-            // UDP/ICMP: scan direct avec scratch du thread
+            // UDP/ICMP: direct scan with thread scratch
             if (!pkt.payload().empty()) {
                 matcher->scan_collect_all(pkt.payload().data(), pkt.payload().size(), 
                                           matched_hs_ids, scratch);
             }
         }
 
-        // PHASE 2 : Vérification des règles
+        // PHASE 2 : Rule verification
         for (const fox::core::RuleDefinition* rule : candidate_rules) {
-            // Validation IP Destination
+            // Destination IP validation
             if (!rule->optimized_dst_ips.empty()) {
                 bool ip_match = false;
                 uint32_t ip = pkt.dst_ip();
@@ -147,13 +147,14 @@ namespace fox::io {
                 continue;
             }
 
-            // NIVEAU 2 : Deep Path
+            // LEVEL 2 : Deep Path
             if (rule->hs_id == 0) continue;
 
             bool matched = false;
             
             if (rule->is_multi) {
                 if (rule->is_or) {
+                    // OR logic: any atomic pattern match is enough
                     for (uint32_t id : rule->atomic_ids) {
                         if (std::find(matched_hs_ids.begin(), matched_hs_ids.end(), id) 
                             != matched_hs_ids.end()) {
@@ -162,6 +163,7 @@ namespace fox::io {
                         }
                     }
                 } else {
+                    // AND logic: all atomic patterns must match
                     matched = true;
                     for (uint32_t id : rule->atomic_ids) {
                         if (std::find(matched_hs_ids.begin(), matched_hs_ids.end(), id) 
@@ -187,9 +189,9 @@ namespace fox::io {
         return fox::Verdict::ACCEPT;
     }
 
-    // =========================================================================
-    // NFQUEUE CALLBACK
-    // =========================================================================
+   
+    //NFQUEUE CALLBACK
+   
     
     int NFQueueMulti::packet_callback(struct nfq_q_handle* qh, struct nfgenmsg* /*nfmsg*/,
                                        struct nfq_data* nfa, void* data) {
@@ -229,9 +231,9 @@ namespace fox::io {
         return nfq_set_verdict(qh, id, verdict, 0, nullptr);
     }
 
-    // =========================================================================
-    // NFQueueMulti IMPLEMENTATION
-    // =========================================================================
+   
+    //NFQueueMulti IMPLEMENTATION
+   
 
     NFQueueMulti::NFQueueMulti(uint16_t start_queue_id, uint32_t num_queues)
         : _start_queue_id(start_queue_id)
@@ -242,12 +244,12 @@ namespace fox::io {
     NFQueueMulti::~NFQueueMulti() {
         stop();
         
-        // Attendre que tous les threads se terminent
+        //Attendre que tous les threads se terminent
         for (auto& t : _threads) {
             if (t.joinable()) t.join();
         }
         
-        // Cleanup des workers
+        //Cleanup des workers
         for (auto& ctx : _workers) {
             if (ctx) {
                 if (ctx->qh) nfq_destroy_queue(ctx->qh);
@@ -259,7 +261,7 @@ namespace fox::io {
             }
         }
         
-        // Cleanup des callback contexts
+        //Cleanup des callback contexts
         for (auto* cb : _callback_contexts) {
             delete cb;
         }
@@ -279,17 +281,17 @@ namespace fox::io {
             ctx->queue_id = _start_queue_id + i;
             ctx->buffer.resize(fox::config::MAX_PACKET_SIZE + 4096);
 
-            // Allouer le scratch Hyperscan pour ce thread
+            //Allouer le scratch Hyperscan pour ce thread
             ctx->scratch = matcher->alloc_scratch_for_thread();
             if (!ctx->scratch) {
                 fox::log::error("Failed to allocate Hyperscan scratch for worker " + std::to_string(i));
                 return false;
             }
 
-            // Créer le TcpReassembler pour ce thread avec son scratch dédié
+            //Créer le TcpReassembler pour ce thread avec son scratch dédié
             ctx->reassembler = std::make_unique<fox::deep::TcpReassembler>(matcher, ctx->scratch);
 
-            // Ouvrir la queue NFQUEUE
+            //Ouvrir la queue NFQUEUE
             ctx->h = nfq_open();
             if (!ctx->h) {
                 fox::log::error("nfq_open() failed for queue " + std::to_string(ctx->queue_id));
@@ -302,7 +304,7 @@ namespace fox::io {
                 return false;
             }
 
-            // Créer le contexte de callback avec toutes les références nécessaires
+            //Créer le contexte de callback avec toutes les références nécessaires
             auto* cb_ctx = new CallbackContext{ctx.get(), index, matcher};
             _callback_contexts.push_back(cb_ctx);
 
@@ -333,14 +335,14 @@ namespace fox::io {
         pfd.events = POLLIN;
 
         while (_running.load(std::memory_order_relaxed)) {
-            int poll_ret = poll(&pfd, 1, 100);  // 100ms timeout pour vérifier _running
+            int poll_ret = poll(&pfd, 1, 100);  //100ms timeout pour vérifier _running
             
             if (poll_ret < 0) {
                 if (errno == EINTR) continue;
                 break;
             }
             
-            if (poll_ret == 0) continue;  // Timeout
+            if (poll_ret == 0) continue;  //Timeout
             
             if (pfd.revents & POLLIN) {
                 int rv = recv(ctx->fd, ctx->buffer.data(), ctx->buffer.size(), MSG_DONTWAIT);
@@ -362,12 +364,12 @@ namespace fox::io {
                        std::to_string(_start_queue_id + _num_queues - 1));
         fox::log::info(">>> Press CTRL+C to stop gracefully.");
 
-        // Lancer tous les threads workers
+        //Lancer tous les threads workers
         for (auto& ctx : _workers) {
             _threads.emplace_back(&NFQueueMulti::worker_loop, this, ctx.get());
         }
 
-        // Monitoring loop dans le thread principal (toutes les 5 secondes)
+        //Monitoring loop dans le thread principal (toutes les 5 secondes)
         uint64_t last_total = 0;
         auto last_time = std::chrono::steady_clock::now();
         
@@ -382,7 +384,7 @@ namespace fox::io {
             uint64_t delta = current_total - last_total;
             double pps = delta / elapsed;
             
-            // Stats par thread
+            //Stats par thread
             std::cout << "[STATS] " << std::fixed << std::setprecision(0) 
                       << pps << " pkt/s | Total: " << current_total 
                       << " | Drop: " << total_dropped() << " | ";
@@ -395,14 +397,14 @@ namespace fox::io {
             last_time = now;
         }
 
-        // Attendre tous les threads workers
+        //Attendre tous les threads workers
         for (auto& t : _threads) {
             if (t.joinable()) {
                 t.join();
             }
         }
         
-        // Afficher les stats finales
+        //Afficher les stats finales
         std::cout << "\n=== FINAL STATS ===" << std::endl;
         for (size_t i = 0; i < _workers.size(); ++i) {
             std::cout << "  Thread " << i << ": " 

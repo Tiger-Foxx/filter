@@ -29,7 +29,7 @@ namespace fox::fastpath {
          * IMPORTANT: Si dst_ports est VIDE, cela signifie "ANY" -> retourne true.
          */
         static bool match(uint16_t port, const fox::core::RuleDefinition& rule) {
-            // CORRECTION: dst_ports vide = ANY = match tout
+            //CORRECTION: dst_ports vide = ANY = match tout
             if (rule.dst_ports.empty()) return true;
             
             for (const auto& range : rule.dst_ports) {
@@ -45,7 +45,7 @@ namespace fox::fastpath {
          * Si src_ports est VIDE, cela signifie "ANY" -> retourne true.
          */
         static bool match_src(uint16_t port, const fox::core::RuleDefinition& rule) {
-            if (rule.src_ports.empty()) return true; // ANY par défaut si vide
+            if (rule.src_ports.empty()) return true; //ANY par défaut si vide
             for (const auto& range : rule.src_ports) {
                 if (port >= range.start && port <= range.end) {
                     return true;
@@ -55,11 +55,11 @@ namespace fox::fastpath {
         }
     };
     
-    // Pour l'instant, pas besoin de `port_table[65536]` complexe 
-    // car le point d'entrée principal est le Trie IP.
-    // L'implémentation "Tableau plat" de la SPECS.MD (3.2.B) servait surtout 
-    // si on faisait le lookup Port AVANT l'IP, ou en parallèle.
-    // Nous utiliserons ce PortMatcher une fois la règle IP trouvée.
+    //Pour l'instant, pas besoin de `port_table[65536]` complexe 
+    //car le point d'entrée principal est le Trie IP.
+    //L'implémentation "Tableau plat" de la SPECS.MD (3.2.B) servait surtout 
+    //si on faisait le lookup Port AVANT l'IP, ou en parallèle.
+    //Nous utiliserons ce PortMatcher une fois la règle IP trouvée.
 }
 
-#endif // FOX_FASTPATH_PORT_MAP_HPP
+#endif //FOX_FASTPATH_PORT_MAP_HPP
