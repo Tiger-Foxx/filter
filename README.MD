@@ -1,4 +1,4 @@
-# FoxEngine: High-Performance Unified Network Filter
+# FilterEngine: High-Performance Unified Network Filter
 
 ![High-Level Architecture](illustrations/High-Level%20Architecture.jpg)
 
