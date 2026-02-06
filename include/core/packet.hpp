@@ -11,8 +11,8 @@
 namespace fox::core {
 
     /**
-     * Wrapper Zero-Copy autour d'un buffer réseau brut.
-     * Ne copie rien, pointe juste vers les headers et le payload.
+     * Zero-Copy wrapper around a raw network buffer.
+     * No copying involved, just pointers to headers and payload.
      */
     class Packet {
     public:
@@ -22,12 +22,12 @@ namespace fox::core {
 
         bool is_valid() const { return _ip_header != nullptr; }
 
-        // --- Layer 3 (IP) ---
+        //--- Layer 3 (IP) ---
         uint8_t protocol() const { return _ip_header ? _ip_header->protocol : 0; }
         uint32_t src_ip() const { return _ip_header ? ntohl(_ip_header->saddr) : 0; }
         uint32_t dst_ip() const { return _ip_header ? ntohl(_ip_header->daddr) : 0; }
 
-        // --- Layer 4 (Ports) ---
+        //--- Layer 4 (Ports) ---
         uint16_t src_port() const {
             if (_tcp_header) return ntohs(_tcp_header->source);
             if (_udp_header) return ntohs(_udp_header->source);
@@ -39,8 +39,8 @@ namespace fox::core {
             return 0;
         }
 
-        // --- Layer 4 (TCP Flags & Seq) ---
-        // Retourne 0/false si ce n'est pas du TCP
+        //--- Layer 4 (TCP Flags & Seq) ---
+        // Returns 0/false if not TCP
         uint32_t tcp_seq() const { return _tcp_header ? ntohl(_tcp_header->seq) : 0; }
         uint32_t tcp_ack() const { return _tcp_header ? ntohl(_tcp_header->ack_seq) : 0; }
         bool is_syn() const { return _tcp_header ? _tcp_header->syn : false; }
@@ -49,7 +49,7 @@ namespace fox::core {
         bool is_ack() const { return _tcp_header ? _tcp_header->ack : false; }
         bool is_psh() const { return _tcp_header ? _tcp_header->psh : false; }
 
-        // --- Payload ---
+        //--- Payload ---
         std::span<const uint8_t> payload() const {
             if (!_payload_ptr) return {};
             return { _payload_ptr, _payload_len };
@@ -97,4 +97,4 @@ namespace fox::core {
     };
 }
 
-#endif // FOX_CORE_PACKET_HPP
+#endif //FOX_CORE_PACKET_HPP

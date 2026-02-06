@@ -4,19 +4,18 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <cstdlib> // system()
+#include <cstdlib> //system()
 #include <msgpack.hpp>
-#include <arpa/inet.h> // inet_pton
+#include <arpa/inet.h> //inet_pton
 
 namespace fox::io {
 
-    // Helper statique pour convertir "192.168.1.0/24" -> struct Cidr binaire
+    //Helper for cidr conversion
     static fox::core::Cidr parse_cidr_binary(const std::string& cidr_str) {
         fox::core::Cidr res{0, 0};
 
-        // Cas "any" ou "0.0.0.0/0" -> Mask=0 matche tout
         if (cidr_str == "any" || cidr_str == "0.0.0.0/0") {
-            return res; // Net=0, Mask=0 -> Match tout
+            return res; 
         }
 
         size_t slash = cidr_str.find('/');
@@ -26,37 +25,35 @@ namespace fox::io {
         struct in_addr addr;
         if (inet_pton(AF_INET, ip_part.c_str(), &addr) == 1) {
             res.network = ntohl(addr.s_addr);
-            // Gestion safe du shift (décalage de 32 bits est undefined en C++)
+            
             if (prefix == 0) res.mask = 0;
             else res.mask = (~0u << (32 - prefix));
             
-            // On applique le masque au réseau pour normaliser (ex: 192.168.1.5/24 -> 192.168.1.0)
             res.network &= res.mask;
         }
         return res;
     }
 
     bool Loader::load_all(
-        fox::fastpath::IPRadixTrie<fox::core::RuleDefinition>& trie,
+        fox::fastpath::CompositeRuleIndex<fox::core::RuleDefinition>& index,
         fox::deep::HSMatcher& matcher
     ) {
         fox::log::info(">>> Starting FoxEngine Loader");
 
-        // 1. Kernel Offload (DÉSACTIVÉ pour les tests - réactiver en production)
-        // run_firewall_script(fox::config::PATH_FIREWALL_SCRIPT);
+        //Kernel Offload (disabled for testing)
+        //run_firewall_script(fox::config::PATH_FIREWALL_SCRIPT);
         fox::log::info("Firewall script SKIPPED (test mode)");
 
-        // 2. Deep Inspection Engine
+        //Deep Inspection Engine
         std::string pattern_path(fox::config::PATH_PATTERNS_DB);
         if (!matcher.init(pattern_path)) {
             fox::log::error("Failed to initialize Hyperscan. Engine will run in L3/L4 only mode.");
-            // On ne return false pas forcément, on peut continuer en mode dégradé (IP only)
         }
 
-        // 3. FastPath Logic
+        //FastPath Logic
         std::string rules_path(fox::config::PATH_RULES_CONFIG);
-        if (!load_msgpack_config(rules_path, trie)) {
-            return false; // Fatal: Pas de règles logiques
+        if (!load_msgpack_config(rules_path, index)) {
+            return false;
         }
 
         fox::log::info(">>> Initialization Complete. Engine Ready.");
@@ -75,7 +72,7 @@ namespace fox::io {
 
     bool Loader::load_msgpack_config(
         const std::string& msgpack_path,
-        fox::fastpath::IPRadixTrie<fox::core::RuleDefinition>& trie
+        fox::fastpath::CompositeRuleIndex<fox::core::RuleDefinition>& index
     ) {
         std::ifstream ifs(msgpack_path, std::ifstream::in | std::ifstream::binary);
         if (!ifs) {
@@ -83,7 +80,6 @@ namespace fox::io {
             return false;
         }
 
-        // Lecture intégrale du fichier dans un buffer
         std::stringstream buffer;
         buffer << ifs.rdbuf();
         std::string data = buffer.str();
@@ -91,40 +87,33 @@ namespace fox::io {
         fox::log::info("Loading Logic Rules (" + std::to_string(data.size()) + " bytes)...");
 
         try {
-            // Désérialisation msgpack
             msgpack::object_handle oh = msgpack::unpack(data.data(), data.size());
             msgpack::object obj = oh.get();
             
-            // Conversion vers notre vector<RuleDefinition>
             fox::core::RulesConfig rules;
             obj.convert(rules);
 
             fox::log::info("Parsed " + std::to_string(rules.size()) + " optimized rules.");
 
-            // PEUPLEMENT DU RADIX TRIE
-            int insertion_count = 0;
-            for (auto& rule_dto : rules) { // Note: auto& (non-const) pour pouvoir modifier
+            //PEUPLEMENT DE L'INDEX COMPOSITE (IP + Port)
+            int rule_count = 0;
+            for (auto& rule_dto : rules) {
                 
-                // --- OPTIMISATION CRITIQUE ---
-                // Conversion des string Dst IPs en binaire MAINTENANT (au chargement)
-                // Pour ne pas faire de parsing à chaque paquet !
+                // Convert string Dst IPs to binary
                 rule_dto.optimized_dst_ips.reserve(rule_dto.dst_ips.size());
                 for (const auto& s : rule_dto.dst_ips) {
                     rule_dto.optimized_dst_ips.push_back(parse_cidr_binary(s));
                 }
-                // -----------------------------
 
-                // Allocation persistante (jamais libérée tant que le moteur tourne)
+                // Persistent allocation
                 auto* rule_ptr = new fox::core::RuleDefinition(rule_dto);
 
-                // Insertion pour chaque IP Source
-                for (const auto& cidr : rule_ptr->src_ips) {
-                    trie.insert(cidr, rule_ptr);
-                    insertion_count++;
-                }
+                // Insert into composite index (IP + Port)
+                index.insert(rule_ptr);
+                rule_count++;
             }
             
-            fox::log::info("Radix Trie populated with " + std::to_string(insertion_count) + " nodes.");
+            fox::log::info("Composite Index populated with " + std::to_string(rule_count) + " rules.");
 
         } catch (const std::exception& e) {
             fox::log::error(std::string("Msgpack unpacking failed: ") + e.what());

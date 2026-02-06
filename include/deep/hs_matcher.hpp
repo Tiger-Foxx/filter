@@ -1,9 +1,15 @@
 #ifndef FOX_DEEP_HS_MATCHER_HPP
 #define FOX_DEEP_HS_MATCHER_HPP
 
+/**
+ * HSMatcher - Multi-Threaded Hyperscan Engine (BLOCK Mode)
+ * 
+ */
+
+#include <cstdint>
 #include <string>
 #include <vector>
-#include <span>
+#include <mutex>
 #include <hs/hs.h>
 
 namespace fox::deep {
@@ -13,53 +19,56 @@ namespace fox::deep {
         HSMatcher() = default;
         ~HSMatcher();
 
-        // Interdiction de copie (HS Database est un pointeur opaque unique)
+        // Copy prevention
         HSMatcher(const HSMatcher&) = delete;
         HSMatcher& operator=(const HSMatcher&) = delete;
 
         /**
-         * Charge le fichier patterns.txt, parse les regex/flags et compile la DB.
-         * Format ligne: ID:/regex/flags
+         * Loads and compiles the Hyperscan database (thread-safe, called once)
          */
         bool init(const std::string& patterns_path);
 
         /**
-         * Scan un payload brut en mode Block (UDP/ICMP).
-         * @param payload Données du paquet (Zero-Copy via std::span)
-         * @param target_id L'ID de pattern attendu par la règle IP (trouvé via FastPath).
-         * @return true si le pattern target_id est trouvé.
+         * Allocates a scratch space for a worker thread.
+         * MUST be called by each thread BEFORE using scan().
+         * Caller is responsible for the returned scratch space.
+         * 
+         * @return Scratch space for this thread, or nullptr if error
          */
-        bool scan_block(std::span<const uint8_t> payload, uint32_t target_id) const;
+        hs_scratch_t* alloc_scratch_for_thread() const;
 
         /**
-         * Ouvre un stream Hyperscan pour le mode TCP Reassembly.
-         * @return Pointeur vers le stream HS ou nullptr en cas d'échec.
+         * Scan with provided scratch (THREAD-SAFE)
+         * Each thread uses its own scratch space.
          */
-        hs_stream_t* open_stream();
+        bool scan(const uint8_t* data, size_t len, hs_scratch_t* scratch) const;
 
         /**
-         * Scan incrémental sur un stream TCP.
-         * @param stream Le contexte stream HS ouvert via open_stream()
-         * @param data Données réassemblées à scanner
-         * @param target_id L'ID de pattern cible
-         * @return true si le pattern est trouvé
+         * Scan and collect all IDs (THREAD-SAFE)
          */
-        bool scan_stream(hs_stream_t* stream, std::span<const uint8_t> data, uint32_t target_id);
+        bool scan_collect_all(const uint8_t* data, size_t len,
+                              std::vector<uint32_t>& matched_ids,
+                              hs_scratch_t* scratch) const;
 
         /**
-         * Ferme et libère un stream Hyperscan.
-         * @param stream Le contexte stream à fermer
+         * Legacy versions (using internal scratch - NOT THREAD-SAFE)
+         * Kept for single-threaded compatibility
          */
-        void close_stream(hs_stream_t* stream);
+        bool scan(const uint8_t* data, size_t len) const;
+        bool scan_collect_all(const uint8_t* data, size_t len,
+                              std::vector<uint32_t>& matched_ids) const;
+
+        uint32_t pattern_count() const { return pattern_count_; }
+        bool is_ready() const { return db_ != nullptr; }
 
     private:
-        hs_database_t* db = nullptr;
-        hs_scratch_t* scratch = nullptr;
+        hs_database_t* db_ = nullptr;
+        hs_scratch_t* scratch_ = nullptr;  // Legacy scratch for single-thread
+        uint32_t pattern_count_ = 0;
 
-        // Helper pour convertir "im" -> HS_FLAG_CASELESS | HS_FLAG_MULTILINE
         static unsigned int parse_flags(const std::string& flags_str);
     };
 
 }
 
-#endif // FOX_DEEP_HS_MATCHER_HPP
+#endif //FOX_DEEP_HS_MATCHER_HPP

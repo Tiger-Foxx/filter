@@ -1,159 +1,416 @@
-# FoxEngine (C++ Runtime)
+# FilterEngine: High-Performance Unified Network Filter
 
-**Type :** Moteur de Filtrage Réseau Haute Performance (Research PoC)  
-**Langage :** C++20 (Strict Zero-Copy)  
-**Architecture :** Hybride L3/L4 (Radix Trie) + L7 (Hyperscan Streaming)  
-**Statut :** 🟢 Prêt pour Benchmark
+![High-Level Architecture](illustrations/High-Level%20Architecture.jpg)
 
----
-
-## 1. Description Scientifique
-
-Le **FoxEngine** est l'implémentation "Runtime" du projet de recherche sur l'optimisation des règles de filtrage. Contrairement aux IDS classiques (Snort, Suricata) qui réévaluent les règles séquentiellement ou par groupes génériques, FoxEngine est un exécutant "muet" conçu pour interpréter les structures mathématiques pré-calculées par l'optimiseur Python (`tiger-foxx-ids-rules-optimizer`).
-
-### Objectifs de Performance
-* **Complexité Algorithmique :** $O(1)$ ou $O(\log N)$ pour la décision de filtrage, quel que soit le nombre de règles.
-* **Zero-Copy Networking :** Analyse des paquets directement dans le buffer mémoire du Kernel (via `libnetfilter_queue` mode `COPY_PACKET` mappé), sans allocation `std::string` ni copie intermédiaire.
-* **Instruction Pipeline :** Utilisation intensive des instructions vectorielles (AVX2/AVX512) via Hyperscan pour le pattern matching.
+**Status**: Research Prototype (PoC)  
+**Language**: C++17 (Zero-Copy)  
+**Architecture**: Hybrid L3/L4 FastPath + L7 Hyperscan Deep Inspection  
+**Performance Goal**: ~6000+ Req/Sec on commodity hardware  
 
 ---
 
-## 2. Architecture Technique
+## 1. Quick Start: Testing the Filter (XSS / JS)
 
-Le moteur fonctionne selon un pipeline strict à 3 étages pour minimiser le coût CPU par paquet.
+![Filter Engine Diagram](illustrations/Filter%20Engine.jpg)
 
-### Niveau 0 : Kernel Offload (Bash/Iptables)
-* **Mécanisme :** Script `firewall.sh` généré.
-* **Rôle :** Élimination immédiate des IP/Ports "bruit de fond" directement dans le noyau Linux. Les paquets ne montent jamais en Userspace.
+To quickly verify if the engine is working, use a simple XSS (Cross-Site Scripting) test.
 
-### Niveau 1 : FastPath (C++ L3/L4)
-* **Structure :** Radix Trie (Arbre préfixe) optimisé en mémoire.
-* **Fonctionnement :**
-    1.  Lookup IP Source/Destination ($O(32)$ constant).
-    2.  Vérification Bitmap/Intervalle des Ports ($O(1)$).
-    3.  **Décision :** Si aucune inspection profonde n'est requise (`hs_id == 0`), le verdict (ACCEPT/DROP) est rendu immédiatement (Latence < 5µs).
-
-### Niveau 2 : DeepPath (C++ L7 Stateful)
-* **Structure :** Réassemblage TCP + Intel Hyperscan.
-* **Fonctionnement :**
-    1.  Suivi de connexion (5-tuple Flow Tracking).
-    2.  Réordonnancement des segments TCP (gestion des paquets *Out-of-Order*).
-    3.  Scan de contenu via automates finis déterministes (DFA) streamés.
-
----
-
-## 3. Pré-requis
-
-Le moteur est conçu pour **Linux (x86_64)**.
-
-### Dépendances Système
+### Step 1: Set up a Server (on the Server Machine)
 ```bash
-# Debian/Ubuntu
-sudo apt update
-sudo apt install -y \
-    build-essential cmake \
+sudo apt install -y nginx
+echo "Hello, I am server" | sudo tee /var/www/html/index.html
+sudo systemctl enable nginx
+sudo systemctl restart nginx
+```
+
+### Step 2: Testing from an Injector/Client
+1. **Normal Request** (Should PASS):
+   ```bash
+   curl -v http://10.10.2.20/
+   # Response: "Hello, I am server"
+   ```
+
+2. **Malicious XSS Request** (Should be DROPped):
+   ```bash
+   curl -v "http://10.10.2.20/?x=<script>alert(1)</script>"
+   # Expected result: "Empty reply from server" or timeout (DROP)
+   ```
+
+---
+
+## 2. Research Context
+
+FoxEngine is a runtime execution engine designed to filter network traffic at wire speed by aggregating IPS, Firewall, and WAF rules into a single decision pipeline. Unlike traditional IDS/IPS solutions (Snort, Suricata) that evaluate rules sequentially or through generic groupings, FoxEngine acts as a deterministic executor for optimized mathematical structures generated offline by the **FoxOptimizer** (Python).
+
+**Core Design Principles:**
+- Filtering cost remains constant regardless of the number of loaded rules.
+- Packets are analyzed directly within kernel-mapped memory buffers (no intermediate copies).
+- Sub-millisecond per-packet decision latency.
+
+---
+
+## 2. Project Layout
+
+```
+filter/
+├── src/
+│   ├── main.cpp              # Entry point. Signal hooks, resource allocation, main loop.
+│   ├── io/
+│   │   ├── loader.cpp        # Loads all 3 artifacts (firewall.sh, patterns.txt, msgpack).
+│   │   └── nfqueue.cpp       # Multi-queue NFQUEUE handler + packet processing pipeline.
+│   └── deep/
+│       └── hs_matcher.cpp    # Hyperscan compilation & scanning (Block Mode).
+├── include/
+│   ├── config.hpp            # All compile-time constants (threads, buffer sizes, timeouts).
+│   ├── core/
+│   │   ├── types.hpp         # RuleDefinition struct + msgpack bindings.
+│   │   ├── packet.hpp        # Zero-copy packet wrapper over raw buffer.
+│   │   ├── flow_key.hpp      # Canonical bidirectional flow key (5-tuple hash).
+│   │   └── verdict.hpp       # Verdict enum (ACCEPT / DROP).
+│   ├── fastpath/
+│   │   ├── rule_index.hpp    # CompositeRuleIndex: Radix Trie (IP) + HashMap (Port).
+│   │   ├── ip_radix.hpp      # IPv4 Radix Trie with longest-prefix-match.
+│   │   └── port_map.hpp      # Port range matcher for rule validation.
+│   ├── deep/
+│   │   ├── hs_matcher.hpp    # Hyperscan wrapper (DB shared, scratch per-thread).
+│   │   ├── tcp_reassembler.hpp  # Per-thread TCP reassembly + scan orchestration.
+│   │   └── tcp_stream.hpp    # Single TCP stream state machine (zero-copy reassembly).
+│   ├── io/
+│   │   ├── loader.hpp        # Loader interface.
+│   │   └── nfqueue.hpp       # NFQueueMulti class + WorkerContext struct.
+│   └── utils/
+│       └── logger.hpp        # Compile-time toggled logging (debug/info/error).
+├── data/                     # Runtime artifacts (generated by FoxOptimizer)
+│   ├── patterns.txt          # Hyperscan regex database.
+│   ├── rules_config.msgpack  # Binary rule logic (IP/Port/HS_ID mappings).
+│   └── firewall.sh           # iptables offload script.
+├── CMakeLists.txt
+├── build.sh
+└── setup_nfqueue.sh          # iptables queue setup + RPS configuration.
+```
+
+---
+
+## 3. System Architecture & Data Flow
+
+### 3.1 High-Level Flow
+
+```
+ ┌──────────────────────────────────────────────────────────────────────────┐
+ │                          LINUX KERNEL                                    │
+ │                                                                          │
+ │  1. firewall.sh installs iptables rules                                  │
+ │     → Packets matching pure L3/L4 rules are DROPped here (never         │
+ │       reach userspace).                                                  │
+ │                                                                          │
+ │  2. Remaining packets hit NFQUEUE rule:                                  │
+ │     iptables -A FORWARD -j NFQUEUE --queue-balance 0:3 --queue-cpu-fanout│
+ │     → Kernel hashes 5-tuple (src_ip, dst_ip, src_port, dst_port, proto) │
+ │     → Packet is enqueued to Queue[hash % N]                             │
+ └────────────────────────────────┬─────────────────────────────────────────┘
+                                  │
+            ┌─────────────────────┼─────────────────────┐
+            │                     │                     │
+            ▼                     ▼                     ▼
+     ┌─────────────┐      ┌─────────────┐       ┌─────────────┐
+     │  Thread 0   │      │  Thread 1   │       │  Thread N   │
+     │  Queue  0   │      │  Queue  1   │       │  Queue  N   │
+     │             │      │             │       │             │
+     │ Own scratch │      │ Own scratch │       │ Own scratch │
+     │ Own reassem │      │ Own reassem │       │ Own reassem │
+     │ Own stats   │      │ Own stats   │       │ Own stats   │
+     └──────┬──────┘      └──────┬──────┘       └──────┬──────┘
+            │                     │                     │
+            └─────────────────────┼─────────────────────┘
+                                  │
+                                  ▼
+                      NF_ACCEPT  or  NF_DROP
+```
+
+### 3.2 Per-Packet Processing Pipeline (inside each thread)
+
+Every packet goes through 4 sequential levels. Most packets exit early at Level 0.5 or Level 1, meaning only suspect traffic ever reaches Hyperscan.
+
+```
+ Raw Packet from Kernel
+          │
+          ▼
+ ┌────────────────────────────────────────────────────────┐
+ │ LEVEL 0.5 : Flow Verdict Cache (Memoization)          │
+ │                                                        │
+ │  FlowKey = canonical(src_ip, dst_ip, src_port, dst_port)
+ │  if session[FlowKey].malicious == true:                │
+ │      → DROP immediately (no further processing)        │
+ │                                                        │
+ │  Purpose: Once a flow is condemned, all subsequent     │
+ │  packets of that same TCP connection are dropped       │
+ │  without re-scanning.                                  │
+ └────────────────────────┬───────────────────────────────┘
+                          │ (flow not yet condemned)
+                          ▼
+ ┌────────────────────────────────────────────────────────┐
+ │ LEVEL 1 : FastPath – Composite Index Lookup            │
+ │                                                        │
+ │  CompositeRuleIndex.lookup(pkt.src_ip, pkt.dst_port)   │
+ │                                                        │
+ │  Internally:                                           │
+ │    a) Walk Radix Trie with src_ip bits (O(32) = O(1))  │
+ │       → Collects all rules whose src_ip CIDR matches.  │
+ │    b) For each matching Trie node, query PortIndex:     │
+ │       - HashMap[dst_port] → exact port matches (O(1))  │
+ │       - any_port_rules → rules with dst_port = any     │
+ │       - wide_range_rules → ranges > 100 ports          │
+ │                                                        │
+ │  Result: candidate_rules[] (typically 0-5 rules)       │
+ │                                                        │
+ │  If candidate_rules is EMPTY → ACCEPT immediately.     │
+ └────────────────────────┬───────────────────────────────┘
+                          │ (candidates found)
+                          ▼
+ ┌────────────────────────────────────────────────────────┐
+ │ LEVEL 2 : Deep Inspection – Hyperscan Block Scan       │
+ │                                                        │
+ │  For TCP packets:                                      │
+ │    a) TcpReassembler receives the segment.             │
+ │       - New flow (SYN)? → Create TcpSession.           │
+ │       - Return traffic (server→client)? → Skip scan,   │
+ │         only touch() to keep session alive.             │
+ │       - Client→Server traffic? → Push segment into     │
+ │         TcpStream for reassembly.                      │
+ │    b) TcpStream.push_segment_zerocopy(seq, payload):   │
+ │       - In-order (seq == next_seq)? Zero-copy return.  │
+ │       - Out-of-order? Buffer in OOO map (max 512KB).   │
+ │       - Retransmission? Skip duplicate bytes.          │
+ │    c) Reassembled data → hs_scan() in BLOCK mode.      │
+ │       - Single call scans against ALL compiled patterns │
+ │       - Returns list of matched Hyperscan IDs.         │
+ │                                                        │
+ │  For UDP/ICMP packets:                                 │
+ │    Direct hs_scan() on raw payload (no reassembly).    │
+ └────────────────────────┬───────────────────────────────┘
+                          │ (matched_hs_ids[])
+                          ▼
+ ┌────────────────────────────────────────────────────────┐
+ │ LEVEL 3 : Rule Validation (Combinatorial Logic)        │
+ │                                                        │
+ │  For each candidate_rule from Level 1:                 │
+ │    a) Validate dst_ip: (pkt.dst_ip & rule.mask)        │
+ │       == rule.network                                  │
+ │    b) Validate src_port against rule.src_ports ranges. │
+ │    c) Validate protocol (TCP/UDP/ICMP/any).            │
+ │    d) Check Hyperscan match:                           │
+ │       - rule.is_multi == false:                        │
+ │           matched_hs_ids contains rule.hs_id?          │
+ │       - rule.is_multi == true && rule.is_or == true:   │
+ │           ANY of rule.atomic_ids in matched_hs_ids?    │
+ │       - rule.is_multi == true && rule.is_or == false:  │
+ │           ALL of rule.atomic_ids in matched_hs_ids?    │
+ │                                                        │
+ │  If match found:                                       │
+ │    → Mark flow as malicious (memoize for Level 0.5).   │
+ │    → Return DROP.                                      │
+ │                                                        │
+ │  If no rule matched: → ACCEPT.                         │
+ └────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 4. Multithreading Architecture
+
+### 4.1 Why Multithreading Matters
+
+A single CPU core can process approximately 2500 req/s through the full pipeline. The Linux kernel NFQUEUE subsystem supports distributing packets across multiple queues, allowing near-linear scaling.
+
+### 4.2 Kernel-Level Load Balancing
+
+The `setup_nfqueue.sh` script configures:
+```bash
+iptables -A FORWARD -j NFQUEUE --queue-balance 0:3 --queue-cpu-fanout
+```
+- **`--queue-balance 0:3`**: Spreads packets across queues 0, 1, 2, 3.
+- **`--queue-cpu-fanout`**: The CPU that received the interrupt from the NIC determines the target queue. Combined with **RPS (Receive Packet Steering)**, this ensures multi-core distribution even when traffic originates from a single source IP.
+
+RPS is enabled by the setup script:
+```bash
+echo "f" > /sys/class/net/$IFACE/queues/rx-0/rps_cpus
+```
+
+### 4.3 Lock-Free Thread Design
+
+Each `WorkerContext` struct contains:
+| Field | Type | Purpose |
+|-------|------|---------|
+| `queue_id` | `uint16_t` | NFQUEUE ID this thread listens on |
+| `h`, `qh`, `fd` | nfq handles | Per-thread NFQUEUE file descriptors |
+| `buffer` | `vector<char>` | Per-thread recv buffer (64KB + margin) |
+| `scratch` | `hs_scratch_t*` | Per-thread Hyperscan scratch space |
+| `reassembler` | `TcpReassembler` | Per-thread TCP state machine + session table |
+| `packets_processed` | `atomic<uint64_t>` | Per-thread counter (relaxed ordering) |
+| `packets_dropped` | `atomic<uint64_t>` | Per-thread counter (relaxed ordering) |
+
+Because the kernel guarantees that all packets of the same 5-tuple flow land on the same queue, each thread's `TcpReassembler` manages its flows **without any mutex or lock**. The only shared resources (`CompositeRuleIndex` and `HSMatcher::db_`) are **read-only** after initialization.
+
+### 4.4 Worker Loop
+
+Each thread runs a `poll()` loop with a 100ms timeout:
+1. `poll(fd, POLLIN, 100ms)` — Checks for incoming packets.
+2. `recv(fd, buffer, MSG_DONTWAIT)` — Non-blocking read.
+3. `nfq_handle_packet(h, buffer, len)` — Dispatches to `packet_callback`.
+4. `packet_callback` invokes `process_packet_inline()` and issues `nfq_set_verdict()`.
+
+The main thread runs a monitoring loop printing per-thread statistics every 5 seconds.
+
+---
+
+## 5. Component Details
+
+### 5.1 Packet (core/packet.hpp)
+A zero-copy wrapper over the raw buffer provided by NFQUEUE. The constructor calls `parse()` which casts pointers into the existing memory:
+- `struct iphdr*` at offset 0.
+- `struct tcphdr*` or `struct udphdr*` at offset `ihl * 4`.
+- Payload pointer at `ihl*4 + doff*4` (TCP) or `ihl*4 + 8` (UDP).
+
+No `std::string`, no `memcpy`, no heap allocation.
+
+### 5.2 FlowKey (core/flow_key.hpp)
+A **canonical** bidirectional key. Given `(A, B, p1, p2)`, the constructor sorts IPs so that `FlowKey(A,B,p1,p2) == FlowKey(B,A,p2,p1)`. This ensures that both directions of a TCP connection map to the same session. Hashed with FNV-1a for `unordered_map` performance.
+
+### 5.3 CompositeRuleIndex (fastpath/rule_index.hpp)
+Two-level index structure:
+- **Level 1 — Radix Trie on Source IP**: Each rule is inserted at the trie node corresponding to its `src_ip` CIDR prefix. During lookup, the trie is walked bit-by-bit (32 steps max), collecting rules from every ancestor node (longest prefix match + all enclosing prefixes).
+- **Level 2 — Port HashMap**: At each trie node, a `PortIndex` stores rules in a `unordered_map<uint32_t, vector<Rule*>>` keyed by destination port. Rules with `dst_port = any` are stored separately. Wide ranges (>100 ports) are stored in a linear scan list.
+
+Lookup cost: O(32) trie walk + O(1) hash lookup = effectively O(1).
+
+### 5.4 Hyperscan Matcher (deep/hs_matcher.cpp)
+- **Compilation**: Reads `patterns.txt`, skips lines with flag `c` (combinatorial expressions, handled in C++ logic), compiles all atomic regex patterns into a single `hs_database_t` using `hs_compile_multi()` with `HS_MODE_BLOCK`.
+- **Scanning**: `hs_scan()` on a contiguous buffer. A callback collects all matched pattern IDs into a `vector<uint32_t>`.
+- **Thread Safety**: The compiled database is shared (read-only). Each thread allocates its own `hs_scratch_t` via `alloc_scratch_for_thread()`.
+
+### 5.5 TCP Reassembler (deep/tcp_reassembler.hpp)
+One instance per thread. Manages a `unordered_map<FlowKey, TcpSession>`.
+
+**TcpSession** contains:
+- `client_ip`: The IP that initiated the connection (recorded on SYN). Only traffic from this IP is scanned (simplex optimization — server responses are ignored).
+- `TcpStream`: The reassembly state machine.
+- `malicious`: Boolean flag. Once set, all future packets of this flow are dropped at Level 0.5.
+
+**Session lifecycle**:
+- Created on SYN only (prevents state exhaustion from random packets).
+- Destroyed on FIN or RST, or after `FLOW_TIMEOUT_SEC` (10s) of inactivity.
+- Capped at `MAX_CONCURRENT_FLOWS` (50,000 per thread). When full, expired sessions are force-cleaned.
+
+### 5.6 TCP Stream (deep/tcp_stream.hpp)
+Handles byte-level TCP reassembly for a single direction:
+- **In-Order (fast path)**: If `seq == next_seq`, the payload span is returned directly (zero-copy). `next_seq` is advanced. This covers ~99% of normal traffic.
+- **Out-of-Order (slow path)**: Segments with `seq > next_seq` are buffered in a `map<uint32_t, vector<uint8_t>>` (sorted by sequence number). When a gap is filled, buffered segments are drained.
+- **Retransmission**: Segments with `seq < next_seq` have their overlapping bytes trimmed; only new bytes are processed.
+- **Anti-DoS Limits**: OOO buffer capped at 512KB per stream. Total scan depth capped at 1MB (matching Suricata's default `reassembly.depth`). Exceeding limits marks the stream as `BROKEN`.
+- **Wraparound**: Uses signed 32-bit arithmetic for sequence number comparison (RFC 1982).
+
+### 5.7 Configuration (config.hpp)
+All tuning parameters are compile-time `constexpr` values:
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `NUM_QUEUES` | 4 | Number of NFQUEUE queues (must match iptables) |
+| `START_QUEUE_ID` | 0 | First queue ID |
+| `MAX_PACKET_SIZE` | 65535 | Maximum IP packet size |
+| `NETLINK_BUFFER_SIZE` | 8 MB | Kernel socket buffer (absorbs micro-bursts) |
+| `MAX_CONCURRENT_FLOWS` | 50000 | Per-thread session table capacity |
+| `FLOW_TIMEOUT_SEC` | 10 | Inactive flow eviction timeout |
+| `DEBUG_MODE` | false | Compile-time logging toggle |
+
+---
+
+## 6. Input Artifact Formats
+
+### 6.1 patterns.txt
+```
+# Atomic patterns (compiled by Hyperscan)
+1:/GET\x20\/admin/is
+2:/<script[^>]*>/s
+3:/union\x20select/is
+
+# Combinatorial expressions (parsed by C++ rule logic, NOT compiled)
+100001:/(1 & 3)/c    ← Rule requires BOTH pattern 1 AND pattern 3
+100002:/(1 | 2)/c    ← Rule requires EITHER pattern 1 OR pattern 2
+```
+
+### 6.2 rules_config.msgpack
+MessagePack array of rule objects. Each rule:
+```
+{
+  id:         uint32    — Rule SID
+  proto:      string    — "tcp" | "udp" | "icmp" | "ip"
+  src_ips:    [string]  — ["10.0.0.0/8", "192.168.1.0/24"]
+  dst_ips:    [string]  — ["0.0.0.0/0"]
+  src_ports:  [[u16,u16]] — [[0, 65535]]  (ranges)
+  dst_ports:  [[u16,u16]] — [[80, 80], [443, 443]]
+  direction:  string    — "to_server" | "to_client" | "any"
+  hs_id:      uint32    — Hyperscan pattern ID (0 = no deep inspection)
+  atomic_ids: [uint32]  — [1, 3] for multi-pattern rules
+  is_multi:   bool      — true if rule has multiple patterns
+  is_or:      bool      — true = OR semantics, false = AND semantics
+  action:     string    — "alert" | "drop"
+}
+```
+
+---
+
+## 7. Build & Execution
+
+### Prerequisites (Debian/Ubuntu)
+The following libraries are required for compilation and runtime on the **Filtering Machine**:
+```bash
+sudo apt update && sudo apt install -y \
+    build-essential \
+    cmake \
+    g++ \
     libnetfilter-queue-dev \
     libnfnetlink-dev \
     libmnl-dev \
+    libpcap-dev \
     libhyperscan-dev \
     libmsgpack-dev \
+    libboost-all-dev \
+    nlohmann-json3-dev \
     pkg-config
-````
+```
 
-### Artefacts (Données)
-
-Le moteur ne démarre pas "à vide". Il a impérativement besoin des fichiers générés par l'optimiseur Python, qui doivent être placés dans le dossier `data/` à la racine de l'exécutable :
-
-1.  `data/firewall.sh`
-2.  `data/patterns.txt`
-3.  `data/rules_config.msgpack`
-
------
-
-## 4\. Compilation
-
-Le projet utilise CMake. La compilation est configurée pour optimiser agressivement (`-O3 -march=native`).
+### 7.1 Compilation (Using build.sh)
+It is highly recommended to use the provided `build.sh` script. It automatically calculates the best thread count for compilation and organizes the output.
 
 ```bash
-mkdir build
-cd build
-cmake ..
-make -j$(nproc)
+# General usage
+./build.sh [debug|release|clean]
+
+# Recommended build
+chmod +x build.sh
+./build.sh release
 ```
+The resulting binary will be placed in the `bin/` directory.
 
-L'exécutable binaire `fox-engine` sera généré dans `build/` (ou `bin/` selon configuration).
+### 7.2 Environment Setup (Using setup_nfqueue.sh)
+Before running the engine, the Linux kernel must be configured to route traffic to the `NFQUEUE` subsystem. The `setup_nfqueue.sh` script handles iptables rules, IP forwarding, and RPS (Receive Packet Steering) for optimal multi-core performance.
 
------
+**Note**: You should verify the interface names (`CLIENT_IFACE`, `SERVER_IFACE`) and networks (`CLIENT_NET`, `SERVER_NET`) inside the script before running it.
 
-## 5\. Usage
+**Commands:**
+- `sudo ./setup_nfqueue.sh`: Full setup. Diverts traffic from Client to Server into Queues 0-3 and enables automated RPS on NICs.
+- `sudo ./setup_nfqueue.sh status`: Verifies that the rules are correctly injected and shows packet counters.
+- `sudo ./setup_nfqueue.sh clean`: Removesthe FoxEngine rules and restores default forwarding.
 
-### Démarrage
-
-Le moteur doit être exécuté avec les privilèges **root** pour pouvoir s'accrocher aux queues Netfilter du noyau.
+### 7.3 Running the Engine
+The engine requires root privileges to bind to the Netfilter queues.
 
 ```bash
-# Depuis la racine du projet (pour trouver le dossier data/)
-sudo ./build/fox-engine
+# 1. Setup the environment
+sudo ./setup_nfqueue.sh
+
+# 2. Run the engine (from the root or bin directory)
+sudo ./bin/fox-engine
+
+# 3. Monitor performance
+# The engine will display per-thread statistics every 5 seconds.
 ```
-
-Si tout fonctionne, vous verrez :
-
-```text
-[INFO] Loading Hyperscan patterns...
-[INFO] Parsed X optimized rules.
-[INFO] Initializing NFQUEUE interface on Queue ID 0...
-[INFO] >>> Engine Running. Waiting for packets...
-```
-
-### Interception du Trafic
-
-Par défaut, le moteur écoute sur la **Queue ID 0**. Vous devez rediriger le trafic que vous souhaitez inspecter vers cette queue via `iptables`.
-
-**Exemple : Inspecter tout le trafic entrant (Attention : risque de coupure SSH si bug)**
-
-```bash
-sudo iptables -I INPUT -j NFQUEUE --queue-num 0
-```
-
-**Exemple sécurisé (Test local)**
-
-```bash
-# Inspecter seulement le trafic ICMP (Ping)
-sudo iptables -I INPUT -p icmp -j NFQUEUE --queue-num 0
-```
-
------
-
-## 6\. Structure du Code
-
-```text
-src/
-├── main.cpp                  # Point d'entrée & Boucle principale
-├── core/
-│   ├── engine.hpp            # Orchestrateur (Singleton)
-│   ├── packet.hpp            # Parsing Zero-Copy (IP/TCP/UDP headers)
-│   └── types.hpp             # Structures de données (DTOs MessagePack)
-├── fastpath/
-│   ├── ip_radix.hpp          # Implémentation Radix Trie
-│   └── port_map.hpp          # Logique de matching de ports
-├── deep/
-│   ├── hs_matcher.hpp        # Wrapper Intel Hyperscan
-│   ├── tcp_stream.hpp        # Logique de flux (Sequencing/Reassembly)
-│   └── tcp_reassembler.hpp   # Gestionnaire de sessions TCP
-└── io/
-    ├── loader.hpp            # Chargement msgpack & patterns
-    └── nfqueue.hpp           # Interface Linux Netfilter
-```
-
------
-
-## 7\. Limitations (PoC Scope)
-
-  * **IPv4 Only :** Le Radix Trie actuel ne gère pas l'IPv6.
-  * **Mono-thread :** Le moteur traite les paquets séquentiellement (suffisant pour la démonstration de latence unitaire, mais limitant pour le débit \> 10 Gbps).
-  * **TCP Window :** La fenêtre de réassemblage est fixe (limite mémoire hardcodée pour éviter les DoS).
-
------
-
-**Auteur :** FoxEngine Team (Research Lab)  
-**Licence :** MIT / Academic Research Use Only

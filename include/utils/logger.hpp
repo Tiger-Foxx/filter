@@ -11,24 +11,24 @@
 
 namespace fox::log {
 
-    // Log critique : Toujours affiché (stderr)
+    // Critical log: Always displayed (stderr)
     inline void error(std::string_view msg) {
         std::cerr << "[CRITICAL] " << msg << std::endl;
     }
 
-    // Log info : Pour les étapes majeures
+    // Info log: For major milestones
     inline void info(std::string_view msg) {
         std::cout << "[INFO] " << msg << std::endl;
     }
 
-    // Log debug : Contrôlé par DEBUG_MODE dans config.hpp
+    // Debug log: Controlled by DEBUG_MODE in config.hpp
     inline void debug(std::string_view msg) {
         if constexpr (fox::config::DEBUG_MODE) {
             std::cout << "[DEBUG] " << msg << std::endl;
         }
     }
 
-    // Log packet : Affiche les détails d'un paquet (si DEBUG_MODE actif)
+    // Packet log: Displays packet details (if DEBUG_MODE active)
     inline void packet(uint32_t src_ip, uint32_t dst_ip, uint16_t src_port, uint16_t dst_port, 
                        uint8_t proto, size_t payload_len, std::string_view extra = "") {
         if constexpr (fox::config::DEBUG_MODE) {
@@ -47,7 +47,7 @@ namespace fox::log {
         }
     }
 
-    // Log verdict : Affiche la décision prise
+    // Verdict log: Displays the decision taken
     inline void verdict(const char* decision, uint32_t rule_id = 0, uint32_t hs_id = 0) {
         if constexpr (fox::config::DEBUG_MODE) {
             std::ostringstream oss;
@@ -58,7 +58,7 @@ namespace fox::log {
         }
     }
 
-    // Log payload (hex dump des premiers bytes)
+    // Hex payload log (hex dump of first bytes)
     inline void payload_hex(const uint8_t* data, size_t len, size_t max_bytes = 64) {
         if constexpr (fox::config::DEBUG_MODE) {
             if (!data || len == 0) return;
@@ -74,7 +74,7 @@ namespace fox::log {
         }
     }
 
-    // Log payload ASCII (printable characters)
+    // ASCII payload log (printable characters)
     inline void payload_ascii(const uint8_t* data, size_t len, size_t max_bytes = 128) {
         if constexpr (fox::config::DEBUG_MODE) {
             if (!data || len == 0) return;
@@ -92,14 +92,14 @@ namespace fox::log {
         }
     }
 
-    // Log match Hyperscan
+    // Hyperscan match log
     inline void hs_match(uint32_t hs_id, bool matched) {
         if constexpr (fox::config::DEBUG_MODE) {
             std::cout << "[HS] scan hs_id=" << hs_id << " -> " << (matched ? "MATCH" : "no match") << std::endl;
         }
     }
 
-    // Log reassembly
+    //Log reassembly
     inline void reassembly(const char* action, size_t data_len = 0) {
         if constexpr (fox::config::DEBUG_MODE) {
             std::ostringstream oss;
@@ -110,4 +110,4 @@ namespace fox::log {
     }
 }
 
-#endif // FOX_LOGGER_HPP
+#endif //FOX_LOGGER_HPP

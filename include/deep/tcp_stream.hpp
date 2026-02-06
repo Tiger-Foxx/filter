@@ -1,117 +1,232 @@
 #ifndef FOX_DEEP_TCP_STREAM_HPP
 #define FOX_DEEP_TCP_STREAM_HPP
 
+/**
+ * TcpStream Simplex - Architecture "Bare Metal" (Mode BLOCK Hyperscan)
+ * 
+ * CHANGEMENT ARCHITECTURAL - Février 2026
+ * =======================================
+ * 
+ * AVANT : Chaque TcpStream possédait un hs_stream_t (Hyperscan stream context)
+ *         Problème : Allocation/libération par connexion, accumulation = effondrement
+ * 
+ * MAINTENANT : TcpStream gère UNIQUEMENT le réassemblage TCP
+ *              Le scan est fait en mode BLOCK sur le buffer complet (par l'Engine)
+ *              Plus de hs_stream_t par connexion = pas d'accumulation
+ * 
+ * OPTIMISATIONS MAINTENUES :
+ * ==========================
+ * 
+ * 1. SIMPLEX STREAM : On ne scanne QUE le trafic Client→Serveur
+ *    - Le trafic retour (Server→Client) est ignoré (touch() seulement)
+ *    - Gain : CPU divisé par 2, RAM divisée par 2
+ * 
+ * 2. ZERO-COPY : Paquets in-order passés directement
+ *    - Pas de copie si seq == next_seq (99% des cas)
+ *    - Copie uniquement pour les OOO (gaps)
+ * 
+ * 3. LAZY REASSEMBLY : Buffer minimal pour les gaps
+ *    - Map<seq, vector> au lieu de ring buffer complexe
+ *    - Limite stricte anti-DoS (MAX_OOO_BUFFER)
+ * 
+ * 4. ARITHMÉTIQUE TCP ROBUSTE : Gestion wraparound 32 bits (RFC 1982)
+ */
+
 #include <cstdint>
 #include <vector>
 #include <map>
 #include <span>
 #include <chrono>
-#include <hs/hs.h>
 
 namespace fox::deep {
 
-    /**
-     * Gère l'état d'un flux TCP (Séquence, Trous, Stream Hyperscan).
-     */
     class TcpStream {
     public:
-        // seq est le numéro de séquence initial (ISN + 1)
-        TcpStream(uint32_t seq, hs_stream_t* hs_ctx) 
-            : _next_seq(seq), _hs_stream(hs_ctx) {
+        //État persistant du flux
+        enum class State : uint8_t {
+            ACTIVE,     //En cours d'analyse
+            MALICIOUS,  //Match confirmé → Fast Drop permanent
+            BROKEN      //Flux incohérent/DoS → Drop de sécurité
+        };
+
+        //Pour rétro-compatibilité avec l'ancien code
+        using StreamVerdict = State;
+        static constexpr State INSPECTING = State::ACTIVE;
+        static constexpr State DROPPED = State::MALICIOUS;
+
+        //Anti-DoS : Max 512KB de buffer pour les paquets OOO
+        static constexpr size_t MAX_OOO_BUFFER = 512 * 1024;
+        
+        //Profondeur max de réassemblage (1MB comme Suricata)
+        static constexpr size_t REASSEMBLY_DEPTH = 1024 * 1024;
+
+        TcpStream() = default;
+        
+        /**
+         * Constructeur simplifié (plus de hs_stream_t)
+         */
+        explicit TcpStream(uint32_t seq) {
+            init(seq);
+        }
+        
+        /**
+         * Initialise le stream
+         */
+        void init(uint32_t seq) {
+            _next_seq = seq;
+            _state = State::ACTIVE;
+            _buffered_bytes = 0;
+            _total_scanned = 0;
+            _ooo_buffer.clear();
             touch();
         }
 
-        // Met à jour le timestamp de dernière activité
+        /**
+         * Reset pour réutilisation
+         */
+        void reset() {
+            _state = State::ACTIVE;
+            _buffered_bytes = 0;
+            _total_scanned = 0;
+            _ooo_buffer.clear();
+        }
+
+        //Accesseurs
+        State get_state() const { return _state; }
+        State get_verdict() const { return _state; }
+        
+        bool is_dropped() const { return _state == State::MALICIOUS; }
+        void set_dropped() { _state = State::MALICIOUS; }
+
         void touch() {
             _last_activity = std::chrono::steady_clock::now();
         }
 
-        // Vérifie si le flux a expiré
         bool is_expired(uint32_t timeout_sec) const {
             auto now = std::chrono::steady_clock::now();
-            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - _last_activity).count();
-            return elapsed > timeout_sec;
+            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(
+                now - _last_activity).count();
+            return elapsed > static_cast<int64_t>(timeout_sec);
         }
 
-        hs_stream_t* get_hs_stream() const { return _hs_stream; }
+        /**
+         * ZERO-COPY : Pousse un segment et retourne les données ordonnées.
+         * 
+         * Pour le fast-path (in-order), retourne directement le payload original.
+         * Pour le slow-path (OOO), stocke et retourne vide.
+         */
+        std::span<const uint8_t> push_segment_zerocopy(
+            uint32_t seq, 
+            std::span<const uint8_t> payload
+        ) {
+            touch();
+            
+            if (_state != State::ACTIVE) {
+                return {}; //Flux mort
+            }
+
+            size_t len = payload.size();
+            if (len == 0) {
+                return {}; //Pure ACK
+            }
+
+            //Limite de profondeur anti-DoS
+            if (_total_scanned > REASSEMBLY_DEPTH) {
+                return {}; //Bypass après 1MB (comme Suricata)
+            }
+
+            //Arithmétique signée pour wraparound (RFC 1982)
+            int32_t diff = static_cast<int32_t>(seq - _next_seq);
+
+            //1. RETRANSMISSION/OVERLAP (diff < 0)
+            if (diff < 0) {
+                int32_t overlap_end = diff + static_cast<int32_t>(len);
+                if (overlap_end <= 0) {
+                    return {}; //Entièrement dans le passé
+                }
+                //Extraire la partie nouvelle
+                size_t skip = static_cast<size_t>(-diff);
+                payload = payload.subspan(skip);
+                seq = _next_seq;
+                len = payload.size();
+                diff = 0;
+            }
+
+            //2. FAST PATH : IN-ORDER (diff == 0)
+            if (diff == 0) {
+                _next_seq += static_cast<uint32_t>(len);
+                _total_scanned += len;
+                
+                //Drainer le buffer OOO si on a comblé un trou
+                drain_ooo_buffer();
+                
+                //ZERO-COPY : Retourner directement le span original
+                return payload;
+            }
+
+            //3. SLOW PATH : OUT-OF-ORDER (diff > 0)
+            if (static_cast<uint32_t>(diff) < 1048576) { //Fenêtre max 1MB
+                if (_buffered_bytes + len <= MAX_OOO_BUFFER) {
+                    if (_ooo_buffer.find(seq) == _ooo_buffer.end()) {
+                        _ooo_buffer.emplace(seq, 
+                            std::vector<uint8_t>(payload.begin(), payload.end()));
+                        _buffered_bytes += len;
+                    }
+                } else {
+                    //Buffer overflow → Marquer comme cassé
+                    _state = State::BROKEN;
+                }
+            }
+
+            return {}; //Pas de données ordonnées disponibles
+        }
 
         /**
-         * Insère un segment. Retourne les données remises dans l'ordre.
-         * Retourne un vecteur vide si doublon ou trou.
-         * 
-         * GESTION DU WRAPAROUND TCP:
-         * Les numéros de séquence sont sur 32 bits et wrap à 0 après 4GB.
-         * On utilise une arithmétique signée pour comparer correctement.
+         * Ancienne API pour rétro-compatibilité (avec copie)
          */
         std::vector<uint8_t> process_segment(uint32_t seq, std::span<const uint8_t> payload) {
-            touch(); // Mise à jour de l'activité
-            
-            // Calcul de la différence avec arithmétique signée pour gérer le wraparound
-            // Si diff < 0 : seq est "avant" _next_seq (retransmission/doublon)
-            // Si diff > 0 : seq est "après" _next_seq (out-of-order)
-            // Si diff == 0 : segment attendu
-            int32_t diff = static_cast<int32_t>(seq - _next_seq);
-            
-            // 1. Déjà vu (Doublon ou ancien) - segment complètement dans le passé
-            if (diff < 0) {
-                // Vérifier si le segment chevauche partiellement les données attendues
-                int32_t overlap_end = diff + static_cast<int32_t>(payload.size());
-                if (overlap_end <= 0) {
-                    return {}; // Entièrement dans le passé, ignorer
-                }
-                // Segment partiellement nouveau : extraire la partie utile
-                size_t skip = static_cast<size_t>(-diff);
-                if (skip < payload.size()) {
-                    payload = payload.subspan(skip);
-                    seq = _next_seq;
-                    diff = 0;
-                } else {
-                    return {};
-                }
-            }
-
-            // 2. En avance (Out of Order)
-            if (diff > 0) {
-                // Protection mémoire simple (Max 100 fragments)
-                // On utilise aussi une fenêtre max de 1MB pour éviter les abus
-                if (_ooo_buffer.size() < 100 && diff < 1048576) {
-                    _ooo_buffer[seq] = std::vector<uint8_t>(payload.begin(), payload.end());
-                }
+            auto span = push_segment_zerocopy(seq, payload);
+            if (span.empty()) {
                 return {};
             }
-
-            // 3. En ordre (diff == 0, seq == _next_seq)
-            std::vector<uint8_t> ordered_data(payload.begin(), payload.end());
-            _next_seq += static_cast<uint32_t>(payload.size());
-
-            // Vérification des paquets en attente pour combler les trous
-            auto it = _ooo_buffer.begin();
-            while (it != _ooo_buffer.end()) {
-                int32_t buf_diff = static_cast<int32_t>(it->first - _next_seq);
-                
-                if (buf_diff == 0) {
-                    // On colle le morceau suivant
-                    ordered_data.insert(ordered_data.end(), it->second.begin(), it->second.end());
-                    _next_seq += static_cast<uint32_t>(it->second.size());
-                    it = _ooo_buffer.erase(it);
-                } else if (buf_diff < 0) {
-                    // Vieux fragment devenu inutile (déjà couvert)
-                    it = _ooo_buffer.erase(it);
-                } else {
-                    // Prochain fragment est encore trop loin (nouveau trou)
-                    break;
-                }
-            }
-
-            return ordered_data;
+            return std::vector<uint8_t>(span.begin(), span.end());
         }
 
     private:
-        uint32_t _next_seq;
-        hs_stream_t* _hs_stream;
-        std::map<uint32_t, std::vector<uint8_t>> _ooo_buffer;
+        uint32_t _next_seq = 0;
+        State _state = State::ACTIVE;
         std::chrono::steady_clock::time_point _last_activity;
+        
+        //Buffer OOO (gaps)
+        std::map<uint32_t, std::vector<uint8_t>> _ooo_buffer;
+        size_t _buffered_bytes = 0;
+        size_t _total_scanned = 0;
+
+        /**
+         * Drainer le buffer OOO quand des données in-order ont avancé _next_seq
+         */
+        void drain_ooo_buffer() {
+            while (!_ooo_buffer.empty()) {
+                auto it = _ooo_buffer.begin();
+                int32_t buf_diff = static_cast<int32_t>(it->first - _next_seq);
+                
+                if (buf_diff == 0) {
+                    //Ce morceau est maintenant in-order
+                    _next_seq += static_cast<uint32_t>(it->second.size());
+                    _total_scanned += it->second.size();
+                    _buffered_bytes -= it->second.size();
+                    _ooo_buffer.erase(it);
+                } else if (buf_diff < 0) {
+                    //Fragment obsolète
+                    _buffered_bytes -= it->second.size();
+                    _ooo_buffer.erase(it);
+                } else {
+                    break; //Trou restant
+                }
+            }
+        }
     };
+
 }
 
-#endif // FOX_DEEP_TCP_STREAM_HPP
+#endif //FOX_DEEP_TCP_STREAM_HPP
