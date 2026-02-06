@@ -1,13 +1,44 @@
 # FoxEngine: High-Performance Unified Network Filter
 
+![High-Level Architecture](illustrations/High-Level%20Architecture.jpg)
+
 **Status**: Research Prototype (PoC)  
 **Language**: C++17 (Zero-Copy)  
 **Architecture**: Hybrid L3/L4 FastPath + L7 Hyperscan Deep Inspection  
-**Threading**: Multi-Queue Lock-Free Architecture
+**Performance Goal**: ~6000+ Req/Sec on commodity hardware  
 
 ---
 
-## 1. Research Context
+## 1. Quick Start: Testing the Filter (XSS / JS)
+
+![Filter Engine Diagram](illustrations/Filter%20Engine.jpg)
+
+To quickly verify if the engine is working, use a simple XSS (Cross-Site Scripting) test.
+
+### Step 1: Set up a Server (on the Server Machine)
+```bash
+sudo apt install -y nginx
+echo "Hello, I am server" | sudo tee /var/www/html/index.html
+sudo systemctl enable nginx
+sudo systemctl restart nginx
+```
+
+### Step 2: Testing from an Injector/Client
+1. **Normal Request** (Should PASS):
+   ```bash
+   curl -v http://10.10.2.20/
+   # Response: "Hello, I am server"
+   ```
+
+2. **Malicious XSS Request** (Should be DROPped):
+   ```bash
+   curl -v "http://10.10.2.20/?x=<script>alert(1)</script>"
+   # Expected result: "Empty reply from server" or timeout (DROP)
+   ```
+
+---
+
+## 2. Research Context
 
 FoxEngine is a runtime execution engine designed to filter network traffic at wire speed by aggregating IPS, Firewall, and WAF rules into a single decision pipeline. Unlike traditional IDS/IPS solutions (Snort, Suricata) that evaluate rules sequentially or through generic groupings, FoxEngine acts as a deterministic executor for optimized mathematical structures generated offline by the **FoxOptimizer** (Python).
 
@@ -330,11 +361,21 @@ MessagePack array of rule objects. Each rule:
 ## 7. Build & Execution
 
 ### Prerequisites (Debian/Ubuntu)
-The following libraries are required for compilation and runtime:
+The following libraries are required for compilation and runtime on the **Filtering Machine**:
 ```bash
-sudo apt install -y build-essential cmake \
-    libnetfilter-queue-dev libnfnetlink-dev libmnl-dev \
-    libhyperscan-dev libmsgpack-dev pkg-config
+sudo apt update && sudo apt install -y \
+    build-essential \
+    cmake \
+    g++ \
+    libnetfilter-queue-dev \
+    libnfnetlink-dev \
+    libmnl-dev \
+    libpcap-dev \
+    libhyperscan-dev \
+    libmsgpack-dev \
+    libboost-all-dev \
+    nlohmann-json3-dev \
+    pkg-config
 ```
 
 ### 7.1 Compilation (Using build.sh)
